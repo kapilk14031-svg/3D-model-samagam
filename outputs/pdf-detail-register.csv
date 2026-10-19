@@ -1,0 +1,137 @@
+﻿ID,PDF label,Category,Source page,Detail,Reading status,Model representation
+P01,PARKING-P1,parking,1,LIGHT VEHICLES / CAR PARKING; red P1 box,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P02,PARKING-P1,parking,1,HEAVY VEHICLES; dense vehicle-row symbols,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P03,PARKING-P2,parking,1,BUSES & CARS DAILY COMMUTERS; blue P2 box,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P04,PARKING P2 2 WHEELERS,parking,1,Two-wheeler area,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P05,PARKING P2,parking,1,P2 strip above the separate I-PARKING pocket; shared arrow approach does not make the polygons overlap,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P06,PARKING-P3,parking,1,LIGHT VEHICLES / CAR PARKING & HEAVY VEHICLES PARKING; vehicle row symbols,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P07,PARKING-P4,parking,1,LIGHT VEHICLES PARKING / SEWADAR ON DUTY IN DAILY COMMUTER & SAINTS FROM ABROAD,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P08,PARKING-P5,point,1,"NEAR FOOT OVER BRIDGE / LOCAL BUS STOP / PARKING DAILY COMMUTERS; location is a textual annotation, not a measured polygon",PDF label and relative position traced; dimensions unmeasured,"3D P5 parking area, approximate boundary inferred around source textual annotation"
+P09,I-PARKING,parking,1,Green arrows; invited guests / V.I.P. parking,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P10,I-PARKING,parking,1,Second invited-guest parking pocket,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P11,O PARKING,parking,1,As printed; letter O retained without expansion,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P12,S C PARKING,parking,1,Upper SC parking pocket; abbreviation retained,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+P13,S C PARKING,parking,1,Lower SC parking pocket; abbreviation retained,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B01,PANDAL,pandal,1,Footprint traced from PDF; curved canopy/stage styling remains illustrative; roof narrowed and inset to keep clear of NH44,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B02,EXHIBITION,building,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B03,S/D OFFICE,building,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B04,OFFICES,building,1,Narrow vertical office strip,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B05,TOILETS,toilets,1,Toilets beside west portion of Road R-2,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B06,TOILETS,toilets,1,Second toilet label above railway/ISBT alighting area,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B07,ALIGHTING POINT FOR RAILWAY STATION & ISBT VEHICLES,alighting,1,Mixed pink/blue arrows as drawn,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B08,ALIGHTING,alighting,1,Second alighting pocket near diagonal government road,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B09,LANGAR,building,1,Northern langar block,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B10,LANGAR,building,1,Middle langar block,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B11,LANGAR,building,1,Label above S/D office area; shared/adjacent outline retained,Label readable; internal subdivision of shared outline uncertain,indexed source annotation
+B12,LANGAR,building,1,Eastern service cluster langar,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B13,SPECIAL RESIDENCE,building,1,Small print read visually; check source crop for exact spelling,Small label; transcription needs review,3D footprint and illustrative structure
+B14,TOILET (READING UNCERTAIN),toilets,1,Narrow service block,Very small text; transcription needs review,3D footprint and illustrative structure
+B15,PETROL PUMP,building,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B16,UNCLEAR PLOT LABEL U03,building,1,Tiny two-line label beside petrol pump; retained as a review item,Unclear label; do not treat transcription as confirmed,3D footprint and illustrative structure
+B17,POLICE CHOWKI,building,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B18,WASTE LAND,plot,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B19,KARISHNA POLYMER,building,1,Spelling KARISHNA retained as printed,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B20,SNCF NURSARY,point,1,Spelling NURSARY retained from scan; no exact building footprint supplied,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+B21,H T LINE,utility,1,Two crossed-square tower symbols near northern government road,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+B22,PDF SMALL LABEL U01,building,1,Tiny two-line label west of northern langar; original pixels preserved,Unclear label; retained for review,3D footprint and illustrative structure
+B23,PDF SMALL LABEL U02,building,1,Narrow vertical strip inside eastern service block; original pixels preserved,Unclear label; retained for review,indexed source annotation
+G01,DELHI GATE NO 1,gate,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+G02,GATE NO 2,gate,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+G03,GATE NO 3,gate,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+G04,GATE,gate,1,Unnumbered entrance into P4 road loop,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+G05,GATE,gate,1,Unnumbered gate on diagonal approach,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+G06,GATE,gate,1,Unnumbered gate near alighting area,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+H01,NATIONAL HIGHWAY,road,1,"NH-44 context; Delhi at left/south, Ambala at right/north",PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+H02,FLY OVER,flyover,1,LOCAL flyover label by Gate 3; replaces the unrelated 6.9 km northern candidate in the main plan,PDF label and relative position traced; dimensions unmeasured,"Continuous flyover deck, sloped ramps, lane markings, parapets and supports; assumed structure"
+H03,UNDER PASS,underpass,1,Underpass by local flyover / Gate 3,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+H04,UNDER PASS,underpass,1,Separate southern underpass near P1,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+H05,RAILWAY STATION BHODWAL MAJRI,station,1,,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+H06,RAILWAY LINE TO DELHI,rail,1,Delhi arrow to left; Ambala arrow to right,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+H07,RAILWAY LINE TO AMBALA,point,1,,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+H08,TO DELHI,point,1,,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+H09,TO AMBALA,point,1,,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+H10,TO GANNOUR,point,1,Road branch direction as printed,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+V01,VILLAGE PANCHI GUJRAN,village,1,,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+V02,VILLAGE BHODWAL MAJRI,village,1,,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+V03,VILLAGE PATTI KALYANA,village,1,,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+R01,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R02,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R03,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R04,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R05,ROAD R-2 90',internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R06,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R07,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R08,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R09,GOV. ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R10,GOV. ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R11,GOV. ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R12,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R13,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R14,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R15,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R16,ROAD 24 WIDE,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R17,ROAD 80' WIDE,internal_road,1,Printed vertical width annotation beside offices east of pandal; position corrected after second visual audit,"Width appears 80; small print needs review, dimensions unmeasured",Continuous traced road mesh; illustrative surface and lane detailing
+R18,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R19,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R20,ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R21,GOV. ROAD,internal_road,1,Width shown only where explicitly printed; trace is schematic,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+W01,BOUNDARY WALL,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W02,BOUNDARY WALL,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W03,BOUNDARY WALL,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W04,BOUNDARY WALL,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W05,BOUNDARY WALL,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W06,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W07,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W08,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W09,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W10,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W11,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W12,PDF PLOT OUTLINE,wall,1,Visible black boundary/outline traced; not a land survey,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+L01,OUT STATION VEHICLES FROM DELHI SIDE SHOWN THUS,legend,1,Reference table entry 01; symbol arrow; destination PARKING-P1,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L02,VEHICLES FROM DELHI SIDE / SEWADARS ON DUTY IN DAILY COMMUTERS (CHARTED BUSES) SHOWN THUS,legend,1,Reference table entry 02; symbol shield; destination PARKING-P2,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L03,PARKING - P1 SHOWN THUS,legend,1,Reference table entry 03; symbol box; destination P1,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L04,VEHICLES FROM DELHI SIDE / SEWADARS ON DUTY IN DAILY COMMUTERS PARKING-P2,legend,1,Reference table entry 04; symbol box; destination P2,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L05,OUT STATION VEHICLES FROM AMBALA SIDE SHOWN THUS,legend,1,Reference table entry 05; symbol arrow; destination PARKING-P3,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L06,VEHICLES FROM AMBALA SIDE / SEWADARS ON DUTY IN DAILY COMMUTERS SHOWN THUS,legend,1,Reference table entry 06; symbol shield; destination PARKING-P2,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L07,OUT STATION VEHICLES FROM AMBALA SIDE PARKING-P3,legend,1,Reference table entry 07; symbol box; destination P3,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L08,VEHICLES FROM AMBALA SIDE / SEWADARS ON DUTY IN DAILY UP & DOWN PARKING-P4,legend,1,Reference table entry 08; symbol shield; destination P4,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L09,VEHICLES FOR SAINTS FROM ABROAD PARKING-P4,legend,1,Reference table entry 09; symbol arrow; destination P4,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L10,VEHICLES FOR S.C. PARKING,legend,1,Reference table entry 10; symbol shield; destination SC,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+L11,FOR INVITED GUESTS / V.I.P. PARKING,legend,1,Reference table entry 11; symbol arrow; destination I-PARKING,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+M01,79 TH. NIRANKARI SANT SAMAGAM,metadata,1,Source drawing title,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+M02,TRAFFIC ROUTE PLAN / ALL GROUNDS,metadata,1,Drawing title and extent,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+M03,SNM,metadata,1,Drawing title block organisation,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+M04,LAYOUT INSTALLATION & DECORATION,metadata,1,"DEALT BY, as printed",PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+M05,14-10-2026,metadata,1,"Printed drawing date, distinct from scan filename",PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+M06,N,metadata,1,North arrow points generally right on the sheet; world display is rotated to north-up,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+S01,VEHICLE ROW SYMBOLS P1,symbols,1,"Dense rows preserved in source underlay; 3D repetitions are representative, not a counted capacity",PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+S02,VEHICLE ROW SYMBOLS P3,symbols,1,Vehicle row arrangement retained as representative geometry and exact source pixels,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+S03,DIRECTIONAL ARROWS,symbols,1,"Pink, blue and green arrows preserved in exact source image; 3D paths follow visible arrow families, not navigation instructions",PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+W13,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W14,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W15,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W16,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W17,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W18,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W19,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W20,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W21,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W22,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W23,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W24,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W25,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W26,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W27,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W28,PDF UNLABELLED PARCEL OUTLINE,wall,1,Irregular black parcel outline traced without assigning a land use; source image retains all minor linework,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+S04,NEAR FOOT OVER BRIDGE / LOCAL BUS STOP,point,1,Source annotation near P5; bridge footprint and stairs are not dimensioned in the source,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+R22,ROAD 24 WIDE,internal_road,1,Second printed ROAD 24 WIDE annotation; source punctuation/units should be reviewed,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+R23,ROAD R-2 90',internal_road,1,Second printed R-2 90 width annotation beside exhibition,PDF label and relative position traced; dimensions unmeasured,Continuous traced road mesh; illustrative surface and lane detailing
+P14,PARKING,point,1,Vertical generic PARKING label beside I-PARKING; retained without assigning a new numbered parking,PDF label and relative position traced; dimensions unmeasured,indexed source annotation
+W29,PANDAL INTERNAL DIVIDER,wall,1,Internal horizontal line in pandal footprint; drawn as a low divider because actual height/function is unspecified,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+B24,UNLABELLED GATE 3 BLOCK 1,building,1,Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B25,UNLABELLED GATE 3 BLOCK 2,building,1,Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B26,UNLABELLED GATE 3 BLOCK 3,building,1,Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B27,UNLABELLED GATE 3 BLOCK 4,building,1,Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+B28,UNLABELLED GATE 3 BLOCK 5,building,1,Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented,PDF label and relative position traced; dimensions unmeasured,3D footprint and illustrative structure
+W30,PDF PARCEL OUTLINE,wall,1,Central rectangular parcel boundary above exhibition,PDF label and relative position traced; dimensions unmeasured,3D traced polyline
+W31,PDF PARCEL OUTLINE,wall,1,Narrow parcel west of the alighting boundary,PDF label and relative position traced; dimensions unmeasured,3D traced polyline

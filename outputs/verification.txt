@@ -1,0 +1,17 @@
+136 source entries retained. 2600 residential tents. Seven additional parcel groups filled in the latest coverage pass. Tent roofs checked against actual wall, gate and frontage footprints: no intersections. Placement excludes source occupied polygons and road clearances. Source names Ground B/C/D retained; other new groups are unnamed design sectors. No rides/black tents. GLB length/header validated. Browser rendering visually checked. These are user-proposed reference-inspired modules, not measured event allocations.
+Street placement, walking, exit and rectangle-zoom drag checked in the browser; no console errors.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Pandal fabric shell/seam refinement rendered without browser console errors. Earth material recognition corrected for linear colour rendering. Tent-wall clearance and GLB checks passed.
+Material/sky shaders compiled and rendered in browser with no console errors; 2600 tents and gate/wall roof clearance checks passed after adding support geometry.
+Ground shader refinement rendered without browser console errors. Geometry unchanged in this material-only update.
+Single pandal roof count = 1; pandal steel colour black confirmed. S04 bridge span = 68 (half of 136), geometry tagged user-proposed. Browser preview rendered without console errors.
+Single pandal roof count = 1; pandal steel colour black confirmed. S04 bridge span = 60 (reduced from 68), geometry tagged user-proposed. Browser preview rendered without console errors.
+Water service pad corners clear of reserved source geometry; residential-module separation checked. One elevated tank/two buffers and user-proposed tagging validated. Browser rendered without console errors.
+AK movement tests passed: 30/120 Hz consistency, smooth stopping, independent rotation, normalized diagonal speed. Browser drag/turn/movement and live mini-map visually verified. Video views rendered without console errors. Three MP4s verified at exactly 60 seconds, 1280x720, 30fps, H.264/AAC; sample frames reviewed.

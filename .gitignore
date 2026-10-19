@@ -1,0 +1,25 @@
+# Ignore videos and photos
+photos/
+videos/
+**/photos/
+**/videos/
+video-renders/
+**/video-renders/
+
+# Ignore video files
+*.mp4
+*.webm
+
+# Ignore distribution zip archives
+*.zip
+
+# Ignore python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore temporary video frame captures
+work/video-*.png
+work/street-*.png
+work/contact-video-*.jpg
+work/movie-*.png

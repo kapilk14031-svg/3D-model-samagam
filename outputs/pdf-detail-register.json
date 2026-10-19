@@ -1,0 +1,3927 @@
+[
+  {
+    "id": "P01",
+    "name": "PARKING-P1",
+    "kind": "parking",
+    "bbox": [
+      365,
+      864,
+      450,
+      944
+    ],
+    "path": null,
+    "detail": "LIGHT VEHICLES / CAR PARKING; red P1 box",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      201.6,
+      8,
+      829.5
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P02",
+    "name": "PARKING-P1",
+    "kind": "parking",
+    "bbox": null,
+    "path": [
+      [
+        305,
+        946
+      ],
+      [
+        405,
+        943
+      ],
+      [
+        405,
+        1025
+      ],
+      [
+        450,
+        1025
+      ],
+      [
+        451,
+        1080
+      ],
+      [
+        305,
+        1113
+      ]
+    ],
+    "detail": "HEAVY VEHICLES; dense vehicle-row symbols",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      366.79999999999995,
+      8,
+      858.4333333333334
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P03",
+    "name": "PARKING-P2",
+    "kind": "parking",
+    "bbox": null,
+    "path": [
+      [
+        488,
+        732
+      ],
+      [
+        640,
+        731
+      ],
+      [
+        640,
+        818
+      ],
+      [
+        562,
+        817
+      ]
+    ],
+    "detail": "BUSES & CARS DAILY COMMUTERS; blue P2 box",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      20.299999999999997,
+      8,
+      584.5
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P04",
+    "name": "PARKING P2 2 WHEELERS",
+    "kind": "parking",
+    "bbox": [
+      659,
+      836,
+      713,
+      875
+    ],
+    "path": null,
+    "detail": "Two-wheeler area",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      133.7,
+      8,
+      439.59999999999997
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P05",
+    "name": "PARKING P2",
+    "kind": "parking",
+    "bbox": [
+      657,
+      876,
+      713,
+      932
+    ],
+    "path": null,
+    "detail": "P2 strip above the separate I-PARKING pocket; shared arrow approach does not make the polygons overlap",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      201.6,
+      8,
+      441.0
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P06",
+    "name": "PARKING-P3",
+    "kind": "parking",
+    "bbox": null,
+    "path": [
+      [
+        1052,
+        158
+      ],
+      [
+        1214,
+        158
+      ],
+      [
+        1214,
+        277
+      ],
+      [
+        1041,
+        277
+      ]
+    ],
+    "detail": "LIGHT VEHICLES / CAR PARKING & HEAVY VEHICLES PARKING; vehicle row symbols",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -759.5,
+      8,
+      -182.35
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P07",
+    "name": "PARKING-P4",
+    "kind": "parking",
+    "bbox": null,
+    "path": [
+      [
+        1086,
+        765
+      ],
+      [
+        1211,
+        777
+      ],
+      [
+        1251,
+        796
+      ],
+      [
+        1245,
+        838
+      ],
+      [
+        1091,
+        843
+      ]
+    ],
+    "detail": "LIGHT VEHICLES PARKING / SEWADAR ON DUTY IN DAILY COMMUTER & SAINTS FROM ABROAD",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      61.31999999999993,
+      8,
+      -247.51999999999992
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P08",
+    "name": "PARKING-P5",
+    "kind": "point",
+    "bbox": [
+      738,
+      1092,
+      852,
+      1133
+    ],
+    "path": null,
+    "detail": "NEAR FOOT OVER BRIDGE / LOCAL BUS STOP / PARKING DAILY COMMUTERS; location is a textual annotation, not a measured polygon",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D P5 parking area, approximate boundary inferred around source textual annotation",
+    "world": [
+      497.5,
+      8,
+      250.5
+    ],
+    "layer": "services",
+    "model_location_status": "Approximate area; PDF supplies annotation only, not a boundary polygon",
+    "model_parking_polygon": [
+      [
+        368.86709934285534,
+        0,
+        119.52833562739931
+      ],
+      [
+        542.6308063035866,
+        0,
+        72.55840755352293
+      ],
+      [
+        626.1329006571447,
+        0,
+        381.4716643726007
+      ],
+      [
+        452.3691936964134,
+        0,
+        428.4415924464771
+      ]
+    ]
+  },
+  {
+    "id": "P09",
+    "name": "I-PARKING",
+    "kind": "parking",
+    "bbox": [
+      669,
+      933,
+      711,
+      1018
+    ],
+    "path": null,
+    "detail": "Green arrows; invited guests / V.I.P. parking",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      301.7,
+      8,
+      434.0
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P10",
+    "name": "I-PARKING",
+    "kind": "parking",
+    "bbox": [
+      847,
+      878,
+      905,
+      936
+    ],
+    "path": null,
+    "detail": "Second invited-guest parking pocket",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      205.79999999999998,
+      8,
+      173.6
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P11",
+    "name": "O PARKING",
+    "kind": "parking",
+    "bbox": [
+      855,
+      744,
+      902,
+      780
+    ],
+    "path": null,
+    "detail": "As printed; letter O retained without expansion",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      2.8,
+      8,
+      170.1
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P12",
+    "name": "S C PARKING",
+    "kind": "parking",
+    "bbox": [
+      856,
+      785,
+      902,
+      823
+    ],
+    "path": null,
+    "detail": "Upper SC parking pocket; abbreviation retained",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      61.599999999999994,
+      8,
+      169.39999999999998
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "P13",
+    "name": "S C PARKING",
+    "kind": "parking",
+    "bbox": [
+      855,
+      827,
+      902,
+      865
+    ],
+    "path": null,
+    "detail": "Lower SC parking pocket; abbreviation retained",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      120.39999999999999,
+      8,
+      170.1
+    ],
+    "layer": "parking"
+  },
+  {
+    "id": "B01",
+    "name": "PANDAL",
+    "kind": "pandal",
+    "bbox": null,
+    "path": [
+      [
+        720,
+        743
+      ],
+      [
+        831,
+        743
+      ],
+      [
+        830,
+        977
+      ],
+      [
+        743,
+        1004
+      ],
+      [
+        721,
+        990
+      ]
+    ],
+    "detail": "Footprint traced from PDF; curved canopy/stage styling remains illustrative; roof narrowed and inset to keep clear of NH44",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      137.322,
+      8,
+      314.3
+    ],
+    "layer": "pandal"
+  },
+  {
+    "id": "B02",
+    "name": "EXHIBITION",
+    "kind": "building",
+    "bbox": [
+      720,
+      717,
+      833,
+      741
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -43.4,
+      8,
+      312.9
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B03",
+    "name": "S/D OFFICE",
+    "kind": "building",
+    "bbox": [
+      657,
+      577,
+      713,
+      714
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -160.29999999999998,
+      8,
+      441.0
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B04",
+    "name": "OFFICES",
+    "kind": "building",
+    "bbox": [
+      842,
+      742,
+      855,
+      866
+    ],
+    "path": null,
+    "detail": "Narrow vertical office strip",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      61.599999999999994,
+      8,
+      212.1
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B05",
+    "name": "TOILETS",
+    "kind": "toilets",
+    "bbox": [
+      537,
+      721,
+      635,
+      734
+    ],
+    "path": null,
+    "detail": "Toilets beside west portion of Road R-2",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -45.5,
+      8,
+      579.5999999999999
+    ],
+    "layer": "toilets"
+  },
+  {
+    "id": "B06",
+    "name": "TOILETS",
+    "kind": "toilets",
+    "bbox": [
+      654,
+      722,
+      710,
+      737
+    ],
+    "path": null,
+    "detail": "Second toilet label above railway/ISBT alighting area",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -42.699999999999996,
+      8,
+      445.2
+    ],
+    "layer": "toilets"
+  },
+  {
+    "id": "B07",
+    "name": "ALIGHTING POINT FOR RAILWAY STATION & ISBT VEHICLES",
+    "kind": "alighting",
+    "bbox": [
+      654,
+      741,
+      715,
+      827
+    ],
+    "path": null,
+    "detail": "Mixed pink/blue arrows as drawn",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      33.599999999999994,
+      8,
+      441.7
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B08",
+    "name": "ALIGHTING",
+    "kind": "alighting",
+    "bbox": [
+      1051,
+      622,
+      1103,
+      663
+    ],
+    "path": null,
+    "detail": "Second alighting pocket near diagonal government road",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -164.5,
+      8,
+      -107.8
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B09",
+    "name": "LANGAR",
+    "kind": "building",
+    "bbox": [
+      963,
+      277,
+      1010,
+      424
+    ],
+    "path": null,
+    "detail": "Northern langar block",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -573.3,
+      8,
+      18.9
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B10",
+    "name": "LANGAR",
+    "kind": "building",
+    "bbox": [
+      899,
+      433,
+      949,
+      562
+    ],
+    "path": null,
+    "detail": "Middle langar block",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -367.5,
+      8,
+      106.39999999999999
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B11",
+    "name": "LANGAR",
+    "kind": "building",
+    "bbox": [
+      657,
+      576,
+      711,
+      697
+    ],
+    "path": null,
+    "detail": "Label above S/D office area; shared/adjacent outline retained",
+    "status": "Label readable; internal subdivision of shared outline uncertain",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -172.89999999999998,
+      8,
+      442.4
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B12",
+    "name": "LANGAR",
+    "kind": "building",
+    "bbox": [
+      912,
+      786,
+      950,
+      867
+    ],
+    "path": null,
+    "detail": "Eastern service cluster langar",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      93.1,
+      8,
+      96.6
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B13",
+    "name": "SPECIAL RESIDENCE",
+    "kind": "building",
+    "bbox": [
+      979,
+      787,
+      1049,
+      864
+    ],
+    "path": null,
+    "detail": "Small print read visually; check source crop for exact spelling",
+    "status": "Small label; transcription needs review",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      91.69999999999999,
+      8,
+      -19.599999999999998
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B14",
+    "name": "TOILET (READING UNCERTAIN)",
+    "kind": "toilets",
+    "bbox": [
+      956,
+      810,
+      976,
+      864
+    ],
+    "path": null,
+    "detail": "Narrow service block",
+    "status": "Very small text; transcription needs review",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      107.8,
+      8,
+      47.599999999999994
+    ],
+    "layer": "toilets"
+  },
+  {
+    "id": "B15",
+    "name": "PETROL PUMP",
+    "kind": "building",
+    "bbox": [
+      916,
+      911,
+      941,
+      948
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      237.29999999999998,
+      8,
+      100.1
+    ],
+    "layer": "services",
+    "display_brand": "IndianOil \u2014 user-requested appearance, operator not verified"
+  },
+  {
+    "id": "B16",
+    "name": "UNCLEAR PLOT LABEL U03",
+    "kind": "building",
+    "bbox": [
+      943,
+      916,
+      968,
+      943
+    ],
+    "path": null,
+    "detail": "Tiny two-line label beside petrol pump; retained as a review item",
+    "status": "Unclear label; do not treat transcription as confirmed",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      237.29999999999998,
+      8,
+      62.3
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B17",
+    "name": "POLICE CHOWKI",
+    "kind": "building",
+    "bbox": [
+      968,
+      876,
+      1047,
+      940
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      207.2,
+      8,
+      -10.5
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B18",
+    "name": "WASTE LAND",
+    "kind": "plot",
+    "bbox": null,
+    "path": [
+      [
+        846,
+        939
+      ],
+      [
+        894,
+        938
+      ],
+      [
+        889,
+        955
+      ],
+      [
+        864,
+        964
+      ],
+      [
+        849,
+        957
+      ]
+    ],
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      266.84000000000003,
+      8,
+      184.24
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B19",
+    "name": "KARISHNA POLYMER",
+    "kind": "building",
+    "bbox": null,
+    "path": [
+      [
+        1081,
+        845
+      ],
+      [
+        1173,
+        846
+      ],
+      [
+        1170,
+        898
+      ],
+      [
+        1084,
+        921
+      ]
+    ],
+    "detail": "Spelling KARISHNA retained as printed",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      164.5,
+      8,
+      -177.79999999999998
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B20",
+    "name": "SNCF NURSARY",
+    "kind": "point",
+    "bbox": [
+      1212,
+      636,
+      1324,
+      660
+    ],
+    "path": null,
+    "detail": "Spelling NURSARY retained from scan; no exact building footprint supplied",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -156.79999999999998,
+      8,
+      -375.2
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B21",
+    "name": "H T LINE",
+    "kind": "utility",
+    "bbox": null,
+    "path": [
+      [
+        918,
+        265
+      ],
+      [
+        994,
+        249
+      ]
+    ],
+    "detail": "Two crossed-square tower symbols near northern government road",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -704.1999999999999,
+      8,
+      61.599999999999994
+    ],
+    "layer": "utilities"
+  },
+  {
+    "id": "B22",
+    "name": "PDF SMALL LABEL U01",
+    "kind": "building",
+    "bbox": [
+      883,
+      326,
+      906,
+      397
+    ],
+    "path": null,
+    "detail": "Tiny two-line label west of northern langar; original pixels preserved",
+    "status": "Unclear label; retained for review",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -557.9,
+      8,
+      147.7
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B23",
+    "name": "PDF SMALL LABEL U02",
+    "kind": "building",
+    "bbox": [
+      1020,
+      794,
+      1031,
+      863
+    ],
+    "path": null,
+    "detail": "Narrow vertical strip inside eastern service block; original pixels preserved",
+    "status": "Unclear label; retained for review",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      95.89999999999999,
+      8,
+      -35.699999999999996
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "G01",
+    "name": "DELHI GATE NO 1",
+    "kind": "gate",
+    "bbox": [
+      638,
+      1021,
+      665,
+      1054
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      388.5,
+      8,
+      487.9
+    ],
+    "layer": "gates"
+  },
+  {
+    "id": "G02",
+    "name": "GATE NO 2",
+    "kind": "gate",
+    "bbox": [
+      892,
+      963,
+      914,
+      989
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      302.4,
+      8,
+      135.79999999999998
+    ],
+    "layer": "gates"
+  },
+  {
+    "id": "G03",
+    "name": "GATE NO 3",
+    "kind": "gate",
+    "bbox": [
+      1044,
+      918,
+      1064,
+      942
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      237.99999999999997,
+      8,
+      -75.6
+    ],
+    "layer": "gates"
+  },
+  {
+    "id": "G04",
+    "name": "GATE",
+    "kind": "gate",
+    "bbox": [
+      1253,
+      870,
+      1280,
+      891
+    ],
+    "path": null,
+    "detail": "Unnumbered entrance into P4 road loop",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      168.7,
+      8,
+      -373.09999999999997
+    ],
+    "layer": "gates"
+  },
+  {
+    "id": "G05",
+    "name": "GATE",
+    "kind": "gate",
+    "bbox": [
+      1076,
+      725,
+      1091,
+      751
+    ],
+    "path": null,
+    "detail": "Unnumbered gate on diagonal approach",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -30.799999999999997,
+      8,
+      -116.89999999999999
+    ],
+    "layer": "gates"
+  },
+  {
+    "id": "G06",
+    "name": "GATE",
+    "kind": "gate",
+    "bbox": [
+      1100,
+      652,
+      1120,
+      675
+    ],
+    "path": null,
+    "detail": "Unnumbered gate near alighting area",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -135.1,
+      8,
+      -154.0
+    ],
+    "layer": "gates"
+  },
+  {
+    "id": "H01",
+    "name": "NATIONAL HIGHWAY",
+    "kind": "road",
+    "bbox": null,
+    "path": [
+      [
+        82,
+        1196
+      ],
+      [
+        335,
+        1139
+      ],
+      [
+        650,
+        1058
+      ],
+      [
+        905,
+        989
+      ],
+      [
+        1100,
+        950
+      ],
+      [
+        1320,
+        888
+      ],
+      [
+        1610,
+        824
+      ]
+    ],
+    "detail": "NH-44 context; Delhi at left/south, Ambala at right/north",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      344.80000000000007,
+      8,
+      199.59999999999997
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "H02",
+    "name": "FLY OVER",
+    "kind": "flyover",
+    "bbox": null,
+    "path": [
+      [
+        961,
+        983
+      ],
+      [
+        1100,
+        950
+      ],
+      [
+        1202,
+        925
+      ]
+    ],
+    "detail": "LOCAL flyover label by Gate 3; replaces the unrelated 6.9 km northern candidate in the main plan",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous flyover deck, sloped ramps, lane markings, parapets and supports; assumed structure",
+    "world": [
+      269.73333333333323,
+      8,
+      -122.73333333333343
+    ],
+    "layer": "bridges"
+  },
+  {
+    "id": "H03",
+    "name": "UNDER PASS",
+    "kind": "underpass",
+    "bbox": [
+      1085,
+      938,
+      1122,
+      978
+    ],
+    "path": null,
+    "detail": "Underpass by local flyover / Gate 3",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      277.2,
+      8,
+      -144.89999999999998
+    ],
+    "layer": "bridges"
+  },
+  {
+    "id": "H04",
+    "name": "UNDER PASS",
+    "kind": "underpass",
+    "bbox": [
+      313,
+      1143,
+      349,
+      1180
+    ],
+    "path": null,
+    "detail": "Separate southern underpass near P1",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      562.0999999999999,
+      8,
+      936.5999999999999
+    ],
+    "layer": "bridges"
+  },
+  {
+    "id": "H05",
+    "name": "RAILWAY STATION BHODWAL MAJRI",
+    "kind": "station",
+    "bbox": [
+      944,
+      93,
+      1108,
+      133
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      -905.8,
+      8,
+      -36.4
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "H06",
+    "name": "RAILWAY LINE TO DELHI",
+    "kind": "rail",
+    "bbox": null,
+    "path": [
+      [
+        249,
+        198
+      ],
+      [
+        642,
+        170
+      ],
+      [
+        1049,
+        142
+      ],
+      [
+        1430,
+        113
+      ],
+      [
+        1670,
+        93
+      ]
+    ],
+    "detail": "Delhi arrow to left; Ambala arrow to right",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -863.5199999999999,
+      8,
+      -11.2
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "H07",
+    "name": "RAILWAY LINE TO AMBALA",
+    "kind": "point",
+    "bbox": [
+      1450,
+      98,
+      1665,
+      140
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -897.4,
+      8,
+      -780.5
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "H08",
+    "name": "TO DELHI",
+    "kind": "point",
+    "bbox": [
+      80,
+      1193,
+      194,
+      1230
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      632.0999999999999,
+      8,
+      1208.1999999999998
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "H09",
+    "name": "TO AMBALA",
+    "kind": "point",
+    "bbox": [
+      1550,
+      812,
+      1665,
+      848
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      98.0,
+      8,
+      -850.5
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "H10",
+    "name": "TO GANNOUR",
+    "kind": "point",
+    "bbox": [
+      172,
+      395,
+      262,
+      426
+    ],
+    "path": null,
+    "detail": "Road branch direction as printed",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -489.29999999999995,
+      8,
+      1096.1999999999998
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "V01",
+    "name": "VILLAGE PANCHI GUJRAN",
+    "kind": "village",
+    "bbox": [
+      188,
+      716,
+      234,
+      963
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      111.3,
+      8,
+      1104.6
+    ],
+    "layer": "east"
+  },
+  {
+    "id": "V02",
+    "name": "VILLAGE BHODWAL MAJRI",
+    "kind": "village",
+    "bbox": [
+      1510,
+      283,
+      1701,
+      310
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -648.9,
+      8,
+      -847.6999999999999
+    ],
+    "layer": "east"
+  },
+  {
+    "id": "V03",
+    "name": "VILLAGE PATTI KALYANA",
+    "kind": "village",
+    "bbox": [
+      1315,
+      720,
+      1474,
+      748
+    ],
+    "path": null,
+    "detail": "",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -36.4,
+      8,
+      -552.3
+    ],
+    "layer": "east"
+  },
+  {
+    "id": "R01",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        185,
+        419
+      ],
+      [
+        278,
+        398
+      ],
+      [
+        521,
+        357
+      ],
+      [
+        742,
+        317
+      ],
+      [
+        899,
+        280
+      ],
+      [
+        1049,
+        247
+      ],
+      [
+        1052,
+        144
+      ],
+      [
+        1424,
+        128
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -663.25,
+      8,
+      323.75
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R02",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        278,
+        402
+      ],
+      [
+        287,
+        630
+      ],
+      [
+        302,
+        670
+      ],
+      [
+        303,
+        1126
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -74.19999999999999,
+      8,
+      990.4999999999999
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R03",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        301,
+        670
+      ],
+      [
+        385,
+        670
+      ],
+      [
+        424,
+        646
+      ],
+      [
+        521,
+        565
+      ],
+      [
+        743,
+        318
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -260.68000000000006,
+      8,
+      735.28
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R04",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        420,
+        648
+      ],
+      [
+        485,
+        713
+      ],
+      [
+        555,
+        803
+      ],
+      [
+        640,
+        812
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -22.4,
+      8,
+      665.0
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R05",
+    "name": "ROAD R-2 90'",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        485,
+        719
+      ],
+      [
+        648,
+        719
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -57.4,
+      8,
+      606.9
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R06",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        650,
+        1036
+      ],
+      [
+        647,
+        816
+      ],
+      [
+        648,
+        720
+      ],
+      [
+        649,
+        574
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      37.099999999999994,
+      8,
+      492.09999999999997
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R07",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        720,
+        1000
+      ],
+      [
+        718,
+        720
+      ],
+      [
+        720,
+        570
+      ],
+      [
+        1015,
+        570
+      ],
+      [
+        1018,
+        283
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -183.95999999999995,
+      8,
+      226.51999999999992
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R08",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        846,
+        933
+      ],
+      [
+        844,
+        718
+      ],
+      [
+        844,
+        424
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -95.66666666666671,
+      8,
+      217.4666666666667
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R09",
+    "name": "GOV. ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1045,
+        284
+      ],
+      [
+        1217,
+        286
+      ],
+      [
+        1360,
+        285
+      ],
+      [
+        1394,
+        271
+      ],
+      [
+        1412,
+        272
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -672.56,
+      8,
+      -399.83999999999986
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R10",
+    "name": "GOV. ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1362,
+        141
+      ],
+      [
+        1392,
+        263
+      ],
+      [
+        1430,
+        271
+      ],
+      [
+        1458,
+        414
+      ],
+      [
+        1491,
+        844
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -522.76,
+      8,
+      -597.2399999999998
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R11",
+    "name": "GOV. ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1385,
+        289
+      ],
+      [
+        1312,
+        357
+      ],
+      [
+        1315,
+        401
+      ],
+      [
+        1373,
+        440
+      ],
+      [
+        1432,
+        416
+      ],
+      [
+        1450,
+        399
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -526.8666666666666,
+      8,
+      -528.9666666666666
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R12",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1080,
+        644
+      ],
+      [
+        1197,
+        522
+      ],
+      [
+        1317,
+        403
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -331.79999999999995,
+      8,
+      -277.2
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R13",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1057,
+        927
+      ],
+      [
+        1075,
+        774
+      ],
+      [
+        1075,
+        714
+      ],
+      [
+        1114,
+        665
+      ],
+      [
+        1141,
+        623
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -27.159999999999968,
+      8,
+      -129.36000000000013
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R14",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1141,
+        623
+      ],
+      [
+        1223,
+        661
+      ],
+      [
+        1283,
+        690
+      ],
+      [
+        1284,
+        845
+      ],
+      [
+        1313,
+        878
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -28.84000000000003,
+      8,
+      -348.31999999999994
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R15",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1083,
+        751
+      ],
+      [
+        1227,
+        760
+      ],
+      [
+        1258,
+        784
+      ],
+      [
+        1258,
+        850
+      ],
+      [
+        1279,
+        876
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      61.88000000000006,
+      8,
+      -309.4
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R16",
+    "name": "ROAD 24 WIDE",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        903,
+        871
+      ],
+      [
+        973,
+        871
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      155.39999999999998,
+      8,
+      86.8
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R17",
+    "name": "ROAD 80' WIDE",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        837,
+        742
+      ],
+      [
+        837,
+        866
+      ]
+    ],
+    "detail": "Printed vertical width annotation beside offices east of pandal; position corrected after second visual audit",
+    "status": "Width appears 80; small print needs review, dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      61.599999999999994,
+      8,
+      228.2
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R18",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1058,
+        287
+      ],
+      [
+        1054,
+        609
+      ],
+      [
+        1081,
+        652
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -341.59999999999997,
+      8,
+      -90.06666666666655
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R19",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        1283,
+        852
+      ],
+      [
+        1484,
+        848
+      ],
+      [
+        1608,
+        825
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      114.33333333333327,
+      8,
+      -641.6666666666665
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R20",
+    "name": "ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        302,
+        939
+      ],
+      [
+        451,
+        944
+      ],
+      [
+        451,
+        1029
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      294.9333333333333,
+      8,
+      838.1333333333334
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R21",
+    "name": "GOV. ROAD",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        743,
+        318
+      ],
+      [
+        897,
+        283
+      ],
+      [
+        1049,
+        247
+      ]
+    ],
+    "detail": "Width shown only where explicitly printed; trace is schematic",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -668.2666666666667,
+      8,
+      145.13333333333327
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W01",
+    "name": "BOUNDARY WALL",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        742,
+        422
+      ],
+      [
+        845,
+        426
+      ],
+      [
+        845,
+        507
+      ],
+      [
+        741,
+        507
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -412.29999999999995,
+      8,
+      289.45
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W02",
+    "name": "BOUNDARY WALL",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        954,
+        277
+      ],
+      [
+        953,
+        424
+      ],
+      [
+        895,
+        424
+      ],
+      [
+        898,
+        571
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -470.4,
+      8,
+      105.0
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W03",
+    "name": "BOUNDARY WALL",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        954,
+        284
+      ],
+      [
+        955,
+        563
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -471.09999999999997,
+      8,
+      63.699999999999996
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W04",
+    "name": "BOUNDARY WALL",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1046,
+        285
+      ],
+      [
+        1217,
+        288
+      ],
+      [
+        1241,
+        459
+      ],
+      [
+        1198,
+        466
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -539.6999999999999,
+      8,
+      -245.7
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W05",
+    "name": "BOUNDARY WALL",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        907,
+        675
+      ],
+      [
+        1055,
+        675
+      ],
+      [
+        1054,
+        737
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -90.06666666666672,
+      8,
+      -7.466666666666719
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W06",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        721,
+        742
+      ],
+      [
+        830,
+        742
+      ],
+      [
+        830,
+        977
+      ],
+      [
+        743,
+        1006
+      ],
+      [
+        721,
+        992
+      ],
+      [
+        721,
+        742
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      149.56666666666672,
+      8,
+      334.59999999999997
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W07",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1082,
+        764
+      ],
+      [
+        1213,
+        777
+      ],
+      [
+        1250,
+        794
+      ],
+      [
+        1244,
+        839
+      ],
+      [
+        1085,
+        843
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      60.75999999999996,
+      8,
+      -244.7199999999999
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W08",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        851,
+        177
+      ],
+      [
+        963,
+        176
+      ],
+      [
+        963,
+        260
+      ],
+      [
+        841,
+        278
+      ],
+      [
+        841,
+        222
+      ],
+      [
+        858,
+        218
+      ],
+      [
+        858,
+        177
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -762.4,
+      8,
+      165.00000000000003
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W09",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1047,
+        287
+      ],
+      [
+        1090,
+        290
+      ],
+      [
+        1090,
+        532
+      ],
+      [
+        1137,
+        535
+      ],
+      [
+        1146,
+        460
+      ],
+      [
+        1200,
+        461
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -465.49999999999994,
+      8,
+      -165.66666666666654
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W10",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        911,
+        788
+      ],
+      [
+        947,
+        788
+      ],
+      [
+        948,
+        866
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      75.6,
+      8,
+      90.53333333333327
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W11",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        978,
+        789
+      ],
+      [
+        1021,
+        789
+      ],
+      [
+        1021,
+        856
+      ],
+      [
+        1046,
+        856
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      87.5,
+      8,
+      -23.099999999999998
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W12",
+    "name": "PDF PLOT OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1048,
+        777
+      ],
+      [
+        1061,
+        779
+      ],
+      [
+        1057,
+        929
+      ]
+    ],
+    "detail": "Visible black boundary/outline traced; not a land survey",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      95.66666666666671,
+      8,
+      -77.46666666666655
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "L01",
+    "name": "OUT STATION VEHICLES FROM DELHI SIDE SHOWN THUS",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 01; symbol arrow; destination PARKING-P1",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#8c285c",
+    "symbol": "arrow",
+    "destination": "PARKING-P1",
+    "source_color": "#b96c98",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L02",
+    "name": "VEHICLES FROM DELHI SIDE / SEWADARS ON DUTY IN DAILY COMMUTERS (CHARTED BUSES) SHOWN THUS",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 02; symbol shield; destination PARKING-P2",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#8c285c",
+    "symbol": "shield",
+    "destination": "PARKING-P2",
+    "source_color": "#b96c98",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L03",
+    "name": "PARKING - P1 SHOWN THUS",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 03; symbol box; destination P1",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#862f43",
+    "symbol": "box",
+    "destination": "P1",
+    "source_color": "#a25e65",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L04",
+    "name": "VEHICLES FROM DELHI SIDE / SEWADARS ON DUTY IN DAILY COMMUTERS PARKING-P2",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 04; symbol box; destination P2",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#175b88",
+    "symbol": "box",
+    "destination": "P2",
+    "source_color": "#4a7ea1",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L05",
+    "name": "OUT STATION VEHICLES FROM AMBALA SIDE SHOWN THUS",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 05; symbol arrow; destination PARKING-P3",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#175b88",
+    "symbol": "arrow",
+    "destination": "PARKING-P3",
+    "source_color": "#427b9f",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L06",
+    "name": "VEHICLES FROM AMBALA SIDE / SEWADARS ON DUTY IN DAILY COMMUTERS SHOWN THUS",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 06; symbol shield; destination PARKING-P2",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#175b88",
+    "symbol": "shield",
+    "destination": "PARKING-P2",
+    "source_color": "#427b9f",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L07",
+    "name": "OUT STATION VEHICLES FROM AMBALA SIDE PARKING-P3",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 07; symbol box; destination P3",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#175b88",
+    "symbol": "box",
+    "destination": "P3",
+    "source_color": "#427b9f",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L08",
+    "name": "VEHICLES FROM AMBALA SIDE / SEWADARS ON DUTY IN DAILY UP & DOWN PARKING-P4",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 08; symbol shield; destination P4",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#175b88",
+    "symbol": "shield",
+    "destination": "P4",
+    "source_color": "#427b9f",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L09",
+    "name": "VEHICLES FOR SAINTS FROM ABROAD PARKING-P4",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 09; symbol arrow; destination P4",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#912f4d",
+    "symbol": "arrow",
+    "destination": "P4",
+    "source_color": "#b76d79",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L10",
+    "name": "VEHICLES FOR S.C. PARKING",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 10; symbol shield; destination SC",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#176644",
+    "symbol": "shield",
+    "destination": "SC",
+    "source_color": "#419b86",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "L11",
+    "name": "FOR INVITED GUESTS / V.I.P. PARKING",
+    "kind": "legend",
+    "bbox": null,
+    "path": null,
+    "detail": "Reference table entry 11; symbol arrow; destination I-PARKING",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "color": "#176644",
+    "symbol": "arrow",
+    "destination": "I-PARKING",
+    "source_color": "#419b86",
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "M01",
+    "name": "79 TH. NIRANKARI SANT SAMAGAM",
+    "kind": "metadata",
+    "bbox": null,
+    "path": null,
+    "detail": "Source drawing title",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "M02",
+    "name": "TRAFFIC ROUTE PLAN / ALL GROUNDS",
+    "kind": "metadata",
+    "bbox": null,
+    "path": null,
+    "detail": "Drawing title and extent",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "M03",
+    "name": "SNM",
+    "kind": "metadata",
+    "bbox": null,
+    "path": null,
+    "detail": "Drawing title block organisation",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "M04",
+    "name": "LAYOUT INSTALLATION & DECORATION",
+    "kind": "metadata",
+    "bbox": null,
+    "path": null,
+    "detail": "DEALT BY, as printed",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "M05",
+    "name": "14-10-2026",
+    "kind": "metadata",
+    "bbox": null,
+    "path": null,
+    "detail": "Printed drawing date, distinct from scan filename",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "M06",
+    "name": "N",
+    "kind": "metadata",
+    "bbox": [
+      898,
+      1195,
+      960,
+      1236
+    ],
+    "path": null,
+    "detail": "North arrow points generally right on the sheet; world display is rotated to north-up",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      637.6999999999999,
+      8,
+      99.39999999999999
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "S01",
+    "name": "VEHICLE ROW SYMBOLS P1",
+    "kind": "symbols",
+    "bbox": [
+      303,
+      943,
+      452,
+      1108
+    ],
+    "path": null,
+    "detail": "Dense rows preserved in source underlay; 3D repetitions are representative, not a counted capacity",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      371.7,
+      8,
+      871.5
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "S02",
+    "name": "VEHICLE ROW SYMBOLS P3",
+    "kind": "symbols",
+    "bbox": [
+      1113,
+      160,
+      1213,
+      276
+    ],
+    "path": null,
+    "detail": "Vehicle row arrangement retained as representative geometry and exact source pixels",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      -758.8,
+      8,
+      -228.2
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "S03",
+    "name": "DIRECTIONAL ARROWS",
+    "kind": "symbols",
+    "bbox": null,
+    "path": null,
+    "detail": "Pink, blue and green arrows preserved in exact source image; 3D paths follow visible arrow families, not navigation instructions",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation"
+  },
+  {
+    "id": "W13",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        692,
+        364
+      ],
+      [
+        743,
+        364
+      ],
+      [
+        743,
+        317
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -576.3333333333334,
+      8,
+      383.59999999999997
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W14",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        691,
+        366
+      ],
+      [
+        689,
+        392
+      ],
+      [
+        713,
+        394
+      ],
+      [
+        713,
+        451
+      ],
+      [
+        742,
+        453
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -488.32,
+      8,
+      406.55999999999995
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W15",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        552,
+        510
+      ],
+      [
+        616,
+        510
+      ],
+      [
+        617,
+        561
+      ],
+      [
+        551,
+        561
+      ],
+      [
+        552,
+        510
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -321.44,
+      8,
+      591.3599999999999
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W16",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        618,
+        477
+      ],
+      [
+        667,
+        477
+      ],
+      [
+        667,
+        506
+      ],
+      [
+        687,
+        507
+      ],
+      [
+        687,
+        535
+      ],
+      [
+        710,
+        535
+      ],
+      [
+        711,
+        563
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -343.9999999999999,
+      8,
+      450.6
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W17",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        551,
+        574
+      ],
+      [
+        614,
+        574
+      ],
+      [
+        614,
+        713
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -195.53333333333327,
+      8,
+      569.8
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W18",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        619,
+        574
+      ],
+      [
+        655,
+        574
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -260.4,
+      8,
+      508.2
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W19",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        480,
+        621
+      ],
+      [
+        480,
+        713
+      ],
+      [
+        544,
+        713
+      ],
+      [
+        544,
+        574
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -146.64999999999998,
+      8,
+      683.1999999999999
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W20",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1032,
+        292
+      ],
+      [
+        1193,
+        293
+      ],
+      [
+        1193,
+        315
+      ],
+      [
+        1226,
+        317
+      ],
+      [
+        1225,
+        344
+      ],
+      [
+        1246,
+        354
+      ],
+      [
+        1246,
+        385
+      ],
+      [
+        1267,
+        399
+      ],
+      [
+        1268,
+        453
+      ],
+      [
+        1196,
+        455
+      ],
+      [
+        1195,
+        506
+      ],
+      [
+        1169,
+        507
+      ],
+      [
+        1168,
+        468
+      ],
+      [
+        1125,
+        469
+      ],
+      [
+        1125,
+        392
+      ],
+      [
+        1100,
+        392
+      ],
+      [
+        1098,
+        503
+      ],
+      [
+        1070,
+        505
+      ],
+      [
+        1070,
+        471
+      ],
+      [
+        1044,
+        471
+      ],
+      [
+        1044,
+        374
+      ],
+      [
+        1032,
+        373
+      ],
+      [
+        1032,
+        292
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -496.08695652173907,
+      8,
+      -204.76521739130447
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W21",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1030,
+        511
+      ],
+      [
+        1099,
+        511
+      ],
+      [
+        1101,
+        534
+      ],
+      [
+        1147,
+        534
+      ],
+      [
+        1147,
+        560
+      ],
+      [
+        1090,
+        562
+      ],
+      [
+        1090,
+        576
+      ],
+      [
+        1060,
+        575
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -300.47499999999997,
+      8,
+      -133.7
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W22",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1230,
+        508
+      ],
+      [
+        1252,
+        507
+      ],
+      [
+        1252,
+        534
+      ],
+      [
+        1286,
+        531
+      ],
+      [
+        1287,
+        555
+      ],
+      [
+        1265,
+        563
+      ],
+      [
+        1269,
+        584
+      ],
+      [
+        1251,
+        589
+      ],
+      [
+        1240,
+        573
+      ],
+      [
+        1212,
+        578
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -290.9199999999999,
+      8,
+      -356.1600000000001
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W23",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1206,
+        159
+      ],
+      [
+        1234,
+        160
+      ],
+      [
+        1234,
+        174
+      ],
+      [
+        1264,
+        176
+      ],
+      [
+        1264,
+        199
+      ],
+      [
+        1241,
+        202
+      ],
+      [
+        1239,
+        230
+      ],
+      [
+        1224,
+        232
+      ],
+      [
+        1222,
+        258
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -785.5555555555554,
+      8,
+      -331.02222222222207
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W24",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1065,
+        685
+      ],
+      [
+        1244,
+        690
+      ],
+      [
+        1244,
+        740
+      ],
+      [
+        1082,
+        736
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -66.14999999999999,
+      8,
+      -222.25
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W25",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        1080,
+        844
+      ],
+      [
+        1082,
+        920
+      ],
+      [
+        1170,
+        898
+      ],
+      [
+        1172,
+        845
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      163.45,
+      8,
+      -176.39999999999998
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W26",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        848,
+        780
+      ],
+      [
+        900,
+        780
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      28.0,
+      8,
+      176.39999999999998
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W27",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        846,
+        826
+      ],
+      [
+        901,
+        826
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      92.39999999999999,
+      8,
+      177.1
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W28",
+    "name": "PDF UNLABELLED PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        847,
+        868
+      ],
+      [
+        903,
+        868
+      ]
+    ],
+    "detail": "Irregular black parcel outline traced without assigning a land use; source image retains all minor linework",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      151.2,
+      8,
+      175.0
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "S04",
+    "name": "NEAR FOOT OVER BRIDGE / LOCAL BUS STOP",
+    "kind": "point",
+    "bbox": [
+      718,
+      1077,
+      856,
+      1106
+    ],
+    "path": null,
+    "detail": "Source annotation near P5; bridge footprint and stairs are not dimensioned in the source",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      464.09999999999997,
+      8,
+      298.2
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "R22",
+    "name": "ROAD 24 WIDE",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        973,
+        871
+      ],
+      [
+        1046,
+        871
+      ]
+    ],
+    "detail": "Second printed ROAD 24 WIDE annotation; source punctuation/units should be reviewed",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      155.39999999999998,
+      8,
+      -13.299999999999999
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "R23",
+    "name": "ROAD R-2 90'",
+    "kind": "internal_road",
+    "bbox": null,
+    "path": [
+      [
+        650,
+        719
+      ],
+      [
+        839,
+        719
+      ]
+    ],
+    "detail": "Second printed R-2 90 width annotation beside exhibition",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "Continuous traced road mesh; illustrative surface and lane detailing",
+    "world": [
+      -57.4,
+      8,
+      357.7
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "P14",
+    "name": "PARKING",
+    "kind": "point",
+    "bbox": [
+      838,
+      875,
+      848,
+      936
+    ],
+    "path": null,
+    "detail": "Vertical generic PARKING label beside I-PARKING; retained without assigning a new numbered parking",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "indexed source annotation",
+    "world": [
+      203.7,
+      8,
+      219.79999999999998
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "W29",
+    "name": "PANDAL INTERNAL DIVIDER",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        721,
+        910
+      ],
+      [
+        830,
+        910
+      ]
+    ],
+    "detail": "Internal horizontal line in pandal footprint; drawn as a low divider because actual height/function is unspecified",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      210.0,
+      8,
+      314.29999999999995
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "B24",
+    "name": "UNLABELLED GATE 3 BLOCK 1",
+    "kind": "building",
+    "bbox": [
+      1048,
+      801,
+      1064,
+      811
+    ],
+    "path": null,
+    "detail": "Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      64.39999999999999,
+      8,
+      -78.39999999999999
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B25",
+    "name": "UNLABELLED GATE 3 BLOCK 2",
+    "kind": "building",
+    "bbox": [
+      1048,
+      817,
+      1064,
+      829
+    ],
+    "path": null,
+    "detail": "Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      88.19999999999999,
+      8,
+      -78.39999999999999
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B26",
+    "name": "UNLABELLED GATE 3 BLOCK 3",
+    "kind": "building",
+    "bbox": [
+      1048,
+      834,
+      1064,
+      846
+    ],
+    "path": null,
+    "detail": "Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      112.0,
+      8,
+      -78.39999999999999
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B27",
+    "name": "UNLABELLED GATE 3 BLOCK 4",
+    "kind": "building",
+    "bbox": [
+      1048,
+      851,
+      1064,
+      862
+    ],
+    "path": null,
+    "detail": "Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      135.1,
+      8,
+      -78.39999999999999
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "B28",
+    "name": "UNLABELLED GATE 3 BLOCK 5",
+    "kind": "building",
+    "bbox": [
+      1054,
+      882,
+      1064,
+      899
+    ],
+    "path": null,
+    "detail": "Small outlined cell beside Special Residence / Gate 3. No use or capacity printed; no facility name invented",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D footprint and illustrative structure",
+    "world": [
+      182.7,
+      8,
+      -82.6
+    ],
+    "layer": "services"
+  },
+  {
+    "id": "W30",
+    "name": "PDF PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        719,
+        573
+      ],
+      [
+        719,
+        714
+      ],
+      [
+        835,
+        714
+      ],
+      [
+        835,
+        573
+      ]
+    ],
+    "detail": "Central rectangular parcel boundary above exhibition",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -163.1,
+      8,
+      312.2
+    ],
+    "layer": "context"
+  },
+  {
+    "id": "W31",
+    "name": "PDF PARCEL OUTLINE",
+    "kind": "wall",
+    "bbox": null,
+    "path": [
+      [
+        850,
+        575
+      ],
+      [
+        899,
+        575
+      ],
+      [
+        899,
+        675
+      ],
+      [
+        850,
+        675
+      ],
+      [
+        850,
+        575
+      ]
+    ],
+    "detail": "Narrow parcel west of the alighting boundary",
+    "status": "PDF label and relative position traced; dimensions unmeasured",
+    "source": "Adobe Scan 17 Oct 2026.pdf",
+    "page": 1,
+    "representation": "3D traced polyline",
+    "world": [
+      -203.0,
+      8,
+      182.55999999999995
+    ],
+    "layer": "context"
+  }
+]

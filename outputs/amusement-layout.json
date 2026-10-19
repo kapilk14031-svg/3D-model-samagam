@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Ferris wheel",
+    "p": [
+      -600.8,
+      0,
+      -226.0
+    ],
+    "userAdded": true
+  },
+  {
+    "name": "Carousel",
+    "p": [
+      -553.8,
+      0,
+      -226.0
+    ],
+    "userAdded": true
+  },
+  {
+    "name": "Swings",
+    "p": [
+      -598.8,
+      0,
+      -184.0
+    ],
+    "userAdded": true
+  },
+  {
+    "name": "Slide tower",
+    "p": [
+      -553.8,
+      0,
+      -184.0
+    ],
+    "userAdded": true
+  },
+  {
+    "name": "Roundabout",
+    "p": [
+      -567.8,
+      0,
+      -170.0
+    ],
+    "userAdded": true
+  },
+  {
+    "name": "Seesaws",
+    "p": [
+      -601.8,
+      0,
+      -168.0
+    ],
+    "userAdded": true
+  }
+]
