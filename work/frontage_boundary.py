@@ -31,6 +31,8 @@ for f in [f for f in features if f['id'] in ['G01','G02','G03','G04']]:
     openings.append([station-radius-3.5,station+radius+3.5,f['id']])
 for title,u,v in [('P1 access',303,1126),('P4 outer access',1313,878)]:
     _,station,_=project(planpoint(u,v));openings.append([station-17,station+17,title])
+for f in [f for f in features if f['id'] in ['H03','H04']]:
+    centre=f['world'];_,station,_=project(centre);openings.append([station-15,station+15,f['id']+' underpass access'])
 spans=[]
 for lo,hi,title in sorted(openings):
     lo=max(0,lo);hi=min(stations[-1],hi)

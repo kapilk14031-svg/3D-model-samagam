@@ -1,0 +1,6834 @@
+{
+  "version": 1,
+  "title": "Approximate duty deployment · supplied chart",
+  "note": "Incharge is separate from main force unless explicitly included. Women are subsets of main force. Unknown shifts/counts remain unknown. Positions are conceptual.",
+  "units": [
+    {
+      "id": "PP-GT",
+      "title": "GT Road traffic · Haldana–Samalkha return",
+      "type": "traffic",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Separate main strength not stated; off-site corridor not surveyed in this venue model.",
+      "shifts": {
+        "day": {
+          "force": null,
+          "female": null,
+          "incharge": 3,
+          "extra": 0,
+          "inchargeText": "1 DSP + 2 Inspector per shift",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": null,
+          "female": null,
+          "incharge": 3,
+          "extra": 1,
+          "inchargeText": "1 DSP + 2 Inspector per shift",
+          "extraText": "Wireless operator",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-P4",
+      "title": "Parking 4",
+      "type": "parking",
+      "anchorId": "P07",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Crane staff additional: 1 NGO + 1 OR per shift.",
+      "shifts": {
+        "day": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-P5",
+      "title": "Parking 5",
+      "type": "parking",
+      "anchorId": "P08",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Crane staff additional: 1 NGO + 1 OR per shift.",
+      "shifts": {
+        "day": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-LOCAL",
+      "title": "Local parking opposite Gates 2–3",
+      "type": "parking",
+      "anchorId": "G02",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Crane staff additional: 1 NGO + 1 OR per shift.",
+      "shifts": {
+        "day": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PCR10",
+      "title": "PCR-10 · Haldana to Samalkha",
+      "type": "patrol",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Off-site patrol location/route needs placement; no route invented.",
+      "shifts": {
+        "day": {
+          "force": 3,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge separate",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 3,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge separate",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PCR3",
+      "title": "PCR-3 · Samalkha to Haldana / Samagam",
+      "type": "patrol",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Off-site patrol location/route needs placement; no route invented.",
+      "shifts": {
+        "day": {
+          "force": 3,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge separate",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 3,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge separate",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-R-PS-City",
+      "title": "Rider PS City · Haldana → Samalkha",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Main strength is one driver per shift; walkie-talkie required. Draw the assigned route.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-R-27",
+      "title": "Rider 27 · Haldana → Samalkha",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Main strength is one driver per shift; walkie-talkie required. Draw the assigned route.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-R-18",
+      "title": "Rider 18 · Haldana → Samalkha",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Main strength is one driver per shift; walkie-talkie required. Draw the assigned route.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-R-22",
+      "title": "Rider 22 · Samalkha → Haldana",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Main strength is one driver per shift; walkie-talkie required. Draw the assigned route.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-R-14",
+      "title": "Rider 14 · Samalkha → Haldana",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Main strength is one driver per shift; walkie-talkie required. Draw the assigned route.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-R-24",
+      "title": "Rider 24 · Samalkha → Haldana",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Main strength is one driver per shift; walkie-talkie required. Draw the assigned route.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Separate rider incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-FOB",
+      "title": "Foot-overbridge · both sides",
+      "type": "gate",
+      "anchorId": "S04",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "8 OR + 6 women within main 14. A single both-sides duty entry; do not duplicate strength.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": 6,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 14,
+          "female": 6,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-IN-FOB",
+      "title": "Inside footbridge / X-Ray",
+      "type": "xray",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Day: 6 OR + 2 women; night: 4 OR + 2 women.",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-DFMD",
+      "title": "DFMD checking · traffic section",
+      "type": "dfmd",
+      "anchorId": "G02",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Kept as a separate supplied row; may overlap gate checking rows and needs reconciliation before summing.",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-PATROL",
+      "title": "Sonipat patrolling",
+      "type": "patrol",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 5,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "3 NGO/OR + 2 women; Day/Night entry, separate shifts not provided.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-P1",
+      "title": "Parking 1 · Sonipat",
+      "type": "parking",
+      "anchorId": "P01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 10,
+          "female": 5,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "5 NGO/OR + 5 women; Day/Night not split.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-N1",
+      "title": "Naka 1 · Gannaur flyover below · Delhi → Panipat",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 7,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "SP-N2",
+      "title": "Naka 2 · Gannaur flyover below · Panipat → Delhi",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 7,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        16
+      ]
+    },
+    {
+      "id": "SP-N3",
+      "title": "Naka 3 · Garhi Kalan flyover below · Delhi → Panipat",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 7,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "SP-N4",
+      "title": "Naka 4 · Garhi Kalan flyover below · Panipat → Delhi",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 7,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "SP-N5",
+      "title": "Naka 5 · Panchi Gujran Gurudwara cut",
+      "type": "naka",
+      "anchorId": "V01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 4,
+          "female": 1,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        16
+      ]
+    },
+    {
+      "id": "SP-N6",
+      "title": "Naka 6 · Main adda Panchi Gujran",
+      "type": "naka",
+      "anchorId": "V01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 4,
+          "female": 1,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "SP-N7",
+      "title": "Naka 7 · Bhakharpur flyover below · Delhi → Panipat",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 7,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "SP-N8",
+      "title": "Naka 8 · Bhakharpur flyover below · Panipat → Delhi",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 7,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        16
+      ]
+    },
+    {
+      "id": "SP-N9",
+      "title": "Naka 9 · DICT Chowk",
+      "type": "naka",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Location approximate if anchored; remote points remain unplaced until positioned.",
+      "shifts": {
+        "combined": {
+          "force": 5,
+          "female": 1,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night combined entry; women included in main strength.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "SP-G1",
+      "title": "Gate 1 · Sonipat duty",
+      "type": "gate",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 4,
+          "female": 1,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "Day/Night not split.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-LAW",
+      "title": "Sonipat law and order",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 30,
+          "female": 10,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "20 NGO/OR + 10 women; Day/Night not split.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-R1",
+      "title": "Sonipat Rider 1",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-R2",
+      "title": "Sonipat Rider 2",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-R3",
+      "title": "Sonipat Rider 3",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-R4",
+      "title": "Sonipat Rider 4",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-R5",
+      "title": "Sonipat Rider 5",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "SP-R6",
+      "title": "Sonipat Rider 6",
+      "type": "rider",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 OR incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "QRT1",
+      "title": "QRT-1 · Gate 1",
+      "type": "qrt",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 commandos as main strength; incharge separate.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -8,
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "QRT2",
+      "title": "QRT-2 · Gate 2",
+      "type": "qrt",
+      "anchorId": "G02",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 commandos as main strength; incharge separate.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -8,
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "QRT3",
+      "title": "QRT-3 · Gate 3",
+      "type": "qrt",
+      "anchorId": "G03",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 commandos as main strength; incharge separate.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -8,
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "QRT4",
+      "title": "QRT-4 · Gate 5 / railway station",
+      "type": "qrt",
+      "anchorId": "H05",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 commandos as main strength; incharge separate. Night incharge count unresolved; not forced to one or two.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "Incharge-2 printed: confirmation needed",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -8,
+        0,
+        -8
+      ]
+    },
+    {
+      "id": "G1-XRAY",
+      "title": "Gate 1 · X-Ray",
+      "type": "xray",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        7,
+        0,
+        5
+      ]
+    },
+    {
+      "id": "G1-DFMD",
+      "title": "Gate 1 · DFMD",
+      "type": "dfmd",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -7,
+        0,
+        6
+      ]
+    },
+    {
+      "id": "G1-SI",
+      "title": "Gate 1 · gate-level SI",
+      "type": "officer",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 0,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI separate from QRT/checking incharges",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 0,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI separate from QRT/checking incharges",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "G2-DFMD",
+      "title": "Gate 2 · DFMD",
+      "type": "dfmd",
+      "anchorId": "G02",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -7,
+        0,
+        6
+      ]
+    },
+    {
+      "id": "G2-SI",
+      "title": "Gate 2 · gate-level SI",
+      "type": "officer",
+      "anchorId": "G02",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 0,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI separate from QRT/checking incharges",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 0,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI separate from QRT/checking incharges",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "G3-XRAY",
+      "title": "Gate 3 · X-Ray",
+      "type": "xray",
+      "anchorId": "G03",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        7,
+        0,
+        5
+      ]
+    },
+    {
+      "id": "G3-DFMD",
+      "title": "Gate 3 · DFMD",
+      "type": "dfmd",
+      "anchorId": "G03",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -7,
+        0,
+        6
+      ]
+    },
+    {
+      "id": "G3-SI",
+      "title": "Gate 3 · gate-level SI",
+      "type": "officer",
+      "anchorId": "G03",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 0,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI separate from QRT/checking incharges",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 0,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI separate from QRT/checking incharges",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "OUT-G10",
+      "title": "Gate 10",
+      "type": "gate",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Gate 10 has no confirmed footprint in the supplied venue model; place manually.",
+      "shifts": {
+        "day": {
+          "force": 8,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "OUT-G5",
+      "title": "Gate 5 · Bhodwal Majri railway station",
+      "type": "gate",
+      "anchorId": "H05",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Gate 5 mapped approximately to station area; no surveyed entrance footprint.",
+      "shifts": {
+        "day": {
+          "force": 22,
+          "female": 7,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 22,
+          "female": 7,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        20,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "OUT-P3",
+      "title": "Parking 3 · near railway station",
+      "type": "parking",
+      "anchorId": "P06",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Crane: 1 NGO + 1 OR additional per shift.",
+      "shifts": {
+        "day": {
+          "force": 30,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 SI",
+          "extraText": "Crane: 1 NGO + 1 OR",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "OUT-PCR",
+      "title": "Outer ring PCR patrol",
+      "type": "patrol",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "day": {
+          "force": 3,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 3,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "NGO incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        -20
+      ]
+    },
+    {
+      "id": "OUT-M1",
+      "title": "Outer Machaan · Gate 1",
+      "type": "machan",
+      "anchorId": "G01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "OUT-M2",
+      "title": "Outer Machaan · Gate 2",
+      "type": "machan",
+      "anchorId": "G02",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "OUT-M3",
+      "title": "Outer Machaan · Gate 3",
+      "type": "machan",
+      "anchorId": "G03",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "OUT-M4",
+      "title": "Outer Machaan · Gate 4",
+      "type": "machan",
+      "anchorId": "G04",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "OUT-M10",
+      "title": "Outer Machaan · Gate 10",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "OUT-M12",
+      "title": "Outer Machaan · Gate 12",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "OUT-M15",
+      "title": "Outer Machaan · Gate 15",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "1 OR on machaan; no separate incharge stated",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "A-FOOT",
+      "title": "Ground A · foot patrol",
+      "type": "footpatrol",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "8 OR + 4 women; main 12 per shift.",
+      "shifts": {
+        "day": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "A-CANTEEN",
+      "title": "Ground A · canteen",
+      "type": "canteen",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Day 10 OR + 4 women; night 6 OR + 4 women.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "A-LANGAR",
+      "title": "Ground A · langar",
+      "type": "langar",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "The supplied common duties sum to main 40 day / 32 night per ground; incharges separate.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "A-M-1",
+      "title": "Machaan A-1",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-2",
+      "title": "Machaan A-2",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-3",
+      "title": "Machaan A-3",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-4",
+      "title": "Machaan A-4",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-5",
+      "title": "Machaan A-5",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-6",
+      "title": "Machaan A-6",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 5,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-7",
+      "title": "Machaan A-7",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 6,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-8",
+      "title": "Machaan A-8",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 7,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-9",
+      "title": "Machaan A-9",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 8,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-10",
+      "title": "Machaan A-10",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 9,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-11",
+      "title": "Machaan A-11",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 10,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-12",
+      "title": "Machaan A-12",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 11,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-13",
+      "title": "Machaan A-13",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 12,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-14",
+      "title": "Machaan A-14",
+      "type": "machan",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 13,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-M-15",
+      "title": "Machaan A-14 · duplicate chart row",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. A-14 appears twice: 15 rows, unique number unresolved; duplicate remains unplaced.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 14,
+        "count": 15,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "A-MO-1",
+      "title": "Morcha A-1",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-2",
+      "title": "Morcha A-2",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-3",
+      "title": "Morcha A-3",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-4",
+      "title": "Morcha A-4",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-5",
+      "title": "Morcha A-5",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-6",
+      "title": "Morcha A-6",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 5,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-7",
+      "title": "Morcha A-7",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 6,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-8",
+      "title": "Morcha A-8",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 7,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-9",
+      "title": "Morcha A-9",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 8,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-10",
+      "title": "Morcha A-10",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 9,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-11",
+      "title": "Morcha A-11",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 10,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "A-MO-12",
+      "title": "Morcha A-12",
+      "type": "morcha",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 11,
+        "count": 12,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "B-FOOT",
+      "title": "Ground B · foot patrol",
+      "type": "footpatrol",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "8 OR + 4 women; main 12 per shift.",
+      "shifts": {
+        "day": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "B-CANTEEN",
+      "title": "Ground B · canteen",
+      "type": "canteen",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Day 10 OR + 4 women; night 6 OR + 4 women.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "B-LANGAR",
+      "title": "Ground B · langar",
+      "type": "langar",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "The supplied common duties sum to main 40 day / 32 night per ground; incharges separate.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "B-M-1",
+      "title": "Machaan B-1",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-2",
+      "title": "Machaan B-2",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-3",
+      "title": "Machaan B-3",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-4",
+      "title": "Machaan B-4",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-5",
+      "title": "Machaan B-5",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-6",
+      "title": "Machaan B-6",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 5,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-7",
+      "title": "Machaan B-7",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 6,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-8",
+      "title": "Machaan B-8",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 7,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-9",
+      "title": "Machaan B-9",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 8,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-M-10",
+      "title": "Machaan B-10",
+      "type": "machan",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 9,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "B-MO-1",
+      "title": "Morcha B-1",
+      "type": "morcha",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 5,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "B-MO-2",
+      "title": "Morcha B-2",
+      "type": "morcha",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 5,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "B-MO-3",
+      "title": "Morcha B-3",
+      "type": "morcha",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 5,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "B-MO-4",
+      "title": "Morcha B-4",
+      "type": "morcha",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 5,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "B-MO-5",
+      "title": "Morcha B-5",
+      "type": "morcha",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 5,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "C-FOOT",
+      "title": "Ground C · foot patrol",
+      "type": "footpatrol",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "8 OR + 4 women; main 12 per shift.",
+      "shifts": {
+        "day": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "C-CANTEEN",
+      "title": "Ground C · canteen",
+      "type": "canteen",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Day 10 OR + 4 women; night 6 OR + 4 women.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "C-LANGAR",
+      "title": "Ground C · langar",
+      "type": "langar",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "The supplied common duties sum to main 40 day / 32 night per ground; incharges separate.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "C-M-1",
+      "title": "Machaan C-1",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-2",
+      "title": "Machaan C-2",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-3",
+      "title": "Machaan C-3",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-4",
+      "title": "Machaan C-4",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-5",
+      "title": "Machaan C-5",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-6",
+      "title": "Machaan C-6",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 5,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-7",
+      "title": "Machaan C-7",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 6,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-8",
+      "title": "Machaan C-8",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 7,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-M-9",
+      "title": "Machaan C-9",
+      "type": "machan",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 8,
+        "count": 9,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "C-MO-1",
+      "title": "Morcha C-1",
+      "type": "morcha",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 4,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "C-MO-2",
+      "title": "Morcha C-2",
+      "type": "morcha",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 4,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "C-MO-3",
+      "title": "Morcha C-3",
+      "type": "morcha",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 4,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "C-MO-4",
+      "title": "Morcha C-4",
+      "type": "morcha",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 4,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-FOOT",
+      "title": "Ground D · foot patrol",
+      "type": "footpatrol",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "8 OR + 4 women; main 12 per shift.",
+      "shifts": {
+        "day": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 12,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 Inspector",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "D-CANTEEN",
+      "title": "Ground D · canteen",
+      "type": "canteen",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Day 10 OR + 4 women; night 6 OR + 4 women.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": 4,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "D-LANGAR",
+      "title": "Ground D · langar",
+      "type": "langar",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "The supplied common duties sum to main 40 day / 32 night per ground; incharges separate.",
+      "shifts": {
+        "day": {
+          "force": 14,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 SI",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -12,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "D-M-1",
+      "title": "Machaan D-1",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-2",
+      "title": "Machaan D-2",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-3",
+      "title": "Machaan D-3",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-4",
+      "title": "Machaan D-4",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-5",
+      "title": "Machaan D-5",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-6",
+      "title": "Machaan D-6",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 5,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-7",
+      "title": "Machaan D-7",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 6,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-8",
+      "title": "Machaan D-8",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 7,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-9",
+      "title": "Machaan D-9",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 8,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-M-10",
+      "title": "Machaan D-10",
+      "type": "machan",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "shifts": {
+        "day": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 1,
+          "female": null,
+          "incharge": 0,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 9,
+        "count": 10,
+        "kind": "perimeter"
+      }
+    },
+    {
+      "id": "D-MO-1",
+      "title": "Morcha D-1",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 0,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-MO-2",
+      "title": "Morcha D-2",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 1,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-MO-3",
+      "title": "Morcha D-3",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 2,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-MO-4",
+      "title": "Morcha D-4",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 3,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-MO-5",
+      "title": "Morcha D-5",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 4,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-MO-6",
+      "title": "Morcha D-6",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 5,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "D-MO-7",
+      "title": "Morcha D-7",
+      "type": "morcha",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "distribution": {
+        "index": 6,
+        "count": 7,
+        "kind": "perimeter-inner"
+      }
+    },
+    {
+      "id": "QRT5",
+      "title": "QRT-5 · inside Samagam",
+      "type": "qrt",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 commandos + 1 NGO = 5 per shift.",
+      "shifts": {
+        "day": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        -20,
+        0,
+        50
+      ]
+    },
+    {
+      "id": "PANDAL-F1",
+      "title": "Pandal · force group 1",
+      "type": "officer",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 100,
+          "female": 50,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "Incharge separate; count not provided",
+          "extraText": "",
+          "notes": "Civil dress: 30 + 40 women; uniform: 20 + 10 women. Shift division not stated.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        -20
+      ]
+    },
+    {
+      "id": "PANDAL-F2",
+      "title": "Pandal · force group 2",
+      "type": "officer",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 30,
+          "female": 10,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "Incharge separate; count not provided",
+          "extraText": "",
+          "notes": "Civil: 10 + 5 women; uniform: 10 + 5 women. Relationship to group 1 unresolved; do not assume additive deployment.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        10,
+        0,
+        20
+      ]
+    },
+    {
+      "id": "RECEPTION",
+      "title": "Reception",
+      "type": "reception",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "4 OR + 2 women + 1 NGO = 7 per shift.",
+      "shifts": {
+        "day": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 6,
+          "female": 2,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        100,
+        0,
+        -30
+      ]
+    },
+    {
+      "id": "CONTROL",
+      "title": "Control room · CCTV",
+      "type": "control",
+      "anchorId": "B17",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "morning": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "4 OR + 1 NGO = 5; CCTV branch staff separate, number unspecified.",
+          "start": "",
+          "end": ""
+        },
+        "evening": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "4 OR + 1 NGO = 5; CCTV branch staff separate, number unspecified.",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 4,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "4 OR + 1 NGO = 5; CCTV branch staff separate, number unspecified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        -30
+      ]
+    },
+    {
+      "id": "VVIP-P",
+      "title": "VVIP car parking",
+      "type": "parking",
+      "anchorId": "P09",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "Armed employee included in main 10; total 11.",
+      "shifts": {
+        "day": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 10,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "1 NGO",
+          "extraText": "",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        0,
+        0,
+        10
+      ]
+    },
+    {
+      "id": "IMPORTANT-P2",
+      "title": "Parking 2 · important duties",
+      "type": "parking",
+      "anchorId": "P03",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "20 main + 2 crane + 1 NGO = 23 per shift.",
+      "shifts": {
+        "day": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 NGO",
+          "extraText": "Crane staff 2",
+          "notes": "",
+          "start": "",
+          "end": ""
+        },
+        "night": {
+          "force": 20,
+          "female": null,
+          "incharge": 1,
+          "extra": 2,
+          "inchargeText": "1 NGO",
+          "extraText": "Crane staff 2",
+          "notes": "",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PP-LAW",
+      "title": "Panipat law and order",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 90,
+          "female": 30,
+          "incharge": 3,
+          "extra": 0,
+          "inchargeText": "1 DSP + 2 Inspectors",
+          "extraText": "",
+          "notes": "60 NGO/OR + 30 women; shift not specified.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "RESERVE",
+      "title": "Reserve force · Haldana chowki",
+      "type": "reserve",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "1 company including women; numerical strength not provided.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "PROTOCOL",
+      "title": "Protocol",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [
+        {
+          "name": "Rakesh Kumar",
+          "rank": "ASI",
+          "role": "staff",
+          "shift": "combined",
+          "contact": ""
+        },
+        {
+          "name": "Lelu",
+          "rank": "T/HC",
+          "role": "staff",
+          "shift": "combined",
+          "contact": ""
+        }
+      ],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "ASI Rakesh Kumar, T/HC Lelu and supporting staff; total unspecified.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "LIAISON",
+      "title": "Liaison",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": 2,
+          "female": 1,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "1 P/SI + 1 female P/SI; protocol staff also referenced, not added again.",
+          "start": "",
+          "end": ""
+        }
+      }
+    },
+    {
+      "id": "ambulance-A",
+      "title": "Ambulance · Ground A",
+      "type": "ambulance",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "ambulance-B",
+      "title": "Ambulance · Ground B",
+      "type": "ambulance",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "ambulance-C",
+      "title": "Ambulance · Ground C",
+      "type": "ambulance",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "ambulance-D",
+      "title": "Ambulance · Ground D",
+      "type": "ambulance",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "ambulance-Pandal",
+      "title": "Ambulance · Pandal",
+      "type": "ambulance",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "fire-A",
+      "title": "Fire brigade · Ground A",
+      "type": "fire",
+      "anchorId": "GROUND-A",
+      "ground": "A",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "fire-B",
+      "title": "Fire brigade · Ground B",
+      "type": "fire",
+      "anchorId": "GROUND-B",
+      "ground": "B",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "fire-C",
+      "title": "Fire brigade · Ground C",
+      "type": "fire",
+      "anchorId": "GROUND-C",
+      "ground": "C",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "fire-D",
+      "title": "Fire brigade · Ground D",
+      "type": "fire",
+      "anchorId": "GROUND-D",
+      "ground": "D",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    },
+    {
+      "id": "fire-Pandal",
+      "title": "Fire brigade · Pandal",
+      "type": "fire",
+      "anchorId": "B01",
+      "ground": "",
+      "position": null,
+      "rotation": 0,
+      "scale": 1,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "notes": "",
+      "shifts": {
+        "combined": {
+          "force": null,
+          "female": null,
+          "incharge": null,
+          "extra": 0,
+          "inchargeText": "",
+          "extraText": "",
+          "notes": "One vehicle allocation; personnel strength not specified.",
+          "start": "",
+          "end": ""
+        }
+      },
+      "offset": [
+        15,
+        0,
+        20
+      ],
+      "vehicleCount": 1
+    }
+  ]
+}

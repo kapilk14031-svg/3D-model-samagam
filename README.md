@@ -169,3 +169,59 @@ Street view now starts a visible AK character on a nearby internal road. Drag ro
 VIP simulation adds a three-car escort convoy, flanking barricades and animated police marshals. The cars follow the illustrative flyover road height. These are interactive/video elements rather than exported static GLB objects.
 
 The videos folder contains three separately rendered 60-second H.264/AAC MP4 films at 1280x720 and 30 fps: guided overview, VIP cinematic and AK street walkthrough. All have chapter titles, edited camera routes, transitions and an original ambient score. Local Hindi speech export was unavailable, so the delivered films use music and scene titles. Open videos/index.html to play all three.
+
+Seven distinct 1600x1000 JPG model views are saved in photos/: overview, pandal, footbridge/VIP side, accommodation, water tanks, railway/train and AK street view with live map. Open photos/index.html for the album, or use samagam-7-jpg-photos.zip.
+
+
+## Walkable venue update — 19 October 2026
+Features on the concept map open at their actual positions within the complete venue. Pandal seating/stage/aisle, three langar interiors and the police compound now share the main venue coordinate system. Gates, parking, road points, residential grounds and station remain in that same world. AK can travel between them. Residential tents have real wall panels, open doorways and cots; the station and police building have entrance openings. These illustrative browser interiors are not baked into the static GLB.
+
+Controls: left-drag pans the model. Drag / Pan switches to Rotate model; Shift-drag provides the alternate action. In Street view, drag rotates the camera, W/S moves, A/D strafes, Q/E turns and Shift runs. The destination selector offers facilities and both footbridge stairs. Wheel zoom follows the cursor in the map/orbit view; AK mode adjusts the follow-camera distance. The circular mini-map follows AK.
+
+AK uses a spatial collision grid and a capsule radius to stop at walls, closed building sides, tent panels, parked vehicles and other solid props. Movement slides along obstacles and is subdivided to prevent tunnelling. Simulation cars and barricades are checked when the VIP simulation is enabled. Stair/bridge surfaces control elevation; rails constrain movement. This is an interactive architectural concept, not a game-grade physics or surveyed pedestrian accessibility model.
+
+H03 and H04 underpasses now have open transverse roads, portal columns, retaining walls and an overhead slab, with continuous elevated NH44 approaches. The frontage wall reserves two additional underpass access openings. The footbridge retains its 60-unit span; each stair run is reduced from 48 to 24 assumed units, with shorter landings and more headroom. AK can ascend, cross the deck and descend the opposite stairs.
+
+Route strips are 0.55 units wide, snapped onto road axes and raised just above their surface, including elevated highway sections. Disconnected nearest-road projections are separated rather than drawing lines across parcels. Glow is limited to a narrow 2-unit maximum halo. These are visual route families; the original PDF legend remains the source of traffic-plan content.
+
+Verification: JS syntax; movement smoothness/frame-rate checks; swept wall collision and clearance; both stair ascent/descent; full bridge crossing; 136 source IDs and 2600 tent roofs; route width and continuity checks. Browser verified AK entering a tent, walking the H03 underpass, reaching the bridge deck at 24.6 units, stopping at a rail, and click-drag panning. No browser console errors observed.
+
+Preview: samagam-walkable-venue-preview.jpg and walkthrough-preview/. Earlier photos and MP4 films depict the earlier edition.
+
+## Editable police deployment — 19 October 2026
+162 supplied duty records, editable shifts/strength and separate incharges, models, staff identities, routes and local persistence. Directly click a deployed 3D body for its identity/duty card; drag the body to relocate it. Moving vehicle routes translate with the model. Individual staff markers remain included within their parent strength. Unknown names are explicitly unassigned. See deployment-guide.md; samagam-duty-deployment.json is the positioned backup and CSV is the shift review. 33 off-site/unconfirmed records remain unplaced for user positioning.
+
+Machaan, Morcha and barricades have HARYANA POLICE signs. Rider/QRT/patrol routes support animation. NH44 paths now retain a 1.35 CSS-pixel minimum core at overview scales with a restrained glow, above the road surface.
+
+Verified: 162-record seed/count semantics, unknown shift handling, female subset validation, route animation/return/translation, individual-marker counting, 3D ray picking and misses, JavaScript syntax. Native browser verified CRUD, route animation/persistence, icon dragging, direct Machaan body click/drag and Undo; no console errors.
+
+## Simple controls update
+Choose a duty, then Place / Move on map. Click a model or pictogram for its small duty card. New duty opens a short object picker. The focused editor hides the full list; All duties returns to search. Strength, shift timing, coordinates, full staff and backup controls are collapsed. The first officer name/rank can be edited directly.
+
+For rider, QRT or patrol car: Draw / change path, click road points, Start movement. Movement turns on automatically, and the camera opens at the vehicle. Speed/return/loop remain under route settings. All three use the same tested route animation. Native browser verified a patrol car moving along its assigned route, with a matching moving car icon; the temporary test model was removed.
+
+## Point-first deployment
+Duty deployment opens the panel and activates placement on the model. Click a place → choose the duty/model. Officer, barricade, Naka, Machaan and Morcha appear at that place as an unsaved preview. QRT, rider and patrol ask for a path; the clicked location is the first point. Add route points and choose Preview movement. Save changes commits the deployment to the local plan; Cancel draft restores the previous plan. Existing objects remain clickable and draggable. Edit details, delete and change position/path are available after saving; changing a position/path also previews before Save changes. The panel keeps the searchable supplied roster, advanced force fields and backups.
+
+Native verification: static placement, explicit Save and reload persistence, later deletion; QRT route request, animated preview and cancel without persistence. Temporary test deployments removed.
+
+## Officer click and bridge alignment — 20 October 2026
+Original deployment icons retained; no extra officer-icon overlay. Directly click an officer body at Morcha, parking, Naka, gate, chowki, traffic or other deployed duty to open information. The card shows duty location, point, type, work, shift, name, rank and mobile. Unprovided names and numbers remain Not assigned. Name, rank, mobile, work and location are editable; existing illustrative officers have a separate local identity record, included in JSON export/import, without increasing planned force counts.
+
+S04 footbridge is perpendicular to the local NH44 segment and centred on its axis. Span reduced from 60 to 42.5 illustrative model units, stair landings narrowed to 6 units. Stairs stay outside the 36-unit carriageway; the venue-side landing stays within the frontage wall clearance. Bridge/stair elevations and AK walking remain coordinated. Static GLB and interactive scene rebuilt.
+
+Verified in native browser: no duplicate officer icons, Morcha officer body click, saved name/mobile/work shown in the card (test data undone), editable fields, corrected bridge view, no console errors. Geometry checks verify centre/orientation/lane/wall clearance; AK stair and full-crossing tests pass.
+
+## Movement and nearby icons — 20 October 2026
+Click a moving deployed model or its original icon once to pause; click again to resume from the same route position. The duty card displays Paused / Moving and also offers a Pause / Resume button. This applies to rider, QRT, patrol, foot patrol, ambulance and fire-vehicle routes. Static models only open their details. Pause is a runtime control; reloading restarts normal route playback.
+
+Wide overview shows all applicable icons in view. Close views automatically limit icons to the area around the camera focus; AK street view limits them to nearby positions. No duplicate officer-icon layer is added. Officer bodies remain directly clickable even when distant duty icons are hidden.
+
+Verification: native isolated patrol check confirmed click → Paused with unchanged icon position, second click → Moving with changed position. Main venue overview showed 128 icons, bridge close view 9 nearby icons. Unit tests covered pause/resume for six types, smooth route continuation, relocation while paused, static models, overview/zoom/street proximity. Temporary test drafts were not saved.
+
+## Rider / QRT / patrol camera views — 20 October 2026
+Click a deployed rider, QRT or patrol car (or its icon), then choose FPV view or Third-person view in its duty card. FPV looks from rider/driver height along the route; the selected vehicle body is hidden in FPV to keep the view clear. Third person follows behind the visible bike/car. Camera position and turns are smoothed.
+
+Inside vehicle view: drag to look around, scroll or +/− to zoom, switch FPV / Third person, Pause / Resume, Reset camera, Exit vehicle view or Esc. The scene fits the available screen height. Entering a vehicle view resumes an assigned paused route; switching camera modes preserves the current pause state. With no route, the camera remains mounted at the parked vehicle and shows No route. Draw a route to enable movement. Exiting restores the previous model camera.
+
+Verification: native camera-option card on the real QRT-1; isolated production-code checks of FPV and third person for rider, QRT and patrol; drag look-around/reset; Pause and camera-switch pause preservation; Exit restores normal view. No console errors. Unit checks cover vehicle/heading camera transforms, zoom, route displacement, short-angle smoothing; existing click-picking, pause/resume and nearby-icon regressions pass. Verification fixtures used a separate local-storage key; the user deployment plan was preserved.

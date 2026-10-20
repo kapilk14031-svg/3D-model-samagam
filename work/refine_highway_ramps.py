@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('work/road_details.py');s=p.read_text(encoding='utf-8');s=s.replace("name=f['name'];highway=f['kind']=='road';layer='context'", "name=f['name'];highway=f['kind']=='road';layer='context'\n    if highway:\n        dense=[]\n        for a,b in zip(p,p[1:]):\n            n=max(1,math.ceil(math.dist(a,b)/6))\n            dense.extend([[a[j]+(b[j]-a[j])*i/n for j in range(3)] for i in range(n))\n        p=dense+[p[-1]]",1);p.write_text(s,encoding='utf-8')

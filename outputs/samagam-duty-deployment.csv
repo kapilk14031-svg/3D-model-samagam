@@ -1,0 +1,297 @@
+﻿ID,Duty,Type,Ground,Position,Shift,Main force,Women (included),Incharge (separate),Extra,Start,End,Notes
+PP-GT,GT Road traffic · Haldana–Samalkha return,traffic,,,day,,,3,0,,,Separate main strength not stated; off-site corridor not surveyed in this venue model. 
+PP-GT,GT Road traffic · Haldana–Samalkha return,traffic,,,night,,,3,1,,,Separate main strength not stated; off-site corridor not surveyed in this venue model. 
+PP-P4,Parking 4,parking,,"[65.01551813004508, 0.3, -245.98926627053956]",day,20,,1,2,,,Crane staff additional: 1 NGO + 1 OR per shift. 
+PP-P4,Parking 4,parking,,"[65.01551813004508, 0.3, -245.98926627053956]",night,20,,1,2,,,Crane staff additional: 1 NGO + 1 OR per shift. 
+PP-P5,Parking 5,parking,,"[500.3284271247462, 0.3, 253.32842712474618]",day,20,,1,2,,,Crane staff additional: 1 NGO + 1 OR per shift. 
+PP-P5,Parking 5,parking,,"[500.3284271247462, 0.3, 253.32842712474618]",night,20,,1,2,,,Crane staff additional: 1 NGO + 1 OR per shift. 
+PP-LOCAL,Local parking opposite Gates 2–3,parking,,"[302.4, 0.3, 135.79999999999998]",day,10,,1,2,,,Crane staff additional: 1 NGO + 1 OR per shift. 
+PP-LOCAL,Local parking opposite Gates 2–3,parking,,"[302.4, 0.3, 135.79999999999998]",night,10,,1,2,,,Crane staff additional: 1 NGO + 1 OR per shift. 
+PCR10,PCR-10 · Haldana to Samalkha,patrol,,,day,3,,1,0,,,Off-site patrol location/route needs placement; no route invented. 
+PCR10,PCR-10 · Haldana to Samalkha,patrol,,,night,3,,1,0,,,Off-site patrol location/route needs placement; no route invented. 
+PCR3,PCR-3 · Samalkha to Haldana / Samagam,patrol,,,day,3,,1,0,,,Off-site patrol location/route needs placement; no route invented. 
+PCR3,PCR-3 · Samalkha to Haldana / Samagam,patrol,,,night,3,,1,0,,,Off-site patrol location/route needs placement; no route invented. 
+PP-R-PS-City,Rider PS City · Haldana → Samalkha,rider,,,day,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-PS-City,Rider PS City · Haldana → Samalkha,rider,,,night,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-27,Rider 27 · Haldana → Samalkha,rider,,,day,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-27,Rider 27 · Haldana → Samalkha,rider,,,night,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-18,Rider 18 · Haldana → Samalkha,rider,,,day,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-18,Rider 18 · Haldana → Samalkha,rider,,,night,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-22,Rider 22 · Samalkha → Haldana,rider,,,day,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-22,Rider 22 · Samalkha → Haldana,rider,,,night,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-14,Rider 14 · Samalkha → Haldana,rider,,,day,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-14,Rider 14 · Samalkha → Haldana,rider,,,night,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-24,Rider 24 · Samalkha → Haldana,rider,,,day,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-R-24,Rider 24 · Samalkha → Haldana,rider,,,night,1,,1,0,,,Main strength is one driver per shift; walkie-talkie required. Draw the assigned route. 
+PP-FOB,Foot-overbridge · both sides,gate,,"[464.09999999999997, 0.3, 298.2]",day,14,6,1,0,,,8 OR + 6 women within main 14. A single both-sides duty entry; do not duplicate strength. 
+PP-FOB,Foot-overbridge · both sides,gate,,"[464.09999999999997, 0.3, 298.2]",night,14,6,1,0,,,8 OR + 6 women within main 14. A single both-sides duty entry; do not duplicate strength. 
+PP-IN-FOB,Inside footbridge / X-Ray,xray,,"[137.322, 0.3, 314.3]",day,8,2,1,0,,,Day: 6 OR + 2 women; night: 4 OR + 2 women. 
+PP-IN-FOB,Inside footbridge / X-Ray,xray,,"[137.322, 0.3, 314.3]",night,6,2,1,0,,,Day: 6 OR + 2 women; night: 4 OR + 2 women. 
+PP-DFMD,DFMD checking · traffic section,dfmd,,"[302.4, 0.3, 135.79999999999998]",day,8,,1,0,,,Kept as a separate supplied row; may overlap gate checking rows and needs reconciliation before summing. 
+PP-DFMD,DFMD checking · traffic section,dfmd,,"[302.4, 0.3, 135.79999999999998]",night,6,,1,0,,,Kept as a separate supplied row; may overlap gate checking rows and needs reconciliation before summing. 
+SP-PATROL,Sonipat patrolling,patrol,,,combined,5,2,1,0,,," 3 NGO/OR + 2 women; Day/Night entry, separate shifts not provided."
+SP-P1,Parking 1 · Sonipat,parking,,"[205.29551813004514, 0.3, 831.0307337294604]",combined,10,5,1,0,,, 5 NGO/OR + 5 women; Day/Night not split.
+SP-N1,Naka 1 · Gannaur flyover below · Delhi → Panipat,naka,,,combined,7,2,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N2,Naka 2 · Gannaur flyover below · Panipat → Delhi,naka,,,combined,7,2,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N3,Naka 3 · Garhi Kalan flyover below · Delhi → Panipat,naka,,,combined,7,2,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N4,Naka 4 · Garhi Kalan flyover below · Panipat → Delhi,naka,,,combined,7,2,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N5,Naka 5 · Panchi Gujran Gurudwara cut,naka,,"[121.3, 0.3, 1120.6]",combined,4,1,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N6,Naka 6 · Main adda Panchi Gujran,naka,,"[111.3, 0.3, 1104.6]",combined,4,1,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N7,Naka 7 · Bhakharpur flyover below · Delhi → Panipat,naka,,,combined,7,2,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N8,Naka 8 · Bhakharpur flyover below · Panipat → Delhi,naka,,,combined,7,2,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-N9,Naka 9 · DICT Chowk,naka,,,combined,5,1,1,0,,,Location approximate if anchored; remote points remain unplaced until positioned. Day/Night combined entry; women included in main strength.
+SP-G1,Gate 1 · Sonipat duty,gate,,"[392.5, 0.3, 487.9]",combined,4,1,1,0,,, Day/Night not split.
+SP-LAW,Sonipat law and order,officer,,,combined,30,10,1,0,,, 20 NGO/OR + 10 women; Day/Night not split.
+SP-R1,Sonipat Rider 1,rider,,,day,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R1,Sonipat Rider 1,rider,,,night,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R2,Sonipat Rider 2,rider,,,day,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R2,Sonipat Rider 2,rider,,,night,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R3,Sonipat Rider 3,rider,,,day,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R3,Sonipat Rider 3,rider,,,night,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R4,Sonipat Rider 4,rider,,,day,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R4,Sonipat Rider 4,rider,,,night,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R5,Sonipat Rider 5,rider,,,day,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R5,Sonipat Rider 5,rider,,,night,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R6,Sonipat Rider 6,rider,,,day,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+SP-R6,Sonipat Rider 6,rider,,,night,1,,1,0,,,Six riders total: 6 OR incharges + 6 OR drivers = 12 per shift. Route not given. 
+QRT1,QRT-1 · Gate 1,qrt,,"[382.03073372946034, 0.3, 483.59551813004515]",day,4,,1,0,,,4 commandos as main strength; incharge separate. 
+QRT1,QRT-1 · Gate 1,qrt,,"[382.03073372946034, 0.3, 483.59551813004515]",night,4,,1,0,,,4 commandos as main strength; incharge separate. 
+QRT2,QRT-2 · Gate 2,qrt,,"[294.4, 0.3, 127.79999999999998]",day,4,,1,0,,,4 commandos as main strength; incharge separate. 
+QRT2,QRT-2 · Gate 2,qrt,,"[294.4, 0.3, 127.79999999999998]",night,4,,1,0,,,4 commandos as main strength; incharge separate. 
+QRT3,QRT-3 · Gate 3,qrt,,"[226.30448186995483, 0.3, -82.06926627053963]",day,4,,1,0,,,4 commandos as main strength; incharge separate. 
+QRT3,QRT-3 · Gate 3,qrt,,"[226.30448186995483, 0.3, -82.06926627053963]",night,4,,1,0,,,4 commandos as main strength; incharge separate. 
+QRT4,QRT-4 · Gate 5 / railway station,qrt,,"[-913.8, 0.3, -44.4]",day,4,,1,0,,,4 commandos as main strength; incharge separate. Night incharge count unresolved; not forced to one or two. 
+QRT4,QRT-4 · Gate 5 / railway station,qrt,,"[-913.8, 0.3, -44.4]",night,4,,,0,,,4 commandos as main strength; incharge separate. Night incharge count unresolved; not forced to one or two. 
+G1-XRAY,Gate 1 · X-Ray,xray,,"[395.5, 0.3, 492.9]",day,8,2,1,0,,, 
+G1-XRAY,Gate 1 · X-Ray,xray,,"[395.5, 0.3, 492.9]",night,6,2,1,0,,, 
+G1-DFMD,Gate 1 · DFMD,dfmd,,"[381.5, 0.3, 493.9]",day,8,2,1,0,,, 
+G1-DFMD,Gate 1 · DFMD,dfmd,,"[381.5, 0.3, 493.9]",night,6,2,1,0,,, 
+G1-SI,Gate 1 · gate-level SI,officer,,"[388.5, 0.3, 497.9]",day,0,,1,0,,, 
+G1-SI,Gate 1 · gate-level SI,officer,,"[388.5, 0.3, 497.9]",night,0,,1,0,,, 
+G2-DFMD,Gate 2 · DFMD,dfmd,,"[295.4, 0.3, 141.79999999999998]",day,8,2,1,0,,, 
+G2-DFMD,Gate 2 · DFMD,dfmd,,"[295.4, 0.3, 141.79999999999998]",night,6,2,1,0,,, 
+G2-SI,Gate 2 · gate-level SI,officer,,"[302.4, 0.3, 145.79999999999998]",day,0,,1,0,,, 
+G2-SI,Gate 2 · gate-level SI,officer,,"[302.4, 0.3, 145.79999999999998]",night,0,,1,0,,, 
+G3-XRAY,Gate 3 · X-Ray,xray,,"[248.99999999999997, 0.3, -70.6]",day,8,2,1,0,,, 
+G3-XRAY,Gate 3 · X-Ray,xray,,"[248.99999999999997, 0.3, -70.6]",night,6,2,1,0,,, 
+G3-DFMD,Gate 3 · DFMD,dfmd,,"[230.99999999999997, 0.3, -69.6]",day,8,2,1,0,,, 
+G3-DFMD,Gate 3 · DFMD,dfmd,,"[230.99999999999997, 0.3, -69.6]",night,6,2,1,0,,, 
+G3-SI,Gate 3 · gate-level SI,officer,,"[237.99999999999997, 0.3, -65.6]",day,0,,1,0,,, 
+G3-SI,Gate 3 · gate-level SI,officer,,"[237.99999999999997, 0.3, -65.6]",night,0,,1,0,,, 
+OUT-G10,Gate 10,gate,,,day,8,2,1,0,,,Gate 10 has no confirmed footprint in the supplied venue model; place manually. 
+OUT-G10,Gate 10,gate,,,night,6,2,1,0,,,Gate 10 has no confirmed footprint in the supplied venue model; place manually. 
+OUT-G5,Gate 5 · Bhodwal Majri railway station,gate,,"[-885.8, 0.3, -36.4]",day,22,7,1,0,,,Gate 5 mapped approximately to station area; no surveyed entrance footprint. 
+OUT-G5,Gate 5 · Bhodwal Majri railway station,gate,,"[-885.8, 0.3, -36.4]",night,22,7,1,0,,,Gate 5 mapped approximately to station area; no surveyed entrance footprint. 
+OUT-P3,Parking 3 · near railway station,parking,,"[-763.5, 0.3, -182.35]",day,30,,1,2,,,Crane: 1 NGO + 1 OR additional per shift. 
+OUT-P3,Parking 3 · near railway station,parking,,"[-763.5, 0.3, -182.35]",night,20,,1,2,,,Crane: 1 NGO + 1 OR additional per shift. 
+OUT-PCR,Outer ring PCR patrol,patrol,,"[384.8044818699548, 0.3, 469.4307337294603]",day,3,,1,0,,, 
+OUT-PCR,Outer ring PCR patrol,patrol,,"[384.8044818699548, 0.3, 469.4307337294603]",night,3,,1,0,,, 
+OUT-M1,Outer Machaan · Gate 1,machan,,"[376.5, 0.3, 499.9]",day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M1,Outer Machaan · Gate 1,machan,,"[376.5, 0.3, 499.9]",night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M2,Outer Machaan · Gate 2,machan,,"[290.4, 0.3, 147.79999999999998]",day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M2,Outer Machaan · Gate 2,machan,,"[290.4, 0.3, 147.79999999999998]",night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M3,Outer Machaan · Gate 3,machan,,"[225.99999999999997, 0.3, -63.599999999999994]",day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M3,Outer Machaan · Gate 3,machan,,"[225.99999999999997, 0.3, -63.599999999999994]",night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M4,Outer Machaan · Gate 4,machan,,"[156.7, 0.3, -361.09999999999997]",day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M4,Outer Machaan · Gate 4,machan,,"[156.7, 0.3, -361.09999999999997]",night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M10,Outer Machaan · Gate 10,machan,,,day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M10,Outer Machaan · Gate 10,machan,,,night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M12,Outer Machaan · Gate 12,machan,,,day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M12,Outer Machaan · Gate 12,machan,,,night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M15,Outer Machaan · Gate 15,machan,,,day,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+OUT-M15,Outer Machaan · Gate 15,machan,,,night,1,,0,0,,,"7 outer machaans total, 7 OR per shift. Unmapped gates require placement. "
+A-FOOT,Ground A · foot patrol,footpatrol,A,"[-366.79999999999995, 0.3, 702.8]",day,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+A-FOOT,Ground A · foot patrol,footpatrol,A,"[-366.79999999999995, 0.3, 702.8]",night,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+A-CANTEEN,Ground A · canteen,canteen,A,"[-350.79999999999995, 0.3, 712.8]",day,14,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+A-CANTEEN,Ground A · canteen,canteen,A,"[-350.79999999999995, 0.3, 712.8]",night,10,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+A-LANGAR,Ground A · langar,langar,A,"[-377.2692662705396, 0.3, 716.4955181300451]",day,14,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+A-LANGAR,Ground A · langar,langar,A,"[-377.2692662705396, 0.3, 716.4955181300451]",night,10,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+A-M-1,Machaan A-1,machan,A,"[-560.4, 0.3, 440.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-1,Machaan A-1,machan,A,"[-560.4, 0.3, 440.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-2,Machaan A-2,machan,A,"[-459.0133333333333, 0.3, 440.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-2,Machaan A-2,machan,A,"[-459.0133333333333, 0.3, 440.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-3,Machaan A-3,machan,A,"[-353.62666666666667, 0.3, 440.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-3,Machaan A-3,machan,A,"[-353.62666666666667, 0.3, 440.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-4,Machaan A-4,machan,A,"[-260.23999999999995, 0.3, 440.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-4,Machaan A-4,machan,A,"[-260.23999999999995, 0.3, 440.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-5,Machaan A-5,machan,A,"[-169.2, 0.3, 483.7333333333333]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-5,Machaan A-5,machan,A,"[-169.2, 0.3, 483.7333333333333]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-6,Machaan A-6,machan,A,"[-161.5463313526982, 0.3, 633.9442573168923]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-6,Machaan A-6,machan,A,"[-161.5463313526982, 0.3, 633.9442573168923]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-7,Machaan A-7,machan,A,"[-180.28655439013542, 0.3, 759.7922011883811]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-7,Machaan A-7,machan,A,"[-180.28655439013542, 0.3, 759.7922011883811]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-8,Machaan A-8,machan,A,"[-157.2, 0.3, 894.9333333333333]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-8,Machaan A-8,machan,A,"[-157.2, 0.3, 894.9333333333333]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-9,Machaan A-9,machan,A,"[-221.89333333333332, 0.3, 964.8]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-9,Machaan A-9,machan,A,"[-221.89333333333332, 0.3, 964.8]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-10,Machaan A-10,machan,A,"[-327.28, 0.3, 964.8]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-10,Machaan A-10,machan,A,"[-327.28, 0.3, 964.8]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-11,Machaan A-11,machan,A,"[-432.6666666666666, 0.3, 964.8]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-11,Machaan A-11,machan,A,"[-432.6666666666666, 0.3, 964.8]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-12,Machaan A-12,machan,A,"[-538.0533333333333, 0.3, 964.8]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-12,Machaan A-12,machan,A,"[-538.0533333333333, 0.3, 964.8]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-13,Machaan A-13,machan,A,"[-564.4, 0.3, 859.9999999999999]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-13,Machaan A-13,machan,A,"[-564.4, 0.3, 859.9999999999999]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-14,Machaan A-14,machan,A,"[-564.4, 0.3, 720.2666666666665]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-14,Machaan A-14,machan,A,"[-564.4, 0.3, 720.2666666666665]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+A-M-15,Machaan A-14 · duplicate chart row,machan,A,,day,1,,0,0,,,"1 OR per shift. A-14 appears twice: 15 rows, unique number unresolved; duplicate remains unplaced. "
+A-M-15,Machaan A-14 · duplicate chart row,machan,A,,night,1,,0,0,,,"1 OR per shift. A-14 appears twice: 15 rows, unique number unresolved; duplicate remains unplaced. "
+A-MO-1,Morcha A-1,morcha,A,"[-546.4, 0.3, 450.79999999999995]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-1,Morcha A-1,morcha,A,"[-546.4, 0.3, 450.79999999999995]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-2,Morcha A-2,morcha,A,"[-432.1617604580795, 0.3, 447.97157287525374]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-2,Morcha A-2,morcha,A,"[-432.1617604580795, 0.3, 447.97157287525374]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-3,Morcha A-3,morcha,A,"[-307.09509379141286, 0.3, 447.97157287525374]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-3,Morcha A-3,morcha,A,"[-307.09509379141286, 0.3, 447.97157287525374]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-4,Morcha A-4,morcha,A,"[-179.2, 0.3, 486.79999999999995]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-4,Morcha A-4,morcha,A,"[-179.2, 0.3, 486.79999999999995]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-5,Morcha A-5,morcha,A,"[-179.2, 0.3, 634.8]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-5,Morcha A-5,morcha,A,"[-179.2, 0.3, 634.8]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-6,Morcha A-6,morcha,A,"[-179.2, 0.3, 786.8]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-6,Morcha A-6,morcha,A,"[-179.2, 0.3, 786.8]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-7,Morcha A-7,morcha,A,"[-184.85685424949236, 0.3, 960.4568542494924]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-7,Morcha A-7,morcha,A,"[-184.85685424949236, 0.3, 960.4568542494924]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-8,Morcha A-8,morcha,A,"[-299.67446547828564, 0.3, 965.8865543901354]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-8,Morcha A-8,morcha,A,"[-299.67446547828564, 0.3, 965.8865543901354]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-9,Morcha A-9,morcha,A,"[-424.7411321449522, 0.3, 965.8865543901354]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-9,Morcha A-9,morcha,A,"[-424.7411321449522, 0.3, 965.8865543901354]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-10,Morcha A-10,morcha,A,"[-554.4, 0.3, 954.8]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-10,Morcha A-10,morcha,A,"[-554.4, 0.3, 954.8]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-11,Morcha A-11,morcha,A,"[-554.4, 0.3, 786.7999999999998]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-11,Morcha A-11,morcha,A,"[-554.4, 0.3, 786.7999999999998]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-12,Morcha A-12,morcha,A,"[-554.4, 0.3, 618.8]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+A-MO-12,Morcha A-12,morcha,A,"[-554.4, 0.3, 618.8]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-FOOT,Ground B · foot patrol,footpatrol,B,"[-65.8, 0.3, 667.0999999999999]",day,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+B-FOOT,Ground B · foot patrol,footpatrol,B,"[-65.8, 0.3, 667.0999999999999]",night,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+B-CANTEEN,Ground B · canteen,canteen,B,"[-53.8, 0.3, 677.0999999999999]",day,14,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+B-CANTEEN,Ground B · canteen,canteen,B,"[-53.8, 0.3, 677.0999999999999]",night,10,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+B-LANGAR,Ground B · langar,langar,B,"[-77.8, 0.3, 677.0999999999999]",day,14,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+B-LANGAR,Ground B · langar,langar,B,"[-77.8, 0.3, 677.0999999999999]",night,10,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+B-M-1,Machaan B-1,machan,B,"[-539.4, 0.3, 391.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-1,Machaan B-1,machan,B,"[-539.4, 0.3, 391.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-2,Machaan B-2,machan,B,"[-161.32, 0.3, 391.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-2,Machaan B-2,machan,B,"[-161.32, 0.3, 391.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-3,Machaan B-3,machan,B,"[220.76, 0.3, 391.79999999999995]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-3,Machaan B-3,machan,B,"[220.76, 0.3, 391.79999999999995]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-4,Machaan B-4,machan,B,"[411.79999999999995, 0.3, 501.91999999999996]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-4,Machaan B-4,machan,B,"[411.79999999999995, 0.3, 501.91999999999996]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-5,Machaan B-5,machan,B,"[411.79999999999995, 0.3, 730.1600000000001]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-5,Machaan B-5,machan,B,"[411.79999999999995, 0.3, 730.1600000000001]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-6,Machaan B-6,machan,B,"[411.79999999999995, 0.3, 942.4]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-6,Machaan B-6,machan,B,"[411.79999999999995, 0.3, 942.4]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-7,Machaan B-7,machan,B,"[34.31220118838116, 0.3, 953.4865543901354]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-7,Machaan B-7,machan,B,"[34.31220118838116, 0.3, 953.4865543901354]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-8,Machaan B-8,machan,B,"[-343.17559762323765, 0.3, 964.5731087802709]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-8,Machaan B-8,machan,B,"[-343.17559762323765, 0.3, 964.5731087802709]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-9,Machaan B-9,machan,B,"[-543.4, 0.3, 832.2799999999999]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-9,Machaan B-9,machan,B,"[-543.4, 0.3, 832.2799999999999]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-10,Machaan B-10,machan,B,"[-541.8692662705396, 0.3, 615.7355181300451]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-M-10,Machaan B-10,machan,B,"[-541.8692662705396, 0.3, 615.7355181300451]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+B-MO-1,Morcha B-1,morcha,B,"[-533.4, 0.3, 401.79999999999995]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-1,Morcha B-1,morcha,B,"[-533.4, 0.3, 401.79999999999995]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-2,Morcha B-2,morcha,B,"[214.76, 0.3, 401.79999999999995]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-2,Morcha B-2,morcha,B,"[214.76, 0.3, 401.79999999999995]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-3,Morcha B-3,morcha,B,"[413.1137084989847, 0.3, 731.4737084989848]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-3,Morcha B-3,morcha,B,"[413.1137084989847, 0.3, 731.4737084989848]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-4,Morcha B-4,morcha,B,"[15.720000000000084, 0.3, 932.4]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-4,Morcha B-4,morcha,B,"[15.720000000000084, 0.3, 932.4]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-5,Morcha B-5,morcha,B,"[-533.4, 0.3, 826.2799999999999]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+B-MO-5,Morcha B-5,morcha,B,"[-533.4, 0.3, 826.2799999999999]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-FOOT,Ground C · foot patrol,footpatrol,C,"[-361.9, 0.3, 262.5]",day,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+C-FOOT,Ground C · foot patrol,footpatrol,C,"[-361.9, 0.3, 262.5]",night,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+C-CANTEEN,Ground C · canteen,canteen,C,"[-349.9, 0.3, 272.5]",day,14,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+C-CANTEEN,Ground C · canteen,canteen,C,"[-349.9, 0.3, 272.5]",night,10,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+C-LANGAR,Ground C · langar,langar,C,"[-373.9, 0.3, 272.5]",day,14,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+C-LANGAR,Ground C · langar,langar,C,"[-373.9, 0.3, 272.5]",night,10,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+C-M-1,Machaan C-1,machan,C,"[-631.4692662705396, 0.3, 161.69551813004514]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-1,Machaan C-1,machan,C,"[-631.4692662705396, 0.3, 161.69551813004514]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-2,Machaan C-2,machan,C,"[-390.4914884927619, 0.3, 161.69551813004514]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-2,Machaan C-2,machan,C,"[-390.4914884927619, 0.3, 161.69551813004514]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-3,Machaan C-3,machan,C,"[-151.04444444444442, 0.3, 158]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-3,Machaan C-3,machan,C,"[-151.04444444444442, 0.3, 158]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-4,Machaan C-4,machan,C,"[-90.8, 0.3, 227.66666666666666]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-4,Machaan C-4,machan,C,"[-90.8, 0.3, 227.66666666666666]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-5,Machaan C-5,machan,C,"[-90.8, 0.3, 320.55555555555554]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-5,Machaan C-5,machan,C,"[-90.8, 0.3, 320.55555555555554]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-6,Machaan C-6,machan,C,"[-211.28888888888895, 0.3, 379]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-6,Machaan C-6,machan,C,"[-211.28888888888895, 0.3, 379]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-7,Machaan C-7,machan,C,"[-452.26666666666665, 0.3, 367]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-7,Machaan C-7,machan,C,"[-452.26666666666665, 0.3, 367]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-8,Machaan C-8,machan,C,"[-633, 0.3, 343.77777777777777]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-8,Machaan C-8,machan,C,"[-633, 0.3, 343.77777777777777]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-9,Machaan C-9,machan,C,"[-633, 0.3, 250.8888888888889]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-M-9,Machaan C-9,machan,C,"[-633, 0.3, 250.8888888888889]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+C-MO-1,Morcha C-1,morcha,C,"[-623, 0.3, 168]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-1,Morcha C-1,morcha,C,"[-623, 0.3, 168]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-2,Morcha C-2,morcha,C,"[-100.8, 0.3, 168]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-2,Morcha C-2,morcha,C,"[-100.8, 0.3, 168]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-3,Morcha C-3,morcha,C,"[-76.8, 0.3, 357]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-3,Morcha C-3,morcha,C,"[-76.8, 0.3, 357]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-4,Morcha C-4,morcha,C,"[-623, 0.3, 357]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+C-MO-4,Morcha C-4,morcha,C,"[-623, 0.3, 357]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-FOOT,Ground D · foot patrol,footpatrol,D,"[-424.9, 0.3, -153.29999999999998]",day,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+D-FOOT,Ground D · foot patrol,footpatrol,D,"[-424.9, 0.3, -153.29999999999998]",night,12,4,1,0,,,8 OR + 4 women; main 12 per shift. 
+D-CANTEEN,Ground D · canteen,canteen,D,"[-412.9, 0.3, -143.29999999999998]",day,14,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+D-CANTEEN,Ground D · canteen,canteen,D,"[-412.9, 0.3, -143.29999999999998]",night,10,4,1,0,,,Day 10 OR + 4 women; night 6 OR + 4 women. 
+D-LANGAR,Ground D · langar,langar,D,"[-436.9, 0.3, -143.29999999999998]",day,14,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+D-LANGAR,Ground D · langar,langar,D,"[-436.9, 0.3, -143.29999999999998]",night,10,,1,0,,,The supplied common duties sum to main 40 day / 32 night per ground; incharges separate. 
+D-M-1,Machaan D-1,machan,D,"[-852.8, 0.3, -505.59999999999997]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-1,Machaan D-1,machan,D,"[-852.8, 0.3, -505.59999999999997]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-2,Machaan D-2,machan,D,"[-510.47999999999996, 0.3, -505.59999999999997]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-2,Machaan D-2,machan,D,"[-510.47999999999996, 0.3, -505.59999999999997]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-3,Machaan D-3,machan,D,"[-168.15999999999997, 0.3, -505.59999999999997]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-3,Machaan D-3,machan,D,"[-168.15999999999997, 0.3, -505.59999999999997]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-4,Machaan D-4,machan,D,"[3, 0.3, -364.68]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-4,Machaan D-4,machan,D,"[3, 0.3, -364.68]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-5,Machaan D-5,machan,D,"[3, 0.3, -82.83999999999997]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-5,Machaan D-5,machan,D,"[3, 0.3, -82.83999999999997]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-6,Machaan D-6,machan,D,"[3, 0.3, 199]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-6,Machaan D-6,machan,D,"[3, 0.3, 199]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-7,Machaan D-7,machan,D,"[-333.6631457505075, 0.3, 204.65685424949237]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-7,Machaan D-7,machan,D,"[-333.6631457505075, 0.3, 204.65685424949237]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-8,Machaan D-8,machan,D,"[-681.6399999999998, 0.3, 199]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-8,Machaan D-8,machan,D,"[-681.6399999999998, 0.3, 199]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-9,Machaan D-9,machan,D,"[-852.8, 0.3, 58.0799999999999]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-9,Machaan D-9,machan,D,"[-852.8, 0.3, 58.0799999999999]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-10,Machaan D-10,machan,D,"[-852.8, 0.3, -223.76]",day,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-M-10,Machaan D-10,machan,D,"[-852.8, 0.3, -223.76]",night,1,,0,0,,,1 OR per shift. Approximate point distributed around the model ground. 
+D-MO-1,Morcha D-1,morcha,D,"[-842.8, 0.3, -495.59999999999997]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-1,Morcha D-1,morcha,D,"[-842.8, 0.3, -495.59999999999997]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-2,Morcha D-2,morcha,D,"[-365.2, 0.3, -495.59999999999997]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-2,Morcha D-2,morcha,D,"[-365.2, 0.3, -495.59999999999997]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-3,Morcha D-3,morcha,D,"[-7, 0.3, -397.8]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-3,Morcha D-3,morcha,D,"[-7, 0.3, -397.8]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-4,Morcha D-4,morcha,D,"[-7, 0.3, -6.60000000000008]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-4,Morcha D-4,morcha,D,"[-7, 0.3, -6.60000000000008]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-5,Morcha D-5,morcha,D,"[-248.62842712474605, 0.3, 191.82842712474618]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-5,Morcha D-5,morcha,D,"[-248.62842712474605, 0.3, 191.82842712474618]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-6,Morcha D-6,morcha,D,"[-738.1820725201806, 0.3, 195.12293491784143]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-6,Morcha D-6,morcha,D,"[-738.1820725201806, 0.3, 195.12293491784143]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-7,Morcha D-7,morcha,D,"[-842.8, 0.3, -104.3999999999998]",day,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+D-MO-7,Morcha D-7,morcha,D,"[-842.8, 0.3, -104.3999999999998]",night,4,,1,0,,,4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. 
+QRT5,QRT-5 · inside Samagam,qrt,,"[117.322, 0.3, 380.3]",day,4,,1,0,,,4 commandos + 1 NGO = 5 per shift. 
+QRT5,QRT-5 · inside Samagam,qrt,,"[117.322, 0.3, 380.3]",night,4,,1,0,,,4 commandos + 1 NGO = 5 per shift. 
+PANDAL-F1,Pandal · force group 1,officer,,"[147.322, 0.3, 294.3]",combined,100,50,,0,,, Civil dress: 30 + 40 women; uniform: 20 + 10 women. Shift division not stated.
+PANDAL-F2,Pandal · force group 2,officer,,"[147.322, 0.3, 334.3]",combined,30,10,,0,,, Civil: 10 + 5 women; uniform: 10 + 5 women. Relationship to group 1 unresolved; do not assume additive deployment.
+RECEPTION,Reception,reception,,"[241.322, 0.3, 284.3]",day,6,2,1,0,,,4 OR + 2 women + 1 NGO = 7 per shift. 
+RECEPTION,Reception,reception,,"[241.322, 0.3, 284.3]",night,6,2,1,0,,,4 OR + 2 women + 1 NGO = 7 per shift. 
+CONTROL,Control room · CCTV,control,,"[203.50448186995484, 0.3, -42.03073372946036]",morning,4,,1,0,,," 4 OR + 1 NGO = 5; CCTV branch staff separate, number unspecified."
+CONTROL,Control room · CCTV,control,,"[203.50448186995484, 0.3, -42.03073372946036]",evening,4,,1,0,,," 4 OR + 1 NGO = 5; CCTV branch staff separate, number unspecified."
+CONTROL,Control room · CCTV,control,,"[203.50448186995484, 0.3, -42.03073372946036]",night,4,,1,0,,," 4 OR + 1 NGO = 5; CCTV branch staff separate, number unspecified."
+VVIP-P,VVIP car parking,parking,,"[301.7, 0.3, 444]",day,10,,1,0,,,Armed employee included in main 10; total 11. 
+VVIP-P,VVIP car parking,parking,,"[301.7, 0.3, 444]",night,10,,1,0,,,Armed employee included in main 10; total 11. 
+IMPORTANT-P2,Parking 2 · important duties,parking,,"[24.299999999999997, 0.3, 584.5]",day,20,,1,2,,,20 main + 2 crane + 1 NGO = 23 per shift. 
+IMPORTANT-P2,Parking 2 · important duties,parking,,"[24.299999999999997, 0.3, 584.5]",night,20,,1,2,,,20 main + 2 crane + 1 NGO = 23 per shift. 
+PP-LAW,Panipat law and order,officer,,,combined,90,30,3,0,,, 60 NGO/OR + 30 women; shift not specified.
+RESERVE,Reserve force · Haldana chowki,reserve,,,combined,,,,0,,, 1 company including women; numerical strength not provided.
+PROTOCOL,Protocol,officer,,,combined,,,,0,,," ASI Rakesh Kumar, T/HC Lelu and supporting staff; total unspecified."
+LIAISON,Liaison,officer,,,combined,2,1,,0,,," 1 P/SI + 1 female P/SI; protocol staff also referenced, not added again."
+ambulance-A,Ambulance · Ground A,ambulance,A,"[-351.79999999999995, 0.3, 706.8]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+ambulance-B,Ambulance · Ground B,ambulance,B,"[-50.8, 0.3, 687.0999999999999]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+ambulance-C,Ambulance · Ground C,ambulance,C,"[-334.9, 0.3, 282.5]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+ambulance-D,Ambulance · Ground D,ambulance,D,"[-409.9, 0.3, -133.29999999999998]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+ambulance-Pandal,Ambulance · Pandal,ambulance,,"[146.19906508215857, 0.3, 319.51792747981943]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+fire-A,Fire brigade · Ground A,fire,A,"[-359.45366864730175, 0.3, 704.3224093497743]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+fire-B,Fire brigade · Ground B,fire,B,"[-50.8, 0.3, 687.0999999999999]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+fire-C,Fire brigade · Ground C,fire,C,"[-335.8134456098645, 0.3, 287.09220118838107]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+fire-D,Fire brigade · Ground D,fire,D,"[-409.9, 0.3, -133.29999999999998]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.
+fire-Pandal,Fire brigade · Pandal,fire,,"[144.6683313526982, 0.3, 315.82240934977426]",combined,,,,0,,, One vehicle allocation; personnel strength not specified.

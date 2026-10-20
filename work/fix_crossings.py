@@ -1,0 +1,7 @@
+from pathlib import Path
+p=Path('work/build_pdf_model.py');s=p.read_text(encoding='utf-8');s=s.replace("exec((ROOT/'work/road_details.py').read_text(encoding='utf-8'))", "exec((ROOT/'work/road_details.py').read_text(encoding='utf-8'))\nexec((ROOT/'work/underpass_details.py').read_text(encoding='utf-8'))",1)
+a=s.index("        box('Underpass clear opening'");b=s.index("    elif k=='gate':",a);s=s[:a]+"        corrected_underpass(f,x,z,w,d)\n"+s[b:]
+s=s.replace("exec((ROOT/'work/reference_tents.py')", "raise_highway_at_underpasses()\nexec((ROOT/'work/reference_tents.py')",1)
+s=s.replace("meta['s04_footbridge']=footbridge_info", "meta['s04_footbridge']=footbridge_info\nmeta['underpasses']=underpass_nav",1);p.write_text(s,encoding='utf-8')
+p=Path('work/frontage_boundary.py');s=p.read_text(encoding='utf-8');s=s.replace("spans=[]", "for f in [f for f in features if f['id'] in ['H03','H04']]:\n    centre=f['world'];_,station,_=project(centre);openings.append([station-15,station+15,f['id']+' underpass access'])\nspans=[]",1);p.write_text(s,encoding='utf-8')
+p=Path('work/foot_overbridge.py');s=p.read_text(encoding='utf-8');s=s.replace('z=direction*(48-i-.5)','z=direction*(48-i-.5)*.5').replace('direction*48','direction*24').replace('direction*(48-i)','direction*(48-i)*.5').replace('direction*50','direction*26').replace('5.3,1.02','5.3,.52');s=s.replace("deck_height=deck,span=half*2,", "deck_height=deck,span=half*2,angle=angle,stair_run=24.,stair_half_width=2.65,stair_x=half,deck_width=width,");p.write_text(s,encoding='utf-8')

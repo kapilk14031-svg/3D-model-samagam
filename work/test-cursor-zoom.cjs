@@ -1,0 +1,10 @@
+const assert=require('assert');const norm=v=>{const l=Math.hypot(...v);return v.map(x=>x/l)},cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);let streetMode=false,pandalInterior=false,topView=false,target,yaw,elevation,distance,W=1200,H=800,aspect=1.5,range={},dirty,anim,orbit;function zoomBy(){};
+function cursorZoom(k,x,y){if(streetMode){zoomBy(k);return}anim=null;orbit=false;const oldDistance=distance,next=Math.max(pandalInterior?12:35,Math.min(5500,oldDistance*k)),ratio=next/oldDistance;
+const forward=[-Math.sin(yaw)*Math.cos(elevation),-Math.sin(elevation),-Math.cos(yaw)*Math.cos(elevation)],right=norm(cross(forward,[0,1,0])),up=cross(right,forward),nx=2*x/W-1,ny=1-2*y/H,cam=target.map((v,i)=>v-forward[i]*oldDistance);let anchor;
+if(topView){const size=oldDistance*.44;anchor=target.map((v,i)=>v+right[i]*nx*size*aspect+up[i]*ny*size)}else{const q=Math.tan(.72/2),ray=norm(forward.map((v,i)=>v+right[i]*nx*q*aspect+up[i]*ny*q)),groundT=ray[1]<-.0001?-cam[1]/ray[1]:-1;
+// Ground-plane anchoring suits the venue map. Near-horizontal interior views
+// use the target plane so zooming never jumps to a distant horizon.
+const t=!pandalInterior&&groundT>0&&groundT<oldDistance*5?groundT:oldDistance/Math.max(.1,dot(ray,forward));anchor=cam.map((v,i)=>v+ray[i]*t)}
+target=target.map((v,i)=>anchor[i]+(v-anchor[i])*ratio);distance=next;range.value=distance;dirty=true}
+
+for(const top of [false,true])for(const interior of [false,true])for(const el of [.03,.6,1.56])for(const xy of [[220,550],[950,220],[600,400]]){topView=top;pandalInterior=interior;target=[50,4,-20];yaw=.65;elevation=el;distance=500;const original=[...target];cursorZoom(.8,...xy);const after=[...target];cursorZoom(1.25,...xy);assert(Math.hypot(...target.map((v,i)=>v-original[i]))<1e-8,'cursor anchor drift');assert(Math.abs(distance-500)<1e-8);if(xy[0]!==600)assert(Math.hypot(...after.map((v,i)=>v-original[i]))>1,'off-centre zoom must translate target')};console.log('48 cursor zoom round-trip/anchor checks passed');

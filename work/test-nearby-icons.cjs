@@ -1,0 +1,4 @@
+let depFollowState=null;
+const assert=require('node:assert/strict');let streetMode=false,distance=3000,target=[0,0,0],walker=[100,0,100];
+function depIconNearby(p){if(depFollowState)return Math.hypot(p[0]-target[0],p[2]-target[2])<=55;if(!streetMode&&distance>=1800)return true;const focus=streetMode?walker:target,radius=streetMode?55:Math.max(24,Math.min(240,distance*.65));return Math.hypot(p[0]-focus[0],p[2]-focus[2])<=radius}
+assert(depIconNearby([1500,0,1000]));distance=100;assert(depIconNearby([40,0,0]));assert(!depIconNearby([150,0,0]));distance=700;assert(depIconNearby([200,0,0]));assert(!depIconNearby([300,0,0]));streetMode=true;assert(depIconNearby([120,0,120]));assert(!depIconNearby([200,0,200]));console.log('PASS: overview shows all, zoom and AK show nearby icons only');

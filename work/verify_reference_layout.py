@@ -8,7 +8,7 @@ assert len(s['features'])==len({f['id'] for f in s['features']})==136
 assert not any('Black sleeping tent' in o['name'] or 'JHULA ZONE' in o['name'] for o in s['objects'])
 assert all(any(l['text']=='GROUND-'+g for l in s['labels']) for g in ['B','C','D'])
 assert abs(s['meta']['highway_boundary']['height']*2-s['meta']['highway_boundary']['main_gate_height'])<1e-5
-assert len(s['meta']['highway_boundary']['openings'])==6
+assert len(s['meta']['highway_boundary']['openings'])==8
 assert all(o['color'] in ['#493025','#38291f'] for o in s['objects'] if o['featureId']=='H06')
 assert all(all(math.isfinite(v) for v in o['p']+o['s']) for o in s['objects'])
 def overlap(a,b):

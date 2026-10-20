@@ -156,7 +156,7 @@ floodlight_locations = [
     (-380, 520, 'Ground B South High-Mast'),
     (40, 720, 'Ground C Central High-Mast'),
     (-80, 450, 'Ground C South High-Mast'),
-    (80, 320, 'Ground C West High-Mast'),
+    (-40, 405, 'Pandal exterior service High-Mast'),
     (-350, 220, 'Ground D North High-Mast'),
     (-200, 100, 'Ground D Central High-Mast'),
     (-480, 50, 'Ground D West High-Mast'),
@@ -215,7 +215,7 @@ for z in range(130, 480, 28):
     add_tree_palm(345, z, height=12.5, layer='pandal')
     add_tree_ashoka(352, z, height=10.5, layer='pandal')
     # West flank of Pandal (towards Langar and Offices)
-    add_tree_shade(125, z, height=9.0, spread=8.0, layer='pandal')
+    add_tree_shade(-30 if 240<=z<=400 else 125, z, height=9.0, spread=8.0, layer='pandal')
 
 # Road R03 / R04 corridors (Ground B & C connecting avenues)
 for x in range(-50, 300, 32):

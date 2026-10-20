@@ -1,0 +1,6 @@
+from pathlib import Path
+p=Path('work/viewer-pdf.html');s=p.read_text(encoding='utf-8').replace("depUnits=depUnits.filter(v=>v.id!==u.id);depSelected=null;", "depUnits=depUnits.filter(v=>v.id!==u.id&&v.parentId!==u.id);depSelected=null;",1)
+s=s.replace("[DEP_SHIFT[p.shift]?p.shift:'combined']:{force:1,incharge:0,extra:0,female:null}","[DEP_SHIFT[p.shift]?p.shift:'combined']:{force:/(incharge|इंचार्ज|^ic$)/i.test(p.role)?0:1,incharge:/(incharge|इंचार्ज|^ic$)/i.test(p.role)?1:0,extra:0,female:null}",1)
+s=s.replace("Object.assign(u,copy);depPersist();depRefreshList();return true}", "Object.assign(u,copy);depUnits=depUnits.filter(v=>v.parentId!==u.id||v.personIndex<u.personnel.length);for(const child of depUnits.filter(v=>v.parentId===u.id)){const person=u.personnel[child.personIndex];child.title=person.name||'Assigned officer';child.personnel=[person];child.shifts={[DEP_SHIFT[person.shift]?person.shift:'combined']:{force:/(incharge|इंचार्ज|^ic$)/i.test(person.role)?0:1,incharge:/(incharge|इंचार्ज|^ic$)/i.test(person.role)?1:0,extra:0,female:null}}}depPersist();depRefreshList();return true}",1)
+p.write_text(s,encoding='utf-8')
+p=Path('work/test_walk_physics.py');s=p.read_text(encoding='utf-8').replace('function ensureWorldFacilities(){};', 'function ensureWorldFacilities(){};function deploymentCollision(){return false};');p.write_text(s,encoding='utf-8')

@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('work/viewer-pdf.html');s=p.read_text(encoding='utf-8').replace("function depNew(type='officer'){if(!DEP_TYPES[type])type='officer';depUndoPush();", "function depNew(type='officer'){if(!DEP_TYPES[type])type='officer';depEl('depSearch').value='';depEl('depFilter').value='';depUndoPush();",1);p.write_text(s,encoding='utf-8')
+p=Path('work/test_deployment.py');s=p.read_text(encoding='utf-8').replace("console.log('PASS:","const parent=find('PP-P4');const child={...depClone(parent),id:'child',isPersonnelMarker:true};assert.deepEqual(depTotals([parent,child],'day'),depTotals([parent],'day'));depRouteEpoch.set(rider.id,10);depTime=10;assert.equal(depPose(rider).p[0],10);\nconsole.log('PASS:",1);p.write_text(s,encoding='utf-8')

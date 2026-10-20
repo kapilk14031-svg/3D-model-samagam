@@ -1,0 +1,6 @@
+from pathlib import Path
+p=Path('work/viewer-pdf.html');s=p.read_text(encoding='utf-8')
+s=s.replace("insertWalkBox(b);if(!flat&&h>.35)insertWalkBox({...b,floor:false})", "insertWalkBox(b)",1)
+s=s.replace("function walkBlockedAt(x,z,y){for(const b", "function walkBlockedAt(x,z,y){if(typeof simulationOn!=='undefined'&&simulationOn){const progress=(simTime*18)%(vipLength+135),poses=[];for(let i=0;i<3;i++){const d=progress-i*22;if(d>=0&&d<=vipLength)poses.push(pathPose(vipPath,d))}for(let i=0;i<6;i++){const p=pathPose(highwayPath,(simTime*24+i*275)%highwayLength);p.p[0]+=7;poses.push(p)}for(const p of poses)if(y<p.p[1]+4&&y+AK_HEIGHT>p.p[1]&&circleHitsBox({x:p.p[0],z:p.p[2],w:4.4,d:9.6,angle:p.angle},x,z))return true;for(const zz of[121,151])if(circleHitsBox({x:270.5,z:zz,w:15,d:.5},x,z)&&y<3.3)return true}for(const b",1)
+s=s.replace("const bridge=DATA.meta.s04_footbridge,p=bridgeLocal(x,z);if(y>", "const bridge=DATA.meta.s04_footbridge,p=bridgeLocal(x,z),prior=bridgeLocal(walker[0],walker[2]);for(const side of[-1,1]){const along=side*prior[1];if(walker[1]>1.1&&Math.abs(prior[0]-side*bridge.span/2)<2.2&&along>1.7&&along<(bridge.stair_run||24)&&Math.abs(p[0]-side*bridge.span/2)>2.12)return true}if(y>",1)
+p.write_text(s,encoding='utf-8')

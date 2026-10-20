@@ -1,0 +1,6 @@
+from pathlib import Path
+p=Path('work/viewer-pdf.html');s=p.read_text(encoding='utf-8')
+s=s.replace("/surface|plinth|platform|forecourt|landing|threshold|pedestrian refuge/", "/surface|plinth|platform|forecourt|landing|threshold|pedestrian refuge|open lower road/")
+s=s.replace("function walkSurfaceAt(x,z,current){let h=.3;", "function walkSurfaceAt(x,z,current){let h=.3;for(const f of DATA.features){if(!['road','internal_road'].includes(f.kind)||!f.path)continue;const path=f.path.map(cworld);for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i],vx=b[0]-a[0],vz=b[2]-a[2],ll=vx*vx+vz*vz,t=Math.max(0,Math.min(1,((x-a[0])*vx+(z-a[2])*vz)/ll));if(Math.hypot(x-a[0]-t*vx,z-a[2]-t*vz)>(f.kind==='road'?18:6))continue;let road=1.22;if(f.kind==='road')for(const u of DATA.meta.underpasses||[]){const dx=x-u.anchor[0],dz=z-u.anchor[2],along=dx*Math.sin(u.angle)+dz*Math.cos(u.angle);road=Math.max(road,1.22+9.9*Math.max(0,Math.min(1,(90-Math.abs(along))/75)))}if(road<=current+1.05)h=Math.max(h,road)}}")
+s=s.replace("if(akBlocked)dirty=true}\nfunction safeWalkSpawn", "const status=document.getElementById('akSpeed');status.dataset.x=walker[0].toFixed(3);status.dataset.y=walker[1].toFixed(3);status.dataset.z=walker[2].toFixed(3);if(akBlocked)dirty=true}\nfunction safeWalkSpawn",1)
+p.write_text(s,encoding='utf-8')

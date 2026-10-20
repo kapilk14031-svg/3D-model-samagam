@@ -1,0 +1,10 @@
+from pathlib import Path
+p=Path('work/viewer-pdf.html');s=p.read_text(encoding='utf-8')
+s=s.replace('if(p.every(v=>v!==\'\'))copy.position=p.map(Number);',"if(p.every(v=>v!==''))depMoveUnit(copy,p.map(Number));",1)
+s=s.replace('if(p)depMoveUnit(u,depRoadPoint(p,false));dirty=true}};el.onpointerup',"if(p){const current=depUnits.find(v=>v.id===el.dataset.id);if(current)depMoveUnit(current,depRoadPoint(p,false))}dirty=true}};el.onpointerup",1)
+s=s.replace("ed.hidden=false;ed.innerHTML=", "ed.hidden=false;depEl('depList').style.maxHeight='100px';ed.innerHTML=",1)
+s=s.replace("depSelected=u.id;depEditor();depRefreshList();dirty=true};list.append(b)","depSelected=u.id;depEditor();depRefreshList();depEl('depEditor').scrollIntoView({block:'nearest'});dirty=true};list.append(b)",1)
+s=s.replace("if(!u){ed.hidden=true;return}","if(!u){ed.hidden=true;depEl('depList').style.maxHeight='210px';return}",1)
+s=s.replace("box(-3+i*2,.7,z,1.9,1.4,1.2,'#9f8e64')", "part('ellipsoid',-3+i*2,.3,z,1.95,1.2,1.35,'#9f8e64')",1)
+s=s.replace("box(-3+i*2,2,-1.7,1.9,1.2,1.2,'#b19a6c')", "part('ellipsoid',-3+i*2,1.5,-1.7,1.95,1.1,1.35,'#b19a6c')",1)
+p.write_text(s,encoding='utf-8')

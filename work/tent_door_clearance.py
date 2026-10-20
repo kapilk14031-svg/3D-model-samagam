@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('work/viewer-pdf.html');s=p.read_text(encoding='utf-8').replace("H=3.6,door=2.5", "H=4.5,door=2.5").replace("p:[x,3.5,z+d/2],s:[door,.4,.13]", "p:[x,4.4,z+d/2],s:[door,.2,.13]").replace("o.p[1]=3.7;o.s[1]=2.5", "o.p[1]=4.6;o.s[1]=2.5").replace("if(o.layer==='tents'&&/fascia|ridge seam/.test(o.name))o.p[1]+=1.3", "if(o.layer==='tents'&&/fascia/.test(o.name))o.p[1]+=2.1;if(o.layer==='tents'&&/ridge seam/.test(o.name))o.p[1]+=2.6");p.write_text(s,encoding='utf-8')
+p=Path('work/test_walk_physics.py');s=p.read_text(encoding='utf-8').replace('const worldFacilities=new Map();', 'const SHAPES={};const worldFacilities=new Map();');p.write_text(s,encoding='utf-8')

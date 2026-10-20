@@ -24,6 +24,7 @@ def loc(f):
     if f.get('path'):return tuple(sum(p[k] for p in f['path'])/len(f['path']) for k in [0,1])
     return None
 exec((ROOT/'work/road_details.py').read_text(encoding='utf-8'))
+exec((ROOT/'work/underpass_details.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/facility_details.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/gate_details.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/residence_details.py').read_text(encoding='utf-8'))
@@ -75,8 +76,7 @@ for f in features:
     if k in ['parking','plot','alighting','pandal']:
         polygon(f['name'],poly,{'parking':'#c0b99f','plot':'#9b9e7b','alighting':'#b5c3bd','pandal':'#d5c49a'}[k],layer)
     elif k=='underpass':
-        box('Underpass clear opening',x,z,max(w,28),max(d,20),.5,'#434e4a',.2,layer)
-        for off in [-14,14]:box('Underpass retaining wall',x+off,z,2,max(d,25),5,'#b5b6a9',0,layer)
+        corrected_underpass(f,x,z,w,d)
     elif k=='gate':
         premium_gate(f,x,z,w,d)
     elif current=='H05':
@@ -174,6 +174,7 @@ for f in features:
         for zz in [z-d*.34,z+d*.34]:box('Stage display screen',x-w*.415,zz,1,d*.15,5,'#305860',7,'pandal')
     f['representation']='3D footprint and illustrative structure'
     if k=='pandal':enhance_pandal(f,x,z,w,d)
+raise_highway_at_underpasses()
 exec((ROOT/'work/reference_tents.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/vip_gate.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/frontage_boundary.py').read_text(encoding='utf-8'))
@@ -183,10 +184,17 @@ exec((ROOT/'work/realistic_environment.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/railway_train.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/water_supply.py').read_text(encoding='utf-8'))
 amusement_info={'status':'Removed at user request; R18 rear parcel now contains reference-style residential tents'}
-for route in plan_routes:
-    current=route['id'];p=[planpoint(*q, y=3.8) for q in route['points']]
-    line(route['id']+' source route family',p,2,.15,route['color'],'traffic',3)
-    routes.append(dict(name=route['id'],points=p,color=route['color'],layer='traffic'))
+exec((ROOT/'work/aligned_routes.py').read_text(encoding='utf-8'))
+for route_index,route in enumerate(plan_routes):
+    current=route['id'];p=road_aligned_route(route,route_index)
+    chunks=[[]]
+    for q in p:
+        if chunks[-1] and math.dist(chunks[-1][-1],q)>12:chunks.append([])
+        chunks[-1].append(q)
+    for part in chunks:
+        if len(part)<2:continue
+        ribbon(route['id']+' road-aligned path',part,.55,.035,route['color'],'traffic')
+        routes.append(dict(name=route['id'],points=part,color=route['color'],layer='traffic',width=.55,status='Visual route family snapped to schematic road axes; not turn-by-turn guidance'))
 # User-requested dark-brown railway track and sleepers.
 for o in objects:
     if o['featureId']=='H06':o['color']='#493025' if o['name']=='Railway sleeper' else '#38291f'
@@ -239,6 +247,7 @@ meta['reference_accommodation']=reference_tent_info
 meta['amusement_zone']=amusement_info
 meta['p5_parking']=p5_info
 meta['s04_footbridge']=footbridge_info
+meta['underpasses']=underpass_nav
 meta['railway_train']=train_info
 meta['water_supply']=water_info
 meta['highway_boundary']=frontage_info
@@ -258,6 +267,7 @@ src=(ROOT/'work/build_model.py').read_text(encoding='utf-8');export=src[src.inde
 export=export.replace('doubleSided=True))',"doubleSided=True,emissiveFactor=([min(1,c*1.65+.06) for c in rgb] if color in {r['color'] for r in plan_routes} else [0,0,0])))")
 export=export.replace('else [0,0,0]',"else ([.35,.19,.045] if color in ['#b78743','#c69a55'] else [0,0,0])")
 export=export.replace('else [0,0,0]',"else ([.45,.13,.015] if color in ['#b94d18','#dc7b24','#f0a044'] else [0,0,0])")
+export=export.replace("(OUT/'samagam-schematic.glb').write_bytes(glb)", "(ROOT/'work/updated-model.glb').write_bytes(glb); (ROOT/'work/updated-model.glb').replace(OUT/'samagam-schematic.glb')")
 exec(export)
 template=(ROOT/'work/viewer-pdf.html').read_text(encoding='utf-8')
 template=template.replace('__SCENE__',json.dumps(scene,separators=(',',':'))).replace('__SHAPES__',json.dumps({'box':[cubeV,cubeF],'roof':[roofV,roofF],'ramp':[rampV,rampF],**extra_shapes}))

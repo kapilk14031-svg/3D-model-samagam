@@ -37,6 +37,12 @@ def dashed(name,pts,offset,width,color,layer,y=1.16,dash=5,gap=9):
 
 def detailed_road(f,p,width):
     name=f['name'];highway=f['kind']=='road';layer='context'
+    if highway:
+        dense=[]
+        for a,b in zip(p,p[1:]):
+            n=max(1,math.ceil(math.dist(a,b)/6))
+            dense.extend([[a[j]+(b[j]-a[j])*i/n for j in range(3)] for i in range(n)])
+        p=dense+[p[-1]]
     ribbon(name+' compacted shoulder',p,width+5,.35,'#b9b7a0',layer,-.1)
     ribbon(name+' continuous road surface',p,width,1.1,'#283639' if highway else '#3d4847',layer)
     for off in [-width/2+.65,width/2-.65]:
@@ -74,3 +80,4 @@ def detailed_flyover(p):
             xx=a[0]+dx*t/ll;zz=a[2]+dz*t/ll
             box('Flyover concrete pier',xx,zz,4,6,8,'#b5b8aa',0,'bridges')
             box('Flyover pier crosshead',xx,zz,22,4,1,'#c8c9b6',8,'bridges');objects[-1]['rotY']=-math.atan2(dz,dx)+math.pi/2
+

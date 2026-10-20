@@ -1,7 +1,7 @@
 from pathlib import Path
 root=Path(__file__).resolve().parents[1];s=(root/'work/viewer-pdf.html').read_text(encoding='utf-8')
 fn=s[s.index('function updateAK('):s.index('const akBuffer=')]
-pre="""const assert=require('assert');let streetMode=true,walker=[0,1.3,0],heading=0,desiredHeading=0,pitch=.23,desiredPitch=.23,moveVX=0,moveVZ=0,gaitPhase=0,actorHeading=0,stepImpulse=[0,0],dirty=false;const heldKeys=new Set();const document={getElementById:()=>({textContent:''})};
+pre="""const assert=require('assert');let streetMode=true,walker=[0,1.3,0],heading=0,desiredHeading=0,pitch=.23,desiredPitch=.23,moveVX=0,moveVZ=0,gaitPhase=0,actorHeading=0,stepImpulse=[0,0],dirty=false;let akBlocked=false;function moveWalker(dx,dz){walker[0]+=dx;walker[2]+=dz}const heldKeys=new Set();const document={getElementById:()=>({textContent:''})};
 """
 checks="""
 function reset(){walker=[0,1.3,0];heading=desiredHeading=0;moveVX=moveVZ=0;stepImpulse=[0,0];heldKeys.clear()}
