@@ -15,11 +15,12 @@ video-renders/
 
 # Ignore python cache
 __pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 
 # Ignore temporary video frame captures
-work/video-*.png
-work/street-*.png
-work/contact-video-*.jpg
-work/movie-*.png
+**/work/video-*.png
+**/work/street-*.png
+**/work/contact-video-*.jpg
+**/work/movie-*.png

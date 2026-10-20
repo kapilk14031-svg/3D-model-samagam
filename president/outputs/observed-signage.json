@@ -1,0 +1,230 @@
+[
+  {
+    "key": "sign-gate",
+    "lines": [
+      "ACADEMY FOR HOLISTIC EXCELLENCE",
+      "ज्ञान मानसरोवर"
+    ],
+    "p": [
+      -12.779705075097615,
+      5.55,
+      -65.9046393329574
+    ],
+    "size": [
+      21.531903127960693,
+      1.5
+    ],
+    "rot": 3.125289115922337,
+    "source": "Photo 6; video 3 opening gate",
+    "bg": "#d2b26f",
+    "fg": "#283650",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.84869931695667,
+      29.413671578554293
+    ]
+  },
+  {
+    "key": "sign-residential",
+    "lines": [
+      "DADI",
+      "PRAKASHMANI",
+      "Residential Complex"
+    ],
+    "p": [
+      0.044208300851035554,
+      4.65,
+      23.2650888272177
+    ],
+    "size": [
+      9.013354797750988,
+      2.1
+    ],
+    "rot": 3.125289115922337,
+    "source": "Photo 21 / 26; video 3 ~97s",
+    "bg": "#735449",
+    "fg": "#f3dfad",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.84883145552567,
+      29.412867106993676
+    ]
+  },
+  {
+    "key": "sign-main-hindi",
+    "lines": [
+      "प्रजापिता ब्रह्माकुमारी",
+      "ईश्वरीय विश्व विद्यालय",
+      "मुख्यालय माउण्ट आबू (राजस्थान)",
+      "ज्ञान मानसरोवर (पानीपत)"
+    ],
+    "p": [
+      -0.10299938664600017,
+      10.45,
+      13.038720665061998
+    ],
+    "size": [
+      14.02077412983487,
+      2.3
+    ],
+    "rot": 3.125289115922337,
+    "source": "Photo 21 / 26, portico top board",
+    "bg": "#ece5d2",
+    "fg": "#293d6e",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.84882993868656,
+      29.412959367254246
+    ]
+  },
+  {
+    "key": "sign-pure",
+    "lines": [
+      "पवित्र",
+      "बनो"
+    ],
+    "p": [
+      7.807671692284914,
+      10.45,
+      13.167704017329342
+    ],
+    "size": [
+      1.1016322530584541,
+      2
+    ],
+    "rot": 3.125289115922337,
+    "source": "Photo 21, viewer-left side of portico board",
+    "bg": "#ece5d2",
+    "fg": "#293d6e",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.848911450837,
+      29.412958203592083
+    ]
+  },
+  {
+    "key": "sign-yogi",
+    "lines": [
+      "योगी",
+      "बनो"
+    ],
+    "p": [
+      -8.013670465576915,
+      10.45,
+      12.909737312794654
+    ],
+    "size": [
+      1.1016322530584541,
+      2
+    ],
+    "rot": 3.125289115922337,
+    "source": "Photo 21, viewer-right side of portico board",
+    "bg": "#ece5d2",
+    "fg": "#293d6e",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.84874842653615,
+      29.412960530916408
+    ]
+  },
+  {
+    "key": "sign-auditorium",
+    "lines": [
+      "Dadi",
+      "Chandermani",
+      "Universal",
+      "Peace",
+      "Auditorium"
+    ],
+    "p": [
+      -18.736522307926943,
+      3.4,
+      5.541735249313771
+    ],
+    "size": [
+      3.4702597124468615,
+      2.5
+    ],
+    "rot": 1.5711608553920147,
+    "source": "Photo 65; video 8 first frame",
+    "bg": "#41362f",
+    "fg": "#eee2bb",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.84863793746338,
+      29.413027003566274
+    ]
+  },
+  {
+    "key": "sign-classroom",
+    "lines": [
+      "CLASS ROOM"
+    ],
+    "p": [
+      -18.714321977396462,
+      1.8,
+      -46.58141830024612
+    ],
+    "size": [
+      3.648221748982598,
+      0.5
+    ],
+    "rot": 1.5711608553920147,
+    "source": "Photo 13; photo 19 classroom near gate end",
+    "bg": "#e5dfcc",
+    "fg": "#622c33",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.84863816621726,
+      29.41349724829557
+    ]
+  },
+  {
+    "key": "sign-literature",
+    "lines": [
+      "LITERATURE DEPARTMENT"
+    ],
+    "p": [
+      -18.671401208905774,
+      4.5,
+      9.227186442106106
+    ],
+    "size": [
+      4.893956004732754,
+      0.45
+    ],
+    "rot": 1.5711608553920147,
+    "source": "Photo 65 left of auditorium entry; only readable words reproduced",
+    "bg": "#e5dfcc",
+    "fg": "#3e3331",
+    "placement": "Relative facade position observed; metric coordinates estimated",
+    "longitudeLatitude": [
+      76.8486386084761,
+      29.412993754158276
+    ]
+  },
+  {
+    "key": "sign-lotus",
+    "lines": [
+      "तपस्या धाम"
+    ],
+    "p": [
+      26.976205697951222,
+      7.22,
+      -46.107182621644576
+    ],
+    "size": [
+      2.6125,
+      0.25
+    ],
+    "rot": 0,
+    "source": "Screenshot 110314: visible red doorway-frieze text; Dec 2022 imagery. Current presence not independently verified.",
+    "bg": "#eeeae2",
+    "fg": "#9c4e59",
+    "placement": "Above entrance as photographed; dimensions estimated",
+    "longitudeLatitude": [
+      76.84910896485468,
+      29.413492969835556
+    ]
+  }
+]

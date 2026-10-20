@@ -1,0 +1,89 @@
+GYAN MANSAROVAR — SATELLITE / PHOTO INFORMED 3D STUDY
+20 October 2026
+
+REVISION 8: 12 additional architectural references reviewed. Sculpted pink
+lotus petal courses, open entrance, curved dark steps, pots, windows,
+name, broad walkway, lights, palms; residential rails; BOTH side gates.
+See ARCHITECTURAL-PHOTO-REVIEW.md. A separate health-centre facade study
+is supplied without geographic placement. Historical views are documented.
+
+REVISION 7: Lotus pavilion rebuilt from full-resolution source video frames:
+curved dome, white eave/drum, small elevated petals, flared cup, finial and
+solid terrace treads. See LOTUS-DETAIL-REVIEW.md for source/uncertainty.
+
+REVISION 6: Main-road boundary crossings removed, frontage aligned,
+continuous gate apron, earth shoulders and road surface improved.
+Choose Main road & boundary to review. See ROAD-CORRECTION.md.
+
+REVISION 5: Reviewed all 11 screenshots in the 10:43 AM ZIP; pavilion
+terrace edges and blue-roof solar modules refined. No videos in this archive.
+See SATELLITE-REVIEW-1043.md and satellite-review-1043.json.
+
+REVISION 4: Google Earth displayed-grid registration, corrected footprints,
+coordinate readout, satellite comparison, GeoJSON and Google Earth KMZ.
+See COORDINATE-ALIGNMENT.md for current accuracy and compatibility details.
+
+REVISION 3: Physical facade signs, detailed open gates and inner circulation,
+residential portico/lobby details and expanded surrounding area.
+See ROADS-AND-SIGNAGE.md and observed-signage.json.
+
+Open gyan-mansarovar-3d.html in a browser with internet for the 3D library.
+Keep reference-photos beside it to see the local reference gallery.
+gyan-mansarovar-concept.glb is self-contained and opens in Blender or another GLB viewer.
+model-data.json contains every object, approximate local position, dimensions and status.
+
+CONTROLS
+Choose Poora compound, Roof hata kar dekhein, Hall ke andar, Stage se hall,
+VVIP rooms — proposal, or Upar se layout. Drag to rotate, scroll to zoom,
+right-drag to pan. Click a model object to inspect its name/status.
+VVIP arrangement layer is off by default in the browser viewer.
+
+REFERENCES REVIEWED
+- User-supplied Google Maps link resolved to 29.413077, 76.848831.
+- Satellite views inspected at 100 m, 50 m and 20 m scale-bar levels.
+- Public Google Maps facade photos (2018/2022), lotus pavilion (2022),
+  stage and small hall images (2025).
+- User ZIP: WhatsApp Unknown 2026-10-20 at 9.45.02 AM.zip.
+  All 65 photos reviewed via indexed contact sheets.
+  Revision 2: nine complete video durations visually reviewed through 147 frames
+  at approximately two-second intervals plus opening/ending views.
+  Audio not transcribed. See VIDEO-ANALYSIS.md for timestamped observations.
+  Recent local imagery takes priority for hall furniture and facade details.
+- Auditorium name is also supported by the official local centre event report:
+  https://panipat.bk.ooo/?p=2036
+- Map: https://maps.app.goo.gl/JG881XSsXu1Vi61L9?g_st=aw
+
+RECONSTRUCTED FEATURES
+Core western roofed hall; lawn and crossed paths; circular lotus meditation
+pavilion; southern two-storey block, portico and rear/service roof wings;
+two separate western covered blocks and eastern nearby footprint; visible
+unfinished multi-storey block (approximate placement); road and compound
+envelope; garden lights and simplified palms. Hall includes raised stage,
+green carpet steps and rails, podium, stage sofas, floral strip, armchairs,
+central aisle, acoustic wall panels, ceiling lights and suspended speakers.
+
+WHAT IS ESTIMATED / NOT YET VERIFIED
+This is a schematic planning model, not a measured digital twin, LiDAR model,
+photogrammetric reconstruction or an exact extraction of Google 3D geometry.
+The current footprint frame uses the supplied displayed graticule; no certified
+ground survey was supplied. See the new GeoJSON for digitised footprint extents.
+Local coordinates use metres with +X east, +Y up and +Z south.
+Heights, facade bay count, detailed facade placement/orientation
+of the interior within its roof footprint and 840 illustrative chairs are estimates.
+The chair count is NOT a verified or approved audience capacity.
+Nearby structures are context; ownership/site inclusion and function unverified.
+The compound wall is a visual envelope, not a legal property boundary.
+Toilets, existing kitchen/dining, utility rooms, guest-room inventory and all
+remaining interiors could not be located from the supplied imagery.
+Do not treat this model as proof that every room or facility is accounted for.
+
+PROPOSED VVIP LAYER
+Lounge, reception, medical/support and dining room allocations/partitions,
+reception canopy, illustrative parking and furniture are proposals.
+They do not describe verified existing room uses or approved parking spaces.
+No visit timing or protected-person movement/security plan is implied.
+
+FOR AN EXACT SITE VERSION
+Add a measured site plan, building floor plans and room register, including
+entrances, toilets, kitchen, dining, stairs, service utilities and actual parking.
+Confirm north, boundaries, hall footprint, dimensions and room uses on site.
