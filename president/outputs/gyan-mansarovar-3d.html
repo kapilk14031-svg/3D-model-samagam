@@ -3170,11 +3170,19 @@ depUI('form').addEventListener('submit',e=>{
 depUI('form').addEventListener('change',()=>{if(depUI('form').checkValidity())depUI('form').requestSubmit();});
 if(depUI('name')) depUI('name').addEventListener('input', () => {
   const o = depItems.find(x => x.id === depSelected);
-  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); }
+  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(); }
 });
 if(depUI('duty')) depUI('duty').addEventListener('input', () => {
   const o = depItems.find(x => x.id === depSelected);
-  if (o) { o.duty = depUI('duty').value; depSyncDropdownLabels(o); }
+  if (o) { o.duty = depUI('duty').value; depSyncDropdownLabels(o); depStore(); }
+});
+if(depUI('belt')) depUI('belt').addEventListener('input', () => {
+  const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.belt = depUI('belt').value; depStore(); }
+});
+if(depUI('mobile')) depUI('mobile').addEventListener('input', () => {
+  const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.mobile = depUI('mobile').value; depStore(); }
 });
 
 function depRotate(delta){
@@ -3208,7 +3216,7 @@ depUI('add').onclick=()=>{
     : kind === 'square_box' ? 'Designated Deployment Point'
     : '';
   depItems.push({id,kind,name,duty,belt:'',mobile:'',x:controls.target.x,y:.3,z:controls.target.z,angle:0});
-  depSelected=id;depNew=id;depBuild();depChoose(id);depPlace=true;depUpdate();
+  depSelected=id;depNew=id;depStore();depBuild();depChoose(id);depPlace=true;depUpdate();
   depUI('status').textContent='Click the model surface to place the new '+kind+'. Esc cancels.';
 };
 depUI('move').onclick=()=>{
@@ -3974,6 +3982,9 @@ window.addEventListener('keyup', e => {
     depKeysDown[' '] = false;
     depKeysDown['spacebar'] = false;
   }
+  if (['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright','q','e','shift'].includes(key)) {
+    if (depSelected) depStore();
+  }
 });
 
 window.addEventListener('blur', () => {
@@ -4260,16 +4271,21 @@ function depSaveBeforeLeave(){
   try{
     localStorage.setItem(depStorage,JSON.stringify({version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems}));
   }catch(e){}
-  if(depBackendURL&&(depPending||depItems.length>0)){
+  if(depBackendURL&&depItems.length>0){
     const payload=depPayload();
     const body=JSON.stringify({revision:depRevision,plan:payload});
     try{
-      fetch(depBackendURL,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
-        body:body,
-        keepalive:true
-      });
+      if(navigator.sendBeacon){
+        const blob=new Blob([body],{type:'application/json'});
+        navigator.sendBeacon(depBackendURL,blob);
+      }else{
+        fetch(depBackendURL,{
+          method:'POST',
+          headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+          body:body,
+          keepalive:true
+        });
+      }
     }catch(e){}
   }
 }

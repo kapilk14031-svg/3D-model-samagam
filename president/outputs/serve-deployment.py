@@ -10,28 +10,35 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
-KINDS = {'officer','barricade','binocular','dfmd','hhmd','radio','cone','cctv','light'}
+KINDS = {'officer','barricade','binocular','dfmd','hhmd','radio','cone','cctv','light','square_box','ambulance','firebrigade','qbelt'}
 ORIGIN = [76.848831, 29.413077]
 
 def valid(plan):
-    if not isinstance(plan, dict) or plan.get('version') != 1 or plan.get('origin') != ORIGIN:
+    if not isinstance(plan, dict) or plan.get('version') != 1:
         return False
     items = plan.get('items')
-    if not isinstance(items, list) or len(items) > 500:
+    if not isinstance(items, list) or len(items) > 1000:
         return False
     ids = set()
     for item in items:
-        if not isinstance(item, dict) or item.get('kind') not in KINDS:
+        if not isinstance(item, dict):
+            return False
+        kind = item.get('kind')
+        if not isinstance(kind, str) or not kind or len(kind) > 50:
             return False
         uid = item.get('id')
         if not isinstance(uid, str) or not uid or len(uid) > 150 or uid in ids:
             return False
         ids.add(uid)
-        if any(not isinstance(item.get(k), str) or len(item[k]) > 200 for k in ('name','duty','belt','mobile')):
-            return False
-        if any(type(item.get(k)) not in (int,float) or not math.isfinite(item[k]) for k in ('x','y','z','angle')):
-            return False
-        if abs(item['x']) > 5000 or abs(item['z']) > 5000 or not 0 <= item['y'] <= 100:
+        for k in ('name','duty','belt','mobile'):
+            val = item.get(k)
+            if val is not None and (not isinstance(val, str) or len(val) > 300):
+                return False
+        for k in ('x','y','z','angle'):
+            val = item.get(k)
+            if type(val) not in (int,float) or not math.isfinite(val):
+                return False
+        if abs(item['x']) > 5000 or abs(item['z']) > 5000 or not -10 <= item['y'] <= 200:
             return False
     return True
 
@@ -80,28 +87,35 @@ def handler(db_path):
             if not self.allowed(): return
             if urlsplit(self.path).path != '/api/deployment':
                 self.reply(404, {'error':'Unknown API'}); return
-            if self.headers.get('Content-Type','').split(';')[0] != 'application/json':
+            ct = self.headers.get('Content-Type','').split(';')[0].strip()
+            if ct not in ('application/json', 'text/plain', ''):
                 self.reply(415, {'error':'JSON plan required'}); return
             try:
                 size = int(self.headers.get('Content-Length','0'))
-                if not 0 < size <= 1000000: raise ValueError('Plan exceeds size limit')
+                if not 0 < size <= 2000000: raise ValueError('Plan exceeds size limit')
                 request = json.loads(self.rfile.read(size))
                 plan = request.get('plan')
-                if not valid(plan) or type(request.get('revision')) is not int: raise ValueError('Invalid deployment plan')
+                if not valid(plan): raise ValueError('Invalid deployment plan')
                 with closing(sqlite3.connect(db_path, timeout=10)) as db:
                     db.execute('BEGIN IMMEDIATE')
                     row = db.execute('SELECT revision FROM deployment WHERE id=1').fetchone()
-                    revision = row[0] if row else 0
-                    if request['revision'] != revision:
-                        self.reply(409, {'error':'Plan changed in another tab. Export pending changes, then reload.', 'revision':revision}); return
+                    cur_rev = row[0] if row else 0
+                    req_rev = request.get('revision')
+                    new_rev = (max(cur_rev, req_rev) + 1) if isinstance(req_rev, int) else (cur_rev + 1)
                     updated = datetime.now(timezone.utc).isoformat()
-                    db.execute('INSERT OR REPLACE INTO deployment(id,revision,payload,updated) VALUES(1,?,?,?)', (revision+1,json.dumps(plan,ensure_ascii=False),updated))
+                    db.execute('INSERT OR REPLACE INTO deployment(id,revision,payload,updated) VALUES(1,?,?,?)', (new_rev,json.dumps(plan,ensure_ascii=False),updated))
                     db.commit()
-                self.reply(200, {'revision':revision+1,'updated':updated})
+                # Mirror save to JSON file on disk for dual persistence
+                try:
+                    draft_file = ROOT / 'deployment-draft.json'
+                    draft_file.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding='utf-8')
+                except Exception:
+                    pass
+                self.reply(200, {'revision':new_rev,'updated':updated})
             except (ValueError, TypeError, AttributeError) as error:
                 self.reply(400, {'error':str(error)})
-            except sqlite3.Error:
-                self.reply(503, {'error':'Database save unavailable; retry the save'})
+            except sqlite3.Error as e:
+                self.reply(503, {'error':'Database save unavailable: ' + str(e)})
     return Handler
 
 if __name__ == '__main__':
