@@ -854,8 +854,6 @@ for it in catalog_items:
       <canvas class="dep-card-3d-canvas" data-kind="{k}" width="300" height="200"></canvas>
       <img class="dep-card-fallback-img" src="{img_src}" alt="{it['name']}" style="display:none;" loading="lazy">
       <span class="dep-live-badge {badge_cls}" data-kind="{k}">{badge_label}</span>
-      <span class="dep-card-badge">🔄 3D 360° Live</span>
-      <span class="dep-card-drag-hint">↔️ Drag to Rotate (घुमाएँ)</span>
     </div>
     <div class="dep-asset-body">
       <div class="dep-asset-title-row">
