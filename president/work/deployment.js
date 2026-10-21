@@ -831,44 +831,47 @@ window.addEventListener('keydown', e => {
     }
   }
 
-  // 1. If an item IS selected -> WASD moves item, QE rotates item
-  if (depSelected) {
+  // 1. If an item is selected, Arrow keys can nudge it
+  if (depSelected && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
     const o = depItems.find(o => o.id === depSelected);
-    if (!o) return;
-    const step = e.shiftKey ? 1.0 : 0.25;
-    let moved = false;
-    if (key === 'w') { o.z -= step; moved = true; }
-    else if (key === 's') { o.z += step; moved = true; }
-    else if (key === 'a') { o.x -= step; moved = true; }
-    else if (key === 'd') { o.x += step; moved = true; }
-    else if (key === 'q') { o.angle = (o.angle - 30 + 360) % 360; moved = true; }
-    else if (key === 'e') { o.angle = (o.angle + 30 + 360) % 360; moved = true; }
-
-    if (moved) {
-      e.preventDefault();
-      depStore();
-      depBuild();
-      depChoose(o.id, false); // Don't reset zoom while nudging
-      if (depCamera) depView(depCamera);
+    if (o) {
+      const step = e.shiftKey ? 1.0 : 0.25;
+      let moved = false;
+      if (key === 'arrowup') { o.z -= step; moved = true; }
+      else if (key === 'arrowdown') { o.z += step; moved = true; }
+      else if (key === 'arrowleft') { o.x -= step; moved = true; }
+      else if (key === 'arrowright') { o.x += step; moved = true; }
+      if (moved) {
+        e.preventDefault();
+        depStore();
+        depBuild();
+        depChoose(o.id, false);
+        if (depCamera) depView(depCamera);
+        return;
+      }
     }
-    return;
   }
 
-  // 2. Camera Controls (A/D: slide left/right without rotating, W/S: move forward/back, Q/E: rotate, Z/X: angle, K/L: zoom)
+  // 2. Camera Controls
+  // W/S: Move Forward / Backward along viewing horizon
+  // A/D: Slide Left / Right sideways without rotating
+  // Q/E: Turntable Orbit Rotate Left / Right
+  // Z/X: Camera Elevation Angle (Tilt Up / Down)
+  // K/L: Smooth Zoom In / Zoom Out
   const v = window.__CAM_VELOCITY;
   if (v) {
     const mult = e.shiftKey ? 1.8 : 1.0;
     const dist = camera.position.distanceTo(controls.target);
-    const panSpeed = (e.shiftKey ? 1.6 : 0.8) * Math.max(0.4, dist * 0.016);
+    const panSpeed = (e.shiftKey ? 1.8 : 0.9) * Math.max(0.4, dist * 0.018);
     let handled = false;
 
-    // A, D: Left / Right Pan (Move sideways without rotation!)
-    if (key === 'a') { v.panX -= panSpeed; handled = true; }
-    else if (key === 'd') { v.panX += panSpeed; handled = true; }
+    // A, D: Left / Right Pan (Move sideways without rotation)
+    if (key === 'a') { v.panRight -= panSpeed; handled = true; }
+    else if (key === 'd') { v.panRight += panSpeed; handled = true; }
 
-    // W, S: Forward / Backward Pan
-    else if (key === 'w') { v.panZ -= panSpeed; handled = true; }
-    else if (key === 's') { v.panZ += panSpeed; handled = true; }
+    // W, S: Forward / Backward Pan (Aage / Piche)
+    else if (key === 'w') { v.panForward += panSpeed; handled = true; }
+    else if (key === 's') { v.panForward -= panSpeed; handled = true; }
 
     // Q, E: Horizontal turntable rotate
     else if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
