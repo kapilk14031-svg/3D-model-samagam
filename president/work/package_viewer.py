@@ -785,6 +785,16 @@ catalog_items = [
         "guideline": "Arranged at registration desks, security gates, and auditorium foyer entrances."
     },
     {
+        "kind": "parking",
+        "symbol": "🅿️",
+        "name": "Function Vehicle Parking Lot",
+        "hindi": "वाहन पार्किंग क्षेत्र (3 कार्स + हरियाणा पुलिस बस)",
+        "role": "Organized Event Parking & Police Bus Depot",
+        "desc": "Demarcated square parking lot for function vehicles, featuring 3 parked delegate cars and 1 official Haryana Police duty bus in painted bays.",
+        "specs": "Square Asphalt Lot · White & Yellow Stall Lines · 3 Cars · 1 Haryana Police Heavy Bus · Full Keyboard WASD Driving Controls",
+        "guideline": "Positioned at designated venue parking zones, outer boundary roads, and VIP transit sectors.",
+    },
+    {
         "kind": "square_box",
         "symbol": "📦",
         "name": "Security Checkpost Booth",
@@ -818,6 +828,15 @@ for it in catalog_items:
         "img": item_images_b64[k]
     }
 
+seeded_counts = {
+    'officer': 13,
+    'barricade': 2,
+    'dfmd': 1,
+    'hhmd': 1,
+    'binocular': 1,
+    'parking': 1,
+}
+
 deployed_items_html = '''
 <div class="dep-asset-grid" id="dep-asset-grid">
 '''
@@ -825,12 +844,16 @@ deployed_items_html = '''
 for it in catalog_items:
     k = it['kind']
     img_src = item_images_b64.get(k, '')
+    c = seeded_counts.get(k, 0)
+    badge_label = f"{c} Deployed" if c > 0 else "0 Placed"
+    badge_cls = "badge-active" if c > 0 else "badge-zero"
+    inst_html = f'<span style="color:#0284c7;font-size:12px;font-weight:600;">📍 {c} deployed on site</span>' if c > 0 else '<span style="color:#94a3b8;font-size:12px;font-style:italic;">None placed on map yet.</span>'
     deployed_items_html += f'''
   <div class="dep-asset-card" data-kind="{k}">
     <div class="dep-asset-thumb-wrap" data-kind="{k}" title="360° 3D Preview — Drag to rotate or click to expand specs">
       <canvas class="dep-card-3d-canvas" data-kind="{k}" width="300" height="200"></canvas>
       <img class="dep-card-fallback-img" src="{img_src}" alt="{it['name']}" style="display:none;" loading="lazy">
-      <span class="dep-live-badge badge-zero" data-kind="{k}">Checking...</span>
+      <span class="dep-live-badge {badge_cls}" data-kind="{k}">{badge_label}</span>
       <span class="dep-card-badge">🔄 3D 360° Live</span>
       <span class="dep-card-drag-hint">↔️ Drag to Rotate (घुमाएँ)</span>
     </div>
@@ -853,7 +876,7 @@ for it in catalog_items:
           </div>
         </div>
         <div class="dep-asset-instances-list" data-kind="{k}">
-          <span style="color:#94a3b8;font-size:12px;">Loading deployed items...</span>
+          {inst_html}
         </div>
       </div>
     </div>
@@ -930,6 +953,9 @@ document.querySelectorAll('#ref-tabs .ref-tab-btn').forEach(btn => {{
     btn.classList.add('active');
     const target = document.getElementById(btn.dataset.tab);
     if(target) target.classList.add('active');
+    if(btn.dataset.tab === 'tab-deployment-items' && typeof window.updateDeployedCatalogCounts === 'function') {{
+      window.updateDeployedCatalogCounts();
+    }}
   }});
 }});
 
@@ -937,12 +963,15 @@ document.querySelectorAll('#ref-tabs .ref-tab-btn').forEach(btn => {{
 
 // Update catalog counts & instances
 function updateDeployedCatalogCounts() {{
-  if (typeof depItems === 'undefined' || !Array.isArray(depItems)) return;
+  const items = (typeof window.depItems !== 'undefined' && Array.isArray(window.depItems))
+    ? window.depItems
+    : ((typeof depItems !== 'undefined' && Array.isArray(depItems)) ? depItems : []);
+  if (!items || !items.length) return;
   const counts = {{}};
-  for (const it of depItems) {{
+  for (const it of items) {{
     if (it && it.kind) counts[it.kind] = (counts[it.kind] || 0) + 1;
   }}
-  const total = depItems.length;
+  const total = items.length;
   const totalBadge = document.getElementById('dep-catalog-total-badge');
   if (totalBadge) {{
     totalBadge.textContent = `⚡ ${{total}} Items Deployed Across Gyan Mansarovar`;
@@ -955,7 +984,7 @@ function updateDeployedCatalogCounts() {{
   }});
   document.querySelectorAll('.dep-asset-instances-list[data-kind]').forEach(el => {{
     const kind = el.dataset.kind;
-    const instances = depItems.filter(it => it.kind === kind);
+    const instances = items.filter(it => it.kind === kind);
     if (instances.length === 0) {{
       el.innerHTML = '<span style="color:#94a3b8;font-size:12px;font-style:italic;">None placed on map yet.</span>';
       return;
@@ -968,11 +997,12 @@ function updateDeployedCatalogCounts() {{
   }});
 }}
 window.updateDeployedCatalogCounts = updateDeployedCatalogCounts;
+window.refreshDeployedCatalogCounts = updateDeployedCatalogCounts;
 
 // =========================================================================
 // EQUIPMENT 3D ROTATION & LIGHTBOX ENGINE
 // =========================================================================
-const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box'];
+const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box','parking'];
 const depCatalogData = {catalog_data_json};
 let modalCurrentKind = 'officer';
 let depModalTab = '3d';

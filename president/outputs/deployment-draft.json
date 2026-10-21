@@ -390,6 +390,18 @@
       "y": 0,
       "z": -80.7,
       "angle": 351.34
+    },
+    {
+      "id": "post-vip-helicopter",
+      "kind": "helicopter",
+      "name": "VIP Helicopter (Air One)",
+      "duty": "VIP Helipad Air Transit & Surveillance",
+      "belt": "PILOT-01",
+      "mobile": "VVIP-AIR-CONTROL",
+      "x": -21.82,
+      "y": 0.4,
+      "z": -164.66,
+      "angle": 5
     }
   ]
 }

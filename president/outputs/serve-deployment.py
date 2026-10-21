@@ -64,39 +64,43 @@ def handler(db_path):
                 return False
             return True
         def do_GET(self):
-            if not self.allowed(): return
-            path = urlsplit(self.path).path
-            if path == '/api/deployment':
-                with closing(sqlite3.connect(db_path)) as db:
-                    row = db.execute('SELECT revision, payload, updated FROM deployment WHERE id=1').fetchone()
-                if row:
-                    self.reply(200, {'revision':row[0], 'plan':json.loads(row[1]), 'updated':row[2]})
-                else:
-                    # Fallback to deployment-draft.json on disk if SQLite record is not found
-                    draft_file = ROOT / 'deployment-draft.json'
-                    if draft_file.exists():
-                        try:
-                            draft_plan = json.loads(draft_file.read_text(encoding='utf-8'))
-                            if valid(draft_plan):
-                                now = datetime.now(timezone.utc).isoformat()
-                                with closing(sqlite3.connect(db_path, timeout=10)) as db:
-                                    db.execute('INSERT OR REPLACE INTO deployment(id,revision,payload,updated) VALUES(1,1,?,?)', (json.dumps(draft_plan, ensure_ascii=False), now))
-                                    db.commit()
-                                self.reply(200, {'revision':1, 'plan':draft_plan, 'updated':now})
-                                return
-                        except Exception:
-                            pass
-                    self.reply(200, {'revision':0,'plan':None})
-                return
-            if path == '/':
-                self.send_response(302); self.send_header('Location','/outputs/gyan-mansarovar-3d.html'); self.end_headers(); return
-            if path.startswith('/outputs/'):
-                self.path = self.path[len('/outputs'):]
-            elif path.startswith('/api/'):
-                self.reply(404, {'error':'Unknown API'}); return
-            if '..' in urlsplit(self.path).path or self.path.endswith('/'):
-                self.send_error(404); return
-            super().do_GET()
+            try:
+                if not self.allowed(): return
+                path = urlsplit(self.path).path
+                if path == '/api/deployment':
+                    with closing(sqlite3.connect(db_path)) as db:
+                        row = db.execute('SELECT revision, payload, updated FROM deployment WHERE id=1').fetchone()
+                    if row:
+                        self.reply(200, {'revision':row[0], 'plan':json.loads(row[1]), 'updated':row[2]})
+                    else:
+                        draft_file = ROOT / 'deployment-draft.json'
+                        if draft_file.exists():
+                            try:
+                                draft_plan = json.loads(draft_file.read_text(encoding='utf-8'))
+                                if valid(draft_plan):
+                                    now = datetime.now(timezone.utc).isoformat()
+                                    with closing(sqlite3.connect(db_path, timeout=10)) as db:
+                                        db.execute('INSERT OR REPLACE INTO deployment(id,revision,payload,updated) VALUES(1,1,?,?)', (json.dumps(draft_plan, ensure_ascii=False), now))
+                                        db.commit()
+                                    self.reply(200, {'revision':1, 'plan':draft_plan, 'updated':now})
+                                    return
+                            except Exception:
+                                pass
+                        self.reply(200, {'revision':0,'plan':None})
+                    return
+                if path == '/':
+                    self.send_response(302); self.send_header('Location','/outputs/gyan-mansarovar-3d.html'); self.end_headers(); return
+                if path.startswith('/outputs/'):
+                    self.path = self.path[len('/outputs'):]
+                elif path.startswith('/api/'):
+                    self.reply(404, {'error':'Unknown API'}); return
+                if '..' in urlsplit(self.path).path or self.path.endswith('/'):
+                    self.send_error(404); return
+                super().do_GET()
+            except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError):
+                pass
+        def handle_error(self, request, client_address):
+            pass
         def do_POST(self):
             return self.do_PUT()
         def do_PUT(self):
@@ -158,5 +162,7 @@ if __name__ == '__main__':
     server = ThreadingHTTPServer(('127.0.0.1',args.port), handler(args.db))
     print(f'3D viewer: http://127.0.0.1:{args.port}/outputs/gyan-mansarovar-3d.html', flush=True)
     print(f'Database: {args.db}', flush=True)
-    try: server.serve_forever()
-    except KeyboardInterrupt: server.server_close()
+    while True:
+        try: server.serve_forever()
+        except KeyboardInterrupt: server.server_close(); break
+        except Exception as e: print('Server error, continuing:', e)
