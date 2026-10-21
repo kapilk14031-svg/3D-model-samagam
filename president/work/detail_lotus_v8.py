@@ -45,7 +45,11 @@ def refine_lotus(objects,colors,signs):
     objects[:]=[o for o in objects if not o['name'].startswith(('Lotus ','Meditation pavilion','Pavilion '))]
     colors.update(lotusIvory='#eeeae2',lotusPink='#dfabbc',lotusGlass='#718185',lotusFinial='#f8ad36',lotusStone='#626a6a',lotusPot='#e7e9dd')
     def add(name,p,s,mat='lotusIvory',shape='box',rot=0):
-        objects.append(dict(name='Pavilion '+name,p=[28+p[0],p[1],-45+p[2]],s=s,mat=mat,shape=shape,group='campus',rot=rot))
+        # 90 deg clockwise rotation around pavilion center towards Main Gate (faces -X)
+        rx = -p[2]
+        rz = p[0]
+        rrot = rot - math.pi / 2
+        objects.append(dict(name='Pavilion '+name,p=[28+rx,p[1],-45+rz],s=s,mat=mat,shape=shape,group='campus',rot=rrot))
     def cyl(name,r,y,h,mat='lotusIvory',x=0,z=0):add(name,[x,y,z],[r,h,r],mat,'cylinder')
     cyl('circular paved apron • satellite outline',11.4,.25,.15,'stone')
     add('pink circular lotus base with entrance opening',[0,.4,0],[1,3.4,1],'lotusPink','lotusCup')
@@ -89,9 +93,9 @@ def refine_lotus(objects,colors,signs):
         a=math.tau*i/10
         add('finial lotus crown petal',[.41*math.sin(a),12.78,.41*math.cos(a)],[.31,.49,.35],'lotusPink','lotusPetalSculpt',a)
     add('orange finial emblem disk',[0,13.7,0],[.34,.44,.075],'lotusFinial','sphereSmooth')
-    key='sign-lotus';colors[key]='#ffffff';p=[28,7.22,-38.31]
-    signs.append(dict(key=key,lines=['तपस्या धाम'],p=p,size=[2.5,.25],rot=0,source='Screenshot 110314: visible red doorway-frieze text; Dec 2022 imagery. Current presence not independently verified.',bg='#eeeae2',fg='#9c4e59',placement='Above entrance as photographed; dimensions estimated'))
-    objects.append(dict(name='Pavilion observed entrance name: तपस्या धाम',p=p,s=[2.5,.25,1],mat=key,shape='sign',group='campus',rot=0))
+    key='sign-lotus';colors[key]='#ffffff';p=[21.31,7.22,-45]
+    signs.append(dict(key=key,lines=['तपस्या धाम'],p=p,size=[2.5,.25],rot=-math.pi/2,source='Screenshot 110314: visible red doorway-frieze text; Dec 2022 imagery. Current presence not independently verified.',bg='#eeeae2',fg='#9c4e59',placement='Above entrance as photographed; dimensions estimated'))
+    objects.append(dict(name='Pavilion observed entrance name: तपस्या धाम',p=p,s=[2.5,.25,1],mat=key,shape='sign',group='campus',rot=-math.pi/2))
     add('raised front flower bed',[0,.58,15.2],[4.2,.6,2.2],'lotusStone')
     add('flower-bed soil',[0,.91,15.2],[3.8,.08,1.8],'soil')
     for i in range(7):

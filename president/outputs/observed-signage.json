@@ -209,22 +209,22 @@
       "तपस्या धाम"
     ],
     "p": [
-      26.976205697951222,
+      19.98515569795122,
       7.22,
-      -46.107182621644576
+      -53.09823262164457
     ],
     "size": [
       2.6125,
       0.25
     ],
-    "rot": 0,
+    "rot": -1.5707963267948966,
     "source": "Screenshot 110314: visible red doorway-frieze text; Dec 2022 imagery. Current presence not independently verified.",
     "bg": "#eeeae2",
     "fg": "#9c4e59",
     "placement": "Above entrance as photographed; dimensions estimated",
     "longitudeLatitude": [
-      76.84910896485468,
-      29.413492969835556
+      76.8490369285491,
+      29.413556041698843
     ]
   }
 ]
