@@ -1935,9 +1935,49 @@ const depMaterials={
   blue:new THREE.MeshStandardMaterial({color:0x1d3557,roughness:0.6}), // Navy blue cap crown / DFMD / equipment
   white:new THREE.MeshStandardMaterial({color:0xf3f4f6,roughness:0.7}), // Whistle cord / name text
   hair:new THREE.MeshStandardMaterial({color:0x1c1917,roughness:0.9}), // Neat hair
-  lathi:new THREE.MeshStandardMaterial({color:0x6e3c1b,roughness:0.4}) // Polished wood baton
+  lathi:new THREE.MeshStandardMaterial({color:0x6e3c1b,roughness:0.4}), // Polished wood baton
+  hhmdBody:new THREE.MeshStandardMaterial({color:0x1b1f24,roughness:0.42,metalness:0.12}), // Tactical matte polycarbonate scanner casing
+  hhmdGrip:new THREE.MeshStandardMaterial({color:0x0c0e11,roughness:0.88,metalness:0.04}), // Non-slip textured rubber handle grip
+  hhmdSwitch:new THREE.MeshStandardMaterial({color:0xd92d20,roughness:0.35,metalness:0.15}), // Red power/sensitivity toggle slider
+  hhmdSpeaker:new THREE.MeshStandardMaterial({color:0x333b47,roughness:0.45,metalness:0.4}), // Audio buzzer sound emitter grille
+  hhmdLedGreen:new THREE.MeshStandardMaterial({color:0x22c55e,emissive:0x15803d,emissiveIntensity:1.5,roughness:0.2}), // Power ON green LED
+  hhmdLedAmber:new THREE.MeshStandardMaterial({color:0xf59e0b,emissive:0xb45309,emissiveIntensity:1.2,roughness:0.2}), // Ready/Standby amber LED
+  hhmdLedRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xb91c1c,emissiveIntensity:1.5,roughness:0.2}), // Alarm metal-detect red LED
+  hhmdStripe:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.1}) // High-visibility hazard yellow band
 };
-function depPart(g,shape,p,s,mat){const mesh=new THREE.Mesh(geos[shape],depMaterials[mat]);mesh.position.fromArray(p);mesh.scale.fromArray(s);mesh.castShadow=true;mesh.receiveShadow=true;g.add(mesh);return mesh;}
+function depPart(g,shape,p,s,mat){
+  const m = (typeof mat === 'string' ? depMaterials[mat] : mat) || depMaterials.dark;
+  const mesh = new THREE.Mesh(geos[shape], m);
+  mesh.position.fromArray(p);
+  mesh.scale.fromArray(s);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  g.add(mesh);
+  return mesh;
+}
+const depHhmdCanvas=document.createElement('canvas');depHhmdCanvas.width=128;depHhmdCanvas.height=512;
+const dhc=depHhmdCanvas.getContext('2d');
+dhc.fillStyle='#181b20';dhc.fillRect(0,0,128,512);
+dhc.strokeStyle='#374151';dhc.lineWidth=4;dhc.strokeRect(6,6,116,500);
+dhc.fillStyle='#eab308';dhc.fillRect(10,16,108,64);
+dhc.fillStyle='#0f172a';dhc.font='900 18px sans-serif';dhc.textAlign='center';dhc.fillText('SECURITY',64,42);
+dhc.font='800 13px sans-serif';dhc.fillText('SCANNER',64,62);
+dhc.fillStyle='#1e293b';
+for(let i=0;i<4;i++){dhc.beginPath();dhc.moveTo(12+i*28,72);dhc.lineTo(24+i*28,72);dhc.lineTo(16+i*28,80);dhc.lineTo(4+i*28,80);dhc.fill();}
+dhc.fillStyle='#111827';dhc.fillRect(16,92,96,276);
+dhc.strokeStyle='#64748b';dhc.lineWidth=2.5;dhc.strokeRect(22,100,84,260);
+dhc.strokeStyle='#eab308';dhc.lineWidth=1.5;dhc.strokeRect(28,110,72,240);
+dhc.strokeStyle='#38bdf8';dhc.lineWidth=2.5;
+dhc.beginPath();dhc.arc(64,185,26,0,Math.PI*2);dhc.stroke();
+dhc.beginPath();dhc.arc(64,185,16,0,Math.PI*2);dhc.stroke();
+dhc.fillStyle='#38bdf8';dhc.beginPath();dhc.arc(64,185,6,0,Math.PI*2);dhc.fill();
+dhc.fillStyle='#f8fafc';dhc.font='bold 11px sans-serif';dhc.fillText('360° SENSING',64,235);
+dhc.font='9px sans-serif';dhc.fillStyle='#94a3b8';dhc.fillText('HIGH SENSITIVITY',64,252);dhc.fillText('ALL METALS',64,268);
+for(let y=290;y<=340;y+=8){dhc.fillStyle=y%16===0?'#eab308':'#64748b';dhc.fillRect(36,y,56,3);}
+dhc.fillStyle='#dc2626';dhc.fillRect(16,382,96,28);
+dhc.fillStyle='#ffffff';dhc.font='bold 12px sans-serif';dhc.fillText('METAL DETECTOR',64,401);
+dhc.fillStyle='#94a3b8';dhc.font='bold 9px sans-serif';dhc.fillText('PWR ● BATT ● ALARM',64,435);
+const depHhmdDecalFront=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depHhmdCanvas),roughness:0.35,metalness:0.1});
 const depSignCanvas=document.createElement('canvas');depSignCanvas.width=512;depSignCanvas.height=128;const depSignCtx=depSignCanvas.getContext('2d');depSignCtx.fillStyle='#edbd2b';depSignCtx.fillRect(0,0,512,128);depSignCtx.fillStyle='#172837';depSignCtx.font='bold 82px sans-serif';depSignCtx.textAlign='center';depSignCtx.fillText('POLICE',256,93);const depPoliceSign=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depSignCanvas),side:THREE.FrontSide});
 const depConeGeometry=new THREE.ConeGeometry(.22,.7,12),depBoardGeometry=new THREE.PlaneGeometry(1.4,.38);
 
@@ -2104,17 +2144,69 @@ function depBuildOfficer(g, mode='officer'){
     }
   }
   else if(mode === 'hhmd'){
-    rightArm.rotation.set(Math.PI/3.5, 0, -Math.PI/10);
-    baseRightArmRotX = Math.PI/3.5;
+    rightArm.rotation.set(Math.PI/3.6, 0, -Math.PI/12);
+    baseRightArmRotX = Math.PI/3.6;
 
-    const grip = depPart(rightArm,'cylinder',[0,-.66,-.10],[.026,.26,.026],'dark');
-    grip.rotation.set(Math.PI/4, 0, 0);
-    const wandBody = depPart(rightArm,'box',[0,-.58,-.22],[.11,.24,.035],'blue');
-    wandBody.rotation.set(Math.PI/4, 0, 0);
-    const wandLoop = depPart(rightArm,'box',[0,-.48,-.34],[.14,.24,.025],'dark');
-    wandLoop.rotation.set(Math.PI/4, 0, 0);
-    depPart(rightArm,'sphereSmooth',[0,-.55,-.24],[.016,.016,.016],'red');
-    depPart(rightArm,'sphereSmooth',[0,-.60,-.20],[.016,.016,.016],'yellow');
+    // Realistic Handheld Metal Detector (Garrett SuperScanner style high-fidelity wand)
+    const hhmd = new THREE.Group();
+    hhmd.position.set(0, -.63, -.04);
+    hhmd.rotation.set(Math.PI/4.2, 0, 0);
+    rightArm.add(hhmd);
+
+    // 1. Bottom Tail Cap & Brass Lanyard Loop Ring
+    depPart(hhmd, 'cylinder', [0, -.16, 0], [.019, .024, .019], 'dark');
+    depPart(hhmd, 'torus', [0, -.176, 0], [.011, .003, 1], 'yellow');
+    const cord = depPart(hhmd, 'cylinder', [0, -.23, -.01], [.003, .10, .003], 'dark');
+    cord.rotation.z = 0.15;
+
+    // 2. Rubber Handle Grip (Ergonomic cylindrical core with 6 anti-slip knurled ribs)
+    depPart(hhmd, 'cylinder', [0, -.07, 0], [.017, .15, .017], 'hhmdGrip');
+    for(const ry of [-.135, -.115, -.095, -.075, -.055, -.035]){
+      depPart(hhmd, 'cylinder', [0, ry, 0], [.019, .005, .019], 'dark');
+    }
+
+    // 3. Ergonomic Hand Stopper / Collar (Prevents hand slippage toward detector paddle)
+    depPart(hhmd, 'cylinder', [0, .01, 0], [.024, .014, .024], 'dark');
+
+    // 4. Officer's Hand Gripping the HHMD (Curled fingers & resting thumb)
+    depPart(hhmd, 'rounded', [.016, -.025, .016], [.034, .08, .022], 'skin');
+    depPart(hhmd, 'rounded', [-.020, .015, .018], [.020, .04, .020], 'skin');
+
+    // 5. Control Module / Transition Housing
+    depPart(hhmd, 'box', [0, .07, 0], [.066, .10, .036], 'hhmdBody');
+    depPart(hhmd, 'rounded', [0, .03, 0], [.054, .035, .032], 'hhmdBody');
+
+    // 6. Slide Power / Sensitivity Control Switch (Front thumb face)
+    depPart(hhmd, 'box', [0, .045, .020], [.020, .042, .006], 'dark');
+    depPart(hhmd, 'box', [0, .052, .024], [.014, .016, .006], 'hhmdSwitch');
+    depPart(hhmd, 'box', [0, .032, .021], [.010, .003, .002], 'white');
+
+    // 7. Perforated Audio Buzzer / Sound Emitter Grille
+    const speaker = depPart(hhmd, 'cylinder', [0, .085, .019], [.015, .004, .015], 'hhmdSpeaker');
+    speaker.rotation.x = Math.PI/2;
+    const speakerCore = depPart(hhmd, 'cylinder', [0, .085, .021], [.007, .003, .007], 'dark');
+    speakerCore.rotation.x = Math.PI/2;
+
+    // 8. Tri-Color Status LED Cluster (Power Green, Batt Amber, Alarm Red)
+    depPart(hhmd, 'box', [0, .112, .019], [.054, .014, .005], 'dark');
+    depPart(hhmd, 'sphereSmooth', [-.018, .112, .022], [.006, .006, .006], 'hhmdLedGreen');
+    depPart(hhmd, 'sphereSmooth', [0, .112, .022], [.0055, .0055, .0055], 'hhmdLedAmber');
+    depPart(hhmd, 'sphereSmooth', [.018, .112, .022], [.006, .006, .006], 'hhmdLedRed');
+
+    // 9. Scanning Paddle / Detection Blade with Decals & Safety Trims
+    depPart(hhmd, 'box', [0, .26, 0], [.076, .26, .022], 'hhmdBody');
+    depPart(hhmd, 'cylinder', [-.038, .26, 0], [.007, .26, .007], 'dark');
+    depPart(hhmd, 'cylinder', [.038, .26, 0], [.007, .26, .007], 'dark');
+    const tip = depPart(hhmd, 'cylinder', [0, .39, 0], [.038, .022, .011], 'dark');
+    tip.rotation.z = Math.PI/2;
+
+    // High-visibility yellow safety band across paddle top
+    depPart(hhmd, 'box', [0, .365, 0], [.078, .024, .024], 'hhmdStripe');
+
+    // High-contrast security scanner decals (Front & Back)
+    depPart(hhmd, 'sign', [0, .255, .0115], [.068, .22, 1], depHhmdDecalFront);
+    const decalBack = depPart(hhmd, 'sign', [0, .255, -.0115], [.068, .22, 1], depHhmdDecalFront);
+    decalBack.rotation.y = Math.PI;
   }
   else if(mode === 'radio'){
     rightArm.rotation.set(-Math.PI/2.8, 0, -Math.PI/4.5);

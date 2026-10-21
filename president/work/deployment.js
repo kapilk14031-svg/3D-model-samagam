@@ -56,6 +56,66 @@ function updateTabLock(){
   }
 }
 
+function updateOfficerHud(officer) {
+  const tc = root.querySelector('#dep-touch-controls');
+  if (tc) {
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.innerWidth <= 900;
+    tc.style.display = (officer && isTouchDevice) ? 'flex' : 'none';
+  }
+}
+
+function initTouchControls() {
+  const tc = root.querySelector('#dep-touch-controls');
+  if (!tc) return;
+  tc.querySelectorAll('.touch-btn').forEach(btn => {
+    const key = btn.dataset.key;
+    const action = btn.dataset.action;
+    const press = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      btn.classList.add('active');
+      if (action === 'jump') {
+        const o = depItems.find(x => x.id === depSelected);
+        if (o) triggerOfficerJump(o);
+      } else if (key) {
+        depKeysDown[key] = true;
+      }
+    };
+    const release = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      btn.classList.remove('active');
+      if (key) {
+        depKeysDown[key] = false;
+      }
+    };
+    btn.addEventListener('pointerdown', press);
+    btn.addEventListener('pointerup', release);
+    btn.addEventListener('pointercancel', release);
+    btn.addEventListener('pointerleave', release);
+  });
+}
+initTouchControls();
+
+function depSyncDropdownLabels(item) {
+  if (!item) return;
+  const label = (depSymbols[item.kind] || '') + ' ' + (item.name || 'Item') + ' · ' + (item.duty || 'Post');
+  const topOpt = root.querySelector(`#dep-top-list option[value="${item.id}"]`);
+  if (topOpt) topOpt.textContent = label;
+  const sideOpt = root.querySelector(`#dep-list option[value="${item.id}"]`);
+  if (sideOpt) sideOpt.textContent = label;
+  const btnObj = depButtons.find(b => b.item.id === item.id);
+  if (btnObj && btnObj.e) btnObj.e.setAttribute('aria-label', (item.name || '') + ' · ' + (item.duty || ''));
+  const titleEl = depPeekHead.querySelector('#dep-peek-title');
+  if (titleEl) titleEl.textContent = (depSymbols[item.kind] || '') + ' ' + item.name;
+}
+
+function isOfficerSelected() {
+  if (!depSelected || typeof depItems === 'undefined') return false;
+  return depItems.some(x => x.id === depSelected);
+}
+window.__DEP_IS_OFFICER_SELECTED = isOfficerSelected;
+
 if (depPanelToggle && depPanelEl) {
   depPanelToggle.addEventListener('click', e => {
     e.stopPropagation();
@@ -238,7 +298,7 @@ for(const [text,fn] of [
   ['↻ +30°',()=>depRotate(30)],
   ['Move',()=>depUI('move').click()],
   ['Minimize',()=>setDepPeekMinimized(true)],
-  ['Close',()=>{depSelected=null;depPeek.hidden=true;if(depUI('editor'))depUI('editor').hidden=true;depUpdate();}]
+  ['Close',()=>depDeselect(true)]
 ]){
   const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=text;
   b.addEventListener('click',e=>{e.stopPropagation();fn();});
@@ -287,9 +347,49 @@ const depMaterials={
   blue:new THREE.MeshStandardMaterial({color:0x1d3557,roughness:0.6}), // Navy blue cap crown / DFMD / equipment
   white:new THREE.MeshStandardMaterial({color:0xf3f4f6,roughness:0.7}), // Whistle cord / name text
   hair:new THREE.MeshStandardMaterial({color:0x1c1917,roughness:0.9}), // Neat hair
-  lathi:new THREE.MeshStandardMaterial({color:0x6e3c1b,roughness:0.4}) // Polished wood baton
+  lathi:new THREE.MeshStandardMaterial({color:0x6e3c1b,roughness:0.4}), // Polished wood baton
+  hhmdBody:new THREE.MeshStandardMaterial({color:0x1b1f24,roughness:0.42,metalness:0.12}), // Tactical matte polycarbonate scanner casing
+  hhmdGrip:new THREE.MeshStandardMaterial({color:0x0c0e11,roughness:0.88,metalness:0.04}), // Non-slip textured rubber handle grip
+  hhmdSwitch:new THREE.MeshStandardMaterial({color:0xd92d20,roughness:0.35,metalness:0.15}), // Red power/sensitivity toggle slider
+  hhmdSpeaker:new THREE.MeshStandardMaterial({color:0x333b47,roughness:0.45,metalness:0.4}), // Audio buzzer sound emitter grille
+  hhmdLedGreen:new THREE.MeshStandardMaterial({color:0x22c55e,emissive:0x15803d,emissiveIntensity:1.5,roughness:0.2}), // Power ON green LED
+  hhmdLedAmber:new THREE.MeshStandardMaterial({color:0xf59e0b,emissive:0xb45309,emissiveIntensity:1.2,roughness:0.2}), // Ready/Standby amber LED
+  hhmdLedRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xb91c1c,emissiveIntensity:1.5,roughness:0.2}), // Alarm metal-detect red LED
+  hhmdStripe:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.1}) // High-visibility hazard yellow band
 };
-function depPart(g,shape,p,s,mat){const mesh=new THREE.Mesh(geos[shape],depMaterials[mat]);mesh.position.fromArray(p);mesh.scale.fromArray(s);mesh.castShadow=true;mesh.receiveShadow=true;g.add(mesh);return mesh;}
+function depPart(g,shape,p,s,mat){
+  const m = (typeof mat === 'string' ? depMaterials[mat] : mat) || depMaterials.dark;
+  const mesh = new THREE.Mesh(geos[shape], m);
+  mesh.position.fromArray(p);
+  mesh.scale.fromArray(s);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  g.add(mesh);
+  return mesh;
+}
+const depHhmdCanvas=document.createElement('canvas');depHhmdCanvas.width=128;depHhmdCanvas.height=512;
+const dhc=depHhmdCanvas.getContext('2d');
+dhc.fillStyle='#181b20';dhc.fillRect(0,0,128,512);
+dhc.strokeStyle='#374151';dhc.lineWidth=4;dhc.strokeRect(6,6,116,500);
+dhc.fillStyle='#eab308';dhc.fillRect(10,16,108,64);
+dhc.fillStyle='#0f172a';dhc.font='900 18px sans-serif';dhc.textAlign='center';dhc.fillText('SECURITY',64,42);
+dhc.font='800 13px sans-serif';dhc.fillText('SCANNER',64,62);
+dhc.fillStyle='#1e293b';
+for(let i=0;i<4;i++){dhc.beginPath();dhc.moveTo(12+i*28,72);dhc.lineTo(24+i*28,72);dhc.lineTo(16+i*28,80);dhc.lineTo(4+i*28,80);dhc.fill();}
+dhc.fillStyle='#111827';dhc.fillRect(16,92,96,276);
+dhc.strokeStyle='#64748b';dhc.lineWidth=2.5;dhc.strokeRect(22,100,84,260);
+dhc.strokeStyle='#eab308';dhc.lineWidth=1.5;dhc.strokeRect(28,110,72,240);
+dhc.strokeStyle='#38bdf8';dhc.lineWidth=2.5;
+dhc.beginPath();dhc.arc(64,185,26,0,Math.PI*2);dhc.stroke();
+dhc.beginPath();dhc.arc(64,185,16,0,Math.PI*2);dhc.stroke();
+dhc.fillStyle='#38bdf8';dhc.beginPath();dhc.arc(64,185,6,0,Math.PI*2);dhc.fill();
+dhc.fillStyle='#f8fafc';dhc.font='bold 11px sans-serif';dhc.fillText('360° SENSING',64,235);
+dhc.font='9px sans-serif';dhc.fillStyle='#94a3b8';dhc.fillText('HIGH SENSITIVITY',64,252);dhc.fillText('ALL METALS',64,268);
+for(let y=290;y<=340;y+=8){dhc.fillStyle=y%16===0?'#eab308':'#64748b';dhc.fillRect(36,y,56,3);}
+dhc.fillStyle='#dc2626';dhc.fillRect(16,382,96,28);
+dhc.fillStyle='#ffffff';dhc.font='bold 12px sans-serif';dhc.fillText('METAL DETECTOR',64,401);
+dhc.fillStyle='#94a3b8';dhc.font='bold 9px sans-serif';dhc.fillText('PWR ● BATT ● ALARM',64,435);
+const depHhmdDecalFront=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depHhmdCanvas),roughness:0.35,metalness:0.1});
 const depSignCanvas=document.createElement('canvas');depSignCanvas.width=512;depSignCanvas.height=128;const depSignCtx=depSignCanvas.getContext('2d');depSignCtx.fillStyle='#edbd2b';depSignCtx.fillRect(0,0,512,128);depSignCtx.fillStyle='#172837';depSignCtx.font='bold 82px sans-serif';depSignCtx.textAlign='center';depSignCtx.fillText('POLICE',256,93);const depPoliceSign=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depSignCanvas),side:THREE.FrontSide});
 const depConeGeometry=new THREE.ConeGeometry(.22,.7,12),depBoardGeometry=new THREE.PlaneGeometry(1.4,.38);
 
@@ -456,17 +556,69 @@ function depBuildOfficer(g, mode='officer'){
     }
   }
   else if(mode === 'hhmd'){
-    rightArm.rotation.set(Math.PI/3.5, 0, -Math.PI/10);
-    baseRightArmRotX = Math.PI/3.5;
+    rightArm.rotation.set(Math.PI/3.6, 0, -Math.PI/12);
+    baseRightArmRotX = Math.PI/3.6;
 
-    const grip = depPart(rightArm,'cylinder',[0,-.66,-.10],[.026,.26,.026],'dark');
-    grip.rotation.set(Math.PI/4, 0, 0);
-    const wandBody = depPart(rightArm,'box',[0,-.58,-.22],[.11,.24,.035],'blue');
-    wandBody.rotation.set(Math.PI/4, 0, 0);
-    const wandLoop = depPart(rightArm,'box',[0,-.48,-.34],[.14,.24,.025],'dark');
-    wandLoop.rotation.set(Math.PI/4, 0, 0);
-    depPart(rightArm,'sphereSmooth',[0,-.55,-.24],[.016,.016,.016],'red');
-    depPart(rightArm,'sphereSmooth',[0,-.60,-.20],[.016,.016,.016],'yellow');
+    // Realistic Handheld Metal Detector (Garrett SuperScanner style high-fidelity wand)
+    const hhmd = new THREE.Group();
+    hhmd.position.set(0, -.63, -.04);
+    hhmd.rotation.set(Math.PI/4.2, 0, 0);
+    rightArm.add(hhmd);
+
+    // 1. Bottom Tail Cap & Brass Lanyard Loop Ring
+    depPart(hhmd, 'cylinder', [0, -.16, 0], [.019, .024, .019], 'dark');
+    depPart(hhmd, 'torus', [0, -.176, 0], [.011, .003, 1], 'yellow');
+    const cord = depPart(hhmd, 'cylinder', [0, -.23, -.01], [.003, .10, .003], 'dark');
+    cord.rotation.z = 0.15;
+
+    // 2. Rubber Handle Grip (Ergonomic cylindrical core with 6 anti-slip knurled ribs)
+    depPart(hhmd, 'cylinder', [0, -.07, 0], [.017, .15, .017], 'hhmdGrip');
+    for(const ry of [-.135, -.115, -.095, -.075, -.055, -.035]){
+      depPart(hhmd, 'cylinder', [0, ry, 0], [.019, .005, .019], 'dark');
+    }
+
+    // 3. Ergonomic Hand Stopper / Collar (Prevents hand slippage toward detector paddle)
+    depPart(hhmd, 'cylinder', [0, .01, 0], [.024, .014, .024], 'dark');
+
+    // 4. Officer's Hand Gripping the HHMD (Curled fingers & resting thumb)
+    depPart(hhmd, 'rounded', [.016, -.025, .016], [.034, .08, .022], 'skin');
+    depPart(hhmd, 'rounded', [-.020, .015, .018], [.020, .04, .020], 'skin');
+
+    // 5. Control Module / Transition Housing
+    depPart(hhmd, 'box', [0, .07, 0], [.066, .10, .036], 'hhmdBody');
+    depPart(hhmd, 'rounded', [0, .03, 0], [.054, .035, .032], 'hhmdBody');
+
+    // 6. Slide Power / Sensitivity Control Switch (Front thumb face)
+    depPart(hhmd, 'box', [0, .045, .020], [.020, .042, .006], 'dark');
+    depPart(hhmd, 'box', [0, .052, .024], [.014, .016, .006], 'hhmdSwitch');
+    depPart(hhmd, 'box', [0, .032, .021], [.010, .003, .002], 'white');
+
+    // 7. Perforated Audio Buzzer / Sound Emitter Grille
+    const speaker = depPart(hhmd, 'cylinder', [0, .085, .019], [.015, .004, .015], 'hhmdSpeaker');
+    speaker.rotation.x = Math.PI/2;
+    const speakerCore = depPart(hhmd, 'cylinder', [0, .085, .021], [.007, .003, .007], 'dark');
+    speakerCore.rotation.x = Math.PI/2;
+
+    // 8. Tri-Color Status LED Cluster (Power Green, Batt Amber, Alarm Red)
+    depPart(hhmd, 'box', [0, .112, .019], [.054, .014, .005], 'dark');
+    depPart(hhmd, 'sphereSmooth', [-.018, .112, .022], [.006, .006, .006], 'hhmdLedGreen');
+    depPart(hhmd, 'sphereSmooth', [0, .112, .022], [.0055, .0055, .0055], 'hhmdLedAmber');
+    depPart(hhmd, 'sphereSmooth', [.018, .112, .022], [.006, .006, .006], 'hhmdLedRed');
+
+    // 9. Scanning Paddle / Detection Blade with Decals & Safety Trims
+    depPart(hhmd, 'box', [0, .26, 0], [.076, .26, .022], 'hhmdBody');
+    depPart(hhmd, 'cylinder', [-.038, .26, 0], [.007, .26, .007], 'dark');
+    depPart(hhmd, 'cylinder', [.038, .26, 0], [.007, .26, .007], 'dark');
+    const tip = depPart(hhmd, 'cylinder', [0, .39, 0], [.038, .022, .011], 'dark');
+    tip.rotation.z = Math.PI/2;
+
+    // High-visibility yellow safety band across paddle top
+    depPart(hhmd, 'box', [0, .365, 0], [.078, .024, .024], 'hhmdStripe');
+
+    // High-contrast security scanner decals (Front & Back)
+    depPart(hhmd, 'sign', [0, .255, .0115], [.068, .22, 1], depHhmdDecalFront);
+    const decalBack = depPart(hhmd, 'sign', [0, .255, -.0115], [.068, .22, 1], depHhmdDecalFront);
+    decalBack.rotation.y = Math.PI;
   }
   else if(mode === 'radio'){
     rightArm.rotation.set(-Math.PI/2.8, 0, -Math.PI/4.5);
@@ -597,7 +749,15 @@ function depBuild(){
     const b=document.createElement('button');b.type='button';b.className='btn dep-marker';b.textContent=depSymbols[item.kind];
     b.setAttribute('aria-label',item.name+' · '+item.duty);
     b.addEventListener('pointerdown',e=>{e.stopPropagation();e.stopImmediatePropagation();});
-    b.addEventListener('click',e=>{e.stopPropagation();e.stopImmediatePropagation();if(typeof suppressClick!=='undefined')suppressClick=true;depChoose(item.id, true);});
+    b.addEventListener('click',e=>{
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      if(typeof suppressClick!=='undefined')suppressClick=true;
+      b.blur();
+      if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      if(canvas && canvas.focus) canvas.focus();
+      depChoose(item.id, true);
+    });
     labelRoot.appendChild(b);depButtons.push({e:b,item});
   }
   if(list)list.value=depSelected||'';
@@ -630,7 +790,10 @@ function depUpdate(){
       field.disabled=(k==='belt'||k==='mobile')&&!isOfficerLike;
       field.parentElement.hidden=field.disabled;
     }
-    for(const b of depPeekActions.querySelectorAll('button'))if(b.textContent.includes('person')){b.disabled=!isOfficerLike;b.hidden=b.disabled;}
+    for(const b of depPeekActions.querySelectorAll('button')){
+      if(b.textContent.includes('First')){ b.disabled=!isOfficerLike; b.hidden=b.disabled; }
+      else if(b.textContent.includes('Third')){ b.disabled=false; b.hidden=false; }
+    }
   }
 
   const r=host.getBoundingClientRect();
@@ -697,38 +860,52 @@ function depChoose(id, zoom = true){
   setDepPeekMinimized(true); // By default open in minimized state!
   updateTabLock();
   const o=depItems.find(o=>o.id===depSelected);
-  if(!o)return;
+  if(!o){
+    updateOfficerHud(null);
+    return;
+  }
+  if (!depIsCycling) {
+    depTabChain = [o.id];
+    depTabChainIndex = 0;
+  }
   depUI('editkind').value=o.kind;
   for(const k of ['name','duty','belt','mobile','x','y','z','angle'])depUI(k).value=typeof o[k]==='number'?Math.round(o[k]*100)/100:o[k];
   const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
-  for(const k of ['belt','mobile','first','third'])depUI(k).disabled=!isOfficerLike;
-  depUI('status').textContent=o.name+' · '+o.duty+(o.kind==='officer'?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
+  for(const k of ['belt','mobile','first']) depUI(k).disabled=!isOfficerLike;
+  depUI('third').disabled = false;
+
+  updateOfficerHud(o);
+  depUI('status').textContent='🎮 Controlling ' + (depSymbols[o.kind] || '') + ' ' + o.name + ' · Move: W/S/↑/↓ · Rotate: A/D/←/→/Q/E · Jump: SPACE · Next: TAB · Deselect: CAPSLOCK';
 
   if(zoom){
-    if(isOfficerLike){
-      depView('third', true);
-    } else {
-      if(depCamera) depReturnView(true);
-      const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
-      let offset=camera.position.clone().sub(controls.target);
-      if(offset.lengthSq()<0.1) offset.set(10,8,10);
-      offset.normalize().multiplyScalar(13);
-      offset.y=Math.max(offset.y,4.5);
-      moveTo(target.clone().add(offset), target);
-    }
+    depView('third', true);
   }
   depUpdate();draw();
 }
 
-depUI('list').addEventListener('change',()=>depChoose(depUI('list').value, true));
+depUI('list').addEventListener('change',()=>{
+  const val = depUI('list').value;
+  if (!val) {
+    depDeselect(true);
+  } else {
+    depChoose(val, true);
+  }
+  depUI('list').blur();
+  if(canvas && canvas.focus) canvas.focus();
+});
 
 // TOP bar dropdown sync
 const depTopSelect=root.querySelector('#dep-top-list');
 if(depTopSelect){
   depTopSelect.addEventListener('change',()=>{
     const id=depTopSelect.value;
-    if(!id)return;
+    if(!id) {
+      depDeselect(true);
+      return;
+    }
     depChoose(id, true);
+    depTopSelect.blur();
+    if(canvas && canvas.focus) canvas.focus();
   });
 }
 
@@ -742,6 +919,14 @@ depUI('form').addEventListener('submit',e=>{
   if(depCamera)depView(depCamera);
 });
 depUI('form').addEventListener('change',()=>{if(depUI('form').checkValidity())depUI('form').requestSubmit();});
+if(depUI('name')) depUI('name').addEventListener('input', () => {
+  const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); }
+});
+if(depUI('duty')) depUI('duty').addEventListener('input', () => {
+  const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.duty = depUI('duty').value; depSyncDropdownLabels(o); }
+});
 
 function depRotate(delta){
   const o=depItems.find(o=>o.id===depSelected);if(!o)return;
@@ -781,15 +966,39 @@ depUI('delete').onclick=()=>{
 };
 
 function depView(mode, smooth = true){
-  const o=depItems.find(o=>o.id===depSelected);if(!o||!['officer','hhmd','binocular','radio'].includes(o.kind))return;
+  const o=depItems.find(o=>o.id===depSelected);if(!o)return;
   if(!depReturn)depReturn={p:camera.position.clone(),t:controls.target.clone(),view:select.value};
   const hq=geo.footprints.find(f=>f.id==='hall').points;let inside=false;
   for(let i=0,j=hq.length-1;i<hq.length;j=i++){const a=hq[i],b=hq[j];if(((a[1]>o.z)!==(b[1]>o.z))&&(o.x<(b[0]-a[0])*(o.z-a[1])/(b[1]-a[1])+a[0]))inside=!inside;}
   if(inside&&o.y<8){select.value='hall';applyView();}else if(current==='alignment'){select.value='campus';applyView();}
   depCamera=mode;
-  const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
-  const targetCam = mode==='first' ? eye : eye.clone().addScaledVector(dir,-3.8).add(new THREE.Vector3(0,1.2,0));
+  const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
+  const itemHeight = isOfficerLike ? 1.65
+    : o.kind === 'dfmd' ? 1.8
+    : o.kind === 'cctv' || o.kind === 'light' ? 2.2
+    : o.kind === 'barricade' ? 0.9
+    : 0.6;
+  const distBehind = isOfficerLike ? 3.8
+    : ['barricade','dfmd'].includes(o.kind) ? 4.5
+    : 3.2;
+  const heightAbove = isOfficerLike ? 1.2 : 1.5;
+
+  const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+itemHeight,o.z);
+  const idealCam = mode==='first' ? eye : eye.clone().addScaledVector(dir,-distBehind).add(new THREE.Vector3(0,heightAbove,0));
   const targetLook = eye.clone().addScaledVector(dir,mode==='first'?10:2.0);
+
+  let targetCam = idealCam;
+  if (mode !== 'first') {
+    const camRayVec = idealCam.clone().sub(eye);
+    const maxDist = camRayVec.length();
+    const camRayDir = camRayVec.clone().normalize();
+    const springRay = new THREE.Raycaster(eye, camRayDir, 0.1, maxDist);
+    const occluderMeshes = (typeof clickable !== 'undefined' ? clickable : []).filter(m => m.visible && m.parent.visible && m !== depGroup);
+    const hits = springRay.intersectObjects(occluderMeshes, false);
+    if (hits.length > 0) {
+      targetCam = eye.clone().addScaledVector(camRayDir, Math.max(0.65, hits[0].distance - 0.28));
+    }
+  }
   if(smooth && typeof moveTo === 'function'){
     moveTo(targetCam, targetLook);
   } else {
@@ -799,25 +1008,192 @@ function depView(mode, smooth = true){
     controls.update();
   }
   depUpdate();draw();
-  depUI('status').textContent=o.name+' · '+(mode==='first'?'First':'Third')+' person view (Press ESC to return)';
+  depUI('status').textContent=(depSymbols[o.kind]||'')+' '+o.name+' · '+(mode==='first'?'First':'Third')+' person follow (Press ESC to return)';
 }
 
 function depReturnView(smooth = true){
-  if(depReturn){
-    select.value=depReturn.view;
-    applyView();
-    if(smooth && typeof moveTo === 'function'){
-      moveTo(depReturn.p, depReturn.t);
-    } else {
-      camera.position.copy(depReturn.p);
-      controls.target.copy(depReturn.t);
-      controls.update();
-    }
-    depReturn=null;
+  depCamera = null;
+  updateOfficerHud(null);
+
+  let destPos, destTarget, destView = 'campus';
+  if (depReturn) {
+    destPos = depReturn.p.clone();
+    destTarget = depReturn.t.clone();
+    destView = depReturn.view || 'campus';
+    depReturn = null;
+  } else {
+    destPos = new THREE.Vector3(135, 135, 157);
+    destTarget = new THREE.Vector3(-20, 0, 0);
   }
-  depCamera=null;depUpdate();draw();
-  depUI('status').textContent='Returned to overview.';
+
+  if (typeof select !== 'undefined') select.value = destView;
+  if (typeof root !== 'undefined') root.dataset.view = destView;
+  if (typeof groups !== 'undefined') {
+    const internal = ['hall', 'stage'].includes(destView);
+    const cut = ['cutaway', 'plan', 'lounge', 'stageplan'].includes(destView);
+    for (const g of Object.values(groups)) g.visible = destView !== 'alignment';
+    if (groups.roof) groups.roof.visible = !cut;
+    if (groups.ceiling) groups.ceiling.visible = internal;
+    if (groups.shell) groups.shell.visible = !cut;
+    if (groups.event) groups.event.visible = typeof eventInput !== 'undefined' ? eventInput.checked : true;
+    if (groups.context) groups.context.visible = typeof contextInput !== 'undefined' ? contextInput.checked : false;
+    if (groups.lotusInterior) groups.lotusInterior.visible = destView === 'lotusinside';
+    if (groups.snapshot) groups.snapshot.visible = typeof snapshotInput !== 'undefined' ? snapshotInput.checked : false;
+  }
+  if (typeof setLighting === 'function') setLighting();
+
+  if (smooth && typeof moveTo === 'function') {
+    moveTo(destPos, destTarget);
+  } else {
+    motion = null;
+    camera.position.copy(destPos);
+    controls.target.copy(destTarget);
+    controls.update();
+  }
+
+  depUpdate();
+  draw();
+  depUI('status').textContent = 'Returned to overview.';
 }
+
+function depDeselect(smooth = true){
+  depSelected = null;
+  depHover = null;
+  depPlace = false;
+  if (depNew) {
+    depItems = depItems.filter(x => x.id !== depNew);
+    depNew = null;
+    depStore();
+    depBuild();
+  }
+  if (depCandidate) {
+    depCandidate = null;
+    if (depConfirm) depConfirm.hidden = true;
+  }
+  if (depRadial) depRadial.style.display = 'none';
+  if (depPeek) depPeek.hidden = true;
+  const editor = depUI('editor');
+  if (editor) editor.hidden = true;
+  const list = depUI('list');
+  if (list) list.value = '';
+  const topList = root.querySelector('#dep-top-list');
+  if (topList) topList.value = '';
+  if (depTooltip) depTooltip.style.display = 'none';
+
+  updateOfficerHud(null);
+  updateTabLock();
+
+  depTabChain = [];
+  depTabChainIndex = -1;
+
+  for (const k in depKeysDown) {
+    depKeysDown[k] = false;
+  }
+
+  depReturnView(smooth);
+}
+window.__DEP_DESELECT = depDeselect;
+
+let depTabChain = [];
+let depTabChainIndex = -1;
+let depIsCycling = false;
+
+function depCycleNearestItem(reverse = false) {
+  if (!depItems || depItems.length === 0) {
+    depUI('status').textContent = 'No deployed items to cycle. Deploy items from panel.';
+    return;
+  }
+
+  const validItems = depItems.filter(o => o && typeof o.x === 'number' && typeof o.z === 'number');
+  if (validItems.length === 0) return;
+
+  if (validItems.length === 1) {
+    depIsCycling = true;
+    depChoose(validItems[0].id, true);
+    depIsCycling = false;
+    depTabChain = [validItems[0].id];
+    depTabChainIndex = 0;
+    return;
+  }
+
+  if (!depSelected) {
+    const target = (typeof controls !== 'undefined' && controls && controls.target) 
+      ? controls.target 
+      : new THREE.Vector3(0, 0, 0);
+    let best = validItems[0], bestDist = Infinity;
+    for (const it of validItems) {
+      const d = Math.hypot(it.x - target.x, (it.y || 0) - target.y, it.z - target.z);
+      if (d < bestDist) {
+        bestDist = d;
+        best = it;
+      }
+    }
+    depTabChain = [best.id];
+    depTabChainIndex = 0;
+    depIsCycling = true;
+    depChoose(best.id, true);
+    depIsCycling = false;
+    return;
+  }
+
+  const currentItem = validItems.find(x => x.id === depSelected);
+  if (!currentItem) {
+    depTabChain = [validItems[0].id];
+    depTabChainIndex = 0;
+    depIsCycling = true;
+    depChoose(validItems[0].id, true);
+    depIsCycling = false;
+    return;
+  }
+
+  const validIds = new Set(validItems.map(o => o.id));
+  depTabChain = depTabChain.filter(id => validIds.has(id));
+
+  const matchesChain = depTabChain.length > 0 && 
+    depTabChainIndex >= 0 && 
+    depTabChainIndex < depTabChain.length && 
+    depTabChain[depTabChainIndex] === currentItem.id;
+
+  if (!matchesChain) {
+    depTabChain = [currentItem.id];
+    depTabChainIndex = 0;
+  }
+
+  if (reverse) {
+    if (depTabChain.length > 1) {
+      depTabChainIndex = (depTabChainIndex - 1 + depTabChain.length) % depTabChain.length;
+      depIsCycling = true;
+      depChoose(depTabChain[depTabChainIndex], true);
+      depIsCycling = false;
+      return;
+    }
+  }
+
+  const visitedSet = new Set(depTabChain);
+  const unvisited = validItems.filter(it => !visitedSet.has(it.id));
+
+  if (unvisited.length > 0) {
+    let nearest = unvisited[0], minDist = Infinity;
+    for (const it of unvisited) {
+      const d = Math.hypot(it.x - currentItem.x, (it.y || 0) - (currentItem.y || 0), it.z - currentItem.z);
+      if (d < minDist) {
+        minDist = d;
+        nearest = it;
+      }
+    }
+    depTabChain.push(nearest.id);
+    depTabChainIndex = depTabChain.length - 1;
+    depIsCycling = true;
+    depChoose(nearest.id, true);
+    depIsCycling = false;
+  } else {
+    depTabChainIndex = (depTabChainIndex + 1) % depTabChain.length;
+    depIsCycling = true;
+    depChoose(depTabChain[depTabChainIndex], true);
+    depIsCycling = false;
+  }
+}
+window.__DEP_CYCLE_NEAREST = depCycleNearestItem;
 depUI('first').onclick=()=>depView('first', true);depUI('third').onclick=()=>depView('third', true);depUI('return').onclick=()=>depReturnView(true);
 
 // Contextual Click-to-Deploy Menu
@@ -911,7 +1287,7 @@ function getSurfaceHeight(x, z, currentY = 0) {
       return h.point.y;
     }
   }
-  return 0.0;
+  return 0.3; // Default ground plane level
 }
 
 const depKeysDown = {};
@@ -923,10 +1299,14 @@ let depOfficerJump = {
 };
 
 function triggerOfficerJump(o) {
-  if (!depOfficerJump.isJumping) {
+  const groundUnder = getSurfaceHeight(o.x, o.z, o.y);
+  // Only jump when on or close to ground (prevents mid-air multi-jump while falling from heights)
+  if (!depOfficerJump.isJumping && (Math.abs(o.y - groundUnder) <= 0.22 || o.y <= groundUnder)) {
     depOfficerJump.vy = depOfficerJump.jumpStrength;
     depOfficerJump.isJumping = true;
-    depUI('status').textContent = '🦘 ' + o.name + ' jumped!';
+    o.y += 0.08;
+    depUI('status').textContent = '🦘 ' + (depSymbols[o.kind] || '') + ' ' + o.name + ' jumped!';
+    if (typeof draw === 'function') draw();
   }
 }
 
@@ -935,47 +1315,64 @@ let lastDepStoreTime = 0;
 window.__DEP_TICK = function(dt) {
   let needsDraw = false;
 
-  // 1. If in Third-Person View, handle officer walking, turning, climbing stairs, jumping & obstacle collision
-  if (depCamera === 'third' && depSelected) {
+  // Handle item walking/moving, turning, climbing stairs, jumping & obstacle collision
+  if (depSelected) {
     const o = depItems.find(x => x.id === depSelected);
-    if (o && ['officer','hhmd','binocular','radio'].includes(o.kind)) {
+    if (o) {
       const node = depNodes.find(n => n.item.id === o.id);
       const rig = node?.g?.userData?.rig;
       
-      // Turn left / right with A and D
-      if (depKeysDown['a']) {
-        o.angle = (o.angle - 85 * dt + 360) % 360;
+      // ROTATION:
+      // Turn left: A, ArrowLeft, or Q
+      // Turn right: D, ArrowRight, or E
+      const turnLeft = !!(depKeysDown['a'] || depKeysDown['arrowleft'] || depKeysDown['q']);
+      const turnRight = !!(depKeysDown['d'] || depKeysDown['arrowright'] || depKeysDown['e']);
+      const turnSpeed = 95; // degrees per second
+      if (turnLeft && !turnRight) {
+        o.angle = (o.angle - turnSpeed * dt + 360) % 360;
         needsDraw = true;
-      }
-      if (depKeysDown['d']) {
-        o.angle = (o.angle + 85 * dt) % 360;
+      } else if (turnRight && !turnLeft) {
+        o.angle = (o.angle + turnSpeed * dt) % 360;
         needsDraw = true;
       }
 
-      // Forward / Backward with W and S
+      // MOVEMENT:
+      // Forward: W or ArrowUp
+      // Backward: S or ArrowDown
+      const moveFwd = !!(depKeysDown['w'] || depKeysDown['arrowup']);
+      const moveBack = !!(depKeysDown['s'] || depKeysDown['arrowdown']);
       const rad = o.angle * Math.PI / 180;
       const fwd = new THREE.Vector3(Math.sin(rad), 0, -Math.cos(rad));
       let moveSpeed = 0;
       const isShift = !!depKeysDown['shift'];
-      if (depKeysDown['w']) moveSpeed += (isShift ? 5.8 : 3.5);
-      if (depKeysDown['s']) moveSpeed -= (isShift ? 3.5 : 2.2);
+      if (moveFwd && !moveBack) moveSpeed += (isShift ? 6.2 : 3.8);
+      if (moveBack && !moveFwd) moveSpeed -= (isShift ? 3.8 : 2.4);
 
       const isMoving = Math.abs(moveSpeed) > 0.01;
 
-      // Vertical Jump Physics
+      // Natural Gravity Falling Physics & Ground Snapping
+      const groundUnder = getSurfaceHeight(o.x, o.z, o.y);
+      const isFallingFree = !depOfficerJump.isJumping && o.y > groundUnder + 0.12;
+
+      // If item walked off a high terrace/roof/stage, start free fall under gravity:
+      if (isFallingFree) {
+        depOfficerJump.isJumping = true;
+        depOfficerJump.vy = 0;
+      }
+
       if (depOfficerJump.isJumping) {
         o.y += depOfficerJump.vy * dt;
         depOfficerJump.vy -= depOfficerJump.gravity * dt;
-        const groundUnder = getSurfaceHeight(o.x, o.z, o.y);
-        if (o.y <= groundUnder) {
+        // Landing check: only land when moving downward (vy <= 0) and reaching ground
+        if (depOfficerJump.vy <= 0 && o.y <= groundUnder) {
           o.y = groundUnder;
           depOfficerJump.vy = 0;
           depOfficerJump.isJumping = false;
         }
         needsDraw = true;
       } else {
-        const groundUnder = getSurfaceHeight(o.x, o.z, o.y);
-        o.y = THREE.MathUtils.lerp(o.y, groundUnder, 0.35);
+        const groundDecay = 1 - Math.exp(-18 * dt);
+        o.y = THREE.MathUtils.lerp(o.y, groundUnder, groundDecay);
       }
 
       if (isMoving) {
@@ -984,18 +1381,28 @@ window.__DEP_TICK = function(dt) {
         const surfaceNext = getSurfaceHeight(nextX, nextZ, o.y);
         const heightDiff = surfaceNext - o.y;
 
-        // Check stair step / climb vs tall obstacle
-        if (heightDiff <= 0.42) {
-          // Normal stair step or ground ramp: climb on top smoothly!
+        // Forward chest-height raycast to prevent tunneling through thin walls / partitions:
+        const chestY = o.y + 0.8;
+        const fwdDir = fwd.clone().normalize();
+        const fwdCaster = new THREE.Raycaster(new THREE.Vector3(o.x, chestY, o.z), fwdDir, 0.05, 0.5);
+        const occluderMeshes = (typeof clickable !== 'undefined' ? clickable : []).filter(m => m.visible && m.parent.visible && m !== depGroup);
+        const wallHits = fwdCaster.intersectObjects(occluderMeshes, false);
+        const wallBlocked = wallHits.length > 0 && Math.abs(wallHits[0].face.normal.y) < 0.4;
+
+        if (wallBlocked && (!depOfficerJump.isJumping || o.y < surfaceNext - 0.2)) {
+          depUI('status').textContent = '⚠️ Blocked by obstacle / wall! Press SPACE to jump over.';
+        } else if (heightDiff <= 0.45) {
+          // Normal stair step, curb or ground ramp: climb on top smoothly!
           o.x = nextX;
           o.z = nextZ;
           if (!depOfficerJump.isJumping) {
-            o.y = THREE.MathUtils.lerp(o.y, surfaceNext, 0.45);
+            const stepDecay = 1 - Math.exp(-22 * dt);
+            o.y = THREE.MathUtils.lerp(o.y, surfaceNext, stepDecay);
           }
           needsDraw = true;
         } else {
           // High obstacle or wall in front: can only pass if jumping high enough!
-          if (depOfficerJump.isJumping && o.y >= surfaceNext - 0.15) {
+          if (depOfficerJump.isJumping && o.y >= surfaceNext - 0.2) {
             o.x = nextX;
             o.z = nextZ;
             needsDraw = true;
@@ -1021,7 +1428,7 @@ window.__DEP_TICK = function(dt) {
       // Animate officer limbs (Legs & Arms walking cycle)
       if (rig) {
         if (isMoving) {
-          rig.walkPhase += dt * (Math.abs(moveSpeed) * 2.8);
+          rig.walkPhase += dt * (Math.abs(moveSpeed) * 3.0);
           const swing = Math.sin(rig.walkPhase);
           rig.leftLeg.rotation.x = swing * 0.55;
           rig.rightLeg.rotation.x = -swing * 0.55;
@@ -1035,31 +1442,62 @@ window.__DEP_TICK = function(dt) {
           rig.torsoGroup.rotation.z = Math.sin(rig.walkPhase) * 0.025;
           needsDraw = true;
         } else if (depOfficerJump.isJumping) {
-          rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0.4, 0.2);
-          rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0.3, 0.2);
-          rig.leftArm.rotation.x = THREE.MathUtils.lerp(rig.leftArm.rotation.x, -0.4, 0.2);
+          const jumpPoseDecay = 1 - Math.exp(-14 * dt);
+          rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0.4, jumpPoseDecay);
+          rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0.3, jumpPoseDecay);
+          rig.leftArm.rotation.x = THREE.MathUtils.lerp(rig.leftArm.rotation.x, -0.4, jumpPoseDecay);
           needsDraw = true;
         } else {
-          // Idle rest pose
-          rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0, 0.18);
-          rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0, 0.18);
-          rig.leftArm.rotation.x = THREE.MathUtils.lerp(rig.leftArm.rotation.x, 0, 0.18);
-          if (o.kind === 'officer') rig.rightArm.rotation.x = THREE.MathUtils.lerp(rig.rightArm.rotation.x, 0, 0.18);
-          rig.torsoGroup.position.y = THREE.MathUtils.lerp(rig.torsoGroup.position.y, 0.88, 0.18);
-          rig.torsoGroup.rotation.z = THREE.MathUtils.lerp(rig.torsoGroup.rotation.z, 0, 0.18);
+          // Idle rest pose with smooth exponential decay
+          const idleDecay = 1 - Math.exp(-14 * dt);
+          rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0, idleDecay);
+          rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0, idleDecay);
+          rig.leftArm.rotation.x = THREE.MathUtils.lerp(rig.leftArm.rotation.x, 0, idleDecay);
+          if (o.kind === 'officer') rig.rightArm.rotation.x = THREE.MathUtils.lerp(rig.rightArm.rotation.x, 0, idleDecay);
+          rig.torsoGroup.position.y = THREE.MathUtils.lerp(rig.torsoGroup.position.y, 0.88, idleDecay);
+          rig.torsoGroup.rotation.z = THREE.MathUtils.lerp(rig.torsoGroup.rotation.z, 0, idleDecay);
         }
       }
 
-      // Smooth Third-Person Camera Follow behind the moving officer
-      const angle = o.angle * Math.PI / 180;
-      const dir = new THREE.Vector3(Math.sin(angle), 0, -Math.cos(angle));
-      const eye = new THREE.Vector3(o.x, o.y + 1.65, o.z);
-      const targetCam = eye.clone().addScaledVector(dir, -3.8).add(new THREE.Vector3(0, 1.2, 0));
-      const targetLook = eye.clone().addScaledVector(dir, 2.0);
+      // Smooth Third-Person Camera Follow behind the moving item with Spring-Arm
+      if (depCamera === 'third') {
+        if (typeof motion !== 'undefined' && motion && (isMoving || turnLeft || turnRight || depOfficerJump.isJumping)) {
+          motion = null; // instantly cancel any lingering moveTo lerp when user operates controls!
+        }
+        const angle = o.angle * Math.PI / 180;
+        const dir = new THREE.Vector3(Math.sin(angle), 0, -Math.cos(angle));
+        const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
+        const itemHeight = isOfficerLike ? 1.65
+          : o.kind === 'dfmd' ? 1.8
+          : o.kind === 'cctv' || o.kind === 'light' ? 2.2
+          : o.kind === 'barricade' ? 0.9
+          : 0.6;
+        const distBehind = isOfficerLike ? 3.8
+          : ['barricade','dfmd'].includes(o.kind) ? 4.5
+          : 3.2;
+        const heightAbove = isOfficerLike ? 1.2 : 1.5;
 
-      camera.position.lerp(targetCam, 0.14);
-      controls.target.lerp(targetLook, 0.14);
-      needsDraw = true;
+        const eye = new THREE.Vector3(o.x, o.y + itemHeight, o.z);
+        const idealCam = eye.clone().addScaledVector(dir, -distBehind).add(new THREE.Vector3(0, heightAbove, 0));
+        const targetLook = eye.clone().addScaledVector(dir, 2.0);
+
+        // Spring-arm camera obstacle avoidance
+        const camRayVec = idealCam.clone().sub(eye);
+        const maxDist = camRayVec.length();
+        const camRayDir = camRayVec.clone().normalize();
+        const springRay = new THREE.Raycaster(eye, camRayDir, 0.1, maxDist);
+        const occluderMeshes = (typeof clickable !== 'undefined' ? clickable : []).filter(m => m.visible && m.parent.visible && m !== depGroup);
+        const hits = springRay.intersectObjects(occluderMeshes, false);
+        let targetCam = idealCam;
+        if (hits.length > 0) {
+          targetCam = eye.clone().addScaledVector(camRayDir, Math.max(0.65, hits[0].distance - 0.28));
+        }
+
+        const camDecay = 1 - Math.exp(-14 * dt);
+        camera.position.lerp(targetCam, camDecay);
+        controls.target.lerp(targetLook, camDecay);
+        needsDraw = true;
+      }
     }
   }
 
@@ -1091,43 +1529,46 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
 }
 
 // Keyboard controls:
-// When an item IS selected: W,A,S,D move item, Q,E rotate item
-// When NO item is selected: W,A,S,D drag/pan model, Q,E horizontal rotate model, Z,X vertical rotate model
 window.addEventListener('keydown', e => {
-  if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest?.('input,textarea,select,[contenteditable="true"]')) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.target.closest?.('input,textarea,select,[contenteditable="true"]')) return;
   const key = e.key.toLowerCase();
   depKeysDown[key] = true;
 
-  // Spacebar: Jump police officer!
-  if (key === ' ' || key === 'spacebar') {
+  // Spacebar: Jump active officer / equipment!
+  if (key === ' ' || key === 'spacebar' || e.code === 'Space') {
     if (depSelected) {
       const o = depItems.find(o => o.id === depSelected);
-      if (o && ['officer','hhmd','binocular','radio'].includes(o.kind)) {
+      if (o) {
         e.preventDefault();
+        e.stopPropagation();
         triggerOfficerJump(o);
         return;
       }
     }
   }
 
+  // CapsLock: Deselect currently selected item and return camera from 3rd-person to overview
+  if (key === 'capslock' || e.code === 'CapsLock') {
+    e.preventDefault();
+    depDeselect(true);
+    return;
+  }
+
+  // Tab / Shift+Tab: Cycle to next nearest deployed item
+  if (key === 'tab' || e.code === 'Tab') {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.target && typeof e.target.blur === 'function' && !e.target.matches('input,textarea')) {
+      e.target.blur();
+    }
+    depCycleNearestItem(e.shiftKey);
+    return;
+  }
+
   // Escape: Exit first/third person view, cancel placement, close radial menu, or deselect
-  if (key === 'escape') {
-    if (depCamera) {
-      depReturnView(true);
-      return;
-    }
-    if (depPlace) {
-      depPlace = false;
-      if (depNew) {
-        depItems = depItems.filter(x => x.id !== depNew);
-        depNew = null;
-        depSelected = null;
-        depStore();
-        depBuild();
-      }
-      depUpdate();
-      return;
-    }
+  if (key === 'escape' || e.code === 'Escape') {
+    e.preventDefault();
     if (depRadial && depRadial.style.display === 'block') {
       depRadial.style.display = 'none';
       updateTabLock();
@@ -1137,75 +1578,51 @@ window.addEventListener('keydown', e => {
       depPanelEl.classList.remove('show');
       if (depPanelToggle) depPanelToggle.classList.remove('active');
     }
-    if (depSelected) {
-      depSelected = null;
-      depPeek.hidden = true;
-      if (depUI('editor')) depUI('editor').hidden = true;
-      updateTabLock();
-      depUpdate();
-      draw();
+    depDeselect(true);
+    return;
+  }
+
+  // Check if an item is currently selected
+  const activeItem = depSelected ? depItems.find(o => o.id === depSelected) : null;
+
+  // If item is selected, prevent arrow keys and WASD/QE from triggering page scroll or camera pan
+  if (activeItem) {
+    if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'w', 'a', 's', 'd', 'q', 'e'].includes(key)) {
+      e.preventDefault();
       return;
     }
   }
 
-  // 1. If an item is selected, Arrow keys can nudge it onto stairs/ground
-  if (depSelected && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
-    const o = depItems.find(o => o.id === depSelected);
-    if (o) {
-      const step = e.shiftKey ? 1.0 : 0.25;
-      let moved = false;
-      if (key === 'arrowup') { o.z -= step; moved = true; }
-      else if (key === 'arrowdown') { o.z += step; moved = true; }
-      else if (key === 'arrowleft') { o.x -= step; moved = true; }
-      else if (key === 'arrowright') { o.x += step; moved = true; }
-      if (moved) {
-        e.preventDefault();
-        o.y = getSurfaceHeight(o.x, o.z, o.y);
-        depStore();
-        depBuild();
-        depChoose(o.id, false);
-        if (depCamera) depView(depCamera);
-        return;
-      }
-    }
-  }
+  // Camera Controls (Only when NO item is selected and NOT in third-person view)
+  if (!activeItem && depCamera !== 'third') {
+    const v = window.__CAM_VELOCITY;
+    if (v) {
+      const mult = e.shiftKey ? 1.8 : 1.0;
+      const dist = camera.position.distanceTo(controls.target);
+      const panSpeed = (e.shiftKey ? 1.8 : 0.9) * Math.max(0.4, dist * 0.018);
+      let handled = false;
 
-  // 2. Camera Controls (Active in overview mode)
-  // W/S: Move Forward / Backward along viewing horizon
-  // A/D: Slide Left / Right sideways without rotating
-  // Q/E: Turntable Orbit Rotate Left / Right
-  // Z/X: Camera Elevation Angle (Tilt Up / Down)
-  // K/L: Smooth Zoom In / Zoom Out
-  const v = window.__CAM_VELOCITY;
-  if (v) {
-    const mult = e.shiftKey ? 1.8 : 1.0;
-    const dist = camera.position.distanceTo(controls.target);
-    const panSpeed = (e.shiftKey ? 1.8 : 0.9) * Math.max(0.4, dist * 0.018);
-    let handled = false;
-
-    // Pan camera with A, D, W, S when NOT in third-person view
-    if (depCamera !== 'third') {
       if (key === 'a') { v.panRight -= panSpeed; handled = true; }
       else if (key === 'd') { v.panRight += panSpeed; handled = true; }
       else if (key === 'w') { v.panForward += panSpeed; handled = true; }
       else if (key === 's') { v.panForward -= panSpeed; handled = true; }
-    }
 
-    // Q, E: Horizontal turntable rotate
-    if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
-    else if (key === 'e') { v.theta += 0.045 * mult; handled = true; }
+      // Q, E: Horizontal turntable rotate
+      if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
+      else if (key === 'e') { v.theta += 0.045 * mult; handled = true; }
 
-    // Z, X: Camera elevation angle (tilt up/down)
-    else if (key === 'z') { v.phi -= 0.035 * mult; handled = true; }
-    else if (key === 'x') { v.phi += 0.035 * mult; handled = true; }
+      // Z, X: Camera elevation angle (tilt up/down)
+      else if (key === 'z') { v.phi -= 0.035 * mult; handled = true; }
+      else if (key === 'x') { v.phi += 0.035 * mult; handled = true; }
 
-    // K: Zoom in, L: Zoom out
-    else if (key === 'k') { v.zoom -= 0.045 * mult; handled = true; }
-    else if (key === 'l') { v.zoom += 0.045 * mult; handled = true; }
+      // K: Zoom in, L: Zoom out
+      else if (key === 'k') { v.zoom -= 0.045 * mult; handled = true; }
+      else if (key === 'l') { v.zoom += 0.045 * mult; handled = true; }
 
-    if (handled) {
-      e.preventDefault();
-      return;
+      if (handled) {
+        e.preventDefault();
+        return;
+      }
     }
   }
 });
@@ -1213,6 +1630,16 @@ window.addEventListener('keydown', e => {
 window.addEventListener('keyup', e => {
   const key = e.key.toLowerCase();
   depKeysDown[key] = false;
+  if (key === ' ' || key === 'spacebar' || e.code === 'Space') {
+    depKeysDown[' '] = false;
+    depKeysDown['spacebar'] = false;
+  }
+});
+
+window.addEventListener('blur', () => {
+  for (const k in depKeysDown) {
+    depKeysDown[k] = false;
+  }
 });
 
 function depHit(e){
@@ -1250,9 +1677,8 @@ canvas.addEventListener('pointerup',e=>{
     }
     if(depRadial) depRadial.style.display='none';
     if(depSelected){
-      depSelected=null;
-      depPeek.hidden=true;
-      if(depUI('editor')) depUI('editor').hidden=true;
+      depDeselect(true);
+      return;
     }
     updateTabLock();
     depUpdate();
@@ -1363,12 +1789,19 @@ const depPanel=root.querySelector('#gms-deployment'),
 depBackendURL=location.protocol.startsWith('http')&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/deployment':null;
 
 function depPayload(){
+  const sanitized = JSON.parse(JSON.stringify(depItems));
+  for (const item of sanitized) {
+    item.x = Math.max(-4900, Math.min(4900, Math.round((Number(item.x) || 0) * 100) / 100));
+    item.z = Math.max(-4900, Math.min(4900, Math.round((Number(item.z) || 0) * 100) / 100));
+    item.y = Math.max(0, Math.min(99, Math.round((Number(item.y) || 0) * 100) / 100));
+    item.angle = Math.round(((((Number(item.angle) || 0) % 360) + 360) % 360) * 100) / 100;
+  }
   return {
     version:1,
     origin:[geo.originLongitude,geo.originLatitude],
     coordinateFrame:'WGS84 local metres: east X, up Y, south Z',
     status:'Draft — user editable duty order',
-    items:JSON.parse(JSON.stringify(depItems))
+    items:sanitized
   };
 }
 
