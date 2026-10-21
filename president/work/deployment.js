@@ -1135,6 +1135,7 @@ function depBuild(){
 
 function depUpdate(){
   if(!depReady)return;
+  if (typeof window !== "undefined" && typeof window.refreshDeployedCatalogCounts === "function") { window.refreshDeployedCatalogCounts(); }
   updateTabLock();
   depRefreshOcclusion();
   // NO CIRCLE on ground
