@@ -190,14 +190,14 @@
     {
       "id": "post-mvhvzybt-bz8",
       "kind": "officer",
-      "name": "Officer 16",
-      "duty": "Security post",
-      "belt": "",
-      "mobile": "",
-      "x": 61.17,
+      "name": "SI RAMESH",
+      "duty": "Naka & barricade duty",
+      "belt": "123",
+      "mobile": "9999999999",
+      "x": 61.3,
       "y": 0.36,
       "z": -93.88,
-      "angle": 89.32
+      "angle": 78.24
     },
     {
       "id": "post-mvhwoavk-r0t",
@@ -317,7 +317,7 @@
       "x": 61.51,
       "y": 0.36,
       "z": -88.92,
-      "angle": 93.35
+      "angle": 80.71
     },
     {
       "id": "post-mvhws9hy-lx2",
@@ -350,10 +350,10 @@
       "duty": "Security post",
       "belt": "",
       "mobile": "",
-      "x": -42.15,
-      "y": 0,
-      "z": -133.53,
-      "angle": 174.05
+      "x": -69.33,
+      "y": 0.28,
+      "z": -60.74,
+      "angle": 261.97
     },
     {
       "id": "post-mvhwuceb-zti",
@@ -380,28 +380,16 @@
       "angle": 356.22
     },
     {
-      "id": "post-mvicabp3-hum",
-      "kind": "firebrigade",
-      "name": "Fire Tender 1",
-      "duty": "Fire & Safety Standby",
+      "id": "post-mvidukia-x8r",
+      "kind": "parking",
+      "name": "Event Parking Lot 1",
+      "duty": "Vehicle parking & police bus depot",
       "belt": "",
       "mobile": "",
-      "x": 72.32,
+      "x": 68.32,
       "y": 0,
-      "z": -80.7,
-      "angle": 351.34
-    },
-    {
-      "id": "post-vip-helicopter",
-      "kind": "helicopter",
-      "name": "VIP Helicopter (Air One)",
-      "duty": "VIP Helipad Air Transit & Surveillance",
-      "belt": "PILOT-01",
-      "mobile": "VVIP-AIR-CONTROL",
-      "x": -21.82,
-      "y": 0.4,
-      "z": -164.66,
-      "angle": 5
+      "z": -138.83,
+      "angle": 181.05
     }
   ]
 }
