@@ -1550,7 +1550,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Maximize full details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit Name, Belt No., Mobile & Posting / विवरण बदलने के लिए क्लिक करें" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit officer details (नाम, बेल्ट नं, मोबाइल, ड्यूटी बदलें)" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Edit / view details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -30017,4 +30017,185 @@ if (document.readyState === 'loading') {
 
 
 
+
+
+
+// =========================================================================
+// OFFICER & EQUIPMENT QUICK EDIT DIALOG ENGINE
+// =========================================================================
+let currentDialogItemId = null;
+
+function depShowToast(msg) {
+  let toast = document.getElementById('dep-live-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'dep-live-toast';
+    toast.className = 'dep-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3200);
+}
+window.depShowToast = depShowToast;
+
+function openOfficerDialog(itemId) {
+  const targetId = itemId || depSelected;
+  if (!targetId) return;
+  const item = depItems.find(o => o.id === targetId);
+  if (!item) return;
+  currentDialogItemId = targetId;
+
+  // Set title & symbol
+  const symEl = document.getElementById('dep-dlg-symbol');
+  const titleTextEl = document.getElementById('dep-dlg-title-text');
+  const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
+  if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? `Officer Details / अधिकारी विवरण (${item.name})` : `Equipment Details / उपकरण विवरण (${item.name})`;
+
+  // Fill input fields with current values
+  const nameInput = document.getElementById('dep-dlg-name');
+  const beltInput = document.getElementById('dep-dlg-belt');
+  const mobileInput = document.getElementById('dep-dlg-mobile');
+  const dutyInput = document.getElementById('dep-dlg-duty');
+
+  if (nameInput) nameInput.value = item.name || '';
+  if (beltInput) beltInput.value = item.belt || '';
+  if (mobileInput) mobileInput.value = item.mobile || '';
+  if (dutyInput) dutyInput.value = item.duty || '';
+
+  // Show modal
+  const modal = document.getElementById('dep-officer-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    setTimeout(() => {
+      if (nameInput) {
+        nameInput.focus();
+        nameInput.select();
+      }
+    }, 60);
+  }
+}
+window.openOfficerDialog = openOfficerDialog;
+
+function closeOfficerDialog() {
+  const modal = document.getElementById('dep-officer-modal');
+  if (modal) modal.style.display = 'none';
+  currentDialogItemId = null;
+}
+window.closeOfficerDialog = closeOfficerDialog;
+
+function saveOfficerDialog() {
+  if (!currentDialogItemId) return;
+  const item = depItems.find(o => o.id === currentDialogItemId);
+  if (!item) return;
+
+  const nameInput = document.getElementById('dep-dlg-name');
+  const beltInput = document.getElementById('dep-dlg-belt');
+  const mobileInput = document.getElementById('dep-dlg-mobile');
+  const dutyInput = document.getElementById('dep-dlg-duty');
+
+  const oldName = item.name;
+  const newName = nameInput ? nameInput.value.trim() : item.name;
+  const newBelt = beltInput ? beltInput.value.trim() : (item.belt || '');
+  const newMobile = mobileInput ? mobileInput.value.trim() : (item.mobile || '');
+  const newDuty = dutyInput ? dutyInput.value.trim() : (item.duty || '');
+
+  item.name = newName || oldName;
+  item.belt = newBelt;
+  item.mobile = newMobile;
+  item.duty = newDuty;
+
+  // Sync to left inspector inputs if active
+  if (depUI('name')) depUI('name').value = item.name;
+  if (depUI('belt')) depUI('belt').value = item.belt;
+  if (depUI('mobile')) depUI('mobile').value = item.mobile;
+  if (depUI('duty')) depUI('duty').value = item.duty;
+
+  // Persist to localStorage & backend SQLite immediately
+  depStore();
+  depBuild();
+  depChoose(item.id, false);
+
+  closeOfficerDialog();
+  depShowToast(`✅ ${item.name} विवरण हमेशा के लिए सुरक्षित (Saved) हो गया!`);
+}
+window.saveOfficerDialog = saveOfficerDialog;
+
+// Bind Dialog events when DOM is ready
+function setupOfficerDialogEvents() {
+  const modal = document.getElementById('dep-officer-modal');
+  const backdrop = document.getElementById('dep-officer-backdrop');
+  const closeX = document.getElementById('dep-dlg-close-x');
+  const cancelBtn = document.getElementById('dep-dlg-cancel-btn');
+  const form = document.getElementById('dep-officer-dialog-form');
+
+  if (backdrop) backdrop.addEventListener('click', closeOfficerDialog);
+  if (closeX) closeX.addEventListener('click', closeOfficerDialog);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeOfficerDialog);
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      saveOfficerDialog();
+    });
+  }
+
+  // Floating pill (depPeek) click triggers
+  const titleRow = depPeekHead.querySelector('.dep-peek-title-row');
+  const titleEl = depPeekHead.querySelector('#dep-peek-title');
+  const badgeEl = depPeekHead.querySelector('#dep-peek-duty-badge');
+  const editBtn = depPeekHead.querySelector('#dep-peek-edit');
+
+  const triggerOpen = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    openOfficerDialog(depSelected);
+  };
+
+  if (titleRow) {
+    titleRow.addEventListener('pointerdown', e => e.stopPropagation());
+    titleRow.addEventListener('click', triggerOpen);
+  }
+  if (titleEl) {
+    titleEl.addEventListener('pointerdown', e => e.stopPropagation());
+    titleEl.addEventListener('click', triggerOpen);
+  }
+  if (badgeEl) {
+    badgeEl.addEventListener('pointerdown', e => e.stopPropagation());
+    badgeEl.addEventListener('click', triggerOpen);
+  }
+  if (editBtn) {
+    editBtn.addEventListener('pointerdown', e => e.stopPropagation());
+    editBtn.addEventListener('click', triggerOpen);
+  }
+
+  // Also bind '+' button on pill to open the dialog box directly
+  const minBtn = depPeekHead.querySelector('#dep-peek-min');
+  if (minBtn) {
+    minBtn.addEventListener('pointerdown', e => e.stopPropagation());
+    minBtn.addEventListener('click', triggerOpen);
+  }
+
+  // Keyboard shortcuts (ESC closes dialog, Enter submits)
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      const m = document.getElementById('dep-officer-modal');
+      if (m && m.style.display !== 'none') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeOfficerDialog();
+      }
+    }
+  });
+}
+
+// Call setup immediately or on ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupOfficerDialogEvents);
+} else {
+  setTimeout(setupOfficerDialogEvents, 100);
+}
 
