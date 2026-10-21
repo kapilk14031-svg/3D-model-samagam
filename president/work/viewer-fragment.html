@@ -85,12 +85,12 @@
       </div>
       <div class="deploy-popup-sub">Click item to deploy immediately here:</div>
       <div class="deploy-popup-grid">
-        <button type="button" class="deploy-item-btn" data-kind="officer">👮 Police Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="hhmd">🔍 HHMD Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="binocular">🔭 Binocular Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="radio">📻 Wireless Officer</button>
+        <button type="button" class="deploy-item-btn" data-kind="officer">👮 Officer</button>
         <button type="button" class="deploy-item-btn" data-kind="barricade">🚧 Barricade</button>
         <button type="button" class="deploy-item-btn" data-kind="dfmd">🚪 DFMD Gate</button>
+        <button type="button" class="deploy-item-btn" data-kind="binocular">🔭 Binoculars</button>
+        <button type="button" class="deploy-item-btn" data-kind="hhmd">🔍 HHMD</button>
+        <button type="button" class="deploy-item-btn" data-kind="radio">📻 Radio</button>
         <button type="button" class="deploy-item-btn" data-kind="cone">⚠️ Cone</button>
         <button type="button" class="deploy-item-btn" data-kind="cctv">📹 CCTV</button>
         <button type="button" class="deploy-item-btn" data-kind="light">💡 Light</button>
@@ -1116,9 +1116,8 @@ window.addEventListener('keydown', e => {
     e.preventDefault();
     toggleFullscreen();
   } else if (e.key === 'Escape') {
-    if (window.__DEP_CAMERA && typeof depReturnView === 'function') {
-      e.preventDefault();
-      depReturnView();
+    if (typeof depCamera !== 'undefined' && depCamera) {
+      if (typeof depReturnView === 'function') depReturnView();
       return;
     }
     if (document.fullscreenElement) {

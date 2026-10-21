@@ -232,12 +232,12 @@ body {
       </div>
       <div class="deploy-popup-sub">Click item to deploy immediately here:</div>
       <div class="deploy-popup-grid">
-        <button type="button" class="deploy-item-btn" data-kind="officer">👮 Police Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="hhmd">🔍 HHMD Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="binocular">🔭 Binocular Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="radio">📻 Wireless Officer</button>
+        <button type="button" class="deploy-item-btn" data-kind="officer">👮 Officer</button>
         <button type="button" class="deploy-item-btn" data-kind="barricade">🚧 Barricade</button>
         <button type="button" class="deploy-item-btn" data-kind="dfmd">🚪 DFMD Gate</button>
+        <button type="button" class="deploy-item-btn" data-kind="binocular">🔭 Binoculars</button>
+        <button type="button" class="deploy-item-btn" data-kind="hhmd">🔍 HHMD</button>
+        <button type="button" class="deploy-item-btn" data-kind="radio">📻 Radio</button>
         <button type="button" class="deploy-item-btn" data-kind="cone">⚠️ Cone</button>
         <button type="button" class="deploy-item-btn" data-kind="cctv">📹 CCTV</button>
         <button type="button" class="deploy-item-btn" data-kind="light">💡 Light</button>
@@ -324,11 +324,11 @@ body {
       <div class="select-btn-group">
         <select id="dep-kind" class="form-select">
           <option value="officer">👮 Police officer</option>
-          <option value="hhmd">🔍 Officer with HHMD</option>
-          <option value="binocular">🔭 Officer with Binoculars</option>
-          <option value="radio">📻 Officer with Wireless Radio</option>
           <option value="barricade">🚧 Barricade</option>
+          <option value="binocular">🔭 Binoculars / Durbin</option>
           <option value="dfmd">🚪 DFMD Gate</option>
+          <option value="hhmd">🔍 HHMD / Handheld</option>
+          <option value="radio">📻 Wireless Radio</option>
           <option value="cone">⚠️ Traffic Cone</option>
           <option value="cctv">📹 CCTV Camera</option>
           <option value="light">💡 Search Light</option>
@@ -1400,9 +1400,8 @@ window.addEventListener('keydown', e => {
     e.preventDefault();
     toggleFullscreen();
   } else if (e.key === 'Escape') {
-    if (window.__DEP_CAMERA && typeof depReturnView === 'function') {
-      e.preventDefault();
-      depReturnView();
+    if (typeof depCamera !== 'undefined' && depCamera) {
+      if (typeof depReturnView === 'function') depReturnView();
       return;
     }
     if (document.fullscreenElement) {
@@ -1771,6 +1770,105 @@ function depPart(g,shape,p,s,mat){const mesh=new THREE.Mesh(geos[shape],depMater
 const depSignCanvas=document.createElement('canvas');depSignCanvas.width=512;depSignCanvas.height=128;const depSignCtx=depSignCanvas.getContext('2d');depSignCtx.fillStyle='#edbd2b';depSignCtx.fillRect(0,0,512,128);depSignCtx.fillStyle='#172837';depSignCtx.font='bold 82px sans-serif';depSignCtx.textAlign='center';depSignCtx.fillText('POLICE',256,93);const depPoliceSign=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depSignCanvas),side:THREE.FrontSide});
 const depConeGeometry=new THREE.ConeGeometry(.22,.7,12),depBoardGeometry=new THREE.PlaneGeometry(1.4,.38);
 
+function depBuildOfficer(g, mode='officer'){
+  g.scale.setScalar(1);
+  // Torso (Navy Blue / Khaki uniform)
+  depPart(g,'rounded',[0,1.05,0],[.46,.6,.28],'khaki');
+  // Head
+  depPart(g,'sphereSmooth',[0,1.58,0],[.16,.19,.16],'skin');
+  // Beret / Police Cap with Peak Visor
+  depPart(g,'cylinder',[0,1.77,0],[.19,.09,.19],'dark');
+  depPart(g,'sphereSmooth',[0,1.72,-.11],[.21,.025,.22],'dark');
+  // Eyes
+  for(const x of [-.06,.06]) depPart(g,'sphereSmooth',[x,1.62,-.145],[.018,.018,.018],'dark');
+  // Belt & Brass Buckle
+  depPart(g,'box',[0,.82,0],[.48,.07,.28],'dark');
+  depPart(g,'box',[0,.82,-.145],[.07,.08,.02],'yellow');
+  // Name badge
+  depPart(g,'box',[0,1.28,-.15],[.12,.07,.025],'yellow');
+  // Legs and Boots
+  for(const x of [-.14,.14]){
+    depPart(g,'cylinder',[x,.43,0],[.085,.62,.09],'khaki');
+    depPart(g,'rounded',[x,.1,-.07],[.19,.18,.32],'dark');
+  }
+  // Shoulder Epaulettes
+  depPart(g,'box',[-.28,1.32,0],[.12,.025,.14],'yellow');
+  depPart(g,'box',[.28,1.32,0],[.12,.025,.14],'yellow');
+
+  if(mode === 'binocular'){
+    // Both arms raised gripping the binoculars mount
+    for(const x of [-.2, .2]){
+      const arm = depPart(g,'cylinder',[x, 1.25, -.2],[.065,.45,.065],'khaki');
+      arm.rotation.set(Math.PI/3.2, 0, x < 0 ? Math.PI/6 : -Math.PI/6);
+      depPart(g,'sphereSmooth',[x * 0.7, 1.42, -.34],[.06,.07,.06],'skin');
+    }
+    // Heavy-duty Binocular Tripod Stand in front of Officer
+    depPart(g,'cylinder',[0,.68,-.45],[.04,1.36,.04],'dark');
+    for(const rot of [0, 2.094, 4.188]){
+      const leg = depPart(g,'cylinder',[Math.sin(rot)*.18, .35, -.45 + Math.cos(rot)*.18],[.03,.72,.03],'dark');
+      leg.rotation.set(Math.cos(rot)*.35, 0, -Math.sin(rot)*.35);
+    }
+    // Binoculars body & mounting bracket
+    depPart(g,'box',[0,1.44,-.42],[.3,.09,.18],'dark');
+    // Twin optical tubes / barrels pointing forward
+    for(const x of [-.09, .09]){
+      const barrel = depPart(g,'cylinder',[x, 1.44, -.5],[.09,.36,.09],'dark');
+      barrel.rotation.x = Math.PI/2;
+      const lens = depPart(g,'cylinder',[x, 1.44, -.68],[.092,.02,.092],'blue');
+      lens.rotation.x = Math.PI/2;
+      const eyeP = depPart(g,'cylinder',[x, 1.44, -.32],[.06,.06,.06],'dark');
+      eyeP.rotation.x = Math.PI/2;
+    }
+  }
+  else if(mode === 'hhmd'){
+    // Left arm relaxed at side
+    depPart(g,'cylinder',[-.28,1.04,0],[.065,.5,.065],'khaki');
+    depPart(g,'sphereSmooth',[-.28,.76,0],[.065,.08,.065],'skin');
+
+    // Right arm extended forward-down holding the HHMD frisking wand
+    const rArm = depPart(g,'cylinder',[.26,1.0,-.15],[.065,.45,.065],'khaki');
+    rArm.rotation.set(Math.PI/3.5, 0, -Math.PI/10);
+    depPart(g,'sphereSmooth',[.25,.78,-.3],[.065,.075,.065],'skin');
+
+    // Classic HHMD (Handheld Metal Detector Wand) in Hand!
+    const grip = depPart(g,'cylinder',[.25,.82,-.32],[.026,.26,.026],'dark');
+    grip.rotation.set(Math.PI/3.5, 0, 0);
+    const wandBody = depPart(g,'box',[.25,.96,-.44],[.11,.24,.035],'blue');
+    wandBody.rotation.set(Math.PI/3.5, 0, 0);
+    const wandLoop = depPart(g,'box',[.25,1.14,-.58],[.14,.24,.025],'dark');
+    wandLoop.rotation.set(Math.PI/3.5, 0, 0);
+    depPart(g,'sphereSmooth',[.25,.91,-.41],[.016,.016,.016],'red');
+  }
+  else if(mode === 'radio'){
+    // Left arm relaxed at side
+    depPart(g,'cylinder',[-.28,1.04,0],[.065,.5,.065],'khaki');
+    depPart(g,'sphereSmooth',[-.28,.76,0],[.065,.08,.065],'skin');
+
+    // Right arm raised holding radio up near shoulder/chest
+    const rArm = depPart(g,'cylinder',[.22,1.18,-.12],[.065,.42,.065],'khaki');
+    rArm.rotation.set(-Math.PI/2.8, 0, -Math.PI/4.5);
+    depPart(g,'sphereSmooth',[.16,1.26,-.2],[.06,.07,.06],'skin');
+
+    // Tactical Walkie-Talkie / Wireless Radio in Hand!
+    const radioBody = depPart(g,'box',[.16,1.34,-.22],[.09,.17,.06],'dark');
+    radioBody.rotation.set(-Math.PI/5, 0.1, 0);
+    const ant = depPart(g,'cylinder',[.15,1.52,-.25],[.012,.22,.012],'dark');
+    ant.rotation.set(-Math.PI/5, 0.1, 0);
+    depPart(g,'cylinder',[.18,1.44,-.22],[.018,.04,.018],'yellow');
+    const screen = depPart(g,'box',[.16,1.36,-.19],[.06,.06,.01],'yellow');
+    screen.rotation.set(-Math.PI/5, 0.1, 0);
+    depPart(g,'box',[.11,1.34,-.22],[.015,.04,.03],'red');
+  }
+  else {
+    // Normal standing officer with baton / lathi
+    depPart(g,'cylinder',[-.28,1.04,0],[.065,.5,.065],'khaki');
+    depPart(g,'sphereSmooth',[-.28,.76,0],[.065,.08,.065],'skin');
+    depPart(g,'cylinder',[.28,1.04,0],[.065,.5,.065],'khaki');
+    depPart(g,'sphereSmooth',[.28,.76,0],[.065,.08,.065],'skin');
+    depPart(g,'box',[.3,.66,.03],[.035,.55,.035],'dark');
+  }
+}
+
 function depBuild(){
   depGroup.clear();depButtons.forEach(o=>o.e.remove());depButtons=[];depNodes=[];
   const list=depUI('list');
@@ -1838,113 +1936,10 @@ function depBuild(){
     }
   }
 
-  function depDrawOfficer(g, accessory){
-    g.scale.setScalar(1);
-    const oz = accessory === 'binocular' ? 0.22 : 0;
-
-    // Torso (Navy/Khaki)
-    depPart(g,'rounded',[0,1.05,oz],[.46,.6,.28],'khaki');
-    // Head (Skin tone)
-    depPart(g,'sphereSmooth',[0,1.58,oz],[.16,.19,.16],'skin');
-    // Cap (Navy dark crown + front visor)
-    depPart(g,'cylinder',[0,1.77,oz],[.19,.09,.19],'dark');
-    depPart(g,'sphereSmooth',[0,1.72,oz-.11],[.21,.025,.22],'dark');
-    // Cap gold emblem / badge
-    depPart(g,'box',[0,1.74,oz-.135],[.05,.04,.02],'yellow');
-    // Eyes
-    for(const x of [-.06,.06]){
-      depPart(g,'sphereSmooth',[x,1.62,oz-.145],[.018,.018,.018],'dark');
-    }
-    // Duty Belt (Black) & Buckle (Yellow)
-    depPart(g,'box',[0,.82,oz],[.48,.07,.28],'dark');
-    depPart(g,'box',[0,.82,oz-.145],[.08,.06,.02],'yellow');
-    // Chest Badge
-    depPart(g,'box',[0,1.28,oz-.15],[.12,.07,.025],'yellow');
-
-    // Legs & Shoes
-    for(const x of [-.14,.14]){
-      depPart(g,'cylinder',[x,.43,oz],[.085,.62,.09],'khaki');
-      depPart(g,'rounded',[x,.1,oz-.07],[.19,.18,.32],'dark');
-      depPart(g,'box',[x*2,1.32,oz],[.12,.025,.14],'yellow');
-    }
-
-    // Left Arm (Standard standing pose)
-    depPart(g,'cylinder',[-.28,1.04,oz],[.065,.5,.065],'khaki');
-    depPart(g,'sphereSmooth',[-.28,.76,oz],[.065,.08,.065],'skin');
-
-    // Right Arm & Accessory:
-    if(accessory === 'hhmd'){
-      // Right arm extended forward/downward holding HHMD scanning wand
-      const rArm = depPart(g,'cylinder',[.26,.98,-.12],[.065,.45,.065],'khaki');
-      rArm.rotation.x = Math.PI / 4;
-      depPart(g,'sphereSmooth',[.26,.80,-.26],[.065,.08,.065],'skin'); // Hand holding handle
-
-      // HHMD Device in hand:
-      const handle = depPart(g,'cylinder',[.26,.85,-.31],[.035,.22,.035],'dark');
-      handle.rotation.x = Math.PI / 4;
-      const paddle = depPart(g,'box',[.26,1.01,-.46],[.13,.32,.035],'dark');
-      paddle.rotation.x = Math.PI / 4;
-      const coil = depPart(g,'box',[.26,1.01,-.46],[.07,.22,.042],'blue');
-      coil.rotation.x = Math.PI / 4;
-      depPart(g,'sphereSmooth',[.26,.92,-.38],[.02,.02,.02],'yellow'); // Status LED
-    }
-    else if(accessory === 'binocular'){
-      // Officer standing behind tripod looking through binoculars
-      for(const side of [-1, 1]){
-        const arm = depPart(g,'cylinder',[side*.22,1.25,oz-.14],[.06,.38,.06],'khaki');
-        arm.rotation.x = -Math.PI / 3;
-        arm.rotation.y = side * Math.PI / 12;
-        depPart(g,'sphereSmooth',[side*.16,1.4,oz-.28],[.055,.065,.055],'skin');
-      }
-
-      // Tripod & Binoculars:
-      depPart(g,'cylinder',[0,.68,-.12],[.035,1.35,.035],'dark');
-      const legL = depPart(g,'cylinder',[-.22,.65,-.18],[.028,1.35,.028],'dark');
-      legL.rotation.z = Math.PI / 16;
-      const legR = depPart(g,'cylinder',[.22,.65,-.18],[.028,1.35,.028],'dark');
-      legR.rotation.z = -Math.PI / 16;
-      depPart(g,'box',[0,1.38,-.12],[.28,.08,.16],'dark');
-      for(const x of [-.09, .09]){
-        const b = depPart(g,'cylinder',[x,1.52,-.14],[.09,.42,.09],'dark');
-        b.rotation.x = Math.PI / 2;
-        const lens = depPart(g,'cylinder',[x,1.52,-.35],[.085,.02,.085],'blue');
-        lens.rotation.x = Math.PI / 2;
-      }
-    }
-    else if(accessory === 'radio'){
-      // Right arm bent up holding walkie-talkie at chest/shoulder level
-      const rArm = depPart(g,'cylinder',[.25,1.08,-.08],[.065,.42,.065],'khaki');
-      rArm.rotation.x = -Math.PI / 5;
-      rArm.rotation.z = -Math.PI / 12;
-      depPart(g,'sphereSmooth',[.22,1.24,-.18],[.065,.07,.065],'skin');
-
-      // Wireless Radio Device in hand
-      depPart(g,'box',[.22,1.3,-.2],[.08,.18,.06],'dark');
-      depPart(g,'box',[.22,1.31,-.23],[.05,.07,.01],'yellow'); // screen/keypad
-      depPart(g,'cylinder',[.25,1.48,-.2],[.012,.22,.012],'dark'); // antenna
-      depPart(g,'box',[-.26,.66,.03],[.035,.55,.035],'dark'); // belt baton
-    }
-    else {
-      // Standard Officer: right arm down with baton
-      depPart(g,'cylinder',[.28,1.04,oz],[.065,.5,.065],'khaki');
-      depPart(g,'sphereSmooth',[.28,.76,oz],[.065,.08,.065],'skin');
-      depPart(g,'box',[.3,.66,oz+.03],[.035,.55,.035],'dark');
-    }
-  }
-
   for(const item of depItems){
     const g=new THREE.Group();g.position.set(item.x,item.y,item.z);g.rotation.y=-item.angle*Math.PI/180;g.userData.depId=item.id;depGroup.add(g);
-    if(item.kind==='officer'){
-      depDrawOfficer(g, 'baton');
-    }
-    else if(item.kind==='hhmd'){
-      depDrawOfficer(g, 'hhmd');
-    }
-    else if(item.kind==='binocular'){
-      depDrawOfficer(g, 'binocular');
-    }
-    else if(item.kind==='radio'){
-      depDrawOfficer(g, 'radio');
+    if(item.kind==='officer' || item.kind==='hhmd' || item.kind==='binocular' || item.kind==='radio'){
+      depBuildOfficer(g, item.kind);
     }
     else if(item.kind==='barricade'){
       for(const x of [-1.25,1.25]){depPart(g,'box',[x,.6,0],[.12,1.2,.15],'dark');depPart(g,'box',[x,.06,0],[.2,.12,.9],'dark');}
@@ -1990,17 +1985,17 @@ function depUpdate(){
     const titleEl=depPeekHead.querySelector('#dep-peek-title');
     const badgeEl=depPeekHead.querySelector('#dep-peek-duty-badge');
     if(titleEl) titleEl.textContent=(depSymbols[peekItem.kind]||'')+' '+peekItem.name;
+    const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(peekItem.kind);
     if(badgeEl){
-      badgeEl.textContent=peekItem.duty||(peekItem.kind==='officer'?'Security post':'Access control');
+      badgeEl.textContent=peekItem.duty||(isOfficerLike?'Security post':'Access control');
       badgeEl.title=peekItem.duty||'';
     }
-    const isOfficerPost = ['officer','hhmd','binocular','radio'].includes(peekItem.kind);
     for(const [k,field] of Object.entries(depPeekFields)){
       if(document.activeElement!==field)field.value=peekItem[k];
-      field.disabled=(k==='belt'||k==='mobile')&&!isOfficerPost;
+      field.disabled=(k==='belt'||k==='mobile')&&!isOfficerLike;
       field.parentElement.hidden=field.disabled;
     }
-    for(const b of depPeekActions.querySelectorAll('button'))if(b.textContent.includes('person')){b.disabled=!isOfficerPost;b.hidden=b.disabled;}
+    for(const b of depPeekActions.querySelectorAll('button'))if(b.textContent.includes('person')){b.disabled=!isOfficerLike;b.hidden=b.disabled;}
   }
 
   const r=host.getBoundingClientRect();
@@ -2062,9 +2057,9 @@ function depChoose(id, zoom = true){
   if(!o)return;
   depUI('editkind').value=o.kind;
   for(const k of ['name','duty','belt','mobile','x','y','z','angle'])depUI(k).value=typeof o[k]==='number'?Math.round(o[k]*100)/100:o[k];
-  const isOfficerPost = ['officer','hhmd','binocular','radio'].includes(o.kind);
-  for(const k of ['belt','mobile','first','third'])depUI(k).disabled=!isOfficerPost;
-  depUI('status').textContent=o.name+' · '+o.duty+(isOfficerPost?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
+  const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
+  for(const k of ['belt','mobile','first','third'])depUI(k).disabled=!isOfficerLike;
+  depUI('status').textContent=o.name+' · '+o.duty+(o.kind==='officer'?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
 
   if(zoom && depCamera!=='first'){
     const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
@@ -2112,8 +2107,16 @@ depUI('add').onclick=()=>{
   if(depItems.length>=500){depUI('status').textContent='Maximum 500 items per plan.';return;}
   depReturnView();const kind=depUI('kind').value,id='item-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
   const count=depItems.filter(o=>o.kind===kind).length+1;
-  const name=kind==='officer'?`Officer ${count}`:kind==='hhmd'?`Officer (HHMD) ${count}`:kind==='binocular'?`Officer (Binocular) ${count}`:kind==='radio'?`Officer (Wireless) ${count}`:`${kind.toUpperCase()} #${count}`;
-  const duty=kind==='hhmd'?'Main gate — DFMD / HHMD':kind==='binocular'?'Binocular duty — rooftop':kind==='radio'?'Wireless radio patrol':kind==='officer'?'Security post':'Access control';
+  const name = kind === 'officer' ? `Officer ${count}`
+    : kind === 'hhmd' ? `HHMD Officer ${count}`
+    : kind === 'binocular' ? `Spotter Officer ${count}`
+    : kind === 'radio' ? `Radio Officer ${count}`
+    : `${kind.toUpperCase()} #${count}`;
+  const duty = kind === 'officer' ? 'Security post'
+    : kind === 'hhmd' ? 'Main gate — DFMD / HHMD'
+    : kind === 'binocular' ? 'Binocular duty — rooftop'
+    : kind === 'radio' ? 'Control & wireless duty'
+    : '';
   depItems.push({id,kind,name,duty,belt:'',mobile:'',x:controls.target.x,y:.3,z:controls.target.z,angle:0});
   depSelected=id;depNew=id;depBuild();depChoose(id);depPlace=true;depUpdate();
   depUI('status').textContent='Click the model surface to place the new '+kind+'. Esc cancels.';
@@ -2135,16 +2138,17 @@ function depView(mode){
   const hq=geo.footprints.find(f=>f.id==='hall').points;let inside=false;
   for(let i=0,j=hq.length-1;i<hq.length;j=i++){const a=hq[i],b=hq[j];if(((a[1]>o.z)!==(b[1]>o.z))&&(o.x<(b[0]-a[0])*(o.z-a[1])/(b[1]-a[1])+a[0]))inside=!inside;}
   if(inside&&o.y<8){select.value='hall';applyView();}else if(current==='alignment'){select.value='campus';applyView();}
-  depCamera=mode;window.__DEP_CAMERA=mode;motion=null;const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
+  depCamera=mode;motion=null;const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
   camera.position.copy(mode==='first'?eye:eye.clone().addScaledVector(dir,-5).add(new THREE.Vector3(0,1.7,0)));
   controls.target.copy(eye.clone().addScaledVector(dir,mode==='first'?10:2));
   controls.update();depUpdate();draw();
-  depUI('status').textContent=o.name+' · '+mode+' person view (Esc to return)';
+  depUI('status').textContent=o.name+' · '+mode+' person view (Press ESC to return)';
 }
 
 function depReturnView(){
   if(depReturn){select.value=depReturn.view;applyView();camera.position.copy(depReturn.p);controls.target.copy(depReturn.t);controls.update();depReturn=null;}
-  depCamera=null;window.__DEP_CAMERA=null;depUpdate();draw();
+  depCamera=null;depUpdate();draw();
+  depUI('status').textContent='Returned to overview.';
 }
 depUI('first').onclick=()=>depView('first');depUI('third').onclick=()=>depView('third');depUI('return').onclick=depReturnView;
 
@@ -2175,8 +2179,16 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
     const kind=btn.dataset.kind;
     const count=depItems.filter(o=>o.kind===kind).length+1;
     const id='post-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,5);
-    const name=kind==='officer'?`Officer ${count}`:kind==='hhmd'?`Officer (HHMD) ${count}`:kind==='binocular'?`Officer (Binocular) ${count}`:kind==='radio'?`Officer (Wireless) ${count}`:`${kind.toUpperCase()} #${count}`;
-    const duty=kind==='hhmd'?'Main gate — DFMD / HHMD':kind==='binocular'?'Binocular duty — rooftop':kind==='radio'?'Wireless radio patrol':kind==='officer'?'Security post':'Access control';
+    const name = kind === 'officer' ? `Officer ${count}`
+      : kind === 'hhmd' ? `HHMD Officer ${count}`
+      : kind === 'binocular' ? `Spotter Officer ${count}`
+      : kind === 'radio' ? `Radio Officer ${count}`
+      : `${kind.toUpperCase()} #${count}`;
+    const duty = kind === 'officer' ? 'Security post'
+      : kind === 'hhmd' ? 'Main gate — DFMD / HHMD'
+      : kind === 'binocular' ? 'Binocular duty — rooftop'
+      : kind === 'radio' ? 'Control & wireless duty'
+      : 'Access control';
     const newItem={
       id,
       kind,
@@ -2246,24 +2258,42 @@ window.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest?.('input,textarea,select,[contenteditable="true"]')) return;
   const key = e.key.toLowerCase();
 
-  // Escape: Exit first/third person view, or close selection, radial menu, or panel
+  // Escape: Exit first/third person view, cancel placement, close radial menu, or deselect
   if (key === 'escape') {
     if (depCamera) {
       depReturnView();
       return;
     }
-    if (depRadial) depRadial.style.display = 'none';
+    if (depPlace) {
+      depPlace = false;
+      if (depNew) {
+        depItems = depItems.filter(x => x.id !== depNew);
+        depNew = null;
+        depSelected = null;
+        depStore();
+        depBuild();
+      }
+      depUpdate();
+      return;
+    }
+    if (depRadial && depRadial.style.display === 'block') {
+      depRadial.style.display = 'none';
+      updateTabLock();
+      return;
+    }
     if (depPanelEl && depPanelEl.classList.contains('show')) {
       depPanelEl.classList.remove('show');
       if (depPanelToggle) depPanelToggle.classList.remove('active');
     }
-    depSelected = null;
-    depPeek.hidden = true;
-    if (depUI('editor')) depUI('editor').hidden = true;
-    updateTabLock();
-    depUpdate();
-    draw();
-    return;
+    if (depSelected) {
+      depSelected = null;
+      depPeek.hidden = true;
+      if (depUI('editor')) depUI('editor').hidden = true;
+      updateTabLock();
+      depUpdate();
+      draw();
+      return;
+    }
   }
 
   // 1. If an item IS selected -> WASD moves item, QE rotates item
