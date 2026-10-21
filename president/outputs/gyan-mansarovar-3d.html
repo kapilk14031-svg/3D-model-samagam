@@ -161,16 +161,6 @@ body {
 
   <!-- Primary View Bar with Dual Top Dropdowns -->
   <div class="view-bar-container">
-    <div class="quick-pills-row" id="gms-quick-views">
-      <span class="pills-label">Quick Views:</span>
-      <button type="button" class="view-pill active" data-view="campus">🏛️ Entire Campus</button>
-      <button type="button" class="view-pill" data-view="plan">📐 Top-Down Plan</button>
-      <button type="button" class="view-pill" data-view="hall">🎭 Auditorium Hall</button>
-      <button type="button" class="view-pill" data-view="stage">🎤 Main Stage</button>
-      <button type="button" class="view-pill" data-view="garden">🪷 Garden &amp; Lotus</button>
-      <button type="button" class="view-pill" data-view="gate">🚪 Main Gate</button>
-    </div>
-
     <div class="top-dropdowns-group">
       <!-- Camera Perspectives Dropdown -->
       <div class="dropdown-wrapper">
@@ -551,53 +541,25 @@ body {
 }
 .action-pill:hover { background: var(--primary-subtle); border-color: var(--primary-accent); color: var(--primary-hover); }
 
-/* Quick Views & Dual Select Bar */
+/* Top Dual Dropdown View Bar */
 .view-bar-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 12px;
 }
-.quick-pills-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.pills-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-right: 4px; }
-.view-pill {
-  padding: 6px 12px;
-  font-size: 12.5px;
-  font-weight: 500;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-light);
-  border-radius: 9999px;
-  color: var(--text-main);
-  cursor: pointer;
-  transition: var(--transition);
-}
-.view-pill:hover { background: #f1f5f9; border-color: #cbd5e1; }
-.view-pill.active {
-  background: var(--primary-accent);
-  border-color: var(--primary-accent);
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
-}
-
 .top-dropdowns-group {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 .dropdown-wrapper {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  min-width: 220px;
+  flex: 1 1 260px;
 }
 .dropdown-header-label {
   font-size: 11px;
@@ -1345,17 +1307,10 @@ function draw(){renderer.render(scene,camera);if(typeof depUpdate==='function')d
 function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:current,lighting:lightSelect.value,eventProposal:eventInput.checked,nearbyBlocks:contextInput.checked,satelliteDateObjects:snapshotInput.checked},privateContent:null}).catch(()=>{});}
 function setLighting(){lotusRoomLight.visible=current==='lotusinside';const internal=['hall','stage'].includes(current),evening=lightSelect.value==='evening';light.intensity=internal?.1:evening?.1:1.1;hemi.intensity=internal?.23:evening?.23:.5;ambient.intensity=current==='lotusinside'?.45:internal?.17:.16;interiorLights.visible=internal;interiorLights.children.forEach(l=>l.intensity=.3);hallKey.visible=internal;eveningLights.visible=evening&&!internal;renderer.toneMappingExposure=internal?.8:evening?1:.85;scene.background=evening&&!internal?new THREE.Color('#152735'):null;mats.light.emissiveIntensity=evening?1.8:.6;mats.lotusGlass.emissiveIntensity=evening?.65:0;mats.lotusFinial.emissiveIntensity=evening?2:.8;}
 
-function syncQuickPills(val){
-  root.querySelectorAll('#gms-quick-views .view-pill').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.view===val);
-  });
-}
-
 function applyView(){
  motion=null;
  current=select.value;const internal=['hall','stage'].includes(current), cut=['cutaway','plan','lounge','stageplan'].includes(current);
  root.dataset.view=current;
- syncQuickPills(current);
  for(const g of Object.values(groups))g.visible=current!=='alignment';referenceGroup.visible=current==='alignment';
  groups.roof.visible=!cut;groups.ceiling.visible=internal;groups.shell.visible=!cut;groups.event.visible=eventInput.checked;groups.context.visible=contextInput.checked;
  groups.lotusInterior.visible=current==='lotusinside';groups.snapshot.visible=snapshotInput.checked;if(current==='alignment')for(const g of Object.values(groups))g.visible=false;
@@ -1365,12 +1320,6 @@ function applyView(){
 }
 
 select.addEventListener('change',()=>{if(select.value==='lounge')eventInput.checked=true;if(select.value==='neighborhood')contextInput.checked=true;applyView();save()});
-root.querySelectorAll('#gms-quick-views .view-pill').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    select.value=btn.dataset.view;
-    select.dispatchEvent(new Event('change'));
-  });
-});
 
 root.querySelector('#gms-reset-btn').addEventListener('click',()=>{
   select.value='campus';
