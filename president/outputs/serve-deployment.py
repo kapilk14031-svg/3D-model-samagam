@@ -10,14 +10,13 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
-KINDS = {'officer','barricade','binocular','dfmd','hhmd','radio','cone','cctv','light','square_box','ambulance','firebrigade','qbelt'}
 ORIGIN = [76.848831, 29.413077]
 
 def valid(plan):
     if not isinstance(plan, dict) or plan.get('version') != 1:
         return False
     items = plan.get('items')
-    if not isinstance(items, list) or len(items) > 1000:
+    if not isinstance(items, list) or len(items) > 2000:
         return False
     ids = set()
     for item in items:
@@ -38,7 +37,7 @@ def valid(plan):
             val = item.get(k)
             if type(val) not in (int,float) or not math.isfinite(val):
                 return False
-        if abs(item['x']) > 5000 or abs(item['z']) > 5000 or not -10 <= item['y'] <= 200:
+        if abs(item['x']) > 10000 or abs(item['z']) > 10000 or not -50 <= item['y'] <= 350:
             return False
     return True
 
@@ -70,7 +69,24 @@ def handler(db_path):
             if path == '/api/deployment':
                 with closing(sqlite3.connect(db_path)) as db:
                     row = db.execute('SELECT revision, payload, updated FROM deployment WHERE id=1').fetchone()
-                self.reply(200, {'revision':row[0], 'plan':json.loads(row[1]), 'updated':row[2]} if row else {'revision':0,'plan':None})
+                if row:
+                    self.reply(200, {'revision':row[0], 'plan':json.loads(row[1]), 'updated':row[2]})
+                else:
+                    # Fallback to deployment-draft.json on disk if SQLite record is not found
+                    draft_file = ROOT / 'deployment-draft.json'
+                    if draft_file.exists():
+                        try:
+                            draft_plan = json.loads(draft_file.read_text(encoding='utf-8'))
+                            if valid(draft_plan):
+                                now = datetime.now(timezone.utc).isoformat()
+                                with closing(sqlite3.connect(db_path, timeout=10)) as db:
+                                    db.execute('INSERT OR REPLACE INTO deployment(id,revision,payload,updated) VALUES(1,1,?,?)', (json.dumps(draft_plan, ensure_ascii=False), now))
+                                    db.commit()
+                                self.reply(200, {'revision':1, 'plan':draft_plan, 'updated':now})
+                                return
+                        except Exception:
+                            pass
+                    self.reply(200, {'revision':0,'plan':None})
                 return
             if path == '/':
                 self.send_response(302); self.send_header('Location','/outputs/gyan-mansarovar-3d.html'); self.end_headers(); return
@@ -92,7 +108,7 @@ def handler(db_path):
                 self.reply(415, {'error':'JSON plan required'}); return
             try:
                 size = int(self.headers.get('Content-Length','0'))
-                if not 0 < size <= 2000000: raise ValueError('Plan exceeds size limit')
+                if not 0 < size <= 4000000: raise ValueError('Plan exceeds size limit')
                 request = json.loads(self.rfile.read(size))
                 plan = request.get('plan')
                 if not valid(plan): raise ValueError('Invalid deployment plan')
@@ -126,6 +142,19 @@ if __name__ == '__main__':
     args.db.parent.mkdir(parents=True, exist_ok=True)
     with closing(sqlite3.connect(args.db)) as db:
         db.execute('CREATE TABLE IF NOT EXISTS deployment (id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL, payload TEXT NOT NULL, updated TEXT NOT NULL)')
+        row = db.execute('SELECT id FROM deployment WHERE id=1').fetchone()
+        if not row:
+            draft_file = ROOT / 'deployment-draft.json'
+            if draft_file.exists():
+                try:
+                    draft_plan = json.loads(draft_file.read_text(encoding='utf-8'))
+                    if valid(draft_plan):
+                        now = datetime.now(timezone.utc).isoformat()
+                        db.execute('INSERT INTO deployment(id,revision,payload,updated) VALUES(1,1,?,?)', (json.dumps(draft_plan, ensure_ascii=False), now))
+                        db.commit()
+                        print(f'Seeded SQLite DB from {draft_file.name} ({len(draft_plan.get("items", []))} items)')
+                except Exception as e:
+                    print('Seed warning:', e)
     server = ThreadingHTTPServer(('127.0.0.1',args.port), handler(args.db))
     print(f'3D viewer: http://127.0.0.1:{args.port}/outputs/gyan-mansarovar-3d.html', flush=True)
     print(f'Database: {args.db}', flush=True)
