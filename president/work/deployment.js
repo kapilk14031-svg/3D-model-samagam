@@ -854,60 +854,34 @@ window.addEventListener('keydown', e => {
     return;
   }
 
-  // 2. If NO item is selected -> W,A,S,D drag model, Q,E horizontal rotate, Z,X vertical rotate
-  let modelChanged = false;
-  const dist = camera.position.distanceTo(controls.target);
-  const panStep = (e.shiftKey ? 4.5 : 1.8) * Math.max(0.6, dist * 0.025);
+  // 2. Camera Controls (smooth 3D Orbit, Rotate, Angle, Zoom)
+  const v = window.__CAM_VELOCITY;
+  if (v) {
+    const mult = e.shiftKey ? 1.8 : 1.0;
+    let handled = false;
 
-  if (['w', 's', 'a', 'd'].includes(key)) {
-    // Camera-relative forward & right vectors on horizontal XZ plane
-    const forward = new THREE.Vector3();
-    camera.getWorldDirection(forward);
-    forward.y = 0;
-    forward.normalize();
+    // W, S, A, D: Smooth Orbit 3D around target
+    if (key === 'w') { v.phi -= 0.035 * mult; handled = true; }
+    else if (key === 's') { v.phi += 0.035 * mult; handled = true; }
+    else if (key === 'a') { v.theta -= 0.045 * mult; handled = true; }
+    else if (key === 'd') { v.theta += 0.045 * mult; handled = true; }
 
-    const right = new THREE.Vector3();
-    right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+    // Q, E: Horizontal rotate around target
+    else if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
+    else if (key === 'e') { v.theta += 0.045 * mult; handled = true; }
 
-    const moveVec = new THREE.Vector3();
-    if (key === 'w') moveVec.addScaledVector(forward, panStep);
-    else if (key === 's') moveVec.addScaledVector(forward, -panStep);
-    else if (key === 'a') moveVec.addScaledVector(right, -panStep);
-    else if (key === 'd') moveVec.addScaledVector(right, panStep);
+    // Z, X: Camera elevation angle (tilt up/down)
+    else if (key === 'z') { v.phi -= 0.035 * mult; handled = true; }
+    else if (key === 'x') { v.phi += 0.035 * mult; handled = true; }
 
-    camera.position.add(moveVec);
-    controls.target.add(moveVec);
-    modelChanged = true;
-  } else if (key === 'q' || key === 'e') {
-    // Q, E: Horizontal rotate around target (Azimuth / Yaw)
-    const rotAngle = (key === 'q' ? 0.05 : -0.05) * (e.shiftKey ? 2.0 : 1.0);
-    const offset = camera.position.clone().sub(controls.target);
-    offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), rotAngle);
-    camera.position.copy(controls.target).add(offset);
-    camera.lookAt(controls.target);
-    modelChanged = true;
-  } else if (key === 'z' || key === 'x') {
-    // Z, X: Vertical rotate around target (Elevation / Pitch)
-    const offset = camera.position.clone().sub(controls.target);
-    const spherical = new THREE.Spherical();
-    spherical.setFromVector3(offset);
+    // K: Zoom in, L: Zoom out
+    else if (key === 'k') { v.zoom -= 0.045 * mult; handled = true; }
+    else if (key === 'l') { v.zoom += 0.045 * mult; handled = true; }
 
-    // Z: Vertical rotate up (tilt up / elevation higher)
-    // X: Vertical rotate down (tilt down / horizon lower)
-    const pitchDelta = (key === 'z' ? -0.045 : 0.045) * (e.shiftKey ? 2.0 : 1.0);
-    spherical.phi = THREE.MathUtils.clamp(spherical.phi + pitchDelta, 0.08, Math.PI / 2 - 0.02);
-
-    offset.setFromSpherical(spherical);
-    camera.position.copy(controls.target).add(offset);
-    camera.lookAt(controls.target);
-    modelChanged = true;
-  }
-
-  if (modelChanged) {
-    e.preventDefault();
-    controls.update();
-    draw();
-    depUpdate();
+    if (handled) {
+      e.preventDefault();
+      return;
+    }
   }
 });
 

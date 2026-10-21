@@ -143,7 +143,7 @@
     <!-- Canvas Floating Bottom-Right: Mouse Hint -->
     <div class="canvas-overlay bottom-right">
       <div class="hint-pill">
-        <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy Item · <b>Drag:</b> Orbit/Pan · <b>W/A/S/D:</b> Pan</span>
+        <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy · <b>W/S/A/D:</b> Orbit 3D · <b>Q/E:</b> Rotate · <b>Z/X:</b> Angle · <b>K/L:</b> Zoom In/Out</span>
       </div>
     </div>
 
@@ -1126,6 +1126,9 @@ canvas.addEventListener('pointerup',e=>{if(!selection||selection.id!==e.pointerI
 canvas.addEventListener('pointercancel',cancelBox);canvas.addEventListener('lostpointercapture',()=>{if(selection)cancelBox();});
 root.addEventListener('keydown',e=>{if(e.key==='Escape')cancelBox();});
 let lastFrame=0;
+const camVelocity = { theta: 0, phi: 0, zoom: 0 };
+window.__CAM_VELOCITY = camVelocity;
+
 function animate(time){
   const dt=Math.min((time-lastFrame)/1000,.05);
   lastFrame=time;
@@ -1140,6 +1143,22 @@ function animate(time){
       motion=null;
     }
     needsDraw=true;
+  }
+  if(Math.abs(camVelocity.theta) > 0.00005 || Math.abs(camVelocity.phi) > 0.00005 || Math.abs(camVelocity.zoom) > 0.00005){
+    const offset = camera.position.clone().sub(controls.target);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+    spherical.theta += camVelocity.theta;
+    spherical.phi = THREE.MathUtils.clamp(spherical.phi + camVelocity.phi, 0.06, Math.PI / 2 - 0.02);
+    spherical.radius = THREE.MathUtils.clamp(spherical.radius * (1 + camVelocity.zoom), controls.minDistance, controls.maxDistance);
+    offset.setFromSpherical(spherical);
+    camera.position.copy(controls.target).add(offset);
+    camera.lookAt(controls.target);
+    
+    // Smooth deceleration / inertia
+    camVelocity.theta *= 0.84;
+    camVelocity.phi *= 0.84;
+    camVelocity.zoom *= 0.84;
+    needsDraw = true;
   }
   const changed=controls.update();
   if(changed||needsDraw)draw();
