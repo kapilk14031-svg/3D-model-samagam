@@ -1518,9 +1518,8 @@ const depPanelClose = root.querySelector('#dep-panel-close-btn');
 
 function isAnyTabOpen(){
   const radialOpen = depRadial && depRadial.style.display === 'block';
-  const peekOpen = !!depSelected && !depPeek.hidden;
   const panelOpen = depPanelEl && depPanelEl.classList.contains('show');
-  return !!(radialOpen || peekOpen || panelOpen);
+  return !!(radialOpen || panelOpen);
 }
 window.__DEP_IS_TAB_OPEN = isAnyTabOpen;
 
@@ -2019,7 +2018,7 @@ function depUpdate(){
     const distance = camera.position.distanceTo(v);
     const p = v.project(camera);
     
-    const isVisible = depGroup.visible && !depOccCache.get(item.id) && p.z >= -1 && p.z <= 1 && Math.abs(p.x) <= 0.98 && Math.abs(p.y) <= 0.98 && !(depCamera==='first' && item.id===depSelected);
+    const isVisible = depGroup.visible && !depOccCache.get(item.id) && p.z >= -1 && p.z <= 1 && Math.abs(p.x) <= 0.98 && Math.abs(p.y) <= 0.98 && !(depCamera && item.id===depSelected);
     e.style.display = isVisible ? 'block' : 'none';
     if (!isVisible) continue;
     
@@ -2041,10 +2040,16 @@ function depUpdate(){
     e.setAttribute('aria-pressed', String(item.id === depSelected));
   }
   
-  // Position Info Tab above clicked marker
+  // Position Info Tab above clicked marker (or docked when in third/first person view)
   if(peekItem){
     const icon=depButtons.find(o=>o.item.id===peekItem.id)?.e;
-    if(!icon||icon.style.display==='none')depPeek.hidden=true;
+    if(depCamera){
+      const r=host.getBoundingClientRect();
+      const w=depPeek.offsetWidth||260;
+      depPeek.style.left=Math.max(8, r.width - w - 16)+'px';
+      depPeek.style.top='56px';
+    }
+    else if(!icon||icon.style.display==='none')depPeek.hidden=true;
     else{
       const px=parseFloat(icon.style.left),py=parseFloat(icon.style.top);
       const w=depPeek.offsetWidth||260,h=depPeek.offsetHeight||(depPeekIsMinimized?42:260);
@@ -2073,13 +2078,18 @@ function depChoose(id, zoom = true){
   for(const k of ['belt','mobile','first','third'])depUI(k).disabled=!isOfficerLike;
   depUI('status').textContent=o.name+' · '+o.duty+(o.kind==='officer'?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
 
-  if(zoom && depCamera!=='first'){
-    const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
-    let offset=camera.position.clone().sub(controls.target);
-    if(offset.lengthSq()<0.1) offset.set(10,8,10);
-    offset.normalize().multiplyScalar(13);
-    offset.y=Math.max(offset.y,4.5);
-    moveTo(target.clone().add(offset), target);
+  if(zoom){
+    if(isOfficerLike){
+      depView('third', true);
+    } else {
+      if(depCamera) depReturnView(true);
+      const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
+      let offset=camera.position.clone().sub(controls.target);
+      if(offset.lengthSq()<0.1) offset.set(10,8,10);
+      offset.normalize().multiplyScalar(13);
+      offset.y=Math.max(offset.y,4.5);
+      moveTo(target.clone().add(offset), target);
+    }
   }
   depUpdate();draw();
 }
@@ -2144,25 +2154,45 @@ depUI('delete').onclick=()=>{
   depSelected=null;depPlace=false;depStore();depBuild();
 };
 
-function depView(mode){
+function depView(mode, smooth = true){
   const o=depItems.find(o=>o.id===depSelected);if(!o||!['officer','hhmd','binocular','radio'].includes(o.kind))return;
   if(!depReturn)depReturn={p:camera.position.clone(),t:controls.target.clone(),view:select.value};
   const hq=geo.footprints.find(f=>f.id==='hall').points;let inside=false;
   for(let i=0,j=hq.length-1;i<hq.length;j=i++){const a=hq[i],b=hq[j];if(((a[1]>o.z)!==(b[1]>o.z))&&(o.x<(b[0]-a[0])*(o.z-a[1])/(b[1]-a[1])+a[0]))inside=!inside;}
   if(inside&&o.y<8){select.value='hall';applyView();}else if(current==='alignment'){select.value='campus';applyView();}
-  depCamera=mode;motion=null;const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
-  camera.position.copy(mode==='first'?eye:eye.clone().addScaledVector(dir,-5).add(new THREE.Vector3(0,1.7,0)));
-  controls.target.copy(eye.clone().addScaledVector(dir,mode==='first'?10:2));
-  controls.update();depUpdate();draw();
-  depUI('status').textContent=o.name+' · '+mode+' person view (Press ESC to return)';
+  depCamera=mode;
+  const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
+  const targetCam = mode==='first' ? eye : eye.clone().addScaledVector(dir,-3.8).add(new THREE.Vector3(0,1.2,0));
+  const targetLook = eye.clone().addScaledVector(dir,mode==='first'?10:2.0);
+  if(smooth && typeof moveTo === 'function'){
+    moveTo(targetCam, targetLook);
+  } else {
+    motion=null;
+    camera.position.copy(targetCam);
+    controls.target.copy(targetLook);
+    controls.update();
+  }
+  depUpdate();draw();
+  depUI('status').textContent=o.name+' · '+(mode==='first'?'First':'Third')+' person view (Press ESC to return)';
 }
 
-function depReturnView(){
-  if(depReturn){select.value=depReturn.view;applyView();camera.position.copy(depReturn.p);controls.target.copy(depReturn.t);controls.update();depReturn=null;}
+function depReturnView(smooth = true){
+  if(depReturn){
+    select.value=depReturn.view;
+    applyView();
+    if(smooth && typeof moveTo === 'function'){
+      moveTo(depReturn.p, depReturn.t);
+    } else {
+      camera.position.copy(depReturn.p);
+      controls.target.copy(depReturn.t);
+      controls.update();
+    }
+    depReturn=null;
+  }
   depCamera=null;depUpdate();draw();
   depUI('status').textContent='Returned to overview.';
 }
-depUI('first').onclick=()=>depView('first');depUI('third').onclick=()=>depView('third');depUI('return').onclick=depReturnView;
+depUI('first').onclick=()=>depView('first', true);depUI('third').onclick=()=>depView('third', true);depUI('return').onclick=()=>depReturnView(true);
 
 // Contextual Click-to-Deploy Menu
 const depRadial=root.querySelector('#dep-radial-deploy'), depRadialClose=root.querySelector('#dep-radial-close');
@@ -2273,7 +2303,7 @@ window.addEventListener('keydown', e => {
   // Escape: Exit first/third person view, cancel placement, close radial menu, or deselect
   if (key === 'escape') {
     if (depCamera) {
-      depReturnView();
+      depReturnView(true);
       return;
     }
     if (depPlace) {
