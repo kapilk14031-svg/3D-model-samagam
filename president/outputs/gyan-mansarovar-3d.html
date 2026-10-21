@@ -163,10 +163,10 @@ body {
   <div class="view-bar-container">
     <div class="quick-pills-row" id="gms-quick-views">
       <span class="pills-label">Quick Views:</span>
-      <button type="button" class="view-pill active" data-view="campus">🏛️ Poora Compound</button>
-      <button type="button" class="view-pill" data-view="plan">📐 Top-Down Layout</button>
-      <button type="button" class="view-pill" data-view="hall">🎭 Hall ke Andar</button>
-      <button type="button" class="view-pill" data-view="stage">🎤 Stage View</button>
+      <button type="button" class="view-pill active" data-view="campus">🏛️ Entire Campus</button>
+      <button type="button" class="view-pill" data-view="plan">📐 Top-Down Plan</button>
+      <button type="button" class="view-pill" data-view="hall">🎭 Auditorium Hall</button>
+      <button type="button" class="view-pill" data-view="stage">🎤 Main Stage</button>
       <button type="button" class="view-pill" data-view="garden">🪷 Garden &amp; Lotus</button>
       <button type="button" class="view-pill" data-view="gate">🚪 Main Gate</button>
     </div>
@@ -176,30 +176,30 @@ body {
       <div class="dropdown-wrapper">
         <label for="gms-view" class="dropdown-header-label">📷 Camera Perspectives</label>
         <select class="form-select select-views" id="gms-view">
-          <optgroup label="🏛️ Compound &amp; Layout">
-            <option value="campus" selected>Poora compound (Isometric)</option>
-            <option value="plan">Upar se layout (Top-down 2D)</option>
-            <option value="neighborhood">Aas-paas ka area (Surroundings)</option>
-            <option value="alignment">Satellite + registered footprints (GIS)</option>
+          <optgroup label="🏛️ Compound &amp; Master Layout">
+            <option value="campus" selected>Entire Campus (Isometric Overview)</option>
+            <option value="plan">Master Site Plan (Top-down 2D)</option>
+            <option value="neighborhood">Surroundings &amp; Neighborhood</option>
+            <option value="alignment">Satellite Imagery &amp; GIS Footprints</option>
           </optgroup>
-          <optgroup label="🎭 Auditorium &amp; Stage">
-            <option value="hall">Hall ke andar (Auditorium seating)</option>
-            <option value="stage">Stage se hall (Speaker perspective)</option>
-            <option value="stageplan">Stage &amp; dono side stairs</option>
-            <option value="cutaway">Roof hata kar dekhein (Open Cutaway)</option>
-            <option value="entry">Hall side entrance &amp; name</option>
-            <option value="classroom">Class Room</option>
+          <optgroup label="🎭 Auditorium &amp; Main Stage">
+            <option value="hall">Main Hall (Auditorium Seating View)</option>
+            <option value="stage">Main Stage (Speaker Perspective)</option>
+            <option value="stageplan">Stage &amp; Side Access Stairs</option>
+            <option value="cutaway">Auditorium Cutaway (Roof Removed)</option>
+            <option value="entry">Main Hall Entrance &amp; Signboard</option>
+            <option value="classroom">Training &amp; Classrooms</option>
           </optgroup>
-          <optgroup label="🪷 Meditation &amp; Garden">
-            <option value="garden">Garden &amp; lotus pavilion</option>
-            <option value="lotusinside">Tapasya Dham — andar</option>
+          <optgroup label="🪷 Meditation &amp; Landscaping">
+            <option value="garden">Garden &amp; Lotus Pavilion</option>
+            <option value="lotusinside">Lotus Meditation Chamber (Interior)</option>
           </optgroup>
-          <optgroup label="🏢 Campus Gates, Roads &amp; VVIP">
-            <option value="gate">Main entry gate</option>
-            <option value="mainroad">Main road &amp; boundary</option>
-            <option value="roads">Inner circulation roads</option>
-            <option value="residential">Residential Complex &amp; name board</option>
-            <option value="lounge">VVIP rooms — proposal</option>
+          <optgroup label="🏢 Gates, Roads &amp; VIP Areas">
+            <option value="gate">Main Campus Entry Gate</option>
+            <option value="mainroad">Main Road &amp; Boundary Perimeter</option>
+            <option value="roads">Internal Circulation Roads</option>
+            <option value="residential">Residential Complex &amp; Guest Blocks</option>
+            <option value="lounge">VVIP Suite &amp; Executive Lounge</option>
           </optgroup>
         </select>
       </div>
@@ -259,16 +259,12 @@ body {
       </select>
     </div>
 
-    <!-- Canvas Floating Top-Right: Deployment Tab & Layers Popover -->
+    <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
     <div class="canvas-overlay top-right">
-      <div style="display:flex;gap:6px;align-items:center;">
-        <button type="button" class="overlay-btn" id="gms-dep-panel-toggle" title="Police Duty & Equipment Deployment Tab">
-          <span>👮 Deployment Tab</span> ▾
+      <div class="layers-dropdown">
+        <button type="button" class="overlay-btn" id="gms-layers-toggle">
+          <span>⚙️ Layers &amp; Lights</span> ▾
         </button>
-        <div class="layers-dropdown">
-          <button type="button" class="overlay-btn" id="gms-layers-toggle">
-            <span>⚙️ Layers &amp; Lights</span> ▾
-          </button>
           <div class="layers-menu" id="gms-layers-menu">
             <div class="layer-item">
               <span class="layer-item-title">Lighting</span>
@@ -293,7 +289,6 @@ body {
           </div>
         </div>
       </div>
-    </div>
 
     <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD -->
     <div class="canvas-overlay bottom-left">
@@ -404,8 +399,8 @@ body {
           <button type="button" class="btn btn-outline" id="dep-return">↩️ Reset Camera</button>
         </div>
         <div class="action-btn-cluster">
-          <button type="button" class="btn btn-sm btn-secondary" id="dep-left" title="Rotate left 15°">↺ −15°</button>
-          <button type="button" class="btn btn-sm btn-secondary" id="dep-right" title="Rotate right 15°">↻ +15°</button>
+          <button type="button" class="btn btn-sm btn-secondary" id="dep-left" title="Rotate left 30°">↺ −30°</button>
+          <button type="button" class="btn btn-sm btn-secondary" id="dep-right" title="Rotate right 30°">↻ +30°</button>
           <button type="submit" class="btn btn-sm btn-success">Save Details</button>
         </div>
       </div>
@@ -481,6 +476,31 @@ body {
   box-shadow: var(--shadow-sm);
   padding: 16px;
   margin: 0 auto;
+}
+
+#gms-model:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+#gms-model:fullscreen #gms-stage {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+#gms-stage:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
 
 /* Header */
@@ -1354,11 +1374,35 @@ root.querySelector('#gms-reset-btn').addEventListener('click',()=>{
   select.dispatchEvent(new Event('change'));
 });
 
-root.querySelector('#gms-fullscreen-btn').addEventListener('click',()=>{
+function toggleFullscreen(){
   if(!document.fullscreenElement){
-    host.requestFullscreen().catch(()=>{});
+    const target = (root && root.requestFullscreen) ? root : host;
+    target.requestFullscreen().catch(()=>{});
   } else {
     document.exitFullscreen().catch(()=>{});
+  }
+}
+const fsBtn = root.querySelector('#gms-fullscreen-btn');
+fsBtn.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    fsBtn.textContent = '✕ Exit Fullscreen';
+    fsBtn.title = 'Exit Fullscreen (F or Esc)';
+  } else {
+    fsBtn.textContent = '⛶ Fullscreen';
+    fsBtn.title = 'Toggle Fullscreen Canvas (F)';
+  }
+});
+
+window.addEventListener('keydown', e => {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName) || e.target.isContentEditable) return;
+  if (e.key === 'f' || e.key === 'F') {
+    e.preventDefault();
+    toggleFullscreen();
+  } else if (e.key === 'Escape') {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(()=>{});
+    }
   }
 });
 
@@ -1512,7 +1556,7 @@ if (depPanelEl) {
 
 document.addEventListener('click', e => {
   if (depPanelEl && depPanelEl.classList.contains('show')) {
-    if (!depPanelEl.contains(e.target) && !depPanelToggle.contains(e.target)) {
+    if (!depPanelEl.contains(e.target) && (!depPanelToggle || !depPanelToggle.contains(e.target))) {
       depPanelEl.classList.remove('show');
       if (depPanelToggle) depPanelToggle.classList.remove('active');
       updateTabLock();
@@ -1557,7 +1601,7 @@ depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title"
 // Minimized Quick Action Bar
 const depPeekMinBar=document.createElement('div');
 depPeekMinBar.className='dep-peek-min-bar';
-depPeekMinBar.innerHTML='<div class="dep-peek-quick-actions"><button type="button" id="dep-peek-min-left" class="btn-xs" title="Rotate left 15° (Q)">↺ -15°</button><button type="button" id="dep-peek-min-right" class="btn-xs" title="Rotate right 15° (E)">↻ +15°</button><button type="button" id="dep-peek-min-del" class="btn-xs btn-danger-soft" title="Delete post">🗑️</button></div><div class="dep-peek-keys-hint">⌨️ W/S/A/D move</div>';
+depPeekMinBar.innerHTML='<div class="dep-peek-quick-actions"><button type="button" id="dep-peek-min-left" class="btn-xs" title="Rotate left 30° (Q)">↺ -30°</button><button type="button" id="dep-peek-min-right" class="btn-xs" title="Rotate right 30° (E)">↻ +30°</button><button type="button" id="dep-peek-min-del" class="btn-xs btn-danger-soft" title="Delete post">🗑️</button></div><div class="dep-peek-keys-hint">⌨️ W/S/A/D move</div>';
 
 const depPeekBody=document.createElement('div');
 depPeekBody.className='dep-peek-body';
@@ -1627,11 +1671,11 @@ const depPeekMinDel = depPeekMinBar.querySelector('#dep-peek-min-del');
 
 if(depPeekMinLeft){
   depPeekMinLeft.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinLeft.addEventListener('click', e => { e.stopPropagation(); depRotate(-15); });
+  depPeekMinLeft.addEventListener('click', e => { e.stopPropagation(); depRotate(-30); });
 }
 if(depPeekMinRight){
   depPeekMinRight.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinRight.addEventListener('click', e => { e.stopPropagation(); depRotate(15); });
+  depPeekMinRight.addEventListener('click', e => { e.stopPropagation(); depRotate(30); });
 }
 if(depPeekMinDel){
   depPeekMinDel.addEventListener('pointerdown', e => e.stopPropagation());
@@ -1674,8 +1718,8 @@ for(const [key,label] of [['name','Name'],['belt','Belt no.'],['duty','Duty'],['
 for(const [text,fn] of [
   ['First person',()=>depView('first')],
   ['Third person',()=>depView('third')],
-  ['↺ −15°',()=>depRotate(-15)],
-  ['↻ +15°',()=>depRotate(15)],
+  ['↺ −30°',()=>depRotate(-30)],
+  ['↻ +30°',()=>depRotate(30)],
   ['Move',()=>depUI('move').click()],
   ['Minimize',()=>setDepPeekMinimized(true)],
   ['Close',()=>{depSelected=null;depPeek.hidden=true;if(depUI('editor'))depUI('editor').hidden=true;depUpdate();}]
@@ -1955,7 +1999,7 @@ function depRotate(delta){
   depStore();depBuild();depChoose(o.id);
   if(depCamera)depView(depCamera);
 }
-depUI('left').onclick=()=>depRotate(-15);depUI('right').onclick=()=>depRotate(15);
+depUI('left').onclick=()=>depRotate(-30);depUI('right').onclick=()=>depRotate(30);
 
 depUI('add').onclick=()=>{
   if(depItems.length>=500){depUI('status').textContent='Maximum 500 items per plan.';return;}
@@ -2117,8 +2161,8 @@ window.addEventListener('keydown', e => {
     else if (key === 's') { o.z += step; moved = true; }
     else if (key === 'a') { o.x -= step; moved = true; }
     else if (key === 'd') { o.x += step; moved = true; }
-    else if (key === 'q') { o.angle = (o.angle - 15 + 360) % 360; moved = true; }
-    else if (key === 'e') { o.angle = (o.angle + 15 + 360) % 360; moved = true; }
+    else if (key === 'q') { o.angle = (o.angle - 30 + 360) % 360; moved = true; }
+    else if (key === 'e') { o.angle = (o.angle + 30 + 360) % 360; moved = true; }
 
     if (moved) {
       e.preventDefault();

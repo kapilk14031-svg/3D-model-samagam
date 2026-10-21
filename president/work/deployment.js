@@ -91,7 +91,7 @@ if (depPanelEl) {
 
 document.addEventListener('click', e => {
   if (depPanelEl && depPanelEl.classList.contains('show')) {
-    if (!depPanelEl.contains(e.target) && !depPanelToggle.contains(e.target)) {
+    if (!depPanelEl.contains(e.target) && (!depPanelToggle || !depPanelToggle.contains(e.target))) {
       depPanelEl.classList.remove('show');
       if (depPanelToggle) depPanelToggle.classList.remove('active');
       updateTabLock();
@@ -136,7 +136,7 @@ depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title"
 // Minimized Quick Action Bar
 const depPeekMinBar=document.createElement('div');
 depPeekMinBar.className='dep-peek-min-bar';
-depPeekMinBar.innerHTML='<div class="dep-peek-quick-actions"><button type="button" id="dep-peek-min-left" class="btn-xs" title="Rotate left 15° (Q)">↺ -15°</button><button type="button" id="dep-peek-min-right" class="btn-xs" title="Rotate right 15° (E)">↻ +15°</button><button type="button" id="dep-peek-min-del" class="btn-xs btn-danger-soft" title="Delete post">🗑️</button></div><div class="dep-peek-keys-hint">⌨️ W/S/A/D move</div>';
+depPeekMinBar.innerHTML='<div class="dep-peek-quick-actions"><button type="button" id="dep-peek-min-left" class="btn-xs" title="Rotate left 30° (Q)">↺ -30°</button><button type="button" id="dep-peek-min-right" class="btn-xs" title="Rotate right 30° (E)">↻ +30°</button><button type="button" id="dep-peek-min-del" class="btn-xs btn-danger-soft" title="Delete post">🗑️</button></div><div class="dep-peek-keys-hint">⌨️ W/S/A/D move</div>';
 
 const depPeekBody=document.createElement('div');
 depPeekBody.className='dep-peek-body';
@@ -206,11 +206,11 @@ const depPeekMinDel = depPeekMinBar.querySelector('#dep-peek-min-del');
 
 if(depPeekMinLeft){
   depPeekMinLeft.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinLeft.addEventListener('click', e => { e.stopPropagation(); depRotate(-15); });
+  depPeekMinLeft.addEventListener('click', e => { e.stopPropagation(); depRotate(-30); });
 }
 if(depPeekMinRight){
   depPeekMinRight.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinRight.addEventListener('click', e => { e.stopPropagation(); depRotate(15); });
+  depPeekMinRight.addEventListener('click', e => { e.stopPropagation(); depRotate(30); });
 }
 if(depPeekMinDel){
   depPeekMinDel.addEventListener('pointerdown', e => e.stopPropagation());
@@ -253,8 +253,8 @@ for(const [key,label] of [['name','Name'],['belt','Belt no.'],['duty','Duty'],['
 for(const [text,fn] of [
   ['First person',()=>depView('first')],
   ['Third person',()=>depView('third')],
-  ['↺ −15°',()=>depRotate(-15)],
-  ['↻ +15°',()=>depRotate(15)],
+  ['↺ −30°',()=>depRotate(-30)],
+  ['↻ +30°',()=>depRotate(30)],
   ['Move',()=>depUI('move').click()],
   ['Minimize',()=>setDepPeekMinimized(true)],
   ['Close',()=>{depSelected=null;depPeek.hidden=true;if(depUI('editor'))depUI('editor').hidden=true;depUpdate();}]
@@ -534,7 +534,7 @@ function depRotate(delta){
   depStore();depBuild();depChoose(o.id);
   if(depCamera)depView(depCamera);
 }
-depUI('left').onclick=()=>depRotate(-15);depUI('right').onclick=()=>depRotate(15);
+depUI('left').onclick=()=>depRotate(-30);depUI('right').onclick=()=>depRotate(30);
 
 depUI('add').onclick=()=>{
   if(depItems.length>=500){depUI('status').textContent='Maximum 500 items per plan.';return;}
@@ -696,8 +696,8 @@ window.addEventListener('keydown', e => {
     else if (key === 's') { o.z += step; moved = true; }
     else if (key === 'a') { o.x -= step; moved = true; }
     else if (key === 'd') { o.x += step; moved = true; }
-    else if (key === 'q') { o.angle = (o.angle - 15 + 360) % 360; moved = true; }
-    else if (key === 'e') { o.angle = (o.angle + 15 + 360) % 360; moved = true; }
+    else if (key === 'q') { o.angle = (o.angle - 30 + 360) % 360; moved = true; }
+    else if (key === 'e') { o.angle = (o.angle + 30 + 360) % 360; moved = true; }
 
     if (moved) {
       e.preventDefault();

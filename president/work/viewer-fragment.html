@@ -16,10 +16,10 @@
   <div class="view-bar-container">
     <div class="quick-pills-row" id="gms-quick-views">
       <span class="pills-label">Quick Views:</span>
-      <button type="button" class="view-pill active" data-view="campus">🏛️ Poora Compound</button>
-      <button type="button" class="view-pill" data-view="plan">📐 Top-Down Layout</button>
-      <button type="button" class="view-pill" data-view="hall">🎭 Hall ke Andar</button>
-      <button type="button" class="view-pill" data-view="stage">🎤 Stage View</button>
+      <button type="button" class="view-pill active" data-view="campus">🏛️ Entire Campus</button>
+      <button type="button" class="view-pill" data-view="plan">📐 Top-Down Plan</button>
+      <button type="button" class="view-pill" data-view="hall">🎭 Auditorium Hall</button>
+      <button type="button" class="view-pill" data-view="stage">🎤 Main Stage</button>
       <button type="button" class="view-pill" data-view="garden">🪷 Garden &amp; Lotus</button>
       <button type="button" class="view-pill" data-view="gate">🚪 Main Gate</button>
     </div>
@@ -29,30 +29,30 @@
       <div class="dropdown-wrapper">
         <label for="gms-view" class="dropdown-header-label">📷 Camera Perspectives</label>
         <select class="form-select select-views" id="gms-view">
-          <optgroup label="🏛️ Compound &amp; Layout">
-            <option value="campus" selected>Poora compound (Isometric)</option>
-            <option value="plan">Upar se layout (Top-down 2D)</option>
-            <option value="neighborhood">Aas-paas ka area (Surroundings)</option>
-            <option value="alignment">Satellite + registered footprints (GIS)</option>
+          <optgroup label="🏛️ Compound &amp; Master Layout">
+            <option value="campus" selected>Entire Campus (Isometric Overview)</option>
+            <option value="plan">Master Site Plan (Top-down 2D)</option>
+            <option value="neighborhood">Surroundings &amp; Neighborhood</option>
+            <option value="alignment">Satellite Imagery &amp; GIS Footprints</option>
           </optgroup>
-          <optgroup label="🎭 Auditorium &amp; Stage">
-            <option value="hall">Hall ke andar (Auditorium seating)</option>
-            <option value="stage">Stage se hall (Speaker perspective)</option>
-            <option value="stageplan">Stage &amp; dono side stairs</option>
-            <option value="cutaway">Roof hata kar dekhein (Open Cutaway)</option>
-            <option value="entry">Hall side entrance &amp; name</option>
-            <option value="classroom">Class Room</option>
+          <optgroup label="🎭 Auditorium &amp; Main Stage">
+            <option value="hall">Main Hall (Auditorium Seating View)</option>
+            <option value="stage">Main Stage (Speaker Perspective)</option>
+            <option value="stageplan">Stage &amp; Side Access Stairs</option>
+            <option value="cutaway">Auditorium Cutaway (Roof Removed)</option>
+            <option value="entry">Main Hall Entrance &amp; Signboard</option>
+            <option value="classroom">Training &amp; Classrooms</option>
           </optgroup>
-          <optgroup label="🪷 Meditation &amp; Garden">
-            <option value="garden">Garden &amp; lotus pavilion</option>
-            <option value="lotusinside">Tapasya Dham — andar</option>
+          <optgroup label="🪷 Meditation &amp; Landscaping">
+            <option value="garden">Garden &amp; Lotus Pavilion</option>
+            <option value="lotusinside">Lotus Meditation Chamber (Interior)</option>
           </optgroup>
-          <optgroup label="🏢 Campus Gates, Roads &amp; VVIP">
-            <option value="gate">Main entry gate</option>
-            <option value="mainroad">Main road &amp; boundary</option>
-            <option value="roads">Inner circulation roads</option>
-            <option value="residential">Residential Complex &amp; name board</option>
-            <option value="lounge">VVIP rooms — proposal</option>
+          <optgroup label="🏢 Gates, Roads &amp; VIP Areas">
+            <option value="gate">Main Campus Entry Gate</option>
+            <option value="mainroad">Main Road &amp; Boundary Perimeter</option>
+            <option value="roads">Internal Circulation Roads</option>
+            <option value="residential">Residential Complex &amp; Guest Blocks</option>
+            <option value="lounge">VVIP Suite &amp; Executive Lounge</option>
           </optgroup>
         </select>
       </div>
@@ -112,16 +112,12 @@
       </select>
     </div>
 
-    <!-- Canvas Floating Top-Right: Deployment Tab & Layers Popover -->
+    <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
     <div class="canvas-overlay top-right">
-      <div style="display:flex;gap:6px;align-items:center;">
-        <button type="button" class="overlay-btn" id="gms-dep-panel-toggle" title="Police Duty & Equipment Deployment Tab">
-          <span>👮 Deployment Tab</span> ▾
+      <div class="layers-dropdown">
+        <button type="button" class="overlay-btn" id="gms-layers-toggle">
+          <span>⚙️ Layers &amp; Lights</span> ▾
         </button>
-        <div class="layers-dropdown">
-          <button type="button" class="overlay-btn" id="gms-layers-toggle">
-            <span>⚙️ Layers &amp; Lights</span> ▾
-          </button>
           <div class="layers-menu" id="gms-layers-menu">
             <div class="layer-item">
               <span class="layer-item-title">Lighting</span>
@@ -146,7 +142,6 @@
           </div>
         </div>
       </div>
-    </div>
 
     <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD -->
     <div class="canvas-overlay bottom-left">
@@ -197,6 +192,31 @@
   box-shadow: var(--shadow-sm);
   padding: 16px;
   margin: 0 auto;
+}
+
+#gms-model:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+#gms-model:fullscreen #gms-stage {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+#gms-stage:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
 
 /* Header */
@@ -1070,11 +1090,35 @@ root.querySelector('#gms-reset-btn').addEventListener('click',()=>{
   select.dispatchEvent(new Event('change'));
 });
 
-root.querySelector('#gms-fullscreen-btn').addEventListener('click',()=>{
+function toggleFullscreen(){
   if(!document.fullscreenElement){
-    host.requestFullscreen().catch(()=>{});
+    const target = (root && root.requestFullscreen) ? root : host;
+    target.requestFullscreen().catch(()=>{});
   } else {
     document.exitFullscreen().catch(()=>{});
+  }
+}
+const fsBtn = root.querySelector('#gms-fullscreen-btn');
+fsBtn.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    fsBtn.textContent = '✕ Exit Fullscreen';
+    fsBtn.title = 'Exit Fullscreen (F or Esc)';
+  } else {
+    fsBtn.textContent = '⛶ Fullscreen';
+    fsBtn.title = 'Toggle Fullscreen Canvas (F)';
+  }
+});
+
+window.addEventListener('keydown', e => {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName) || e.target.isContentEditable) return;
+  if (e.key === 'f' || e.key === 'F') {
+    e.preventDefault();
+    toggleFullscreen();
+  } else if (e.key === 'Escape') {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(()=>{});
+    }
   }
 });
 
