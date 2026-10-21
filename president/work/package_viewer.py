@@ -227,8 +227,23 @@ body {
 /* Deployed Asset Catalog & Lightbox Styles */
 .dep-asset-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 1200px) {
+  .dep-asset-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1024px) {
+  .dep-asset-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .dep-asset-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .dep-asset-card {
   background: #ffffff;
@@ -248,7 +263,7 @@ body {
 .dep-asset-thumb-wrap {
   position: relative;
   background: radial-gradient(circle at 50% 35%, #1e293b 0%, #0b1120 100%);
-  height: 220px;
+  height: 200px;
   overflow: hidden;
   cursor: grab;
   user-select: none;
@@ -813,7 +828,7 @@ for it in catalog_items:
     deployed_items_html += f'''
   <div class="dep-asset-card" data-kind="{k}">
     <div class="dep-asset-thumb-wrap" data-kind="{k}" title="360° 3D Preview — Drag to rotate or click to expand specs">
-      <canvas class="dep-card-3d-canvas" data-kind="{k}" width="320" height="220"></canvas>
+      <canvas class="dep-card-3d-canvas" data-kind="{k}" width="300" height="200"></canvas>
       <img class="dep-card-fallback-img" src="{img_src}" alt="{it['name']}" style="display:none;" loading="lazy">
       <span class="dep-live-badge badge-zero" data-kind="{k}">Checking...</span>
       <span class="dep-card-badge">🔄 3D 360° Live</span>
@@ -828,10 +843,7 @@ for it in catalog_items:
         <span class="dep-asset-role-badge">{it['role']}</span>
       </div>
       <p class="dep-asset-desc">{it['desc']}</p>
-      <div class="dep-asset-spec-box">
-        <b>Technical Specs:</b> {it['specs']}<br>
-        <span style="color:#0369a1;font-weight:600;margin-top:4px;display:inline-block;">Deployment Role: {it['guideline']}</span>
-      </div>
+
       <div class="dep-asset-actions">
         <div style="font-size:12px;font-weight:700;color:#1e293b;display:flex;justify-content:space-between;align-items:center;">
           <span>📍 Deployed on Map:</span>
@@ -1252,17 +1264,15 @@ function init3DCardRotators() {{
 
     // 1. Render visible cards
     if (isTabActive) {{
-      offCamera.aspect = 320 / 220;
+      offCamera.aspect = 300 / 200;
       offCamera.updateProjectionMatrix();
-      offRenderer.setSize(320, 220, false);
+      offRenderer.setSize(300, 200, false);
 
       for (const k of depCatalogKinds) {{
         const s = cardStates[k];
         if (!s || !s.visible) continue;
 
-        if (!s.isDragging && (!s.lastInteract || now - s.lastInteract > 2500)) {{
-          s.rotY += 0.014;
-        }}
+        // No auto-spin; rotates only on user drag
         s.pivot.rotation.y = s.rotY;
         s.pivot.rotation.x = s.rotX;
 
@@ -1276,8 +1286,8 @@ function init3DCardRotators() {{
 
         offRenderer.render(offScene, offCamera);
 
-        s.ctx.clearRect(0, 0, 320, 220);
-        s.ctx.drawImage(offRenderer.domElement, 0, 0, 320, 220);
+        s.ctx.clearRect(0, 0, 300, 200);
+        s.ctx.drawImage(offRenderer.domElement, 0, 0, 300, 200);
       }}
     }}
 
@@ -1286,9 +1296,7 @@ function init3DCardRotators() {{
     if (modalEl && modalEl.classList.contains('show') && depModalTab === '3d') {{
       const s = cardStates[modalCurrentKind];
       if (s && modalCanvas) {{
-        if (!modalState.isDragging && (!modalState.lastInteract || now - modalState.lastInteract > 2000)) {{
-          modalState.rotY += 0.012;
-        }}
+        // No auto-spin; rotates only on user drag
         s.pivot.rotation.y = modalState.rotY;
         s.pivot.rotation.x = modalState.rotX;
 
