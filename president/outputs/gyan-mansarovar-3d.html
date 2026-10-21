@@ -1463,6 +1463,11 @@ function animate(time){
     camVelocity.panForward *= 0.84;
     needsDraw = true;
   }
+  if(window.__DEP_TICK){
+    try{
+      if(window.__DEP_TICK(dt)) needsDraw = true;
+    }catch(err){console.error('dep tick error',err);}
+  }
   const changed=controls.update();
   if(changed||needsDraw)draw();
   requestAnimationFrame(animate);
@@ -1774,52 +1779,175 @@ function depStore(){
   depQueue();
 }
 
-const depMaterials={khaki:new THREE.MeshStandardMaterial({color:0x17365e}),dark:new THREE.MeshStandardMaterial({color:0x26323b}),yellow:new THREE.MeshStandardMaterial({color:0xf1bd26}),skin:new THREE.MeshStandardMaterial({color:0xc8956f}),red:new THREE.MeshStandardMaterial({color:0xd65524}),blue:new THREE.MeshStandardMaterial({color:0x245b89}),white:new THREE.MeshStandardMaterial({color:0xe9ede6})};
+const depMaterials={
+  khaki:new THREE.MeshStandardMaterial({color:0xb58e5c,roughness:0.82}), // Real Indian Police Khaki uniform shirt
+  trousers:new THREE.MeshStandardMaterial({color:0x9f7947,roughness:0.85}), // Khaki trousers
+  dark:new THREE.MeshStandardMaterial({color:0x16181b,roughness:0.35,metalness:0.2}), // Polished black leather boots, holster, belt, visor
+  yellow:new THREE.MeshStandardMaterial({color:0xe5b839,roughness:0.3,metalness:0.65}), // Brass stars, insignia, buckle
+  skin:new THREE.MeshStandardMaterial({color:0xc48c66,roughness:0.75}), // Realistic Indian skin tone
+  red:new THREE.MeshStandardMaterial({color:0xb91c1c,roughness:0.5}), // Officer cap red ribbon band
+  blue:new THREE.MeshStandardMaterial({color:0x1d3557,roughness:0.6}), // Navy blue cap crown / DFMD / equipment
+  white:new THREE.MeshStandardMaterial({color:0xf3f4f6,roughness:0.7}), // Whistle cord / name text
+  hair:new THREE.MeshStandardMaterial({color:0x1c1917,roughness:0.9}), // Neat hair
+  lathi:new THREE.MeshStandardMaterial({color:0x6e3c1b,roughness:0.4}) // Polished wood baton
+};
 function depPart(g,shape,p,s,mat){const mesh=new THREE.Mesh(geos[shape],depMaterials[mat]);mesh.position.fromArray(p);mesh.scale.fromArray(s);mesh.castShadow=true;mesh.receiveShadow=true;g.add(mesh);return mesh;}
 const depSignCanvas=document.createElement('canvas');depSignCanvas.width=512;depSignCanvas.height=128;const depSignCtx=depSignCanvas.getContext('2d');depSignCtx.fillStyle='#edbd2b';depSignCtx.fillRect(0,0,512,128);depSignCtx.fillStyle='#172837';depSignCtx.font='bold 82px sans-serif';depSignCtx.textAlign='center';depSignCtx.fillText('POLICE',256,93);const depPoliceSign=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depSignCanvas),side:THREE.FrontSide});
 const depConeGeometry=new THREE.ConeGeometry(.22,.7,12),depBoardGeometry=new THREE.PlaneGeometry(1.4,.38);
 
 function depBuildOfficer(g, mode='officer'){
   g.scale.setScalar(1);
-  // Torso (Navy Blue / Khaki uniform)
-  depPart(g,'rounded',[0,1.05,0],[.46,.6,.28],'khaki');
-  // Head
-  depPart(g,'sphereSmooth',[0,1.58,0],[.16,.19,.16],'skin');
-  // Beret / Police Cap with Peak Visor
-  depPart(g,'cylinder',[0,1.77,0],[.19,.09,.19],'dark');
-  depPart(g,'sphereSmooth',[0,1.72,-.11],[.21,.025,.22],'dark');
-  // Eyes
-  for(const x of [-.06,.06]) depPart(g,'sphereSmooth',[x,1.62,-.145],[.018,.018,.018],'dark');
-  // Belt & Brass Buckle
-  depPart(g,'box',[0,.82,0],[.48,.07,.28],'dark');
-  depPart(g,'box',[0,.82,-.145],[.07,.08,.02],'yellow');
-  // Name badge
-  depPart(g,'box',[0,1.28,-.15],[.12,.07,.025],'yellow');
-  // Legs and Boots
-  for(const x of [-.14,.14]){
-    depPart(g,'cylinder',[x,.43,0],[.085,.62,.09],'khaki');
-    depPart(g,'rounded',[x,.1,-.07],[.19,.18,.32],'dark');
-  }
-  // Shoulder Epaulettes
-  depPart(g,'box',[-.28,1.32,0],[.12,.025,.14],'yellow');
-  depPart(g,'box',[.28,1.32,0],[.12,.025,.14],'yellow');
 
-  if(mode === 'binocular'){
-    // Both arms raised gripping the binoculars mount
-    for(const x of [-.2, .2]){
-      const arm = depPart(g,'cylinder',[x, 1.25, -.2],[.065,.45,.065],'khaki');
-      arm.rotation.set(Math.PI/3.2, 0, x < 0 ? Math.PI/6 : -Math.PI/6);
-      depPart(g,'sphereSmooth',[x * 0.7, 1.42, -.34],[.06,.07,.06],'skin');
+  // 1. Pelvis / Hips & Torso Group (Pivoting at y = 0.88)
+  const torsoGroup = new THREE.Group();
+  torsoGroup.position.set(0, 0.88, 0);
+  g.add(torsoGroup);
+
+  // Main Torso / Chest (Khaki shirt, tailored fit)
+  depPart(torsoGroup, 'rounded', [0, 0.24, 0], [.44, .54, .27], 'khaki');
+  
+  // Shirt button placket (vertical center stripe)
+  depPart(torsoGroup, 'box', [0, 0.24, -.14], [.04, .52, .01], 'khaki');
+  for (let by = 0.08; by <= 0.42; by += 0.08) {
+    depPart(torsoGroup, 'sphereSmooth', [0, by, -.146], [.01, .01, .01], 'yellow');
+  }
+
+  // Dual pleated chest pockets with flaps
+  for (const px of [-.12, .12]) {
+    depPart(torsoGroup, 'box', [px, 0.28, -.14], [.11, .14, .02], 'khaki');
+    depPart(torsoGroup, 'box', [px, 0.36, -.144], [.12, .035, .025], 'khaki');
+    depPart(torsoGroup, 'sphereSmooth', [px, 0.35, -.158], [.008, .008, .008], 'yellow');
+  }
+
+  // Police Ribbon Bar (Medal ribbons) above left pocket
+  depPart(torsoGroup, 'box', [-.12, 0.41, -.144], [.09, .022, .012], 'red');
+  depPart(torsoGroup, 'box', [-.145, 0.41, -.146], [.03, .022, .012], 'blue');
+  depPart(torsoGroup, 'box', [-.095, 0.41, -.146], [.03, .022, .012], 'yellow');
+
+  // Brass Name Plate above right pocket
+  depPart(torsoGroup, 'box', [.12, 0.41, -.144], [.08, .02, .01], 'yellow');
+
+  // Shoulder Epaulettes (Straps with 3 Brass Rank Stars)
+  for (const sx of [-.23, .23]) {
+    depPart(torsoGroup, 'box', [sx, 0.49, 0], [.11, .025, .15], 'khaki');
+    depPart(torsoGroup, 'box', [sx, 0.505, 0], [.09, .015, .13], 'yellow');
+    for (const sz of [-.04, 0, .04]) {
+      depPart(torsoGroup, 'sphereSmooth', [sx, 0.52, sz], [.014, .012, .014], 'yellow');
     }
-    // Heavy-duty Binocular Tripod Stand in front of Officer
+  }
+
+  // Whistle lanyard cord looping from left shoulder
+  depPart(torsoGroup, 'torus', [-.18, 0.42, -.10], [.08, .012, 1], 'yellow');
+
+  // Sam Browne Leather Duty Belt around waist
+  depPart(torsoGroup, 'box', [0, -0.01, 0], [.46, .085, .29], 'dark');
+  depPart(torsoGroup, 'box', [0, -0.01, -.15], [.085, .095, .02], 'yellow');
+  depPart(torsoGroup, 'box', [0, -0.01, -.155], [.05, .06, .02], 'dark');
+  const strap = depPart(torsoGroup, 'box', [.02, 0.23, -.142], [.045, .54, .015], 'dark');
+  strap.rotation.z = -0.42;
+
+  // Leather service holster with revolver/pistol on right hip
+  depPart(torsoGroup, 'box', [.24, -0.07, 0], [.07, .18, .12], 'dark');
+  depPart(torsoGroup, 'box', [.24, .03, -.04], [.035, .06, .08], 'dark');
+  // Utility pouch on left hip
+  depPart(torsoGroup, 'box', [-.24, -0.01, 0], [.06, .10, .10], 'dark');
+
+  // Neck & Shirt collar
+  depPart(torsoGroup, 'cylinder', [0, 0.53, 0], [.08, .14, .08], 'skin');
+  depPart(torsoGroup, 'box', [-.08, 0.49, -.08], [.08, .06, .03], 'khaki');
+  depPart(torsoGroup, 'box', [.08, 0.49, -.08], [.08, .06, .03], 'khaki');
+
+  // 2. Head Group (At top of neck)
+  const headGroup = new THREE.Group();
+  headGroup.position.set(0, 0.62, 0);
+  torsoGroup.add(headGroup);
+
+  // Realistic Head & Facial Proportions
+  depPart(headGroup, 'sphereSmooth', [0, 0.10, 0], [.145, .17, .15], 'skin');
+  depPart(headGroup, 'rounded', [0, 0.03, -.03], [.16, .11, .16], 'skin');
+  depPart(headGroup, 'sphereSmooth', [-.15, 0.10, -.01], [.025, .045, .025], 'skin');
+  depPart(headGroup, 'sphereSmooth', [.15, 0.10, -.01], [.025, .045, .025], 'skin');
+  depPart(headGroup, 'box', [0, 0.10, -.15], [.028, .055, .04], 'skin');
+  for (const ex of [-.055, .055]) {
+    depPart(headGroup, 'box', [ex, 0.145, -.145], [.036, .012, .012], 'hair');
+    depPart(headGroup, 'sphereSmooth', [ex, 0.115, -.142], [.016, .016, .014], 'white');
+    depPart(headGroup, 'sphereSmooth', [ex, 0.115, -.150], [.010, .010, .010], 'dark');
+  }
+  depPart(headGroup, 'box', [0, 0.055, -.145], [.065, .016, .018], 'hair');
+  depPart(headGroup, 'sphereSmooth', [0, 0.12, .05], [.15, .15, .14], 'hair');
+
+  // INDIAN POLICE PEAKED SERVICE CAP
+  depPart(headGroup, 'cylinder', [0, 0.19, 0], [.165, .06, .175], 'blue');
+  depPart(headGroup, 'cylinder', [0, 0.185, 0], [.17, .035, .18], 'red');
+  depPart(headGroup, 'cylinder', [0, 0.24, -.01], [.195, .06, .21], 'blue');
+  depPart(headGroup, 'cylinder', [0, 0.27, -.02], [.21, .02, .225], 'blue');
+  depPart(headGroup, 'box', [0, 0.21, -.18], [.045, .06, .012], 'yellow'); // Ashoka Lion Emblem Crest
+  depPart(headGroup, 'sphereSmooth', [0, 0.24, -.18], [.02, .02, .01], 'yellow');
+  const peak = depPart(headGroup, 'rounded', [0, 0.165, -.17], [.22, .02, .14], 'dark');
+  peak.rotation.x = 0.26;
+  depPart(headGroup, 'box', [0, 0.168, -.168], [.20, .012, .015], 'yellow');
+  depPart(headGroup, 'sphereSmooth', [-.11, 0.17, -.14], [.014, .014, .014], 'yellow');
+  depPart(headGroup, 'sphereSmooth', [.11, 0.17, -.14], [.014, .014, .014], 'yellow');
+
+  // 3. Legs & Boots (Pivoting at hips: y = 0.82)
+  const leftLeg = new THREE.Group();
+  leftLeg.position.set(-.13, 0.82, 0);
+  g.add(leftLeg);
+
+  depPart(leftLeg, 'cylinder', [0, -.20, 0], [.095, .40, .10], 'trousers');
+  depPart(leftLeg, 'cylinder', [0, -.48, 0], [.085, .36, .09], 'trousers');
+  depPart(leftLeg, 'box', [0, -.48, -.092], [.015, .36, .01], 'trousers');
+  depPart(leftLeg, 'box', [0, -.62, 0], [.105, .16, .13], 'dark');
+  depPart(leftLeg, 'box', [0, -.60, -.068], [.06, .12, .02], 'dark');
+  depPart(leftLeg, 'rounded', [0, -.71, -.06], [.115, .11, .26], 'dark');
+  depPart(leftLeg, 'box', [0, -.76, -.04], [.12, .03, .28], 'dark');
+
+  const rightLeg = new THREE.Group();
+  rightLeg.position.set(.13, 0.82, 0);
+  g.add(rightLeg);
+
+  depPart(rightLeg, 'cylinder', [0, -.20, 0], [.095, .40, .10], 'trousers');
+  depPart(rightLeg, 'cylinder', [0, -.48, 0], [.085, .36, .09], 'trousers');
+  depPart(rightLeg, 'box', [0, -.48, -.092], [.015, .36, .01], 'trousers');
+  depPart(rightLeg, 'box', [0, -.62, 0], [.105, .16, .13], 'dark');
+  depPart(rightLeg, 'box', [0, -.60, -.068], [.06, .12, .02], 'dark');
+  depPart(rightLeg, 'rounded', [0, -.71, -.06], [.115, .11, .26], 'dark');
+  depPart(rightLeg, 'box', [0, -.76, -.04], [.12, .03, .28], 'dark');
+
+  // 4. Arms & Hands (Pivoting at shoulders: y = 1.34)
+  const leftArm = new THREE.Group();
+  leftArm.position.set(-.26, 1.34, 0);
+  g.add(leftArm);
+
+  depPart(leftArm, 'cylinder', [0, -.16, 0], [.08, .32, .08], 'khaki');
+  depPart(leftArm, 'cylinder', [0, -.30, 0], [.088, .04, .088], 'khaki');
+  depPart(leftArm, 'cylinder', [0, -.46, 0], [.065, .30, .065], 'skin');
+  depPart(leftArm, 'sphereSmooth', [0, -.63, 0], [.065, .08, .065], 'skin');
+  depPart(leftArm, 'box', [0, -.63, -.04], [.05, .07, .03], 'skin');
+
+  const rightArm = new THREE.Group();
+  rightArm.position.set(.26, 1.34, 0);
+  g.add(rightArm);
+
+  depPart(rightArm, 'cylinder', [0, -.16, 0], [.08, .32, .08], 'khaki');
+  depPart(rightArm, 'cylinder', [0, -.30, 0], [.088, .04, .088], 'khaki');
+  depPart(rightArm, 'cylinder', [0, -.46, 0], [.065, .30, .065], 'skin');
+  depPart(rightArm, 'sphereSmooth', [0, -.63, 0], [.065, .08, .065], 'skin');
+
+  let baseRightArmRotX = 0;
+
+  // Equipment & Post Specific Gear
+  if(mode === 'binocular'){
+    leftArm.rotation.set(Math.PI/3.2, 0, Math.PI/6);
+    rightArm.rotation.set(Math.PI/3.2, 0, -Math.PI/6);
+    baseRightArmRotX = Math.PI/3.2;
+
     depPart(g,'cylinder',[0,.68,-.45],[.04,1.36,.04],'dark');
     for(const rot of [0, 2.094, 4.188]){
       const leg = depPart(g,'cylinder',[Math.sin(rot)*.18, .35, -.45 + Math.cos(rot)*.18],[.03,.72,.03],'dark');
       leg.rotation.set(Math.cos(rot)*.35, 0, -Math.sin(rot)*.35);
     }
-    // Binoculars body & mounting bracket
     depPart(g,'box',[0,1.44,-.42],[.3,.09,.18],'dark');
-    // Twin optical tubes / barrels pointing forward
     for(const x of [-.09, .09]){
       const barrel = depPart(g,'cylinder',[x, 1.44, -.5],[.09,.36,.09],'dark');
       barrel.rotation.x = Math.PI/2;
@@ -1830,52 +1958,52 @@ function depBuildOfficer(g, mode='officer'){
     }
   }
   else if(mode === 'hhmd'){
-    // Left arm relaxed at side
-    depPart(g,'cylinder',[-.28,1.04,0],[.065,.5,.065],'khaki');
-    depPart(g,'sphereSmooth',[-.28,.76,0],[.065,.08,.065],'skin');
+    rightArm.rotation.set(Math.PI/3.5, 0, -Math.PI/10);
+    baseRightArmRotX = Math.PI/3.5;
 
-    // Right arm extended forward-down holding the HHMD frisking wand
-    const rArm = depPart(g,'cylinder',[.26,1.0,-.15],[.065,.45,.065],'khaki');
-    rArm.rotation.set(Math.PI/3.5, 0, -Math.PI/10);
-    depPart(g,'sphereSmooth',[.25,.78,-.3],[.065,.075,.065],'skin');
-
-    // Classic HHMD (Handheld Metal Detector Wand) in Hand!
-    const grip = depPart(g,'cylinder',[.25,.82,-.32],[.026,.26,.026],'dark');
-    grip.rotation.set(Math.PI/3.5, 0, 0);
-    const wandBody = depPart(g,'box',[.25,.96,-.44],[.11,.24,.035],'blue');
-    wandBody.rotation.set(Math.PI/3.5, 0, 0);
-    const wandLoop = depPart(g,'box',[.25,1.14,-.58],[.14,.24,.025],'dark');
-    wandLoop.rotation.set(Math.PI/3.5, 0, 0);
-    depPart(g,'sphereSmooth',[.25,.91,-.41],[.016,.016,.016],'red');
+    const grip = depPart(rightArm,'cylinder',[0,-.66,-.10],[.026,.26,.026],'dark');
+    grip.rotation.set(Math.PI/4, 0, 0);
+    const wandBody = depPart(rightArm,'box',[0,-.58,-.22],[.11,.24,.035],'blue');
+    wandBody.rotation.set(Math.PI/4, 0, 0);
+    const wandLoop = depPart(rightArm,'box',[0,-.48,-.34],[.14,.24,.025],'dark');
+    wandLoop.rotation.set(Math.PI/4, 0, 0);
+    depPart(rightArm,'sphereSmooth',[0,-.55,-.24],[.016,.016,.016],'red');
+    depPart(rightArm,'sphereSmooth',[0,-.60,-.20],[.016,.016,.016],'yellow');
   }
   else if(mode === 'radio'){
-    // Left arm relaxed at side
-    depPart(g,'cylinder',[-.28,1.04,0],[.065,.5,.065],'khaki');
-    depPart(g,'sphereSmooth',[-.28,.76,0],[.065,.08,.065],'skin');
+    rightArm.rotation.set(-Math.PI/2.8, 0, -Math.PI/4.5);
+    baseRightArmRotX = -Math.PI/2.8;
 
-    // Right arm raised holding radio up near shoulder/chest
-    const rArm = depPart(g,'cylinder',[.22,1.18,-.12],[.065,.42,.065],'khaki');
-    rArm.rotation.set(-Math.PI/2.8, 0, -Math.PI/4.5);
-    depPart(g,'sphereSmooth',[.16,1.26,-.2],[.06,.07,.06],'skin');
-
-    // Tactical Walkie-Talkie / Wireless Radio in Hand!
-    const radioBody = depPart(g,'box',[.16,1.34,-.22],[.09,.17,.06],'dark');
-    radioBody.rotation.set(-Math.PI/5, 0.1, 0);
-    const ant = depPart(g,'cylinder',[.15,1.52,-.25],[.012,.22,.012],'dark');
-    ant.rotation.set(-Math.PI/5, 0.1, 0);
-    depPart(g,'cylinder',[.18,1.44,-.22],[.018,.04,.018],'yellow');
-    const screen = depPart(g,'box',[.16,1.36,-.19],[.06,.06,.01],'yellow');
-    screen.rotation.set(-Math.PI/5, 0.1, 0);
-    depPart(g,'box',[.11,1.34,-.22],[.015,.04,.03],'red');
+    const radioBody = depPart(rightArm,'box',[0,-.68,-.08],[.09,.17,.06],'dark');
+    radioBody.rotation.set(-Math.PI/6, 0, 0);
+    const ant = depPart(rightArm,'cylinder',[-.02,-.52,-.10],[.012,.22,.012],'dark');
+    ant.rotation.set(-Math.PI/6, 0, 0);
+    depPart(rightArm,'cylinder',[.02,-.58,-.09],[.018,.04,.018],'yellow');
+    const screen = depPart(rightArm,'box',[0,-.66,-.05],[.06,.06,.01],'yellow');
+    screen.rotation.set(-Math.PI/6, 0, 0);
+    depPart(rightArm,'box',[-.045,-.68,-.08],[.015,.04,.03],'red');
   }
   else {
-    // Normal standing officer with baton / lathi
-    depPart(g,'cylinder',[-.28,1.04,0],[.065,.5,.065],'khaki');
-    depPart(g,'sphereSmooth',[-.28,.76,0],[.065,.08,.065],'skin');
-    depPart(g,'cylinder',[.28,1.04,0],[.065,.5,.065],'khaki');
-    depPart(g,'sphereSmooth',[.28,.76,0],[.065,.08,.065],'skin');
-    depPart(g,'box',[.3,.66,.03],[.035,.55,.035],'dark');
+    const lathi = depPart(rightArm,'cylinder',[0,-.72,.06],[.028,.85,.028],'lathi');
+    lathi.rotation.set(0.18, 0, 0);
+    depPart(rightArm,'cylinder',[0,-.30,.14],[.032,.05,.032],'yellow');
+    depPart(rightArm,'cylinder',[0,-1.14,-.02],[.032,.06,.032],'dark');
+    depPart(rightArm,'torus',[0,-.62,.06],[.04,.008,1],'dark');
   }
+
+  g.userData.rig = {
+    leftLeg,
+    rightLeg,
+    leftArm,
+    rightArm,
+    torsoGroup,
+    headGroup,
+    baseRightArmRotX,
+    walkPhase: 0,
+    isMoving: false,
+    jumpVy: 0,
+    isJumping: false
+  };
 }
 
 function depBuild(){
@@ -2274,6 +2402,172 @@ if(depTopQuickDeploy){
   });
 }
 
+function getSurfaceHeight(x, z, currentY = 0) {
+  const startY = Math.max(currentY + 3.0, 15);
+  const rayOrigin = new THREE.Vector3(x, startY, z);
+  const ray = new THREE.Raycaster(rayOrigin, new THREE.Vector3(0, -1, 0), 0.05, 50);
+  const targets = (typeof clickable !== 'undefined' ? clickable : []).filter(m => m.visible && m.parent.visible && m !== depGroup);
+  const hits = ray.intersectObjects(targets, false);
+  for (const h of hits) {
+    if (h.face && h.face.normal && h.face.normal.y > 0.25) {
+      return h.point.y;
+    }
+  }
+  return 0.0;
+}
+
+const depKeysDown = {};
+let depOfficerJump = {
+  vy: 0,
+  isJumping: false,
+  gravity: 16.0,
+  jumpStrength: 5.6
+};
+
+function triggerOfficerJump(o) {
+  if (!depOfficerJump.isJumping) {
+    depOfficerJump.vy = depOfficerJump.jumpStrength;
+    depOfficerJump.isJumping = true;
+    depUI('status').textContent = '🦘 ' + o.name + ' jumped!';
+  }
+}
+
+let lastDepStoreTime = 0;
+
+window.__DEP_TICK = function(dt) {
+  let needsDraw = false;
+
+  // 1. If in Third-Person View, handle officer walking, turning, climbing stairs, jumping & obstacle collision
+  if (depCamera === 'third' && depSelected) {
+    const o = depItems.find(x => x.id === depSelected);
+    if (o && ['officer','hhmd','binocular','radio'].includes(o.kind)) {
+      const node = depNodes.find(n => n.item.id === o.id);
+      const rig = node?.g?.userData?.rig;
+      
+      // Turn left / right with A and D
+      if (depKeysDown['a']) {
+        o.angle = (o.angle - 85 * dt + 360) % 360;
+        needsDraw = true;
+      }
+      if (depKeysDown['d']) {
+        o.angle = (o.angle + 85 * dt) % 360;
+        needsDraw = true;
+      }
+
+      // Forward / Backward with W and S
+      const rad = o.angle * Math.PI / 180;
+      const fwd = new THREE.Vector3(Math.sin(rad), 0, -Math.cos(rad));
+      let moveSpeed = 0;
+      const isShift = !!depKeysDown['shift'];
+      if (depKeysDown['w']) moveSpeed += (isShift ? 5.8 : 3.5);
+      if (depKeysDown['s']) moveSpeed -= (isShift ? 3.5 : 2.2);
+
+      const isMoving = Math.abs(moveSpeed) > 0.01;
+
+      // Vertical Jump Physics
+      if (depOfficerJump.isJumping) {
+        o.y += depOfficerJump.vy * dt;
+        depOfficerJump.vy -= depOfficerJump.gravity * dt;
+        const groundUnder = getSurfaceHeight(o.x, o.z, o.y);
+        if (o.y <= groundUnder) {
+          o.y = groundUnder;
+          depOfficerJump.vy = 0;
+          depOfficerJump.isJumping = false;
+        }
+        needsDraw = true;
+      } else {
+        const groundUnder = getSurfaceHeight(o.x, o.z, o.y);
+        o.y = THREE.MathUtils.lerp(o.y, groundUnder, 0.35);
+      }
+
+      if (isMoving) {
+        const nextX = o.x + fwd.x * moveSpeed * dt;
+        const nextZ = o.z + fwd.z * moveSpeed * dt;
+        const surfaceNext = getSurfaceHeight(nextX, nextZ, o.y);
+        const heightDiff = surfaceNext - o.y;
+
+        // Check stair step / climb vs tall obstacle
+        if (heightDiff <= 0.42) {
+          // Normal stair step or ground ramp: climb on top smoothly!
+          o.x = nextX;
+          o.z = nextZ;
+          if (!depOfficerJump.isJumping) {
+            o.y = THREE.MathUtils.lerp(o.y, surfaceNext, 0.45);
+          }
+          needsDraw = true;
+        } else {
+          // High obstacle or wall in front: can only pass if jumping high enough!
+          if (depOfficerJump.isJumping && o.y >= surfaceNext - 0.15) {
+            o.x = nextX;
+            o.z = nextZ;
+            needsDraw = true;
+          } else {
+            depUI('status').textContent = '⚠️ Obstacle ahead! Press SPACE to jump over.';
+          }
+        }
+
+        // Throttle auto-save position when walking
+        const now = Date.now();
+        if (now - lastDepStoreTime > 1500) {
+          lastDepStoreTime = now;
+          depStore();
+        }
+      }
+
+      // Update 3D node position & rotation
+      if (node && node.g) {
+        node.g.position.set(o.x, o.y, o.z);
+        node.g.rotation.y = -o.angle * Math.PI / 180;
+      }
+
+      // Animate officer limbs (Legs & Arms walking cycle)
+      if (rig) {
+        if (isMoving) {
+          rig.walkPhase += dt * (Math.abs(moveSpeed) * 2.8);
+          const swing = Math.sin(rig.walkPhase);
+          rig.leftLeg.rotation.x = swing * 0.55;
+          rig.rightLeg.rotation.x = -swing * 0.55;
+          rig.leftArm.rotation.x = -swing * 0.45;
+          if (o.kind === 'officer') {
+            rig.rightArm.rotation.x = swing * 0.45;
+          } else {
+            rig.rightArm.rotation.x = rig.baseRightArmRotX + Math.sin(rig.walkPhase * 2) * 0.05;
+          }
+          rig.torsoGroup.position.y = 0.88 + Math.abs(Math.sin(rig.walkPhase * 2)) * 0.035;
+          rig.torsoGroup.rotation.z = Math.sin(rig.walkPhase) * 0.025;
+          needsDraw = true;
+        } else if (depOfficerJump.isJumping) {
+          rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0.4, 0.2);
+          rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0.3, 0.2);
+          rig.leftArm.rotation.x = THREE.MathUtils.lerp(rig.leftArm.rotation.x, -0.4, 0.2);
+          needsDraw = true;
+        } else {
+          // Idle rest pose
+          rig.leftLeg.rotation.x = THREE.MathUtils.lerp(rig.leftLeg.rotation.x, 0, 0.18);
+          rig.rightLeg.rotation.x = THREE.MathUtils.lerp(rig.rightLeg.rotation.x, 0, 0.18);
+          rig.leftArm.rotation.x = THREE.MathUtils.lerp(rig.leftArm.rotation.x, 0, 0.18);
+          if (o.kind === 'officer') rig.rightArm.rotation.x = THREE.MathUtils.lerp(rig.rightArm.rotation.x, 0, 0.18);
+          rig.torsoGroup.position.y = THREE.MathUtils.lerp(rig.torsoGroup.position.y, 0.88, 0.18);
+          rig.torsoGroup.rotation.z = THREE.MathUtils.lerp(rig.torsoGroup.rotation.z, 0, 0.18);
+        }
+      }
+
+      // Smooth Third-Person Camera Follow behind the moving officer
+      const angle = o.angle * Math.PI / 180;
+      const dir = new THREE.Vector3(Math.sin(angle), 0, -Math.cos(angle));
+      const eye = new THREE.Vector3(o.x, o.y + 1.65, o.z);
+      const targetCam = eye.clone().addScaledVector(dir, -3.8).add(new THREE.Vector3(0, 1.2, 0));
+      const targetLook = eye.clone().addScaledVector(dir, 2.0);
+
+      camera.position.lerp(targetCam, 0.14);
+      controls.target.lerp(targetLook, 0.14);
+      needsDraw = true;
+    }
+  }
+
+  return needsDraw;
+};
+
 let depCandidate=null;
 const depLocation=new THREE.Mesh(new THREE.RingGeometry(.3,.55,32),new THREE.MeshBasicMaterial({color:0x0284c7,side:THREE.DoubleSide,depthTest:true,depthWrite:false}));
 depLocation.rotation.x=-Math.PI/2;depLocation.renderOrder=999;
@@ -2286,7 +2580,12 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
   b.onclick=()=>{
     if(accept&&depCandidate){
       const o=depItems.find(o=>o.id===depCandidate.id);
-      if(o){o.x=depCandidate.point.x;o.y=Math.max(0,depCandidate.point.y+.03);o.z=depCandidate.point.z;depPlace=false;depNew=null;depStore();depBuild();depChoose(o.id);}
+      if(o){
+        o.x=depCandidate.point.x;
+        o.y=getSurfaceHeight(depCandidate.point.x, depCandidate.point.z, depCandidate.point.y);
+        o.z=depCandidate.point.z;
+        depPlace=false;depNew=null;depStore();depBuild();depChoose(o.id);
+      }
     }
     depCandidate=null;depConfirm.hidden=true;
   };
@@ -2299,6 +2598,19 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
 window.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest?.('input,textarea,select,[contenteditable="true"]')) return;
   const key = e.key.toLowerCase();
+  depKeysDown[key] = true;
+
+  // Spacebar: Jump police officer!
+  if (key === ' ' || key === 'spacebar') {
+    if (depSelected) {
+      const o = depItems.find(o => o.id === depSelected);
+      if (o && ['officer','hhmd','binocular','radio'].includes(o.kind)) {
+        e.preventDefault();
+        triggerOfficerJump(o);
+        return;
+      }
+    }
+  }
 
   // Escape: Exit first/third person view, cancel placement, close radial menu, or deselect
   if (key === 'escape') {
@@ -2338,7 +2650,7 @@ window.addEventListener('keydown', e => {
     }
   }
 
-  // 1. If an item is selected, Arrow keys can nudge it
+  // 1. If an item is selected, Arrow keys can nudge it onto stairs/ground
   if (depSelected && ['arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
     const o = depItems.find(o => o.id === depSelected);
     if (o) {
@@ -2350,6 +2662,7 @@ window.addEventListener('keydown', e => {
       else if (key === 'arrowright') { o.x += step; moved = true; }
       if (moved) {
         e.preventDefault();
+        o.y = getSurfaceHeight(o.x, o.z, o.y);
         depStore();
         depBuild();
         depChoose(o.id, false);
@@ -2359,7 +2672,7 @@ window.addEventListener('keydown', e => {
     }
   }
 
-  // 2. Camera Controls
+  // 2. Camera Controls (Active in overview mode)
   // W/S: Move Forward / Backward along viewing horizon
   // A/D: Slide Left / Right sideways without rotating
   // Q/E: Turntable Orbit Rotate Left / Right
@@ -2372,16 +2685,16 @@ window.addEventListener('keydown', e => {
     const panSpeed = (e.shiftKey ? 1.8 : 0.9) * Math.max(0.4, dist * 0.018);
     let handled = false;
 
-    // A, D: Left / Right Pan (Move sideways without rotation)
-    if (key === 'a') { v.panRight -= panSpeed; handled = true; }
-    else if (key === 'd') { v.panRight += panSpeed; handled = true; }
-
-    // W, S: Forward / Backward Pan (Aage / Piche)
-    else if (key === 'w') { v.panForward += panSpeed; handled = true; }
-    else if (key === 's') { v.panForward -= panSpeed; handled = true; }
+    // Pan camera with A, D, W, S when NOT in third-person view
+    if (depCamera !== 'third') {
+      if (key === 'a') { v.panRight -= panSpeed; handled = true; }
+      else if (key === 'd') { v.panRight += panSpeed; handled = true; }
+      else if (key === 'w') { v.panForward += panSpeed; handled = true; }
+      else if (key === 's') { v.panForward -= panSpeed; handled = true; }
+    }
 
     // Q, E: Horizontal turntable rotate
-    else if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
+    if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
     else if (key === 'e') { v.theta += 0.045 * mult; handled = true; }
 
     // Z, X: Camera elevation angle (tilt up/down)
@@ -2397,6 +2710,11 @@ window.addEventListener('keydown', e => {
       return;
     }
   }
+});
+
+window.addEventListener('keyup', e => {
+  const key = e.key.toLowerCase();
+  depKeysDown[key] = false;
 });
 
 function depHit(e){

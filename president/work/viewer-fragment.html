@@ -1179,6 +1179,11 @@ function animate(time){
     camVelocity.panForward *= 0.84;
     needsDraw = true;
   }
+  if(window.__DEP_TICK){
+    try{
+      if(window.__DEP_TICK(dt)) needsDraw = true;
+    }catch(err){console.error('dep tick error',err);}
+  }
   const changed=controls.update();
   if(changed||needsDraw)draw();
   requestAnimationFrame(animate);
