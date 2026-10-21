@@ -290,6 +290,9 @@ def add_helipad(objects, colors, geo):
     r_pole = 21.5
     for p_ang in pole_angles:
         p_pole = centre + r_pole * np.array([math.cos(p_ang), math.sin(p_ang)])
+        # Skip floodlight if it falls in the approach road corridor
+        if approach_distance(dict(p=[p_pole[0], 0, p_pole[1]])) < half_rw + 0.5:
+            continue
         # Tall dark cylindrical mast
         add('Perimeter floodlight dark mast', [p_pole[0], 2.85, p_pole[1]], [0.14, 5.5, 0.14], 'padPoleDark', 'cylinder')
         # Distinct yellow floodlight box head

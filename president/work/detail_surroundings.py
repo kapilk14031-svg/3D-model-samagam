@@ -74,6 +74,8 @@ def detail(objects,colors):
         colors[key]='#ffffff';signs.append(dict(key=key,lines=lines,p=p,size=size,rot=rot,source=source,bg=bg,fg=fg,placement='Relative facade position observed; metric coordinates estimated'))
         add('Observed sign: '+' / '.join(lines),p,[size[0],size[1],1],key,'sign',group,rot)
     sign('sign-gate',['ACADEMY FOR HOLISTIC EXCELLENCE','ज्ञान मानसरोवर'],[-13,5.55,-61.82],[16,1.5],math.pi,'Photo 6; video 3 opening gate','#d2b26f','#283650')
+    signs[-1]['cornerLabels']=['OM SHANTI','OM शक्ति']
+    signs[-1]['cornerLetteringSource']='User-requested addition: left/right ends of yellow top band, not transcribed from site photograph.'
     sign('sign-residential',['DADI','PRAKASHMANI','Residential Complex'],[0,4.65,30.12],[9,2.1],math.pi,'Photo 21 / 26; video 3 ~97s','#735449','#f3dfad')
     box('Portico top name-board backing',0,10.45,20.3,16.5,2.5,.25,'stone')
     sign('sign-main-hindi',['प्रजापिता ब्रह्माकुमारी','ईश्वरीय विश्व विद्यालय','मुख्यालय माउण्ट आबू (राजस्थान)','ज्ञान मानसरोवर (पानीपत)'],[0,10.45,20.12],[14,2.3],math.pi,'Photo 21 / 26, portico top board','#ece5d2','#293d6e')

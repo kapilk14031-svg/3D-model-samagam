@@ -170,6 +170,34 @@ def register(objects,colors,signs,labels):
             d=b-a;c=(a+b)/2;length=np.linalg.norm(d);angle=math.atan2(d[0],d[1])
             add('Frontage boundary wall • image aligned',[c[0],1,c[1]],[.4,2,length],'stone',rot=angle)
             add('Frontage wall white coping',[c[0],2.06,c[1]],[.5,.12,length],'white',rot=angle)
+    # Replace legacy side walls whose transformed ends stopped short of frontage.
+    rear=next(o for o in objects if o['name']=='South boundary')
+    centre=np.array([rear['p'][0],rear['p'][2]])
+    axis=np.array([math.cos(rear['rot']),-math.sin(rear['rot'])])*rear['s'][0]/2
+    rear_corners=[centre-axis,centre+axis]
+    front_corners=[pixel([515,230]),pixel([981,132])]
+    objects[:]=[o for o in objects if not o['name'].startswith(('Compound wall •','Compound wall pilaster','Compound wall coping'))]
+    boundary_joins=[]
+    for side,a,b in zip(['west','east'],front_corners,rear_corners):
+        d=b-a;length=np.linalg.norm(d);c=(a+b)/2;angle=math.atan2(d[0],d[1])
+        add('Compound side boundary • joined '+side+' frontage',[c[0],1,c[1]],[.5,2,length+.12],'stone',rot=angle)
+        add('Compound side coping • joined '+side+' frontage',[c[0],2.06,c[1]],[.6,.12,length+.12],'white',rot=angle)
+        for t in np.linspace(0,1,max(2,math.ceil(length/10)+1)):
+            point=a+d*t;add('Compound side pilaster • '+side,[point[0],1.1,point[1]],[.7,2.2,.7],'stone',rot=angle)
+        boundary_joins.append({'side':side,'front':a.tolist(),'rear':b.tolist(),'lengthMetres':float(length)})
+    geo['boundaryJoins']=boundary_joins
+    # User-marked empty strip behind/east of the lotus pavilion becomes lawn.
+    grass_outline=np.array([[24,-73.5],[62.3,-80.8],[61,-36],[41,-36],[40,-50],[38,-63]],float)
+    lo=grass_outline.min(axis=0);hi=grass_outline.max(axis=0);mid=(lo+hi)/2;span=hi-lo
+    from geometry_profiles import extruded_polygon
+    from detail_lotus_v8 import MESHES
+    grass_mesh=extruded_polygon(((grass_outline-mid)/span).tolist())
+    # XY outline / Z thickness -> XZ outline / Y thickness, preserving winding.
+    import trimesh
+    grass_mesh.apply_transform(trimesh.transformations.rotation_matrix(math.pi/2,[1,0,0]))
+    MESHES['frontLotusGrassStrip']={'vertices':grass_mesh.vertices.tolist(),'faces':grass_mesh.faces.tolist()}
+    add('Front east landscaped grass strip • user marked area',[mid[0],.20,mid[1]],[span[0],.04,span[1]],'grass',shape='frontLotusGrassStrip')
+    geo['frontLotusGrassStrip']=grass_outline.tolist()
     # Gate apron meets the campus-side road edge without covering the carriageway.
     choices=[]
     for a,b in zip(main,main[1:]):

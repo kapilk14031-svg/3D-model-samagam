@@ -18,18 +18,29 @@ foreach ($signRecord in $signRecords) {
   $format.Alignment = [System.Drawing.StringAlignment]::Center
   $format.LineAlignment = [System.Drawing.StringAlignment]::Center
   $lineHeight = $height / $signRecord.lines.Count
+  $textLeft = 20
+  $textWidth = $width - 40
+  if ($signRecord.cornerLabels) { $textLeft = $width * .20; $textWidth = $width * .60 }
   for ($lineIndex=0; $lineIndex -lt $signRecord.lines.Count; $lineIndex++) {
     $fontSize = [single]($lineHeight * .65)
     do {
       $font = [System.Drawing.Font]::new('Nirmala UI',$fontSize,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Pixel)
       $measured = $graphics.MeasureString([string]$signRecord.lines[$lineIndex],$font)
-      if ($measured.Width -le $width*.93) { break }
+      if ($measured.Width -le $textWidth*.96) { break }
       $font.Dispose()
       $fontSize -= 2
     } while ($fontSize -gt 8)
-    $rectangle = [System.Drawing.RectangleF]::new(20,[single]($lineIndex*$lineHeight),[single]($width-40),[single]$lineHeight)
+    $rectangle = [System.Drawing.RectangleF]::new([single]$textLeft,[single]($lineIndex*$lineHeight),[single]$textWidth,[single]$lineHeight)
     $graphics.DrawString([string]$signRecord.lines[$lineIndex],$font,$brush,$rectangle,$format)
     $font.Dispose()
+  }
+  if ($signRecord.cornerLabels) {
+    $cornerFont = [System.Drawing.Font]::new('Nirmala UI',[single]($height*.26),[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Pixel)
+    $leftBox = [System.Drawing.RectangleF]::new([single]($width*.015),0,[single]($width*.18),[single]($height*.7))
+    $rightBox = [System.Drawing.RectangleF]::new([single]($width*.805),0,[single]($width*.18),[single]($height*.7))
+    $graphics.DrawString([string]$signRecord.cornerLabels[0],$cornerFont,$brush,$leftBox,$format)
+    $graphics.DrawString([string]$signRecord.cornerLabels[1],$cornerFont,$brush,$rightBox,$format)
+    $cornerFont.Dispose()
   }
   $bitmap.Save((Join-Path $signDir ($signRecord.key+'.png')),[System.Drawing.Imaging.ImageFormat]::Png)
   $format.Dispose(); $brush.Dispose(); $graphics.Dispose(); $bitmap.Dispose()
