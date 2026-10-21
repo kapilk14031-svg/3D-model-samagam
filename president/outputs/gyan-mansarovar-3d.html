@@ -3957,85 +3957,57 @@ const depHhmdDecalFront=new THREE.MeshStandardMaterial({map:new THREE.CanvasText
 
 const depAmbCanvas=document.createElement('canvas');depAmbCanvas.width=512;depAmbCanvas.height=128;
 
-
-
 const dac=depAmbCanvas.getContext('2d');
 
-
-
-dac.fillStyle='#f8fafc';dac.fillRect(0,0,512,128);
-
-
+dac.clearRect(0,0,512,128);
 
 dac.fillStyle='#dc2626';
 
+dac.font='900 64px Arial, sans-serif';dac.textAlign='center';dac.textBaseline='middle';
 
+dac.fillText('AMBULANCE',256,64);
 
-dac.font='900 64px sans-serif';dac.textAlign='center';
+const depAmbulanceDecal=new THREE.MeshStandardMaterial({
 
+  map:new THREE.CanvasTexture(depAmbCanvas),
 
+  transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
 
-dac.fillText('AMBULANCE',256,82);
+  polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1
 
-
-
-const depAmbulanceDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depAmbCanvas),roughness:0.3,metalness:0.1});
-
-
-
-
+});
 
 
 
 // Ambulance Hood Inverted/Mirrored Decal
 
-
-
 const depAmbHoodCanvas=document.createElement('canvas');depAmbHoodCanvas.width=256;depAmbHoodCanvas.height=128;
-
-
 
 const dahc=depAmbHoodCanvas.getContext('2d');
 
-
-
-dahc.fillStyle='#f8fafc';dahc.fillRect(0,0,256,128);
-
-
+dahc.clearRect(0,0,256,128);
 
 dahc.fillStyle='#dc2626';
-
-
 
 dahc.fillRect(108,12,40,40);
 
-
-
-dahc.fillStyle='#f8fafc';
-
-
-
-dahc.fillRect(108,26,40,12);dahc.fillRect(122,12,12,40);
-
-
-
-dahc.fillStyle='#dc2626';
-
-
+dahc.clearRect(108,26,40,12);dahc.clearRect(122,12,12,40);
 
 dahc.fillRect(110,28,36,8);dahc.fillRect(124,14,8,36);
 
-
-
-dahc.font='900 36px sans-serif';dahc.textAlign='center';
-
-
+dahc.font='900 36px Arial, sans-serif';dahc.textAlign='center';dahc.textBaseline='middle';
 
 dahc.fillText('ECNALUBMA',128,96);
 
+const depAmbulanceHoodDecal=new THREE.MeshStandardMaterial({
 
+  map:new THREE.CanvasTexture(depAmbHoodCanvas),
 
-const depAmbulanceHoodDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depAmbHoodCanvas),roughness:0.3,metalness:0.1});
+  transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
+
+  polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1
+
+});
 
 
 
@@ -4499,19 +4471,23 @@ function depBuildAmbulance(g){
 
 
 
-  // Emergency Livery Decals
+  // Emergency Livery Decals - Flush on both side walls (no protruding strips)
+
+  const dL=depPart(g,'sign',[-1.036,1.08,0.42],[2.7,0.38,1],depAmbulanceDecal);
+
+  dL.rotation.y=-Math.PI/2;
 
 
 
-  depPart(g,'sign',[-1.045,1.05,.25],[3.6,.42,1],depAmbulanceDecal);
+  const dR=depPart(g,'sign',[1.036,1.08,0.42],[2.7,0.38,1],depAmbulanceDecal);
+
+  dR.rotation.y=Math.PI/2;
 
 
 
-  const dR=depPart(g,'sign',[1.045,1.05,.25],[3.6,.42,1],depAmbulanceDecal);dR.rotation.y=Math.PI;
+  const dH=depPart(g,'sign',[0,1.275,-2.12],[1.2,0.42,1],depAmbulanceHoodDecal);
 
-
-
-  const dH=depPart(g,'sign',[0,1.28,-2.12],[1.3,.45,1],depAmbulanceHoodDecal);dH.rotation.x=-Math.PI/2;
+  dH.rotation.x=-Math.PI/2;
 
 
 
