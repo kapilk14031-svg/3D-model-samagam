@@ -33,12 +33,60 @@ function depRefreshOcclusion(){const stamp=performance.now(),signature=current+'
 const depTooltip=root.querySelector('#dep-hover-tooltip');
 let depHover=null,depHoverTimer=null;
 
+const depPanelToggle = root.querySelector('#gms-dep-panel-toggle');
+const depPanelEl = root.querySelector('#gms-deployment');
+const depPanelClose = root.querySelector('#dep-panel-close-btn');
+
 function isAnyTabOpen(){
   const radialOpen = depRadial && depRadial.style.display === 'block';
   const peekOpen = !!depSelected && !depPeek.hidden;
-  return radialOpen || peekOpen;
+  const panelOpen = depPanelEl && depPanelEl.classList.contains('show');
+  return radialOpen || peekOpen || panelOpen;
 }
 window.__DEP_IS_TAB_OPEN = isAnyTabOpen;
+
+if (depPanelToggle && depPanelEl) {
+  depPanelToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    const isShowing = depPanelEl.classList.contains('show');
+    if (isShowing) {
+      depPanelEl.classList.remove('show');
+      depPanelToggle.classList.remove('active');
+    } else {
+      depPanelEl.classList.add('show');
+      depPanelToggle.classList.add('active');
+      const layersMenu = root.querySelector('#gms-layers-menu');
+      if (layersMenu) layersMenu.classList.remove('show');
+      if (depRadial) depRadial.style.display = 'none';
+    }
+  });
+}
+
+if (depPanelClose && depPanelEl) {
+  depPanelClose.addEventListener('click', e => {
+    e.stopPropagation();
+    depPanelEl.classList.remove('show');
+    if (depPanelToggle) depPanelToggle.classList.remove('active');
+  });
+}
+
+if (depPanelEl) {
+  for (const evt of ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'click', 'dblclick', 'contextmenu']) {
+    depPanelEl.addEventListener(evt, e => e.stopPropagation());
+  }
+  depPanelEl.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+  depPanelEl.addEventListener('pointerenter', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = false; });
+  depPanelEl.addEventListener('pointerleave', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = true; });
+}
+
+document.addEventListener('click', e => {
+  if (depPanelEl && depPanelEl.classList.contains('show')) {
+    if (!depPanelEl.contains(e.target) && !depPanelToggle.contains(e.target)) {
+      depPanelEl.classList.remove('show');
+      if (depPanelToggle) depPanelToggle.classList.remove('active');
+    }
+  }
+});
 
 function depShowHover(id){
   if(isAnyTabOpen()) return;
@@ -337,8 +385,6 @@ function depBuild(){
     depNodes.push({item,g});
     const b=document.createElement('button');b.type='button';b.className='btn dep-marker';b.textContent=depSymbols[item.kind];
     b.setAttribute('aria-label',item.name+' · '+item.duty);
-    b.addEventListener('pointerenter',()=>depShowHover(item.id));
-    b.addEventListener('pointerleave',depLeaveHover);
     b.addEventListener('pointerdown',e=>{e.stopPropagation();e.stopImmediatePropagation();});
     b.addEventListener('click',e=>{e.stopPropagation();e.stopImmediatePropagation();if(typeof suppressClick!=='undefined')suppressClick=true;depChoose(item.id, true);});
     labelRoot.appendChild(b);depButtons.push({e:b,item});
@@ -386,7 +432,7 @@ function depUpdate(){
     
     // Keep icon compact: max scale 1.0 (at close zoom), scales gently down to 0.7 on zoom out
     const distScale=THREE.MathUtils.clamp(30/Math.max(22,distance),0.7,1.0);
-    const isHigh=(item.id===depSelected||item.id===depHover);
+    const isHigh=(item.id===depSelected);
     const finalScale=Math.round((distScale*(isHigh?1.25:1.0))*100)/100;
     e.style.transform=`translate(-50%, -50%) scale(${finalScale})`;
     
@@ -606,31 +652,105 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
   depConfirm.appendChild(b);
 }
 
-// Keyboard controls: W, S, A, D to Move & Q, E to Rotate
-window.addEventListener('keydown',e=>{
-  if(!depSelected||e.ctrlKey||e.metaKey||e.altKey||e.target.closest?.('input,textarea,select,[contenteditable="true"]'))return;
-  const key=e.key.toLowerCase();
-  const o=depItems.find(o=>o.id===depSelected);if(!o)return;
-  const step=e.shiftKey?1.0:0.25;
-  let moved=false;
-  if(key==='w'){o.z-=step;moved=true;}
-  else if(key==='s'){o.z+=step;moved=true;}
-  else if(key==='a'){o.x-=step;moved=true;}
-  else if(key==='d'){o.x+=step;moved=true;}
-  else if(key==='q'){o.angle=(o.angle-15+360)%360;moved=true;}
-  else if(key==='e'){o.angle=(o.angle+15+360)%360;moved=true;}
-  else if(key==='escape'){
-    if(depRadial)depRadial.style.display='none';
-    depSelected=null;depPeek.hidden=true;
-    if(depUI('editor'))depUI('editor').hidden=true;
-    depUpdate();draw();
+// Keyboard controls:
+// When an item IS selected: W,A,S,D move item, Q,E rotate item
+// When NO item is selected: W,A,S,D drag/pan model, Q,E horizontal rotate model, Z,X vertical rotate model
+window.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest?.('input,textarea,select,[contenteditable="true"]')) return;
+  const key = e.key.toLowerCase();
+
+  // Escape: Close selection, radial menu, or panel
+  if (key === 'escape') {
+    if (depRadial) depRadial.style.display = 'none';
+    if (depPanelEl && depPanelEl.classList.contains('show')) {
+      depPanelEl.classList.remove('show');
+      if (depPanelToggle) depPanelToggle.classList.remove('active');
+    }
+    depSelected = null;
+    depPeek.hidden = true;
+    if (depUI('editor')) depUI('editor').hidden = true;
+    depUpdate();
+    draw();
     return;
   }
-  
-  if(moved){
+
+  // 1. If an item IS selected -> WASD moves item, QE rotates item
+  if (depSelected) {
+    const o = depItems.find(o => o.id === depSelected);
+    if (!o) return;
+    const step = e.shiftKey ? 1.0 : 0.25;
+    let moved = false;
+    if (key === 'w') { o.z -= step; moved = true; }
+    else if (key === 's') { o.z += step; moved = true; }
+    else if (key === 'a') { o.x -= step; moved = true; }
+    else if (key === 'd') { o.x += step; moved = true; }
+    else if (key === 'q') { o.angle = (o.angle - 15 + 360) % 360; moved = true; }
+    else if (key === 'e') { o.angle = (o.angle + 15 + 360) % 360; moved = true; }
+
+    if (moved) {
+      e.preventDefault();
+      depStore();
+      depBuild();
+      depChoose(o.id, false); // Don't reset zoom while nudging
+      if (depCamera) depView(depCamera);
+    }
+    return;
+  }
+
+  // 2. If NO item is selected -> W,A,S,D drag model, Q,E horizontal rotate, Z,X vertical rotate
+  let modelChanged = false;
+  const dist = camera.position.distanceTo(controls.target);
+  const panStep = (e.shiftKey ? 4.5 : 1.8) * Math.max(0.6, dist * 0.025);
+
+  if (['w', 's', 'a', 'd'].includes(key)) {
+    // Camera-relative forward & right vectors on horizontal XZ plane
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    forward.y = 0;
+    forward.normalize();
+
+    const right = new THREE.Vector3();
+    right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+
+    const moveVec = new THREE.Vector3();
+    if (key === 'w') moveVec.addScaledVector(forward, panStep);
+    else if (key === 's') moveVec.addScaledVector(forward, -panStep);
+    else if (key === 'a') moveVec.addScaledVector(right, -panStep);
+    else if (key === 'd') moveVec.addScaledVector(right, panStep);
+
+    camera.position.add(moveVec);
+    controls.target.add(moveVec);
+    modelChanged = true;
+  } else if (key === 'q' || key === 'e') {
+    // Q, E: Horizontal rotate around target (Azimuth / Yaw)
+    const rotAngle = (key === 'q' ? 0.05 : -0.05) * (e.shiftKey ? 2.0 : 1.0);
+    const offset = camera.position.clone().sub(controls.target);
+    offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), rotAngle);
+    camera.position.copy(controls.target).add(offset);
+    camera.lookAt(controls.target);
+    modelChanged = true;
+  } else if (key === 'z' || key === 'x') {
+    // Z, X: Vertical rotate around target (Elevation / Pitch)
+    const offset = camera.position.clone().sub(controls.target);
+    const spherical = new THREE.Spherical();
+    spherical.setFromVector3(offset);
+
+    // Z: Vertical rotate up (tilt up / elevation higher)
+    // X: Vertical rotate down (tilt down / horizon lower)
+    const pitchDelta = (key === 'z' ? -0.045 : 0.045) * (e.shiftKey ? 2.0 : 1.0);
+    spherical.phi = THREE.MathUtils.clamp(spherical.phi + pitchDelta, 0.08, Math.PI / 2 - 0.02);
+
+    offset.setFromSpherical(spherical);
+    camera.position.copy(controls.target).add(offset);
+    camera.lookAt(controls.target);
+    modelChanged = true;
+  }
+
+  if (modelChanged) {
     e.preventDefault();
-    depStore();depBuild();depChoose(o.id);
-    if(depCamera)depView(depCamera);
+    controls.update();
+    draw();
+    depUpdate();
   }
 });
 
@@ -643,13 +763,6 @@ function depHit(e){
   const id=object?.userData.depId;
   return depOccCache.get(id)?null:id;
 }
-
-let depLastHover=0;
-canvas.addEventListener('pointermove',e=>{
-  if(isAnyTabOpen()||depPlace||e.buttons||performance.now()-depLastHover<80)return;
-  depLastHover=performance.now();const id=depHit(e);
-  if(id)depShowHover(id);else if(depHover)depLeaveHover();
-});
 
 // Canvas Click handler: Deploy on ground OR Select existing item
 canvas.addEventListener('pointerup',e=>{
@@ -682,6 +795,15 @@ canvas.addEventListener('pointerup',e=>{
       depUpdate();draw();
       return;
     }
+  }
+
+  // If deployment panel is open and user clicked canvas outside, close it cleanly
+  if(depPanelEl && depPanelEl.classList.contains('show')){
+    e.stopImmediatePropagation();
+    if(typeof suppressClick!=='undefined')suppressClick=true;
+    depPanelEl.classList.remove('show');
+    if(depPanelToggle) depPanelToggle.classList.remove('active');
+    return;
   }
 
   // If choose-item radial popup is open and user clicked canvas outside, close it cleanly
