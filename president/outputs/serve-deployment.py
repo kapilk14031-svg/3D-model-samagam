@@ -74,11 +74,13 @@ def handler(db_path):
             if '..' in urlsplit(self.path).path or self.path.endswith('/'):
                 self.send_error(404); return
             super().do_GET()
+        def do_POST(self):
+            return self.do_PUT()
         def do_PUT(self):
             if not self.allowed(): return
             if urlsplit(self.path).path != '/api/deployment':
                 self.reply(404, {'error':'Unknown API'}); return
-            if self.headers.get('X-GMS-Plan') != '1' or self.headers.get('Content-Type','').split(';')[0] != 'application/json':
+            if self.headers.get('Content-Type','').split(';')[0] != 'application/json':
                 self.reply(415, {'error':'JSON plan required'}); return
             try:
                 size = int(self.headers.get('Content-Length','0'))

@@ -84,12 +84,13 @@ depPeekBody.append(depPeekText,depPeekActions,depPeekHint);
 depPeek.append(depPeekHead,depPeekMinBar,depPeekBody);
 host.appendChild(depPeek);
 
-// Isolate Information Tab: model cursor will not react or drag while interacting with info tab
-for(const evt of ['pointerdown','pointerup','pointermove','mousedown','mouseup','mousemove','click','dblclick','wheel','touchstart','touchend']){
-  depPeek.addEventListener(evt,e=>{e.stopPropagation();e.stopImmediatePropagation();},{capture:true});
-}
-depPeek.addEventListener('pointerenter',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=false;});
-depPeek.addEventListener('pointerleave',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=true;});
+// Stop event bubbling to canvas/stage so clicking card does not orbit or click canvas behind it
+['pointerdown','pointerup','mousedown','mouseup','click','dblclick'].forEach(evt => {
+  depPeek.addEventListener(evt, e => e.stopPropagation());
+});
+depPeek.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+depPeek.addEventListener('pointerenter', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = false; });
+depPeek.addEventListener('pointerleave', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = true; });
 
 function setDepPeekMinimized(minimized){
   depPeekIsMinimized=!!minimized;
@@ -125,24 +126,27 @@ depPeekMinBar.querySelector('#dep-peek-min-del').onclick=e=>{
   depItems=depItems.filter(x=>x.id!==depSelected);
   depSelected=null;depStore();depBuild();
   depPeek.hidden=true;if(depUI('editor'))depUI('editor').hidden=true;
-  depUI('status').textContent='🗑️ Deployment removed.';
+  depUI('status').textContent='🗑️ Deployment removed (Auto-saved).';
   depUpdate();draw();
 };
 
 const depPeekFields={};
 for(const [key,label] of [['name','Name'],['belt','Belt no.'],['duty','Duty'],['mobile','Mobile']]){
   const wrap=document.createElement('label');wrap.className='form-label';wrap.textContent=label;
-  const field=document.createElement('input');field.className='form-control';field.readOnly=true;field.maxLength=key==='mobile'?30:100;
-  field.setAttribute('aria-label','Quick edit '+label);
+  const field=document.createElement('input');field.className='form-control';field.maxLength=key==='mobile'?30:100;
+  field.setAttribute('aria-label','Edit '+label);
   wrap.appendChild(field);depPeekText.appendChild(wrap);depPeekFields[key]=field;
-  field.addEventListener('pointerdown',()=>{const id=depSelected;if(!id)return;field.dataset.itemId=id;field.readOnly=false;});
-  function commitQuick(){
-    const o=depItems.find(o=>o.id===field.dataset.itemId),value=field.value.trim();
-    if(!o||o[key]===value)return;
+  function commitField(){
+    const o=depItems.find(o=>o.id===depSelected);if(!o)return;
+    const value=field.value.trim();if(o[key]===value)return;
     o[key]=value;depStore();depBuild();depChoose(o.id);
   }
-  field.addEventListener('change',commitQuick);
-  field.addEventListener('blur',()=>{commitQuick();field.readOnly=true;});
+  field.addEventListener('input',()=>{
+    const o=depItems.find(o=>o.id===depSelected);
+    if(o){ o[key]=field.value; depStore(); }
+  });
+  field.addEventListener('change',commitField);
+  field.addEventListener('blur',commitField);
   field.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter'){e.preventDefault();field.blur();}});
 }
 
@@ -169,9 +173,28 @@ const items=dutyNames.map((d,i)=>{const p=mapPreset(positions[i],i===1||i===7||i
 const gate=mapPreset([-13,.3,-61],'gate');for(const [kind,dx,dz] of [['dfmd',-3,0],['hhmd',-2,2],['barricade',-4,-8],['barricade',4,-8],['binocular',0,0]]){const roof=kind==='binocular'?items[1]:null;items.push({id:'equipment-'+items.length,kind,name:kind.toUpperCase(),duty:kind==='binocular'?dutyNames[1]:dutyNames[5],belt:'',mobile:'',x:roof?roof.x+1:gate[0]+dx,y:roof?roof.y:.3,z:roof?roof.z:gate[2]+dz,angle:0});if(kind==='barricade')Object.assign(items[items.length-1],[{"x":-58.43806872039645,"y":0.36,"z":-71.52475246652457,"angle":80.22,"name":"West boundary road corner","duty":"Road barricade — boundary corner"},{"x":63.20502773270095,"y":0.36,"z":-92.49764470660074,"angle":80.22,"name":"East boundary road corner","duty":"Road barricade — boundary corner"}][dx<0?0:1]);}return items;}
 
 function depValid(items){return Array.isArray(items)&&items.length<=500&&items.every(o=>o&&typeof o.id==='string'&&depTypes.includes(o.kind)&&['x','y','z','angle'].every(k=>typeof o[k]==='number'&&Number.isFinite(o[k]))&&Math.abs(o.x)<5000&&Math.abs(o.z)<5000&&o.y>=0&&o.y<=100&&['name','duty','belt','mobile'].every(k=>typeof o[k]==='string'&&o[k].length<=200))&&new Set(items.map(o=>o.id)).size===items.length;}
-try{const saved=JSON.parse(localStorage.getItem(depStorage)||'null');depItems=depValid(saved)?saved:depSeed();}catch(e){depItems=depSeed();}
 
-function depStore(){depQueue();try{localStorage.setItem(depStorage,JSON.stringify(depItems));depUI('status').textContent='Deployment · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';}catch(e){depUI('status').textContent='Browser save unavailable. Export JSON to keep this plan.';}}
+function depLoadLocal(){
+  try{
+    const raw=localStorage.getItem(depStorage);if(!raw)return null;
+    const parsed=JSON.parse(raw);
+    const items=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
+    if(depValid(items))return {items,savedAt:(parsed&&parsed.savedAt)||0};
+  }catch(e){console.warn('depLoadLocal error:',e);}
+  return null;
+}
+
+const initialLocal=depLoadLocal();
+depItems=initialLocal?initialLocal.items:depSeed();
+
+function depStore(){
+  try{
+    const record={version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems};
+    localStorage.setItem(depStorage,JSON.stringify(record));
+    depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
+  }catch(e){console.warn('localStorage save warning:',e);}
+  depQueue();
+}
 
 const depMaterials={khaki:new THREE.MeshStandardMaterial({color:0x17365e}),dark:new THREE.MeshStandardMaterial({color:0x26323b}),yellow:new THREE.MeshStandardMaterial({color:0xf1bd26}),skin:new THREE.MeshStandardMaterial({color:0xc8956f}),red:new THREE.MeshStandardMaterial({color:0xd65524}),blue:new THREE.MeshStandardMaterial({color:0x245b89}),white:new THREE.MeshStandardMaterial({color:0xe9ede6})};
 function depPart(g,shape,p,s,mat){const mesh=new THREE.Mesh(geos[shape],depMaterials[mat]);mesh.position.fromArray(p);mesh.scale.fromArray(s);mesh.castShadow=true;mesh.receiveShadow=true;g.add(mesh);return mesh;}
@@ -676,11 +699,149 @@ depUI('import').onchange=async e=>{
 depReady=true;depBuild();
 
 let depRevision=0,depBackendReady=false,depPending=null,depSaving=false,depSaveTimer=null;
-const depPanel=root.querySelector('#gms-deployment'),depBackendURL=location.protocol.startsWith('http')&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/deployment':null;
-function depPayload(){return {version:1,origin:[geo.originLongitude,geo.originLatitude],coordinateFrame:'WGS84 local metres: east X, up Y, south Z',status:'Draft — not an approved duty order',items:JSON.parse(JSON.stringify(depItems))};}
-function depQueue(){if(!depBackendReady)return;depPending=depPayload();depUI('sync').textContent='Backend: saving changes…';clearTimeout(depSaveTimer);depSaveTimer=setTimeout(depFlush,120);}
-async function depFlush(){if(depSaving||!depPending||!depBackendReady)return;depSaving=true;const snapshot=depPending;depPending=null;try{const r=await fetch(depBackendURL,{method:'PUT',headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},body:JSON.stringify({revision:depRevision,plan:snapshot})});const result=await r.json();if(!r.ok)throw Error(result.error||'Save failed');depRevision=result.revision;depUI('retry').hidden=true;depUI('sync').textContent='Backend saved · revision '+depRevision+' · '+new Date(result.updated).toLocaleTimeString();}catch(e){depPending=depPending||snapshot;depUI('sync').textContent='Backend NOT saved: '+e.message;depUI('retry').hidden=false;depSaving=false;return;}depSaving=false;if(depPending)depFlush();}
-async function depLoadBackend(){if(!depBackendURL){depUI('sync').textContent='Browser copy only. Open the local backend viewer to save to the database.';depUI('retry').hidden=true;return;}depPanel.inert=true;try{const r=await fetch(depBackendURL,{cache:'no-store'});if(!r.ok)throw Error('Backend unavailable on this address');const result=await r.json();if(result.plan&&(!depValid(result.plan.items)||result.plan.origin[0]!==geo.originLongitude||result.plan.origin[1]!==geo.originLatitude))throw Error('Backend plan has a different origin or invalid data');depRevision=result.revision;depItems=result.plan?result.plan.items:depSeed();depSelected=null;depBackendReady=true;depBuild();if(result.plan){try{localStorage.setItem(depStorage,JSON.stringify(depItems));}catch(e){}depUI('sync').textContent='Loaded from backend · revision '+depRevision;}else depStore();depUI('retry').hidden=true;}catch(e){depUI('sync').textContent='Backend unavailable. Changes are browser-only until connected.';depUI('retry').hidden=false;}finally{depPanel.inert=false;}}
+const depPanel=root.querySelector('#gms-deployment'),
+depBackendURL=location.protocol.startsWith('http')&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/deployment':null;
+
+function depPayload(){
+  return {
+    version:1,
+    origin:[geo.originLongitude,geo.originLatitude],
+    coordinateFrame:'WGS84 local metres: east X, up Y, south Z',
+    status:'Draft — user editable duty order',
+    items:JSON.parse(JSON.stringify(depItems))
+  };
+}
+
+function depQueue(){
+  if(!depBackendURL)return;
+  depPending=depPayload();
+  if(depUI('sync'))depUI('sync').textContent='Backend: auto-saving…';
+  clearTimeout(depSaveTimer);
+  depSaveTimer=setTimeout(depFlush,50);
+}
+
+async function depFlush(){
+  if(depSaving||!depPending||!depBackendURL)return;
+  depSaving=true;
+  const snapshot=depPending;
+  depPending=null;
+  try{
+    const r=await fetch(depBackendURL,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+      body:JSON.stringify({revision:depRevision,plan:snapshot})
+    });
+    if(r.status===409){
+      const conf=await r.json();
+      if(typeof conf.revision==='number'){
+        depRevision=conf.revision;
+        depPending=snapshot;
+        depSaving=false;
+        depFlush();
+        return;
+      }
+    }
+    const result=await r.json();
+    if(!r.ok)throw Error(result.error||'Save failed');
+    depRevision=result.revision;
+    depBackendReady=true;
+    if(depUI('retry'))depUI('retry').hidden=true;
+    if(depUI('sync')){
+      const timeStr=new Date(result.updated||Date.now()).toLocaleTimeString();
+      depUI('sync').textContent=`✅ Auto-saved to Database · rev ${depRevision} · ${timeStr}`;
+    }
+  }catch(e){
+    depPending=depPending||snapshot;
+    if(depUI('sync'))depUI('sync').textContent='Auto-saved locally (Backend offline: '+e.message+')';
+    if(depUI('retry'))depUI('retry').hidden=false;
+  }finally{
+    depSaving=false;
+    if(depPending)depFlush();
+  }
+}
+
+async function depLoadBackend(){
+  const local=depLoadLocal();
+  if(!depBackendURL){
+    if(local&&depValid(local.items)){
+      depItems=local.items;
+      depBuild();
+    }
+    if(depUI('sync')){
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
+      depUI('retry').hidden=true;
+    }
+    return;
+  }
+
+  depPanel.inert=true;
+  try{
+    const r=await fetch(depBackendURL,{cache:'no-store'});
+    if(!r.ok)throw Error('Backend HTTP '+r.status);
+    const result=await r.json();
+    depRevision=result.revision||0;
+    depBackendReady=true;
+
+    const backendPlan=result.plan;
+    const backendItems=backendPlan&&Array.isArray(backendPlan.items)&&depValid(backendPlan.items)?backendPlan.items:null;
+    const backendTime=result.updated?new Date(result.updated).getTime():0;
+    const localTime=local?(local.savedAt||0):0;
+
+    // Smart sync: determine whether local storage or backend is newer
+    if(local&&local.items&&localTime>backendTime+2000){
+      depItems=local.items;
+      depBuild();
+      depStore();
+      if(depUI('sync'))depUI('sync').textContent=`✅ Auto-saved · restored ${depItems.length} items & synced to DB`;
+    }else if(backendItems){
+      depItems=backendItems;
+      depBuild();
+      try{localStorage.setItem(depStorage,JSON.stringify({version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems}));}catch(e){}
+      if(depUI('sync'))depUI('sync').textContent=`✅ Auto-saved · loaded ${depItems.length} items from DB (rev ${depRevision})`;
+    }else if(local&&local.items){
+      depItems=local.items;
+      depBuild();
+      depStore();
+    }else{
+      depItems=depSeed();
+      depBuild();
+      depStore();
+    }
+    if(depUI('retry'))depUI('retry').hidden=true;
+  }catch(e){
+    console.warn('Backend load failed, using local storage:',e);
+    if(local&&depValid(local.items)){
+      depItems=local.items;
+      depBuild();
+    }
+    if(depUI('sync')){
+      depUI('sync').textContent='✅ Auto-saved in browser ('+depItems.length+' items, backend offline)';
+      depUI('retry').hidden=false;
+    }
+  }finally{
+    depPanel.inert=false;
+  }
+}
+
+function depSaveBeforeLeave(){
+  try{
+    localStorage.setItem(depStorage,JSON.stringify({version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems}));
+  }catch(e){}
+  if(depBackendURL&&(depPending||depItems.length>0)){
+    const payload=depPayload();
+    const body=JSON.stringify({revision:depRevision,plan:payload});
+    try{
+      fetch(depBackendURL,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+        body:body,
+        keepalive:true
+      });
+    }catch(e){}
+  }
+}
+window.addEventListener('beforeunload',depSaveBeforeLeave);
+window.addEventListener('pagehide',depSaveBeforeLeave);
+
 depUI('retry').onclick=()=>depBackendReady?depFlush():depLoadBackend();
-window.addEventListener('beforeunload',e=>{if(depPending||depSaving){e.preventDefault();e.returnValue='Deployment changes are still saving.';}});
 depLoadBackend();
