@@ -368,14 +368,113 @@ function depBuild(){
     }
   }
 
+  function depDrawOfficer(g, accessory){
+    g.scale.setScalar(1);
+    const oz = accessory === 'binocular' ? 0.22 : 0;
+
+    // Torso (Navy/Khaki)
+    depPart(g,'rounded',[0,1.05,oz],[.46,.6,.28],'khaki');
+    // Head (Skin tone)
+    depPart(g,'sphereSmooth',[0,1.58,oz],[.16,.19,.16],'skin');
+    // Cap (Navy dark crown + front visor)
+    depPart(g,'cylinder',[0,1.77,oz],[.19,.09,.19],'dark');
+    depPart(g,'sphereSmooth',[0,1.72,oz-.11],[.21,.025,.22],'dark');
+    // Cap gold emblem / badge
+    depPart(g,'box',[0,1.74,oz-.135],[.05,.04,.02],'yellow');
+    // Eyes
+    for(const x of [-.06,.06]){
+      depPart(g,'sphereSmooth',[x,1.62,oz-.145],[.018,.018,.018],'dark');
+    }
+    // Duty Belt (Black) & Buckle (Yellow)
+    depPart(g,'box',[0,.82,oz],[.48,.07,.28],'dark');
+    depPart(g,'box',[0,.82,oz-.145],[.08,.06,.02],'yellow');
+    // Chest Badge
+    depPart(g,'box',[0,1.28,oz-.15],[.12,.07,.025],'yellow');
+
+    // Legs & Shoes
+    for(const x of [-.14,.14]){
+      depPart(g,'cylinder',[x,.43,oz],[.085,.62,.09],'khaki');
+      depPart(g,'rounded',[x,.1,oz-.07],[.19,.18,.32],'dark');
+      depPart(g,'box',[x*2,1.32,oz],[.12,.025,.14],'yellow');
+    }
+
+    // Left Arm (Standard standing pose)
+    depPart(g,'cylinder',[-.28,1.04,oz],[.065,.5,.065],'khaki');
+    depPart(g,'sphereSmooth',[-.28,.76,oz],[.065,.08,.065],'skin');
+
+    // Right Arm & Accessory:
+    if(accessory === 'hhmd'){
+      // Right arm extended forward/downward holding HHMD scanning wand
+      const rArm = depPart(g,'cylinder',[.26,.98,-.12],[.065,.45,.065],'khaki');
+      rArm.rotation.x = Math.PI / 4;
+      depPart(g,'sphereSmooth',[.26,.80,-.26],[.065,.08,.065],'skin'); // Hand holding handle
+
+      // HHMD Device in hand:
+      const handle = depPart(g,'cylinder',[.26,.85,-.31],[.035,.22,.035],'dark');
+      handle.rotation.x = Math.PI / 4;
+      const paddle = depPart(g,'box',[.26,1.01,-.46],[.13,.32,.035],'dark');
+      paddle.rotation.x = Math.PI / 4;
+      const coil = depPart(g,'box',[.26,1.01,-.46],[.07,.22,.042],'blue');
+      coil.rotation.x = Math.PI / 4;
+      depPart(g,'sphereSmooth',[.26,.92,-.38],[.02,.02,.02],'yellow'); // Status LED
+    }
+    else if(accessory === 'binocular'){
+      // Officer standing behind tripod looking through binoculars
+      for(const side of [-1, 1]){
+        const arm = depPart(g,'cylinder',[side*.22,1.25,oz-.14],[.06,.38,.06],'khaki');
+        arm.rotation.x = -Math.PI / 3;
+        arm.rotation.y = side * Math.PI / 12;
+        depPart(g,'sphereSmooth',[side*.16,1.4,oz-.28],[.055,.065,.055],'skin');
+      }
+
+      // Tripod & Binoculars:
+      depPart(g,'cylinder',[0,.68,-.12],[.035,1.35,.035],'dark');
+      const legL = depPart(g,'cylinder',[-.22,.65,-.18],[.028,1.35,.028],'dark');
+      legL.rotation.z = Math.PI / 16;
+      const legR = depPart(g,'cylinder',[.22,.65,-.18],[.028,1.35,.028],'dark');
+      legR.rotation.z = -Math.PI / 16;
+      depPart(g,'box',[0,1.38,-.12],[.28,.08,.16],'dark');
+      for(const x of [-.09, .09]){
+        const b = depPart(g,'cylinder',[x,1.52,-.14],[.09,.42,.09],'dark');
+        b.rotation.x = Math.PI / 2;
+        const lens = depPart(g,'cylinder',[x,1.52,-.35],[.085,.02,.085],'blue');
+        lens.rotation.x = Math.PI / 2;
+      }
+    }
+    else if(accessory === 'radio'){
+      // Right arm bent up holding walkie-talkie at chest/shoulder level
+      const rArm = depPart(g,'cylinder',[.25,1.08,-.08],[.065,.42,.065],'khaki');
+      rArm.rotation.x = -Math.PI / 5;
+      rArm.rotation.z = -Math.PI / 12;
+      depPart(g,'sphereSmooth',[.22,1.24,-.18],[.065,.07,.065],'skin');
+
+      // Wireless Radio Device in hand
+      depPart(g,'box',[.22,1.3,-.2],[.08,.18,.06],'dark');
+      depPart(g,'box',[.22,1.31,-.23],[.05,.07,.01],'yellow'); // screen/keypad
+      depPart(g,'cylinder',[.25,1.48,-.2],[.012,.22,.012],'dark'); // antenna
+      depPart(g,'box',[-.26,.66,.03],[.035,.55,.035],'dark'); // belt baton
+    }
+    else {
+      // Standard Officer: right arm down with baton
+      depPart(g,'cylinder',[.28,1.04,oz],[.065,.5,.065],'khaki');
+      depPart(g,'sphereSmooth',[.28,.76,oz],[.065,.08,.065],'skin');
+      depPart(g,'box',[.3,.66,oz+.03],[.035,.55,.035],'dark');
+    }
+  }
+
   for(const item of depItems){
     const g=new THREE.Group();g.position.set(item.x,item.y,item.z);g.rotation.y=-item.angle*Math.PI/180;g.userData.depId=item.id;depGroup.add(g);
     if(item.kind==='officer'){
-      g.scale.setScalar(1);depPart(g,'rounded',[0,1.05,0],[.46,.6,.28],'khaki');depPart(g,'sphereSmooth',[0,1.58,0],[.16,.19,.16],'skin');depPart(g,'cylinder',[0,1.77,0],[.19,.09,.19],'dark');depPart(g,'sphereSmooth',[0,1.72,-.11],[.21,.025,.22],'dark');
-      for(const x of [-.14,.14]){depPart(g,'cylinder',[x,.43,0],[.085,.62,.09],'khaki');depPart(g,'rounded',[x,.1,-.07],[.19,.18,.32],'dark');depPart(g,'cylinder',[x*2,1.04,0],[.065,.5,.065],'khaki');depPart(g,'sphereSmooth',[x*2,.76,0],[.065,.08,.065],'skin');depPart(g,'box',[x*2,1.32,0],[.12,.025,.14],'yellow');}
-      depPart(g,'box',[0,.82,0],[.48,.07,.28],'dark');depPart(g,'box',[0,1.28,-.15],[.12,.07,.025],'yellow');
-      for(const x of [-.06,.06])depPart(g,'sphereSmooth',[x,1.62,-.145],[.018,.018,.018],'dark');
-      depPart(g,'box',[.3,.66,.03],[.035,.55,.035],'dark');
+      depDrawOfficer(g, 'baton');
+    }
+    else if(item.kind==='hhmd'){
+      depDrawOfficer(g, 'hhmd');
+    }
+    else if(item.kind==='binocular'){
+      depDrawOfficer(g, 'binocular');
+    }
+    else if(item.kind==='radio'){
+      depDrawOfficer(g, 'radio');
     }
     else if(item.kind==='barricade'){
       for(const x of [-1.25,1.25]){depPart(g,'box',[x,.6,0],[.12,1.2,.15],'dark');depPart(g,'box',[x,.06,0],[.2,.12,.9],'dark');}
@@ -388,19 +487,8 @@ function depBuild(){
       for(const x of [-.6,.6])depPart(g,'box',[x,1.12,0],[.18,2.24,.45],'blue');
       depPart(g,'box',[0,2.22,0],[1.38,.18,.45],'blue');depPart(g,'box',[.6,1.7,-.24],[.1,.2,.03],'yellow');
     }
-    else if(item.kind==='binocular'){
-      depPart(g,'cylinder',[0,.65,0],[.04,1.3,.04],'dark');
-      for(const x of [-.16,.16]){const b=depPart(g,'cylinder',[x,1.4,-.1],[.12,.44,.12],'dark');b.rotation.x=Math.PI/2;}
-      depPart(g,'box',[0,1.4,0],[.35,.1,.2],'dark');
-    }
     else if(item.kind==='cone'){
       const cone=new THREE.Mesh(depConeGeometry,depMaterials.red);cone.position.y=.4;g.add(cone);depPart(g,'box',[0,.05,0],[.55,.1,.55],'dark');
-    }
-    else if(item.kind==='hhmd'){
-      depPart(g,'box',[0,.9,0],[.13,.35,.12],'dark');depPart(g,'box',[0,1.26,0],[.22,.42,.08],'blue');
-    }
-    else if(item.kind==='radio'){
-      depPart(g,'box',[0,.65,0],[.22,.45,.14],'dark');depPart(g,'cylinder',[.08,1,0],[.018,.3,.018],'dark');
     }
     else{
       depPart(g,'cylinder',[0,1.3,0],[.045,2.6,.045],'dark');depPart(g,'box',[0,2.6,-.15],[.45,.25,.45],item.kind==='light'?'yellow':'white');
@@ -436,12 +524,13 @@ function depUpdate(){
       badgeEl.textContent=peekItem.duty||(peekItem.kind==='officer'?'Security post':'Access control');
       badgeEl.title=peekItem.duty||'';
     }
+    const isOfficerPost = ['officer','hhmd','binocular','radio'].includes(peekItem.kind);
     for(const [k,field] of Object.entries(depPeekFields)){
       if(document.activeElement!==field)field.value=peekItem[k];
-      field.disabled=(k==='belt'||k==='mobile')&&peekItem.kind!=='officer';
+      field.disabled=(k==='belt'||k==='mobile')&&!isOfficerPost;
       field.parentElement.hidden=field.disabled;
     }
-    for(const b of depPeekActions.querySelectorAll('button'))if(b.textContent.includes('person')){b.disabled=peekItem.kind!=='officer';b.hidden=b.disabled;}
+    for(const b of depPeekActions.querySelectorAll('button'))if(b.textContent.includes('person')){b.disabled=!isOfficerPost;b.hidden=b.disabled;}
   }
 
   const r=host.getBoundingClientRect();
@@ -503,8 +592,9 @@ function depChoose(id, zoom = true){
   if(!o)return;
   depUI('editkind').value=o.kind;
   for(const k of ['name','duty','belt','mobile','x','y','z','angle'])depUI(k).value=typeof o[k]==='number'?Math.round(o[k]*100)/100:o[k];
-  for(const k of ['belt','mobile','first','third'])depUI(k).disabled=o.kind!=='officer';
-  depUI('status').textContent=o.name+' · '+o.duty+(o.kind==='officer'?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
+  const isOfficerPost = ['officer','hhmd','binocular','radio'].includes(o.kind);
+  for(const k of ['belt','mobile','first','third'])depUI(k).disabled=!isOfficerPost;
+  depUI('status').textContent=o.name+' · '+o.duty+(isOfficerPost?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
 
   if(zoom && depCamera!=='first'){
     const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
@@ -551,7 +641,10 @@ depUI('left').onclick=()=>depRotate(-30);depUI('right').onclick=()=>depRotate(30
 depUI('add').onclick=()=>{
   if(depItems.length>=500){depUI('status').textContent='Maximum 500 items per plan.';return;}
   depReturnView();const kind=depUI('kind').value,id='item-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
-  depItems.push({id,kind,name:kind==='officer'?'New officer':kind.toUpperCase(),duty:'',belt:'',mobile:'',x:controls.target.x,y:.3,z:controls.target.z,angle:0});
+  const count=depItems.filter(o=>o.kind===kind).length+1;
+  const name=kind==='officer'?`Officer ${count}`:kind==='hhmd'?`Officer (HHMD) ${count}`:kind==='binocular'?`Officer (Binocular) ${count}`:kind==='radio'?`Officer (Wireless) ${count}`:`${kind.toUpperCase()} #${count}`;
+  const duty=kind==='hhmd'?'Main gate — DFMD / HHMD':kind==='binocular'?'Binocular duty — rooftop':kind==='radio'?'Wireless radio patrol':kind==='officer'?'Security post':'Access control';
+  depItems.push({id,kind,name,duty,belt:'',mobile:'',x:controls.target.x,y:.3,z:controls.target.z,angle:0});
   depSelected=id;depNew=id;depBuild();depChoose(id);depPlace=true;depUpdate();
   depUI('status').textContent='Click the model surface to place the new '+kind+'. Esc cancels.';
 };
@@ -567,12 +660,12 @@ depUI('delete').onclick=()=>{
 };
 
 function depView(mode){
-  const o=depItems.find(o=>o.id===depSelected);if(!o||o.kind!=='officer')return;
+  const o=depItems.find(o=>o.id===depSelected);if(!o||!['officer','hhmd','binocular','radio'].includes(o.kind))return;
   if(!depReturn)depReturn={p:camera.position.clone(),t:controls.target.clone(),view:select.value};
   const hq=geo.footprints.find(f=>f.id==='hall').points;let inside=false;
   for(let i=0,j=hq.length-1;i<hq.length;j=i++){const a=hq[i],b=hq[j];if(((a[1]>o.z)!==(b[1]>o.z))&&(o.x<(b[0]-a[0])*(o.z-a[1])/(b[1]-a[1])+a[0]))inside=!inside;}
   if(inside&&o.y<8){select.value='hall';applyView();}else if(current==='alignment'){select.value='campus';applyView();}
-  depCamera=mode;motion=null;const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
+  depCamera=mode;window.__DEP_CAMERA=mode;motion=null;const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+1.65,o.z);
   camera.position.copy(mode==='first'?eye:eye.clone().addScaledVector(dir,-5).add(new THREE.Vector3(0,1.7,0)));
   controls.target.copy(eye.clone().addScaledVector(dir,mode==='first'?10:2));
   controls.update();depUpdate();draw();
@@ -581,7 +674,7 @@ function depView(mode){
 
 function depReturnView(){
   if(depReturn){select.value=depReturn.view;applyView();camera.position.copy(depReturn.p);controls.target.copy(depReturn.t);controls.update();depReturn=null;}
-  depCamera=null;depUpdate();draw();
+  depCamera=null;window.__DEP_CAMERA=null;depUpdate();draw();
 }
 depUI('first').onclick=()=>depView('first');depUI('third').onclick=()=>depView('third');depUI('return').onclick=depReturnView;
 
@@ -612,8 +705,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
     const kind=btn.dataset.kind;
     const count=depItems.filter(o=>o.kind===kind).length+1;
     const id='post-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,5);
-    const name=kind==='officer'?`Officer ${count}`:`${kind.toUpperCase()} #${count}`;
-    const duty=kind==='officer'?'Security post':'Access control';
+    const name=kind==='officer'?`Officer ${count}`:kind==='hhmd'?`Officer (HHMD) ${count}`:kind==='binocular'?`Officer (Binocular) ${count}`:kind==='radio'?`Officer (Wireless) ${count}`:`${kind.toUpperCase()} #${count}`;
+    const duty=kind==='hhmd'?'Main gate — DFMD / HHMD':kind==='binocular'?'Binocular duty — rooftop':kind==='radio'?'Wireless radio patrol':kind==='officer'?'Security post':'Access control';
     const newItem={
       id,
       kind,
@@ -683,8 +776,12 @@ window.addEventListener('keydown', e => {
   if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest?.('input,textarea,select,[contenteditable="true"]')) return;
   const key = e.key.toLowerCase();
 
-  // Escape: Close selection, radial menu, or panel
+  // Escape: Exit first/third person view, or close selection, radial menu, or panel
   if (key === 'escape') {
+    if (depCamera) {
+      depReturnView();
+      return;
+    }
     if (depRadial) depRadial.style.display = 'none';
     if (depPanelEl && depPanelEl.classList.contains('show')) {
       depPanelEl.classList.remove('show');
@@ -693,6 +790,7 @@ window.addEventListener('keydown', e => {
     depSelected = null;
     depPeek.hidden = true;
     if (depUI('editor')) depUI('editor').hidden = true;
+    updateTabLock();
     depUpdate();
     draw();
     return;
