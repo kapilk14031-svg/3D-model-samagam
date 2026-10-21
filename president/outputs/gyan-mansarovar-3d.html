@@ -518,6 +518,10 @@ body {
 
     <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
     <div class="canvas-overlay top-right">
+      <button type="button" class="overlay-btn vvip-btn" id="gms-vvip-btn" title="Simulate VVIP Helicopter Arrival, Motorcade & Stage Entry">
+        <span class="vvip-badge-icon">🎖️</span>
+        <span class="vvip-btn-text">VVIP</span>
+      </button>
       <div class="layers-dropdown">
         <button type="button" class="overlay-btn" id="gms-layers-toggle">
           <span>⚙️ Layers &amp; Lights</span> ▾
@@ -574,6 +578,49 @@ body {
       <div class="dep-touch-actions">
         <button type="button" class="touch-btn touch-jump" data-action="jump" aria-label="Jump">🦘</button>
         <button type="button" class="touch-btn touch-shift" data-key="shift" aria-label="Sprint">⚡</button>
+      </div>
+    </div>
+
+    <!-- VVIP Real-Time Simulation HUD -->
+    <div id="vvip-hud" class="vvip-hud-container" style="display:none">
+      <div class="vvip-hud-header">
+        <div class="vvip-hud-title-box">
+          <span class="vvip-live-dot"></span>
+          <span class="vvip-hud-title">🎖️ VVIP MOVEMENT PROTOCOL (LIVE)</span>
+          <span class="vvip-hud-stage-name" id="vvip-stage-pill">Phase 1/5</span>
+        </div>
+        <div class="vvip-hud-actions">
+          <button type="button" class="vvip-btn-action" id="vvip-skip-btn" title="Skip to next phase">⏭️ Next Phase</button>
+          <button type="button" class="vvip-btn-action vvip-btn-danger" id="vvip-exit-btn" title="Exit simulation">✕ Exit</button>
+        </div>
+      </div>
+      <div class="vvip-hud-body">
+        <div class="vvip-hud-msg" id="vvip-status-msg">🚁 Helicopter approaching Bhodwal Majri Helipad from sky...</div>
+        <div class="vvip-timeline-bar">
+          <div class="vvip-step active" id="vvip-step-1"><span class="step-num">1</span> 🚁 Air Arrival</div>
+          <div class="vvip-step" id="vvip-step-2"><span class="step-num">2</span> 🚶‍♀️ Disembark</div>
+          <div class="vvip-step" id="vvip-step-3"><span class="step-num">3</span> 🚘 Motorcade</div>
+          <div class="vvip-step" id="vvip-step-4"><span class="step-num">4</span> 🚧 Gate Block</div>
+          <div class="vvip-step" id="vvip-step-5"><span class="step-num">5</span> 🎭 Stage Seated</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VVIP Protocol Completion Modal -->
+    <div id="vvip-finish-modal" class="vvip-finish-modal" style="display:none">
+      <div class="vvip-finish-card">
+        <div class="vvip-finish-icon">👑</div>
+        <h3>VVIP Protocol Completed</h3>
+        <p>Honorable Female VVIP has safely arrived via Helipad &amp; Motorcade, escorted through the Main Gate into the Auditorium, and is now gracefully seated on the Main Stage.</p>
+        <div class="vvip-finish-details">
+          <div class="vvip-detail-item"><span>📍 Final Location:</span> <b>Auditorium Main Stage (VIP Chair)</b></div>
+          <div class="vvip-detail-item"><span>🛡️ Security Corridor:</span> <b>Main Road Blocked &amp; Full Route Escorted</b></div>
+          <div class="vvip-detail-item"><span>🚁 Air Transit:</span> <b>Helicopter Touchdown Verified (Helipad H-1)</b></div>
+        </div>
+        <div class="vvip-finish-buttons">
+          <button type="button" class="btn btn-primary" id="vvip-replay-btn">↺ Replay Protocol</button>
+          <button type="button" class="btn btn-secondary" id="vvip-done-btn">✕ Return to Standard 3D Map</button>
+        </div>
       </div>
     </div>
 
@@ -1211,7 +1258,264 @@ body {
   pointer-events: auto;
 }
 .canvas-overlay.top-left { top: 12px; left: 12px; }
-.canvas-overlay.top-right { top: 12px; right: 12px; }
+.canvas-overlay.top-right { top: 12px; right: 12px; display: flex; gap: 8px; align-items: center; }
+
+/* VVIP Button & Cinematic Simulation Styles */
+.vvip-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: linear-gradient(135deg, #78350f 0%, #b45309 40%, #d97706 100%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 215, 170, 0.6) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+}
+.vvip-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(180, 83, 9, 0.5) !important;
+  background: linear-gradient(135deg, #92400e 0%, #d97706 50%, #f59e0b 100%) !important;
+}
+.vvip-btn.active {
+  background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%) !important;
+  border-color: #fca5a5 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 6px 20px rgba(220, 38, 38, 0.6) !important;
+}
+.vvip-hud-container {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(840px, calc(100% - 24px));
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(245, 158, 11, 0.2);
+  color: #fff;
+  animation: vvipFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+@keyframes vvipFadeIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.vvip-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+.vvip-hud-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vvip-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px #ef4444;
+  animation: vvipBlink 1s infinite alternate;
+}
+@keyframes vvipBlink {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+.vvip-hud-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fef08a;
+  text-transform: uppercase;
+}
+.vvip-hud-stage-name {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fde68a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.vvip-hud-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.vvip-btn-action {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.vvip-btn-action:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.vvip-btn-action.vvip-btn-danger {
+  background: rgba(220, 38, 38, 0.3);
+  border-color: rgba(220, 38, 38, 0.6);
+  color: #fca5a5;
+}
+.vvip-btn-action.vvip-btn-danger:hover {
+  background: #dc2626;
+  color: #fff;
+}
+.vvip-hud-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vvip-timeline-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.vvip-step {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 5px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.25s ease;
+}
+.vvip-step.active {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.3) 0%, rgba(180, 83, 9, 0.5) 100%);
+  border-color: #f59e0b;
+  color: #fef08a;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+.vvip-step.done {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #a7f3d0;
+}
+.step-num {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.15);
+  margin-right: 3px;
+}
+.vvip-step.active .step-num { background: #f59e0b; color: #000; }
+.vvip-step.done .step-num { background: #10b981; color: #000; }
+
+.vvip-finish-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: vvipFadeIn 0.3s ease;
+}
+.vvip-finish-card {
+  background: #0f172a;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  border-radius: 18px;
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 24px;
+  text-align: center;
+  color: #f8fafc;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.25);
+}
+.vvip-finish-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+.vvip-finish-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fef08a;
+  margin: 0 0 8px 0;
+}
+.vvip-finish-card p {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+.vvip-finish-details {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+.vvip-detail-item {
+  display: flex;
+  justify-content: space-between;
+}
+.vvip-finish-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.vvip-finish-buttons .btn {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.vvip-finish-buttons .btn-primary {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  color: #fff;
+  border: 1px solid rgba(255, 235, 180, 0.5);
+}
+.vvip-finish-buttons .btn-primary:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.vvip-finish-buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.vvip-finish-buttons .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 .canvas-overlay.bottom-left { bottom: 12px; left: 12px; max-width: calc(100% - 320px); }
 .canvas-overlay.bottom-right { bottom: 12px; right: 12px; }
 
@@ -2208,6 +2512,22 @@ function depStore(){
 }
 
 const depMaterials={
+  vipSaree:new THREE.MeshStandardMaterial({color:0x991b1b,roughness:0.55}),
+  vipGold:new THREE.MeshStandardMaterial({color:0xf59e0b,roughness:0.25,metalness:0.75}),
+  vipPallu:new THREE.MeshStandardMaterial({color:0xb45309,roughness:0.5}),
+  vipCar:new THREE.MeshStandardMaterial({color:0x09090b,roughness:0.2,metalness:0.85}),
+  vipGlass:new THREE.MeshStandardMaterial({color:0x1e293b,roughness:0.1,metalness:0.9,transparent:true,opacity:0.85}),
+  vipChrome:new THREE.MeshStandardMaterial({color:0xe2e8f0,roughness:0.1,metalness:0.95}),
+  vipBeaconRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xdc2626,emissiveIntensity:1.5}),
+  vipBeaconBlue:new THREE.MeshStandardMaterial({color:0x3b82f6,emissive:0x2563eb,emissiveIntensity:1.5}),
+  heliWhite:new THREE.MeshStandardMaterial({color:0xf8fafc,roughness:0.3}),
+  heliNavy:new THREE.MeshStandardMaterial({color:0x0f172a,roughness:0.3,metalness:0.3}),
+  heliRotor:new THREE.MeshStandardMaterial({color:0x27272a,roughness:0.5}),
+  barricadeYellow:new THREE.MeshStandardMaterial({color:0xeab308,roughness:0.4}),
+  barricadeDark:new THREE.MeshStandardMaterial({color:0x1e293b,roughness:0.5}),
+  stageSofaRed:new THREE.MeshStandardMaterial({color:0x881337,roughness:0.6}),
+  stageSofaGold:new THREE.MeshStandardMaterial({color:0xd97706,roughness:0.25,metalness:0.75}),
+
   khaki:new THREE.MeshStandardMaterial({color:0xb58e5c,roughness:0.82}), // Real Indian Police Khaki uniform shirt
   trousers:new THREE.MeshStandardMaterial({color:0x9f7947,roughness:0.85}), // Khaki trousers
   dark:new THREE.MeshStandardMaterial({color:0x16181b,roughness:0.35,metalness:0.2}), // Polished black leather boots, holster, belt, visor
@@ -3607,6 +3927,9 @@ let lastDepStoreTime = 0;
 
 window.__DEP_TICK = function(dt) {
   let needsDraw = false;
+  if (typeof vvipActive !== 'undefined' && vvipActive) {
+    if (tickVvipSimulation(dt)) needsDraw = true;
+  }
 
   // Handle item walking/moving, turning, climbing stairs, jumping & obstacle collision
   if (depSelected) {
@@ -4294,6 +4617,1211 @@ window.addEventListener('pagehide',depSaveBeforeLeave);
 
 depUI('retry').onclick=()=>depBackendReady?depFlush():depLoadBackend();
 depLoadBackend();
+
+
+// ============================================================================
+// 🎖️ VVIP SIMULATION PROTOCOL (Helicopter, Motorcade, Barricades & Stage Seating)
+// ============================================================================
+let vvipActive = false;
+let vvipPhase = 0; // 1: Heli flight/landing, 2: Walk to road, 3: Motorcade transit, 4: Gate barricade/stop, 5: Hall walk & stage seating, 6: Completed
+let vvipPhaseTimer = 0;
+let vvipWalkCycle = 0;
+let vvipGroup = null;
+let vvipHeli = null;
+let vvipFemale = null;
+let vvipEscort1 = null;
+let vvipEscort2 = null;
+let vvipCar = null;
+let vvipBarricades = null;
+let vvipRoutePolice = null;
+let vvipStageChair = null;
+let vvipSavedCamera = null;
+let vvipSavedTarget = null;
+let vvipSavedView = null;
+let vvipHiddenHelicopterMatrices = [];
+
+function hideStaticHelicopter() {
+  vvipHiddenHelicopterMatrices = [];
+  const zeroMatrix = new THREE.Matrix4().makeScale(0, 0, 0);
+  scene.traverse(node => {
+    if (node.isInstancedMesh && node.userData && Array.isArray(node.userData.items)) {
+      node.userData.items.forEach((item, idx) => {
+        if (item.name && item.name.includes('Parked helicopter')) {
+          const original = new THREE.Matrix4();
+          node.getMatrixAt(idx, original);
+          vvipHiddenHelicopterMatrices.push({ mesh: node, index: idx, matrix: original });
+          node.setMatrixAt(idx, zeroMatrix);
+          node.instanceMatrix.needsUpdate = true;
+        }
+      });
+    }
+  });
+}
+
+function restoreStaticHelicopter() {
+  vvipHiddenHelicopterMatrices.forEach(({ mesh, index, matrix }) => {
+    mesh.setMatrixAt(index, matrix);
+    mesh.instanceMatrix.needsUpdate = true;
+  });
+  vvipHiddenHelicopterMatrices = [];
+}
+
+function buildVvipHelicopter() {
+  const g = new THREE.Group();
+  
+  // Fuselage body (aerodynamic)
+  const bodyUpper = new THREE.Mesh(geos.box, depMaterials.heliWhite);
+  bodyUpper.position.set(0, 1.8, 0);
+  bodyUpper.scale.set(1.9, 1.3, 5.2);
+  bodyUpper.castShadow = true;
+  g.add(bodyUpper);
+  
+  const bodyNose = new THREE.Mesh(geos.sphereSmooth, depMaterials.heliWhite);
+  bodyNose.position.set(0, 1.7, 2.5);
+  bodyNose.scale.set(0.94, 0.7, 1.2);
+  bodyNose.castShadow = true;
+  g.add(bodyNose);
+  
+  const bodyLower = new THREE.Mesh(geos.box, depMaterials.heliNavy);
+  bodyLower.position.set(0, 1.15, 0.1);
+  bodyLower.scale.set(1.85, 0.65, 4.8);
+  bodyLower.castShadow = true;
+  g.add(bodyLower);
+  
+  // Gold cheatline stripe
+  const stripe = new THREE.Mesh(geos.box, depMaterials.vipGold);
+  stripe.position.set(0, 1.48, 0.1);
+  stripe.scale.set(1.92, 0.1, 4.9);
+  g.add(stripe);
+  
+  // Cockpit canopy tinted glass
+  const cockpit = new THREE.Mesh(geos.sphereSmooth, depMaterials.vipGlass);
+  cockpit.position.set(0, 1.85, 2.0);
+  cockpit.scale.set(0.92, 0.65, 1.3);
+  g.add(cockpit);
+  
+  // Passenger side windows
+  for (let z of [-0.6, 0.4]) {
+    const winL = new THREE.Mesh(geos.box, depMaterials.vipGlass);
+    winL.position.set(-0.96, 1.85, z);
+    winL.scale.set(0.04, 0.5, 0.7);
+    g.add(winL);
+    const winR = winL.clone();
+    winR.position.x = 0.96;
+    g.add(winR);
+  }
+  
+  // Tail boom & vertical stabilizer
+  const tailBoom = new THREE.Mesh(geos.cylinder, depMaterials.heliWhite);
+  tailBoom.position.set(0, 1.85, -4.5);
+  tailBoom.rotation.x = Math.PI / 2;
+  tailBoom.scale.set(0.35, 4.6, 0.35);
+  tailBoom.castShadow = true;
+  g.add(tailBoom);
+  
+  const tailFin = new THREE.Mesh(geos.box, depMaterials.heliNavy);
+  tailFin.position.set(0, 2.7, -6.6);
+  tailFin.rotation.x = -0.25;
+  tailFin.scale.set(0.12, 1.5, 1.0);
+  tailFin.castShadow = true;
+  g.add(tailFin);
+  
+  // Tail rotor
+  const tailRotorGrp = new THREE.Group();
+  tailRotorGrp.position.set(0.12, 3.2, -6.9);
+  const trBlade1 = new THREE.Mesh(geos.box, depMaterials.heliRotor);
+  trBlade1.scale.set(0.04, 1.1, 0.12);
+  const trBlade2 = trBlade1.clone();
+  trBlade2.rotation.x = Math.PI / 2;
+  tailRotorGrp.add(trBlade1, trBlade2);
+  g.add(tailRotorGrp);
+  g.userData.tailRotor = tailRotorGrp;
+  
+  // Main Rotor Mast & Assembly
+  const mast = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
+  mast.position.set(0, 2.65, 0.4);
+  mast.scale.set(0.12, 0.7, 0.12);
+  g.add(mast);
+  
+  const mainRotorGrp = new THREE.Group();
+  mainRotorGrp.position.set(0, 3.0, 0.4);
+  
+  // 4 rotor blades with aerodynamic cuffs and yellow tips
+  for (let i = 0; i < 4; i++) {
+    const bGrp = new THREE.Group();
+    bGrp.rotation.y = (i * Math.PI) / 2;
+    const blade = new THREE.Mesh(geos.box, depMaterials.heliRotor);
+    blade.position.set(0, 0, 2.7);
+    blade.scale.set(0.24, 0.04, 5.0);
+    blade.castShadow = true;
+    const tip = new THREE.Mesh(geos.box, depMaterials.barricadeYellow);
+    tip.position.set(0, 0, 5.1);
+    tip.scale.set(0.25, 0.042, 0.4);
+    bGrp.add(blade, tip);
+    mainRotorGrp.add(bGrp);
+  }
+  g.add(mainRotorGrp);
+  g.userData.mainRotor = mainRotorGrp;
+  
+  // Spinning semi-transparent rotor disc for motion blur
+  const discGeo = new THREE.CircleGeometry(5.4, 32);
+  const discMat = new THREE.MeshBasicMaterial({
+    color: 0x27272a,
+    transparent: true,
+    opacity: 0.28,
+    side: THREE.DoubleSide
+  });
+  const rotorDisc = new THREE.Mesh(discGeo, discMat);
+  rotorDisc.rotation.x = Math.PI / 2;
+  rotorDisc.position.set(0, 3.01, 0.4);
+  g.add(rotorDisc);
+  g.userData.rotorDisc = rotorDisc;
+  
+  // Tubular landing skids
+  for (let sign of [-1, 1]) {
+    const skid = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
+    skid.position.set(sign * 1.05, 0.12, 0.2);
+    skid.rotation.x = Math.PI / 2;
+    skid.scale.set(0.06, 5.2, 0.06);
+    skid.castShadow = true;
+    g.add(skid);
+    
+    // Front upturned skid tip
+    const tip = new THREE.Mesh(geos.sphereSmooth, depMaterials.vipChrome);
+    tip.position.set(sign * 1.05, 0.35, 2.7);
+    tip.scale.set(0.06, 0.18, 0.12);
+    g.add(tip);
+    
+    // Cross struts connecting skid to body
+    for (let z of [-1.2, 1.4]) {
+      const strut = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
+      strut.position.set(sign * 0.55, 0.55, z);
+      strut.rotation.z = sign * -0.55;
+      strut.scale.set(0.05, 1.1, 0.05);
+      g.add(strut);
+    }
+  }
+  
+  // Nav strobes (left red, right green, tail white)
+  const strobeL = new THREE.Mesh(geos.sphereSmooth, depMaterials.vipBeaconRed);
+  strobeL.position.set(-1.1, 1.5, 0);
+  strobeL.scale.set(0.08, 0.08, 0.08);
+  const strobeR = new THREE.Mesh(geos.sphereSmooth, depMaterials.vipBeaconBlue);
+  strobeR.position.set(1.1, 1.5, 0);
+  strobeR.scale.set(0.08, 0.08, 0.08);
+  const strobeTail = new THREE.Mesh(geos.sphereSmooth, depMaterials.white);
+  strobeTail.position.set(0, 3.5, -6.6);
+  strobeTail.scale.set(0.1, 0.1, 0.1);
+  g.add(strobeL, strobeR, strobeTail);
+  
+  return g;
+}
+
+function buildFemaleVvip() {
+  const g = new THREE.Group();
+  
+  // Head & Face
+  const head = new THREE.Mesh(geos.sphereSmooth, depMaterials.skin);
+  head.position.set(0, 1.58, 0);
+  head.scale.set(0.12, 0.14, 0.12);
+  head.castShadow = true;
+  g.add(head);
+  
+  // Hair bun (royal chignon with gajra flower garland)
+  const hair = new THREE.Mesh(geos.sphereSmooth, depMaterials.hair);
+  hair.position.set(0, 1.61, -0.05);
+  hair.scale.set(0.13, 0.13, 0.12);
+  g.add(hair);
+  
+  const gajra = new THREE.Mesh(geos.torus, depMaterials.white);
+  gajra.position.set(0, 1.58, -0.14);
+  gajra.rotation.y = Math.PI / 2;
+  gajra.scale.set(0.07, 0.07, 0.03);
+  g.add(gajra);
+  
+  // Gold earrings
+  const earL = new THREE.Mesh(geos.sphereSmooth, depMaterials.vipGold);
+  earL.position.set(-0.13, 1.56, 0);
+  earL.scale.set(0.025, 0.04, 0.025);
+  const earR = earL.clone();
+  earR.position.x = 0.13;
+  g.add(earL, earR);
+  
+  // Torso / Saree Blouse (Rich Maroon Silk)
+  const torso = new THREE.Mesh(geos.cylinder, depMaterials.vipSaree);
+  torso.position.set(0, 1.25, 0);
+  torso.scale.set(0.18, 0.45, 0.13);
+  torso.castShadow = true;
+  g.add(torso);
+  
+  // Gold ceremonial necklace
+  const neck = new THREE.Mesh(geos.torus, depMaterials.vipGold);
+  neck.position.set(0, 1.42, 0.05);
+  neck.rotation.x = 0.6;
+  neck.scale.set(0.1, 0.1, 0.025);
+  g.add(neck);
+  
+  // Flowing silk pallu draped across shoulder and cascading back
+  const pallu = new THREE.Mesh(geos.box, depMaterials.vipPallu);
+  pallu.position.set(0.08, 1.15, -0.08);
+  pallu.rotation.z = -0.15;
+  pallu.scale.set(0.16, 0.65, 0.05);
+  pallu.castShadow = true;
+  g.add(pallu);
+  
+  // Saree Waist & Golden border
+  const waist = new THREE.Mesh(geos.cylinder, depMaterials.vipGold);
+  waist.position.set(0, 1.02, 0);
+  waist.scale.set(0.2, 0.08, 0.15);
+  g.add(waist);
+  
+  // Legs (articulated for walking)
+  const leftLegGrp = new THREE.Group();
+  leftLegGrp.position.set(-0.09, 0.98, 0);
+  const leftSaree = new THREE.Mesh(geos.cylinder, depMaterials.vipSaree);
+  leftSaree.position.set(0, -0.45, 0);
+  leftSaree.scale.set(0.095, 0.9, 0.095);
+  leftSaree.castShadow = true;
+  const leftGoldBorder = new THREE.Mesh(geos.cylinder, depMaterials.vipGold);
+  leftGoldBorder.position.set(0, -0.86, 0);
+  leftGoldBorder.scale.set(0.105, 0.08, 0.105);
+  const leftFoot = new THREE.Mesh(geos.box, depMaterials.vipGold);
+  leftFoot.position.set(0, -0.94, 0.06);
+  leftFoot.scale.set(0.08, 0.06, 0.16);
+  leftLegGrp.add(leftSaree, leftGoldBorder, leftFoot);
+  g.add(leftLegGrp);
+  
+  const rightLegGrp = new THREE.Group();
+  rightLegGrp.position.set(0.09, 0.98, 0);
+  const rightSaree = leftSaree.clone();
+  const rightGoldBorder = leftGoldBorder.clone();
+  const rightFoot = leftFoot.clone();
+  rightLegGrp.add(rightSaree, rightGoldBorder, rightFoot);
+  g.add(rightLegGrp);
+  
+  // Arms (articulated for walking)
+  const leftArmGrp = new THREE.Group();
+  leftArmGrp.position.set(-0.22, 1.4, 0);
+  const leftArm = new THREE.Mesh(geos.cylinder, depMaterials.skin);
+  leftArm.position.set(0, -0.28, 0);
+  leftArm.scale.set(0.045, 0.55, 0.045);
+  const leftBangle = new THREE.Mesh(geos.torus, depMaterials.vipGold);
+  leftBangle.position.set(0, -0.48, 0);
+  leftBangle.rotation.x = Math.PI / 2;
+  leftBangle.scale.set(0.05, 0.05, 0.015);
+  leftArmGrp.add(leftArm, leftBangle);
+  g.add(leftArmGrp);
+  
+  const rightArmGrp = new THREE.Group();
+  rightArmGrp.position.set(0.22, 1.4, 0);
+  const rightArm = leftArm.clone();
+  const rightBangle = leftBangle.clone();
+  rightArmGrp.add(rightArm, rightBangle);
+  g.add(rightArmGrp);
+  
+  g.userData.leftLeg = leftLegGrp;
+  g.userData.rightLeg = rightLegGrp;
+  g.userData.leftArm = leftArmGrp;
+  g.userData.rightArm = rightArmGrp;
+  g.userData.baseY = 0;
+  
+  g.userData.animateWalk = function(phase) {
+    const swing = Math.sin(phase) * 0.42;
+    leftLegGrp.rotation.x = swing;
+    rightLegGrp.rotation.x = -swing;
+    leftArmGrp.rotation.x = -swing * 0.75;
+    rightArmGrp.rotation.x = swing * 0.75;
+  };
+  
+  g.userData.setSeated = function(seated) {
+    if (seated) {
+      leftLegGrp.rotation.x = -Math.PI / 2.3;
+      rightLegGrp.rotation.x = -Math.PI / 2.3;
+      leftArmGrp.rotation.x = -0.3;
+      rightArmGrp.rotation.x = -0.3;
+      g.position.y = 1.80 + 0.35; // Seated height on stage chair
+    } else {
+      leftLegGrp.rotation.x = 0;
+      rightLegGrp.rotation.x = 0;
+      leftArmGrp.rotation.x = 0;
+      rightArmGrp.rotation.x = 0;
+    }
+  };
+  
+  return g;
+}
+
+function buildSecurityEscort() {
+  const g = new THREE.Group();
+  const head = new THREE.Mesh(geos.sphereSmooth, depMaterials.skin);
+  head.position.set(0, 1.66, 0);
+  head.scale.set(0.12, 0.14, 0.12);
+  head.castShadow = true;
+  g.add(head);
+  
+  const hair = new THREE.Mesh(geos.box, depMaterials.hair);
+  hair.position.set(0, 1.74, -0.02);
+  hair.scale.set(0.24, 0.08, 0.24);
+  g.add(hair);
+  
+  const shades = new THREE.Mesh(geos.box, depMaterials.dark);
+  shades.position.set(0, 1.67, 0.12);
+  shades.scale.set(0.21, 0.05, 0.05);
+  g.add(shades);
+  
+  const torso = new THREE.Mesh(geos.box, depMaterials.dark);
+  torso.position.set(0, 1.25, 0);
+  torso.scale.set(0.44, 0.6, 0.24);
+  torso.castShadow = true;
+  g.add(torso);
+  
+  const shirt = new THREE.Mesh(geos.box, depMaterials.white);
+  shirt.position.set(0, 1.38, 0.11);
+  shirt.scale.set(0.16, 0.28, 0.04);
+  const tie = new THREE.Mesh(geos.box, depMaterials.red);
+  tie.position.set(0, 1.3, 0.13);
+  tie.scale.set(0.06, 0.25, 0.02);
+  g.add(shirt, tie);
+  
+  const leftLeg = new THREE.Group();
+  leftLeg.position.set(-0.12, 0.95, 0);
+  const lMesh = new THREE.Mesh(geos.cylinder, depMaterials.dark);
+  lMesh.position.set(0, -0.45, 0);
+  lMesh.scale.set(0.09, 0.9, 0.09);
+  lMesh.castShadow = true;
+  leftLeg.add(lMesh);
+  g.add(leftLeg);
+  
+  const rightLeg = new THREE.Group();
+  rightLeg.position.set(0.12, 0.95, 0);
+  const rMesh = lMesh.clone();
+  rightLeg.add(rMesh);
+  g.add(rightLeg);
+  
+  const leftArm = new THREE.Group();
+  leftArm.position.set(-0.28, 1.45, 0);
+  const laMesh = new THREE.Mesh(geos.cylinder, depMaterials.dark);
+  laMesh.position.set(0, -0.28, 0);
+  laMesh.scale.set(0.06, 0.55, 0.06);
+  leftArm.add(laMesh);
+  g.add(leftArm);
+  
+  const rightArm = new THREE.Group();
+  rightArm.position.set(0.28, 1.45, 0);
+  const raMesh = laMesh.clone();
+  rightArm.add(raMesh);
+  g.add(rightArm);
+  
+  g.userData.animateWalk = function(phase) {
+    const swing = Math.sin(phase) * 0.38;
+    leftLeg.rotation.x = swing;
+    rightLeg.rotation.x = -swing;
+    leftArm.rotation.x = -swing * 0.6;
+    rightArm.rotation.x = swing * 0.6;
+  };
+  return g;
+}
+
+function buildVvipCar() {
+  const g = new THREE.Group();
+  
+  // Lower body chassis (Luxury Obsidian Black)
+  const chassis = new THREE.Mesh(geos.box, depMaterials.vipCar);
+  chassis.position.set(0, 0.65, 0);
+  chassis.scale.set(2.1, 0.7, 5.2);
+  chassis.castShadow = true;
+  g.add(chassis);
+  
+  // Upper cabin
+  const cabin = new THREE.Mesh(geos.box, depMaterials.vipCar);
+  cabin.position.set(0, 1.25, -0.2);
+  cabin.scale.set(1.9, 0.65, 2.9);
+  cabin.castShadow = true;
+  g.add(cabin);
+  
+  // Tinted windshield & rear glass
+  const frontGlass = new THREE.Mesh(geos.box, depMaterials.vipGlass);
+  frontGlass.position.set(0, 1.22, 1.3);
+  frontGlass.rotation.x = 0.35;
+  frontGlass.scale.set(1.82, 0.6, 0.1);
+  const rearGlass = new THREE.Mesh(geos.box, depMaterials.vipGlass);
+  rearGlass.position.set(0, 1.22, -1.7);
+  rearGlass.rotation.x = -0.35;
+  rearGlass.scale.set(1.82, 0.6, 0.1);
+  g.add(frontGlass, rearGlass);
+  
+  // Side windows
+  for (let sign of [-1, 1]) {
+    const sideGlass = new THREE.Mesh(geos.box, depMaterials.vipGlass);
+    sideGlass.position.set(sign * 0.96, 1.25, -0.2);
+    sideGlass.scale.set(0.04, 0.5, 2.7);
+    g.add(sideGlass);
+  }
+  
+  // Chrome front grille
+  const grille = new THREE.Mesh(geos.box, depMaterials.vipChrome);
+  grille.position.set(0, 0.65, 2.62);
+  grille.scale.set(1.2, 0.45, 0.08);
+  g.add(grille);
+  
+  // Headlights & Taillights
+  for (let sign of [-1, 1]) {
+    const hl = new THREE.Mesh(geos.box, depMaterials.white);
+    hl.position.set(sign * 0.78, 0.7, 2.62);
+    hl.scale.set(0.35, 0.2, 0.08);
+    g.add(hl);
+    
+    const tl = new THREE.Mesh(geos.box, depMaterials.red);
+    tl.position.set(sign * 0.78, 0.75, -2.62);
+    tl.scale.set(0.35, 0.18, 0.08);
+    g.add(tl);
+  }
+  
+  // VIP Official Flag mast on front left hood
+  const mast = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
+  mast.position.set(-0.85, 1.2, 2.1);
+  mast.scale.set(0.02, 0.6, 0.02);
+  const flag = new THREE.Mesh(geos.box, depMaterials.red);
+  flag.position.set(-0.85, 1.4, 2.22);
+  flag.scale.set(0.02, 0.18, 0.25);
+  g.add(mast, flag);
+  
+  // Roof-mounted VIP Flashing Beacon
+  const beaconBase = new THREE.Mesh(geos.box, depMaterials.dark);
+  beaconBase.position.set(0, 1.62, -0.2);
+  beaconBase.scale.set(0.65, 0.06, 0.18);
+  const beaconR = new THREE.Mesh(geos.cylinder, depMaterials.vipBeaconRed);
+  beaconR.position.set(-0.2, 1.69, -0.2);
+  beaconR.scale.set(0.08, 0.09, 0.08);
+  const beaconB = new THREE.Mesh(geos.cylinder, depMaterials.vipBeaconBlue);
+  beaconB.position.set(0.2, 1.69, -0.2);
+  beaconB.scale.set(0.08, 0.09, 0.08);
+  g.add(beaconBase, beaconR, beaconB);
+  
+  // 4 Alloy Wheels with tire rotation
+  const wheels = [];
+  const wheelPositions = [
+    [-1.02, 0.38, 1.6],
+    [1.02, 0.38, 1.6],
+    [-1.02, 0.38, -1.6],
+    [1.02, 0.38, -1.6]
+  ];
+  wheelPositions.forEach(pos => {
+    const wGrp = new THREE.Group();
+    wGrp.position.fromArray(pos);
+    const tire = new THREE.Mesh(geos.cylinder, depMaterials.dark);
+    tire.rotation.z = Math.PI / 2;
+    tire.scale.set(0.38, 0.28, 0.38);
+    tire.castShadow = true;
+    const rim = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
+    rim.rotation.z = Math.PI / 2;
+    rim.scale.set(0.24, 0.3, 0.24);
+    wGrp.add(tire, rim);
+    g.add(wGrp);
+    wheels.push(wGrp);
+  });
+  g.userData.wheels = wheels;
+  
+  g.userData.rollWheels = function(deltaDist) {
+    const rad = deltaDist / 0.38;
+    wheels.forEach(w => {
+      w.rotation.x += rad;
+    });
+  };
+  
+  return g;
+}
+
+function buildRouteOfficer(salute = false) {
+  const g = new THREE.Group();
+  const head = new THREE.Mesh(geos.sphereSmooth, depMaterials.skin);
+  head.position.set(0, 1.66, 0);
+  head.scale.set(0.12, 0.14, 0.12);
+  head.castShadow = true;
+  g.add(head);
+  
+  const cap = new THREE.Mesh(geos.cylinder, depMaterials.blue);
+  cap.position.set(0, 1.76, 0);
+  cap.scale.set(0.15, 0.07, 0.15);
+  const capBand = new THREE.Mesh(geos.cylinder, depMaterials.red);
+  capBand.position.set(0, 1.73, 0);
+  capBand.scale.set(0.155, 0.025, 0.155);
+  const visor = new THREE.Mesh(geos.box, depMaterials.dark);
+  visor.position.set(0, 1.72, 0.13);
+  visor.scale.set(0.18, 0.02, 0.08);
+  g.add(cap, capBand, visor);
+  
+  const torso = new THREE.Mesh(geos.box, depMaterials.khaki);
+  torso.position.set(0, 1.25, 0);
+  torso.scale.set(0.42, 0.58, 0.22);
+  torso.castShadow = true;
+  const belt = new THREE.Mesh(geos.box, depMaterials.dark);
+  belt.position.set(0, 0.98, 0);
+  belt.scale.set(0.44, 0.08, 0.24);
+  const buckle = new THREE.Mesh(geos.box, depMaterials.yellow);
+  buckle.position.set(0, 0.98, 0.125);
+  buckle.scale.set(0.08, 0.07, 0.02);
+  g.add(torso, belt, buckle);
+  
+  for (let sign of [-1, 1]) {
+    const leg = new THREE.Mesh(geos.cylinder, depMaterials.trousers);
+    leg.position.set(sign * 0.11, 0.48, 0);
+    leg.scale.set(0.09, 0.92, 0.09);
+    leg.castShadow = true;
+    const boot = new THREE.Mesh(geos.box, depMaterials.dark);
+    boot.position.set(sign * 0.11, 0.05, 0.04);
+    boot.scale.set(0.1, 0.09, 0.2);
+    g.add(leg, boot);
+  }
+  
+  const leftArm = new THREE.Mesh(geos.cylinder, depMaterials.khaki);
+  leftArm.position.set(-0.26, 1.2, 0);
+  leftArm.scale.set(0.065, 0.52, 0.065);
+  g.add(leftArm);
+  
+  const rightArm = new THREE.Mesh(geos.cylinder, depMaterials.khaki);
+  if (salute) {
+    rightArm.position.set(0.24, 1.48, 0.06);
+    rightArm.rotation.z = -1.1;
+    rightArm.rotation.y = 0.4;
+    rightArm.scale.set(0.06, 0.48, 0.06);
+  } else {
+    rightArm.position.set(0.26, 1.2, 0);
+    rightArm.scale.set(0.065, 0.52, 0.065);
+  }
+  g.add(rightArm);
+  return g;
+}
+
+function buildRoadBarricades() {
+  const g = new THREE.Group();
+  
+  function makeBarricade(x, y, z, angle) {
+    const b = new THREE.Group();
+    b.position.set(x, y, z);
+    b.rotation.y = angle;
+    
+    const frame = new THREE.Mesh(geos.box, depMaterials.barricadeYellow);
+    frame.position.set(0, 0.65, 0);
+    frame.scale.set(3.6, 1.1, 0.12);
+    frame.castShadow = true;
+    b.add(frame);
+    
+    // Alert beacon
+    const beacon = new THREE.Mesh(geos.cylinder, depMaterials.vipBeaconRed);
+    beacon.position.set(0, 1.3, 0);
+    beacon.scale.set(0.12, 0.18, 0.12);
+    b.add(beacon);
+    
+    for (let sign of [-1, 1]) {
+      const leg = new THREE.Mesh(geos.box, depMaterials.barricadeDark);
+      leg.position.set(sign * 1.6, 0.15, 0);
+      leg.scale.set(0.15, 0.3, 0.85);
+      b.add(leg);
+    }
+    
+    const cop = buildRouteOfficer(true);
+    cop.position.set(1.9, 0, 0.4);
+    cop.rotation.y = -Math.PI / 2;
+    b.add(cop);
+    
+    return b;
+  }
+  
+  // North barricade across main road (at X = -32, Z = -65)
+  const bNorth = makeBarricade(-32, 0, -65, 0);
+  // South barricade across main road (at X = 8, Z = -65)
+  const bSouth = makeBarricade(8, 0, -65, 0);
+  
+  g.add(bNorth, bSouth);
+  return g;
+}
+
+function buildRoutePolice() {
+  const g = new THREE.Group();
+  // Helipad perimeter guards
+  const heliGuards = [
+    [-42, 0.36, -145, 0.8],
+    [-45, 0.36, -182, 0.8],
+    [-2, 0.36, -185, -0.8],
+    [3, 0.36, -148, -0.8]
+  ];
+  heliGuards.forEach(([x, y, z, rot]) => {
+    const p = buildRouteOfficer(false);
+    p.position.set(x, y, z);
+    p.rotation.y = rot;
+    g.add(p);
+  });
+  
+  // Helipad road access guards
+  const roadGuards = [
+    [-21, 0.36, -138, 0.2],
+    [-17, 0.36, -138, -0.2]
+  ];
+  roadGuards.forEach(([x, y, z, rot]) => {
+    const p = buildRouteOfficer(true);
+    p.position.set(x, y, z);
+    p.rotation.y = rot;
+    g.add(p);
+  });
+  
+  // Main gate guards
+  const gateGuards = [
+    [-15.5, 0.36, -65, Math.PI / 2],
+    [-10.0, 0.36, -65, -Math.PI / 2]
+  ];
+  gateGuards.forEach(([x, y, z, rot]) => {
+    const p = buildRouteOfficer(true);
+    p.position.set(x, y, z);
+    p.rotation.y = rot;
+    g.add(p);
+  });
+  
+  // Auditorium entry guards
+  const auditGuards = [
+    [-18.5, 0.36, 1.86, 0],
+    [-21.5, 0.36, 1.86, 0]
+  ];
+  auditGuards.forEach(([x, y, z, rot]) => {
+    const p = buildRouteOfficer(true);
+    p.position.set(x, y, z);
+    p.rotation.y = rot;
+    g.add(p);
+  });
+  
+  // Stage side guards
+  const stageGuards = [
+    [-41.5, 1.80, -47.0, Math.PI / 2],
+    [-35.5, 1.80, -47.0, -Math.PI / 2]
+  ];
+  stageGuards.forEach(([x, y, z, rot]) => {
+    const p = buildRouteOfficer(false);
+    p.position.set(x, y, z);
+    p.rotation.y = rot;
+    g.add(p);
+  });
+  
+  return g;
+}
+
+function buildStageChair() {
+  const g = new THREE.Group();
+  const seat = new THREE.Mesh(geos.box, depMaterials.stageSofaRed);
+  seat.position.set(0, 0.5, 0);
+  seat.scale.set(1.4, 0.35, 1.1);
+  seat.castShadow = true;
+  g.add(seat);
+  
+  const back = new THREE.Mesh(geos.box, depMaterials.stageSofaRed);
+  back.position.set(0, 1.3, -0.45);
+  back.scale.set(1.4, 1.3, 0.25);
+  back.castShadow = true;
+  g.add(back);
+  
+  const crown = new THREE.Mesh(geos.box, depMaterials.stageSofaGold);
+  crown.position.set(0, 1.98, -0.45);
+  crown.scale.set(1.45, 0.12, 0.28);
+  g.add(crown);
+  
+  for (let sign of [-1, 1]) {
+    const arm = new THREE.Mesh(geos.box, depMaterials.stageSofaGold);
+    arm.position.set(sign * 0.75, 0.85, 0);
+    arm.scale.set(0.18, 0.45, 1.15);
+    g.add(arm);
+    
+    for (let z of [-0.4, 0.4]) {
+      const leg = new THREE.Mesh(geos.cylinder, depMaterials.stageSofaGold);
+      leg.position.set(sign * 0.65, 0.16, z);
+      leg.scale.set(0.05, 0.32, 0.05);
+      g.add(leg);
+    }
+  }
+  return g;
+}
+
+// Helper: Linear interpolation for 3D coordinates
+function lerpCoord(p1, p2, t) {
+  return [
+    p1[0] + (p2[0] - p1[0]) * t,
+    p1[1] + (p2[1] - p1[1]) * t,
+    p1[2] + (p2[2] - p1[2]) * t
+  ];
+}
+
+// Helper: Multi-waypoint path interpolation
+function interpolateWaypoints(waypoints, tTotal) {
+  const count = waypoints.length - 1;
+  const scaled = Math.max(0, Math.min(count, tTotal * count));
+  const idx = Math.min(count - 1, Math.floor(scaled));
+  const tSub = scaled - idx;
+  const pA = waypoints[idx];
+  const pB = waypoints[idx + 1];
+  const pos = lerpCoord(pA, pB, tSub);
+  const angle = Math.atan2(pB[0] - pA[0], pB[2] - pA[2]);
+  return { pos, angle };
+}
+
+function updateVvipHUD(stageNum, title, msg) {
+  const hud = root.querySelector('#vvip-hud');
+  if (!hud) return;
+  hud.style.display = 'block';
+  const pill = hud.querySelector('#vvip-stage-pill');
+  if (pill) pill.textContent = 'Phase ' + stageNum + '/5';
+  const msgEl = hud.querySelector('#vvip-status-msg');
+  if (msgEl) msgEl.innerHTML = msg;
+  
+  for (let i = 1; i <= 5; i++) {
+    const step = hud.querySelector('#vvip-step-' + i);
+    if (!step) continue;
+    step.classList.remove('active', 'done');
+    if (i < stageNum) step.classList.add('done');
+    else if (i === stageNum) step.classList.add('active');
+  }
+}
+
+function startVvipSimulation() {
+  if (vvipActive) return;
+  vvipActive = true;
+  
+  const vvipBtn = root.querySelector('#gms-vvip-btn');
+  if (vvipBtn) vvipBtn.classList.add('active');
+  
+  // Save current camera view & controls target
+  vvipSavedCamera = camera.position.clone();
+  vvipSavedTarget = controls.target.clone();
+  vvipSavedView = current;
+  controls.enabled = false;
+  
+  // Ensure layers are visible
+  if (groups.event) groups.event.visible = true;
+  if (groups.context) groups.context.visible = true;
+  
+  // Hide static helicopter
+  hideStaticHelicopter();
+  
+  // Create simulation group
+  vvipGroup = new THREE.Group();
+  scene.add(vvipGroup);
+  
+  vvipHeli = buildVvipHelicopter();
+  vvipGroup.add(vvipHeli);
+  
+  vvipFemale = buildFemaleVvip();
+  vvipFemale.visible = false;
+  vvipGroup.add(vvipFemale);
+  
+  vvipEscort1 = buildSecurityEscort();
+  vvipEscort1.visible = false;
+  vvipGroup.add(vvipEscort1);
+  
+  vvipEscort2 = buildSecurityEscort();
+  vvipEscort2.visible = false;
+  vvipGroup.add(vvipEscort2);
+  
+  vvipCar = buildVvipCar();
+  vvipCar.position.set(-19.77, 0.36, -142.11);
+  vvipCar.rotation.y = 0.08;
+  vvipGroup.add(vvipCar);
+  
+  vvipBarricades = buildRoadBarricades();
+  vvipGroup.add(vvipBarricades);
+  
+  vvipRoutePolice = buildRoutePolice();
+  vvipGroup.add(vvipRoutePolice);
+  
+  vvipStageChair = buildStageChair();
+  vvipStageChair.position.set(-38.56, 1.80, -47.00);
+  vvipStageChair.rotation.y = Math.PI;
+  vvipGroup.add(vvipStageChair);
+  
+  vvipPhase = 1;
+  vvipPhaseTimer = 0;
+  vvipWalkCycle = 0;
+  
+  // Close any finish modal
+  const fm = root.querySelector('#vvip-finish-modal');
+  if (fm) fm.style.display = 'none';
+  
+  // Initial camera placement for helicopter in-flight view
+  camera.position.set(-145, 95, -395);
+  controls.target.set(-120, 80, -360);
+  
+  updateVvipHUD(1, 'Air Arrival', '🚁 VVIP Helicopter Bhodwal Majri Helipad par approach aur land ho raha hai...');
+  draw();
+}
+
+function stopVvipSimulation() {
+  if (!vvipActive) return;
+  vvipActive = false;
+  vvipPhase = 0;
+  
+  const vvipBtn = root.querySelector('#gms-vvip-btn');
+  if (vvipBtn) vvipBtn.classList.remove('active');
+  
+  const hud = root.querySelector('#vvip-hud');
+  if (hud) hud.style.display = 'none';
+  
+  const fm = root.querySelector('#vvip-finish-modal');
+  if (fm) fm.style.display = 'none';
+  
+  // Clean up 3D group
+  if (vvipGroup) {
+    scene.remove(vvipGroup);
+    vvipGroup = null;
+  }
+  
+  // Restore static helicopter
+  restoreStaticHelicopter();
+  
+  // Restore roof / views
+  if (groups.roof) groups.roof.visible = true;
+  if (interiorLights) interiorLights.visible = false;
+  
+  // Restore camera & controls
+  controls.enabled = true;
+  if (vvipSavedCamera && vvipSavedTarget) {
+    camera.position.copy(vvipSavedCamera);
+    controls.target.copy(vvipSavedTarget);
+  } else {
+    current = 'campus';
+    applyView();
+  }
+  controls.update();
+  draw();
+}
+
+function advanceVvipPhase() {
+  if (vvipPhase >= 5) {
+    // Complete
+    vvipPhase = 6;
+    const hud = root.querySelector('#vvip-hud');
+    if (hud) hud.style.display = 'none';
+    const fm = root.querySelector('#vvip-finish-modal');
+    if (fm) fm.style.display = 'flex';
+  } else {
+    vvipPhase++;
+    vvipPhaseTimer = 0;
+  }
+}
+
+// Simulation Tick (called from window.__DEP_TICK)
+function tickVvipSimulation(dt) {
+  if (!vvipActive || !vvipGroup) return false;
+  vvipPhaseTimer += dt;
+  vvipWalkCycle += dt * 6.5;
+  
+  // Rotor continuous spin & beacon blink
+  if (vvipHeli && vvipHeli.userData.mainRotor) {
+    const rotorSpeed = (vvipPhase === 1 && vvipPhaseTimer > 9.5) ? Math.max(2, 35 * (1 - (vvipPhaseTimer - 9.5) / 2.5)) : (vvipPhase === 1 ? 35 : 4);
+    vvipHeli.userData.mainRotor.rotation.y += rotorSpeed * dt;
+    if (vvipHeli.userData.tailRotor) vvipHeli.userData.tailRotor.rotation.x += rotorSpeed * 1.5 * dt;
+    if (vvipHeli.userData.rotorDisc) vvipHeli.userData.rotorDisc.visible = (rotorSpeed > 15);
+  }
+  
+  // Car beacons alternating blink
+  if (vvipCar && vvipCar.userData.beaconR && vvipCar.userData.beaconB) {
+    const blink = (Date.now() % 300) < 150;
+    vvipCar.userData.beaconR.material.emissiveIntensity = blink ? 2.5 : 0.2;
+    vvipCar.userData.beaconB.material.emissiveIntensity = blink ? 0.2 : 2.5;
+  }
+  
+  // ==========================================
+  // PHASE 1: Helicopter Air Approach & Landing (12s)
+  // ==========================================
+  if (vvipPhase === 1) {
+    const dur = 12.0;
+    const progress = Math.min(1.0, vvipPhaseTimer / dur);
+    
+    // Flight Path from far sky to Helipad
+    const startPos = [-130, 85, -370];
+    const landPos = [-24.93, 0.45, -168.39];
+    
+    const flyT = Math.min(1.0, progress / 0.82); // Flight touches down at 82%
+    const easeT = flyT * flyT * (3 - 2 * flyT); // Smooth cubic ease
+    
+    const curX = startPos[0] + (landPos[0] - startPos[0]) * easeT;
+    const curZ = startPos[2] + (landPos[2] - startPos[2]) * easeT;
+    // Aerodynamic descent curve
+    const curY = landPos[1] + (startPos[1] - landPos[1]) * Math.pow(1 - easeT, 1.8);
+    
+    vvipHeli.position.set(curX, curY, curZ);
+    // User requested: "helicopter ud raha hai ve sidha rthe" -> keep level and aligned
+    vvipHeli.rotation.set(0, -0.09, 0);
+    
+    // Camera smoothly tracking behind and alongside the helicopter
+    const camOffset = [-18, 9, -24];
+    const targetCamPos = new THREE.Vector3(curX + camOffset[0], Math.max(curY + camOffset[1], 3.8), curZ + camOffset[2]);
+    camera.position.lerp(targetCamPos, 0.08);
+    controls.target.lerp(new THREE.Vector3(curX, curY + 1.2, curZ), 0.1);
+    
+    updateVvipHUD(1, 'Air Arrival', '🚁 VVIP Helicopter Bhodwal Majri Helipad par approach aur land ho raha hai... (' + Math.round((1 - progress) * dur) + 's)');
+    
+    if (vvipPhaseTimer >= dur) {
+      advanceVvipPhase();
+    }
+  }
+  
+  // ==========================================
+  // PHASE 2: Disembark & Walk to Road (10s)
+  // ==========================================
+  else if (vvipPhase === 2) {
+    const dur = 10.0;
+    const progress = Math.min(1.0, vvipPhaseTimer / dur);
+    
+    vvipFemale.visible = true;
+    vvipEscort1.visible = true;
+    vvipEscort2.visible = true;
+    
+    // Red carpet path from helicopter to helipad road
+    const startP = [-22.18, 0.36, -168.64];
+    const endP = [-19.77, 0.36, -142.11];
+    
+    const curPos = lerpCoord(startP, endP, progress);
+    const angle = Math.atan2(endP[0] - startP[0], endP[2] - startP[2]);
+    
+    vvipFemale.position.set(curPos[0], curPos[1], curPos[2]);
+    vvipFemale.rotation.y = angle;
+    vvipFemale.userData.animateWalk(vvipWalkCycle);
+    
+    // Escorts flanking behind
+    const leftOffset = [-1.1, 0, -1.0];
+    const rightOffset = [1.1, 0, -1.0];
+    vvipEscort1.position.set(curPos[0] + leftOffset[0], curPos[1], curPos[2] + leftOffset[2]);
+    vvipEscort1.rotation.y = angle;
+    vvipEscort1.userData.animateWalk(vvipWalkCycle);
+    
+    vvipEscort2.position.set(curPos[0] + rightOffset[0], curPos[1], curPos[2] + rightOffset[2]);
+    vvipEscort2.rotation.y = angle;
+    vvipEscort2.userData.animateWalk(vvipWalkCycle);
+    
+    // Camera: Zoomed in close tracking the Female VVIP ("vvip apr zoom rhe sth sth aagye chale")
+    const camTarget = new THREE.Vector3(curPos[0], curPos[1] + 1.25, curPos[2]);
+    const camPos = new THREE.Vector3(curPos[0] - 3.8, curPos[1] + 2.2, curPos[2] + 5.5);
+    camera.position.lerp(camPos, 0.08);
+    controls.target.lerp(camTarget, 0.1);
+    
+    updateVvipHUD(2, 'Disembark & Walk', '🚶‍♀️ Female VVIP helicopter se utar kar red carpet se VIP motorcade ki taraf ja rahi hain... (' + Math.round((1 - progress) * dur) + 's)');
+    
+    if (vvipPhaseTimer >= dur) {
+      advanceVvipPhase();
+    }
+  }
+  
+  // ==========================================
+  // PHASE 3: VIP Motorcade Transit to Main Gate (14s)
+  // ==========================================
+  else if (vvipPhase === 3) {
+    const dur = 14.0;
+    const progress = Math.min(1.0, vvipPhaseTimer / dur);
+    
+    // VVIP boarded into car
+    vvipFemale.visible = false;
+    vvipEscort1.visible = false;
+    vvipEscort2.visible = false;
+    
+    // Road waypoints from helipad road to main gate
+    const waypoints = [
+      [-19.77, 0.36, -142.11],
+      [-17.50, 0.36, -115.00],
+      [-14.46, 0.36, -83.67],
+      [-13.50, 0.36, -72.00]
+    ];
+    
+    const { pos, angle } = interpolateWaypoints(waypoints, progress);
+    
+    // Calculate distance rolled for wheels
+    if (vvipCar.userData.lastPos) {
+      const dist = Math.hypot(pos[0] - vvipCar.userData.lastPos[0], pos[2] - vvipCar.userData.lastPos[2]);
+      vvipCar.userData.rollWheels(dist);
+    }
+    vvipCar.userData.lastPos = pos;
+    
+    vvipCar.position.set(pos[0], pos[1], pos[2]);
+    vvipCar.rotation.y = angle;
+    
+    // Camera: Smooth pursuit motorcade tracking
+    const forward = new THREE.Vector3(Math.sin(angle), 0, Math.cos(angle));
+    const camPos = new THREE.Vector3(pos[0] - forward.x * 9 - 4.5, pos[1] + 3.8, pos[2] - forward.z * 9);
+    camera.position.lerp(camPos, 0.08);
+    controls.target.lerp(new THREE.Vector3(pos[0], pos[1] + 1.1, pos[2]), 0.1);
+    
+    updateVvipHUD(3, 'Motorcade Transit', '🚘 VIP Motorcade helipad road se Main Campus Gate ki taraf badh raha hai... (' + Math.round((1 - progress) * dur) + 's)');
+    
+    if (vvipPhaseTimer >= dur) {
+      advanceVvipPhase();
+    }
+  }
+  
+  // ==========================================
+  // PHASE 4: Main Gate Barricades & Stop (6s)
+  // ==========================================
+  else if (vvipPhase === 4) {
+    const dur = 6.0;
+    const progress = Math.min(1.0, vvipPhaseTimer / dur);
+    
+    // Car stopped just before main gate
+    vvipCar.position.set(-13.50, 0.36, -72.00);
+    vvipCar.rotation.y = 0.12;
+    
+    // VVIP & escorts disembarking from car
+    vvipFemale.visible = true;
+    vvipEscort1.visible = true;
+    vvipEscort2.visible = true;
+    
+    const startP = [-13.50, 0.36, -71.50];
+    const stepP = [-13.00, 0.36, -68.00];
+    const curPos = lerpCoord(startP, stepP, Math.min(1.0, progress * 1.5));
+    
+    vvipFemale.position.set(curPos[0], curPos[1], curPos[2]);
+    vvipFemale.rotation.y = 0.1;
+    if (progress < 0.6) vvipFemale.userData.animateWalk(vvipWalkCycle);
+    
+    vvipEscort1.position.set(curPos[0] - 0.9, curPos[1], curPos[2] - 0.9);
+    vvipEscort1.rotation.y = 0.1;
+    vvipEscort2.position.set(curPos[0] + 0.9, curPos[1], curPos[2] - 0.9);
+    vvipEscort2.rotation.y = 0.1;
+    
+    // Camera: Elevated framing showing barricades blocking both sides of main road
+    const camPos = new THREE.Vector3(-14, 5.2, -88);
+    const camTarget = new THREE.Vector3(-13, 1.2, -67);
+    camera.position.lerp(camPos, 0.08);
+    controls.target.lerp(camTarget, 0.1);
+    
+    updateVvipHUD(4, 'Main Gate Block', '🚧 Main Gate par dono taraf police barricades se highway road block; VVIP gaadi se utar rahi hain... (' + Math.round((1 - progress) * dur) + 's)');
+    
+    if (vvipPhaseTimer >= dur) {
+      advanceVvipPhase();
+    }
+  }
+  
+  // ==========================================
+  // PHASE 5: Auditorium Entrance & Stage Seating (20s)
+  // ==========================================
+  else if (vvipPhase === 5) {
+    const dur = 20.0;
+    const progress = Math.min(1.0, vvipPhaseTimer / dur);
+    
+    // Pathway into auditorium and up to stage
+    const path = [
+      [-13.00, 0.36, -68.00],
+      [-12.77, 0.36, -65.07], // Main Gate
+      [-12.77, 0.36, -2.36],
+      [-16.50, 0.36, -2.36],
+      [-19.83, 0.36, 1.86],  // Auditorium entrance gate
+      [-28.00, 0.36, 0.00],  // Foyer
+      [-38.52, 0.36, -10.00], // Center Aisle
+      [-38.56, 0.50, -32.00], // Approach stage
+      [-38.56, 1.80, -42.00], // Ascending stairs
+      [-38.56, 1.80, -46.50]  // Stage chair position
+    ];
+    
+    const { pos, angle } = interpolateWaypoints(path, Math.min(1.0, progress / 0.88));
+    
+    // Inside auditorium: ensure interior is illuminated and visible
+    if (pos[2] > -20 && interiorLights) {
+      interiorLights.visible = true;
+      if (groups.roof) groups.roof.visible = false;
+    }
+    
+    vvipFemale.position.set(pos[0], pos[1], pos[2]);
+    
+    if (progress < 0.88) {
+      // Walking
+      vvipFemale.rotation.y = angle;
+      vvipFemale.userData.animateWalk(vvipWalkCycle);
+      vvipFemale.userData.setSeated(false);
+      
+      vvipEscort1.position.set(pos[0] - 0.9, pos[1], pos[2] - 0.9);
+      vvipEscort1.rotation.y = angle;
+      vvipEscort1.userData.animateWalk(vvipWalkCycle);
+      
+      vvipEscort2.position.set(pos[0] + 0.9, pos[1], pos[2] - 0.9);
+      vvipEscort2.rotation.y = angle;
+      vvipEscort2.userData.animateWalk(vvipWalkCycle);
+    } else {
+      // Reached Stage Chair & Sitting Down
+      vvipFemale.position.set(-38.56, 1.80, -46.85);
+      vvipFemale.rotation.y = 0; // Facing auditorium audience
+      vvipFemale.userData.setSeated(true);
+      
+      // Escorts standing attentively flanking stage
+      vvipEscort1.position.set(-40.2, 1.80, -46.85);
+      vvipEscort1.rotation.y = 0;
+      vvipEscort2.position.set(-36.9, 1.80, -46.85);
+      vvipEscort2.rotation.y = 0;
+    }
+    
+    // Camera: Zoomed in tracking the female VVIP closely
+    const camOffset = (progress < 0.88) ? [-3.2, 1.9, 4.6] : [0, 1.5, 4.8];
+    const camPos = new THREE.Vector3(pos[0] + camOffset[0], pos[1] + camOffset[1], pos[2] + camOffset[2]);
+    const camTarget = new THREE.Vector3(pos[0], pos[1] + 1.1, pos[2]);
+    
+    camera.position.lerp(camPos, 0.08);
+    controls.target.lerp(camTarget, 0.1);
+    
+    updateVvipHUD(5, 'Auditorium & Stage', '🎭 Female VVIP Auditorium gate se entry le kar Main Stage par asan-grahan kar rahi hain... (' + Math.round((1 - progress) * dur) + 's)');
+    
+    if (vvipPhaseTimer >= dur) {
+      advanceVvipPhase();
+    }
+  }
+  
+  // ==========================================
+  // PHASE 6: Completed (Gentle Stage Orbit)
+  // ==========================================
+  else if (vvipPhase === 6) {
+    const orbitT = vvipPhaseTimer * 0.15;
+    const stageC = new THREE.Vector3(-38.56, 2.3, -47.0);
+    camera.position.set(
+      stageC.x + Math.sin(orbitT) * 6.5,
+      stageC.y + 1.8,
+      stageC.z + Math.cos(orbitT) * 6.5
+    );
+    controls.target.copy(stageC);
+  }
+  
+  return true;
+}
+
+// Bind VVIP UI Event Listeners
+function initVvipUI() {
+  const vvipBtn = root.querySelector('#gms-vvip-btn');
+  if (vvipBtn) {
+    vvipBtn.addEventListener('click', () => {
+      if (vvipActive) stopVvipSimulation();
+      else startVvipSimulation();
+    });
+  }
+  
+  const skipBtn = root.querySelector('#vvip-skip-btn');
+  if (skipBtn) {
+    skipBtn.addEventListener('click', advanceVvipPhase);
+  }
+  
+  const exitBtn = root.querySelector('#vvip-exit-btn');
+  if (exitBtn) {
+    exitBtn.addEventListener('click', stopVvipSimulation);
+  }
+  
+  const replayBtn = root.querySelector('#vvip-replay-btn');
+  if (replayBtn) {
+    replayBtn.addEventListener('click', () => {
+      stopVvipSimulation();
+      setTimeout(startVvipSimulation, 100);
+    });
+  }
+  
+  const doneBtn = root.querySelector('#vvip-done-btn');
+  if (doneBtn) {
+    doneBtn.addEventListener('click', stopVvipSimulation);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initVvipUI);
+} else {
+  initVvipUI();
+}
 
 applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();
 })();

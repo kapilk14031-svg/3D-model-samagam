@@ -110,6 +110,10 @@
 
     <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
     <div class="canvas-overlay top-right">
+      <button type="button" class="overlay-btn vvip-btn" id="gms-vvip-btn" title="Simulate VVIP Helicopter Arrival, Motorcade & Stage Entry">
+        <span class="vvip-badge-icon">🎖️</span>
+        <span class="vvip-btn-text">VVIP</span>
+      </button>
       <div class="layers-dropdown">
         <button type="button" class="overlay-btn" id="gms-layers-toggle">
           <span>⚙️ Layers &amp; Lights</span> ▾
@@ -166,6 +170,49 @@
       <div class="dep-touch-actions">
         <button type="button" class="touch-btn touch-jump" data-action="jump" aria-label="Jump">🦘</button>
         <button type="button" class="touch-btn touch-shift" data-key="shift" aria-label="Sprint">⚡</button>
+      </div>
+    </div>
+
+    <!-- VVIP Real-Time Simulation HUD -->
+    <div id="vvip-hud" class="vvip-hud-container" style="display:none">
+      <div class="vvip-hud-header">
+        <div class="vvip-hud-title-box">
+          <span class="vvip-live-dot"></span>
+          <span class="vvip-hud-title">🎖️ VVIP MOVEMENT PROTOCOL (LIVE)</span>
+          <span class="vvip-hud-stage-name" id="vvip-stage-pill">Phase 1/5</span>
+        </div>
+        <div class="vvip-hud-actions">
+          <button type="button" class="vvip-btn-action" id="vvip-skip-btn" title="Skip to next phase">⏭️ Next Phase</button>
+          <button type="button" class="vvip-btn-action vvip-btn-danger" id="vvip-exit-btn" title="Exit simulation">✕ Exit</button>
+        </div>
+      </div>
+      <div class="vvip-hud-body">
+        <div class="vvip-hud-msg" id="vvip-status-msg">🚁 Helicopter approaching Bhodwal Majri Helipad from sky...</div>
+        <div class="vvip-timeline-bar">
+          <div class="vvip-step active" id="vvip-step-1"><span class="step-num">1</span> 🚁 Air Arrival</div>
+          <div class="vvip-step" id="vvip-step-2"><span class="step-num">2</span> 🚶‍♀️ Disembark</div>
+          <div class="vvip-step" id="vvip-step-3"><span class="step-num">3</span> 🚘 Motorcade</div>
+          <div class="vvip-step" id="vvip-step-4"><span class="step-num">4</span> 🚧 Gate Block</div>
+          <div class="vvip-step" id="vvip-step-5"><span class="step-num">5</span> 🎭 Stage Seated</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VVIP Protocol Completion Modal -->
+    <div id="vvip-finish-modal" class="vvip-finish-modal" style="display:none">
+      <div class="vvip-finish-card">
+        <div class="vvip-finish-icon">👑</div>
+        <h3>VVIP Protocol Completed</h3>
+        <p>Honorable Female VVIP has safely arrived via Helipad &amp; Motorcade, escorted through the Main Gate into the Auditorium, and is now gracefully seated on the Main Stage.</p>
+        <div class="vvip-finish-details">
+          <div class="vvip-detail-item"><span>📍 Final Location:</span> <b>Auditorium Main Stage (VIP Chair)</b></div>
+          <div class="vvip-detail-item"><span>🛡️ Security Corridor:</span> <b>Main Road Blocked &amp; Full Route Escorted</b></div>
+          <div class="vvip-detail-item"><span>🚁 Air Transit:</span> <b>Helicopter Touchdown Verified (Helipad H-1)</b></div>
+        </div>
+        <div class="vvip-finish-buttons">
+          <button type="button" class="btn btn-primary" id="vvip-replay-btn">↺ Replay Protocol</button>
+          <button type="button" class="btn btn-secondary" id="vvip-done-btn">✕ Return to Standard 3D Map</button>
+        </div>
       </div>
     </div>
 
@@ -662,7 +709,264 @@
   pointer-events: auto;
 }
 .canvas-overlay.top-left { top: 12px; left: 12px; }
-.canvas-overlay.top-right { top: 12px; right: 12px; }
+.canvas-overlay.top-right { top: 12px; right: 12px; display: flex; gap: 8px; align-items: center; }
+
+/* VVIP Button & Cinematic Simulation Styles */
+.vvip-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: linear-gradient(135deg, #78350f 0%, #b45309 40%, #d97706 100%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 215, 170, 0.6) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+}
+.vvip-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(180, 83, 9, 0.5) !important;
+  background: linear-gradient(135deg, #92400e 0%, #d97706 50%, #f59e0b 100%) !important;
+}
+.vvip-btn.active {
+  background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%) !important;
+  border-color: #fca5a5 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 6px 20px rgba(220, 38, 38, 0.6) !important;
+}
+.vvip-hud-container {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(840px, calc(100% - 24px));
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(245, 158, 11, 0.2);
+  color: #fff;
+  animation: vvipFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+@keyframes vvipFadeIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.vvip-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+.vvip-hud-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vvip-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px #ef4444;
+  animation: vvipBlink 1s infinite alternate;
+}
+@keyframes vvipBlink {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+.vvip-hud-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fef08a;
+  text-transform: uppercase;
+}
+.vvip-hud-stage-name {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fde68a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.vvip-hud-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.vvip-btn-action {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.vvip-btn-action:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.vvip-btn-action.vvip-btn-danger {
+  background: rgba(220, 38, 38, 0.3);
+  border-color: rgba(220, 38, 38, 0.6);
+  color: #fca5a5;
+}
+.vvip-btn-action.vvip-btn-danger:hover {
+  background: #dc2626;
+  color: #fff;
+}
+.vvip-hud-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vvip-timeline-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.vvip-step {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 5px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.25s ease;
+}
+.vvip-step.active {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.3) 0%, rgba(180, 83, 9, 0.5) 100%);
+  border-color: #f59e0b;
+  color: #fef08a;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+.vvip-step.done {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #a7f3d0;
+}
+.step-num {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.15);
+  margin-right: 3px;
+}
+.vvip-step.active .step-num { background: #f59e0b; color: #000; }
+.vvip-step.done .step-num { background: #10b981; color: #000; }
+
+.vvip-finish-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: vvipFadeIn 0.3s ease;
+}
+.vvip-finish-card {
+  background: #0f172a;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  border-radius: 18px;
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 24px;
+  text-align: center;
+  color: #f8fafc;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.25);
+}
+.vvip-finish-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+.vvip-finish-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fef08a;
+  margin: 0 0 8px 0;
+}
+.vvip-finish-card p {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+.vvip-finish-details {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+.vvip-detail-item {
+  display: flex;
+  justify-content: space-between;
+}
+.vvip-finish-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.vvip-finish-buttons .btn {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.vvip-finish-buttons .btn-primary {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  color: #fff;
+  border: 1px solid rgba(255, 235, 180, 0.5);
+}
+.vvip-finish-buttons .btn-primary:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.vvip-finish-buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.vvip-finish-buttons .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 .canvas-overlay.bottom-left { bottom: 12px; left: 12px; max-width: calc(100% - 320px); }
 .canvas-overlay.bottom-right { bottom: 12px; right: 12px; }
 
