@@ -23,10 +23,12 @@ function depOccluded(item){const target=new THREE.Vector3(item.x,item.y+(item.ki
   depOccLocal.copy(depOccRay).applyMatrix4(o.inverse);const hit=depOccLocal.intersectBox(depOccBox,depOccPoint);if(!hit)continue;const world=hit.clone().applyMatrix4(o.matrix);if(world.distanceTo(camera.position)>.08&&world.distanceTo(camera.position)<distance-.15)return true;
  }return false;
 }
-function depRefreshOcclusion(){const stamp=performance.now(),signature=current+'|'+depItems.map(o=>[o.id,o.x,o.y,o.z].join(',')).join(';')+'|'+Object.entries(groups).map(([k,g])=>k+g.visible).join(',');
- if(signature===depOccSignature&&camera.matrixWorld.equals(depOccCamera))return;
- if(signature===depOccSignature&&stamp-depOccStamp<100){if(!depOccTimer)depOccTimer=setTimeout(()=>{depOccTimer=null;depOccStamp=0;depUpdate();draw();},105);return;}
- depOccSignature=signature;depOccCamera.copy(camera.matrixWorld);depOccStamp=stamp;depOccCache=new Map(depItems.map(o=>[o.id,depOccluded(o)]));
+function depRefreshOcclusion(){
+  const signature=current+'|'+depItems.map(o=>[o.id,o.x,o.y,o.z].join(',')).join(';')+'|'+Object.entries(groups).map(([k,g])=>k+g.visible).join(',');
+  if(signature===depOccSignature&&camera.matrixWorld.equals(depOccCamera))return;
+  depOccSignature=signature;
+  depOccCamera.copy(camera.matrixWorld);
+  depOccCache=new Map(depItems.map(o=>[o.id,depOccluded(o)]));
 }
 
 // Minimalist Hover Tooltip element (Only displays on cursor hover)
@@ -533,31 +535,33 @@ function depUpdate(){
   depGroup.visible=current!=='alignment';
   for(const {item,g} of depNodes)g.visible=!(depCamera==='first'&&item.id===depSelected);
   
-  const occupied=[];
-  for(const {e,item} of [...depButtons].sort((a,b)=>(a.item.id===depSelected?-1:b.item.id===depSelected?1:0))){
-    const v=new THREE.Vector3(item.x,item.y+(item.kind==='officer'?2.35:2.5),item.z),distance=camera.position.distanceTo(v),p=v.project(camera);
-    e.style.display=(!depGroup.visible||depOccCache.get(item.id)||p.z< -1||p.z>1||Math.abs(p.x)>.96||Math.abs(p.y)>.95||(depCamera==='first'&&item.id===depSelected))?'none':'block';
-    e.style.pointerEvents=depPlace?'none':'auto';
+  for(const {e,item} of depButtons){
+    const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(item.kind);
+    const headHeight = isOfficerLike ? 2.15 : (item.kind==='dfmd'?2.3:1.6);
+    const v = new THREE.Vector3(item.x, item.y + headHeight, item.z);
+    const distance = camera.position.distanceTo(v);
+    const p = v.project(camera);
     
-    // Keep icon compact: max scale 1.0 (at close zoom), scales gently down to 0.7 on zoom out
-    const distScale=THREE.MathUtils.clamp(30/Math.max(22,distance),0.7,1.0);
-    const isHigh=(item.id===depSelected);
-    const finalScale=Math.round((distScale*(isHigh?1.25:1.0))*100)/100;
-    e.style.transform=`translate(-50%, -50%) scale(${finalScale})`;
+    const isVisible = depGroup.visible && !depOccCache.get(item.id) && p.z >= -1 && p.z <= 1 && Math.abs(p.x) <= 0.98 && Math.abs(p.y) <= 0.98 && !(depCamera==='first' && item.id===depSelected);
+    e.style.display = isVisible ? 'block' : 'none';
+    if (!isVisible) continue;
     
-    const bw=Math.round(20*finalScale),bh=Math.round(18*finalScale);
-    const baseX=(p.x+1)*r.width/2,baseY=(1-p.y)*r.height/2;let px=baseX,py=baseY;
-    for(let attempt=0;attempt<(item.id===depSelected?0:35);attempt++){
-      const box={x:px-bw/2,y:py-bh/2,w:bw,h:bh};
-      if(!occupied.some(a=>box.x<a.x+a.w+2&&box.x+box.w+2>a.x&&box.y<a.y+a.h+2&&box.y+box.h+2>a.y)){
-        if(e.style.display!=='none')occupied.push(box);break;
-      }
-      const ring=Math.floor(attempt/8)+1,theta=attempt*Math.PI/4;
-      px=THREE.MathUtils.clamp(baseX+Math.cos(theta)*ring*16,bw/2,r.width-bw/2);
-      py=THREE.MathUtils.clamp(baseY+Math.sin(theta)*ring*14,14,r.height-14);
-    }
-    if(item.id===depSelected)occupied.push({x:px-bw/2,y:py-bh/2,w:bw,h:bh});
-    e.style.left=px+'px';e.style.top=py+'px';e.textContent=depSymbols[item.kind];e.setAttribute('aria-pressed',String(item.id===depSelected));
+    e.style.pointerEvents = depPlace ? 'none' : 'auto';
+    
+    // Scale smoothly based on distance, compact size (0.7 to 1.0)
+    const distScale = THREE.MathUtils.clamp(30 / Math.max(22, distance), 0.7, 1.0);
+    const isHigh = (item.id === depSelected);
+    const finalScale = Math.round((distScale * (isHigh ? 1.25 : 1.0)) * 100) / 100;
+    
+    // Exact screen anchor positioned directly above the 3D model
+    const px = (p.x + 1) * r.width / 2;
+    const py = (1 - p.y) * r.height / 2;
+    
+    e.style.left = px + 'px';
+    e.style.top = py + 'px';
+    e.style.transform = `translate(-50%, -100%) scale(${finalScale})`;
+    e.textContent = depSymbols[item.kind];
+    e.setAttribute('aria-pressed', String(item.id === depSelected));
   }
   
   // Position Info Tab above clicked marker

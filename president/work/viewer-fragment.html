@@ -372,11 +372,11 @@
   pointer-events: none;
 }
 
-/* Clean Icon Only — No circles around icon, compact size */
+/* Clean Icon Only — No circles around icon, compact size, instantaneous 60fps tracking */
 #gms-labels .dep-marker {
   position: absolute;
   pointer-events: auto;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -100%);
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -389,6 +389,9 @@
   cursor: pointer;
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
   user-select: none;
+  transition: none !important;
+  animation: none !important;
+  will-change: left, top, transform;
 }
 #gms-labels .dep-marker[aria-pressed="true"] {
   background: transparent !important;
@@ -1092,8 +1095,7 @@ root.querySelector('#gms-reset-btn').addEventListener('click',()=>{
 
 function toggleFullscreen(){
   if(!document.fullscreenElement){
-    const target = (root && root.requestFullscreen) ? root : host;
-    target.requestFullscreen().catch(()=>{});
+    host.requestFullscreen().catch(()=>{});
   } else {
     document.exitFullscreen().catch(()=>{});
   }
@@ -1175,7 +1177,26 @@ canvas.addEventListener('pointerup',e=>{if(!selection||selection.id!==e.pointerI
 canvas.addEventListener('pointercancel',cancelBox);canvas.addEventListener('lostpointercapture',()=>{if(selection)cancelBox();});
 root.addEventListener('keydown',e=>{if(e.key==='Escape')cancelBox();});
 let lastFrame=0;
-function animate(time){const dt=Math.min((time-lastFrame)/1000,.05);lastFrame=time;if(motion){const a=1-Math.exp(-14*dt);camera.position.lerp(motion.p,a);controls.target.lerp(motion.t,a);if(camera.position.distanceTo(motion.p)<.0005&&controls.target.distanceTo(motion.t)<.0005){camera.position.copy(motion.p);controls.target.copy(motion.t);motion=null;}}controls.update();requestAnimationFrame(animate);}requestAnimationFrame(animate);
+function animate(time){
+  const dt=Math.min((time-lastFrame)/1000,.05);
+  lastFrame=time;
+  let needsDraw=false;
+  if(motion){
+    const a=1-Math.exp(-14*dt);
+    camera.position.lerp(motion.p,a);
+    controls.target.lerp(motion.t,a);
+    if(camera.position.distanceTo(motion.p)<.0005&&controls.target.distanceTo(motion.t)<.0005){
+      camera.position.copy(motion.p);
+      controls.target.copy(motion.t);
+      motion=null;
+    }
+    needsDraw=true;
+  }
+  const changed=controls.update();
+  if(changed||needsDraw)draw();
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
 
 const ray=new THREE.Raycaster(), pointer=new THREE.Vector2();let down;
 renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
