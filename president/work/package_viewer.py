@@ -484,6 +484,50 @@ body {
   gap: 14px;
 }
 
+/* Equipment Lightbox Media Modal */
+.dep-lightbox-media-wrap {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #1e293b 0%, #090d16 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 360px;
+  max-height: 500px;
+  overflow: hidden;
+}
+.dep-lightbox-img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  display: block;
+}
+.dep-modal-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 28px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.dep-modal-nav-arrow:hover {
+  background: #0284c7;
+  border-color: #38bdf8;
+  transform: translateY(-50%) scale(1.1);
+}
+.dep-modal-nav-arrow.left { left: 16px; }
+.dep-modal-nav-arrow.right { right: 16px; }
+
 </style>'''
 
 files = sorted((root / 'work/references').glob('*.jpeg'))
@@ -749,10 +793,10 @@ for it in catalog_items:
     img_src = item_images_b64.get(k, '')
     deployed_items_html += f'''
   <div class="dep-asset-card" data-kind="{k}">
-    <div class="dep-asset-thumb-wrap" onclick="openDepLightbox('{k}')" title="Click for high-resolution photo and complete details">
+    <div class="dep-asset-thumb-wrap" onclick="openDepLightbox('{k}');" title="Click to view full high-res photo &amp; specifications">
       <img src="{img_src}" alt="{it['name']}" loading="lazy">
       <span class="dep-live-badge badge-zero" data-kind="{k}">Checking...</span>
-      <span class="dep-zoom-hint">🔍 View Photo &amp; Specs</span>
+      <span class="dep-zoom-hint">🔍 View Photo &amp; Specs (बड़ा करके देखें)</span>
     </div>
     <div class="dep-asset-body">
       <div class="dep-asset-title-row">
@@ -769,8 +813,11 @@ for it in catalog_items:
       </div>
       <div class="dep-asset-actions">
         <div style="font-size:12px;font-weight:700;color:#1e293b;display:flex;justify-content:space-between;align-items:center;">
-          <span>📍 Deployed on Map (Click to Jump):</span>
-          <button type="button" class="btn btn-sm btn-outline" style="padding:2px 8px;font-size:11px;" onclick="openDepLightbox('{k}')">Photo Specs</button>
+          <span>📍 Deployed on Map:</span>
+          <div style="display:flex;gap:4px;">
+            <button type="button" class="btn btn-sm btn-primary" style="padding:2px 8px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:3px;" onclick="selectShowroomItem('{k}'); openDepLightbox('{k}');">🔄 Rotate 3D</button>
+            <button type="button" class="btn btn-sm btn-outline" style="padding:2px 8px;font-size:11px;" onclick="selectShowroomItem('{k}');">Showroom</button>
+          </div>
         </div>
         <div class="dep-asset-instances-list" data-kind="{k}">
           <span style="color:#94a3b8;font-size:12px;">Loading deployed items...</span>
@@ -785,7 +832,11 @@ deployed_items_html += '''
 <div id="dep-lightbox-modal" class="dep-lightbox-modal" onclick="if(event.target===this)closeDepLightbox();">
   <div class="dep-lightbox-content">
     <button type="button" class="dep-lightbox-close" onclick="closeDepLightbox()" title="Close (ESC)">✕</button>
-    <img id="dep-lightbox-img" class="dep-lightbox-img" src="" alt="Equipment Photo">
+    <div class="dep-lightbox-media-wrap">
+      <button type="button" class="dep-modal-nav-arrow left" onclick="stepDepModal(-1)" title="Previous Equipment (‹)">‹</button>
+      <img id="dep-lightbox-img" class="dep-lightbox-img" src="" alt="Equipment Photo">
+      <button type="button" class="dep-modal-nav-arrow right" onclick="stepDepModal(1)" title="Next Equipment (›)">›</button>
+    </div>
     <div class="dep-lightbox-body">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
         <div>
@@ -891,13 +942,21 @@ function updateDeployedCatalogCounts() {{
 }}
 window.updateDeployedCatalogCounts = updateDeployedCatalogCounts;
 
-// Lightbox modal data & functions
+// =========================================================================
+// EQUIPMENT PHOTO LIGHTBOX MODAL
+// =========================================================================
+const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box'];
 const depCatalogData = {catalog_data_json};
+let modalCurrentKind = 'officer';
+
 window.openDepLightbox = function(kind) {{
+  modalCurrentKind = kind;
   const data = depCatalogData[kind];
   if (!data) return;
   const modal = document.getElementById('dep-lightbox-modal');
-  document.getElementById('dep-lightbox-img').src = data.img;
+  if (!modal) return;
+  const imgEl = document.getElementById('dep-lightbox-img');
+  if (imgEl) imgEl.src = data.img;
   document.getElementById('dep-lightbox-title').textContent = data.symbol + ' ' + data.name;
   document.getElementById('dep-lightbox-hindi').textContent = data.hindi;
   document.getElementById('dep-lightbox-badge').textContent = data.role;
@@ -906,12 +965,25 @@ window.openDepLightbox = function(kind) {{
   document.getElementById('dep-lightbox-guideline').innerHTML = '<b>Deployment Role:</b> ' + data.guideline;
   modal.classList.add('show');
 }};
+
 window.closeDepLightbox = function() {{
   const modal = document.getElementById('dep-lightbox-modal');
   if (modal) modal.classList.remove('show');
 }};
+
+window.stepDepModal = function(delta) {{
+  const idx = depCatalogKinds.indexOf(modalCurrentKind);
+  const nextIdx = (idx + delta + depCatalogKinds.length) % depCatalogKinds.length;
+  window.openDepLightbox(depCatalogKinds[nextIdx]);
+}};
+
 document.addEventListener('keydown', e => {{
   if (e.key === 'Escape') window.closeDepLightbox();
+  const modal = document.getElementById('dep-lightbox-modal');
+  if (modal && modal.classList.contains('show')) {{
+    if (e.key === 'ArrowRight') window.stepDepModal(1);
+    if (e.key === 'ArrowLeft') window.stepDepModal(-1);
+  }}
 }});
 
 // Jump button click listener
