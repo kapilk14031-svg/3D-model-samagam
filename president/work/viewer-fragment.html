@@ -398,12 +398,23 @@
 }
 
 #gms-stage .dep-peek.minimized {
-  width: 260px;
-  padding: 7px 10px;
+  width: auto;
+  min-width: 200px;
+  max-width: 330px;
+  padding: 5px 9px;
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.18);
   border: 1.5px solid #38bdf8;
   background: rgba(255, 255, 255, 0.96);
+}
+#dep-peek-del {
+  font-size: 13px;
+  color: #dc2626;
+  margin-right: 2px;
+}
+#dep-peek-del:hover {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .dep-peek-head {

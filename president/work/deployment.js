@@ -132,24 +132,17 @@ let depPeekIsMinimized=true;
 
 const depPeekHead=document.createElement('div');
 depPeekHead.className='dep-peek-head';
-depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Maximize full details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
-
-// Minimized Quick Action Bar
-const depPeekMinBar=document.createElement('div');
-depPeekMinBar.className='dep-peek-min-bar';
-depPeekMinBar.innerHTML='<div class="dep-peek-quick-actions"><button type="button" id="dep-peek-min-left" class="btn-xs" title="Rotate left 30° (Q)">↺ -30°</button><button type="button" id="dep-peek-min-right" class="btn-xs" title="Rotate right 30° (E)">↻ +30°</button><button type="button" id="dep-peek-min-del" class="btn-xs btn-danger-soft" title="Delete post">🗑️</button></div><div class="dep-peek-keys-hint">⌨️ W/S/A/D move</div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Maximize full details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 const depPeekBody=document.createElement('div');
 depPeekBody.className='dep-peek-body';
 depPeekBody.style.display='none';
 
-const depPeekText=document.createElement('div'),depPeekActions=document.createElement('div'),depPeekHint=document.createElement('div');
+const depPeekText=document.createElement('div'),depPeekActions=document.createElement('div');
 depPeekActions.className='viz-controls';
-depPeekHint.className='dep-peek-hint';
-depPeekHint.innerHTML='<span style="display:block;font-size:11px;color:#0284c7;font-weight:600;margin-top:6px;padding-top:4px;border-top:1px dashed #bae6fd;">⌨️ Keys: <b>W/S/A/D</b> to move · <b>Q/E</b> to rotate</span>';
 
-depPeekBody.append(depPeekText,depPeekActions,depPeekHint);
-depPeek.append(depPeekHead,depPeekMinBar,depPeekBody);
+depPeekBody.append(depPeekText,depPeekActions);
+depPeek.append(depPeekHead,depPeekBody);
 host.appendChild(depPeek);
 
 // Stop event bubbling to canvas/stage so clicking card does not orbit or click canvas behind it
@@ -164,19 +157,36 @@ function setDepPeekMinimized(minimized){
   if(depPeekIsMinimized){
     depPeek.classList.add('minimized');
     if(minBtn){minBtn.textContent='+';minBtn.title='Maximize full details';}
-    depPeekMinBar.style.display='flex';
     depPeekBody.style.display='none';
   }else{
     depPeek.classList.remove('minimized');
     if(minBtn){minBtn.textContent='−';minBtn.title='Minimize';}
-    depPeekMinBar.style.display='none';
     depPeekBody.style.display='block';
   }
   depUpdate();
 }
 
+const depPeekDelBtn = depPeekHead.querySelector('#dep-peek-del');
 const depPeekMinBtn = depPeekHead.querySelector('#dep-peek-min');
 const depPeekCloseBtn = depPeekHead.querySelector('#dep-peek-close');
+
+if(depPeekDelBtn){
+  depPeekDelBtn.addEventListener('pointerdown', e => e.stopPropagation());
+  depPeekDelBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    if(!depSelected) return;
+    depItems = depItems.filter(x => x.id !== depSelected);
+    depSelected = null;
+    depStore();
+    depBuild();
+    depPeek.hidden = true;
+    if(depUI('editor')) depUI('editor').hidden = true;
+    depUI('status').textContent = '🗑️ Deployment removed (Auto-saved).';
+    updateTabLock();
+    depUpdate();
+    draw();
+  });
+}
 
 if(depPeekMinBtn){
   depPeekMinBtn.addEventListener('pointerdown', e => e.stopPropagation());
@@ -195,36 +205,6 @@ if(depPeekCloseBtn){
     depSelected = null;
     depPeek.hidden = true;
     if(depUI('editor')) depUI('editor').hidden = true;
-    updateTabLock();
-    depUpdate();
-    draw();
-  });
-}
-
-const depPeekMinLeft = depPeekMinBar.querySelector('#dep-peek-min-left');
-const depPeekMinRight = depPeekMinBar.querySelector('#dep-peek-min-right');
-const depPeekMinDel = depPeekMinBar.querySelector('#dep-peek-min-del');
-
-if(depPeekMinLeft){
-  depPeekMinLeft.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinLeft.addEventListener('click', e => { e.stopPropagation(); depRotate(-30); });
-}
-if(depPeekMinRight){
-  depPeekMinRight.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinRight.addEventListener('click', e => { e.stopPropagation(); depRotate(30); });
-}
-if(depPeekMinDel){
-  depPeekMinDel.addEventListener('pointerdown', e => e.stopPropagation());
-  depPeekMinDel.addEventListener('click', e => {
-    e.stopPropagation();
-    if(!depSelected) return;
-    depItems = depItems.filter(x => x.id !== depSelected);
-    depSelected = null;
-    depStore();
-    depBuild();
-    depPeek.hidden = true;
-    if(depUI('editor')) depUI('editor').hidden = true;
-    depUI('status').textContent = '🗑️ Deployment removed (Auto-saved).';
     updateTabLock();
     depUpdate();
     draw();
