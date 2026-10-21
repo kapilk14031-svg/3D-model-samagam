@@ -41,9 +41,19 @@ function isAnyTabOpen(){
   const radialOpen = depRadial && depRadial.style.display === 'block';
   const peekOpen = !!depSelected && !depPeek.hidden;
   const panelOpen = depPanelEl && depPanelEl.classList.contains('show');
-  return radialOpen || peekOpen || panelOpen;
+  return !!(radialOpen || peekOpen || panelOpen);
 }
 window.__DEP_IS_TAB_OPEN = isAnyTabOpen;
+
+function updateTabLock(){
+  const locked = isAnyTabOpen();
+  if (typeof controls !== 'undefined' && controls) {
+    controls.enabled = !locked;
+  }
+  if (labelRoot) {
+    labelRoot.style.pointerEvents = locked ? 'none' : '';
+  }
+}
 
 if (depPanelToggle && depPanelEl) {
   depPanelToggle.addEventListener('click', e => {
@@ -59,6 +69,7 @@ if (depPanelToggle && depPanelEl) {
       if (layersMenu) layersMenu.classList.remove('show');
       if (depRadial) depRadial.style.display = 'none';
     }
+    updateTabLock();
   });
 }
 
@@ -67,16 +78,15 @@ if (depPanelClose && depPanelEl) {
     e.stopPropagation();
     depPanelEl.classList.remove('show');
     if (depPanelToggle) depPanelToggle.classList.remove('active');
+    updateTabLock();
   });
 }
 
 if (depPanelEl) {
-  for (const evt of ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'click', 'dblclick', 'contextmenu']) {
+  for (const evt of ['pointerdown', 'pointerup', 'pointermove', 'mousedown', 'mouseup', 'mousemove', 'click', 'dblclick', 'contextmenu']) {
     depPanelEl.addEventListener(evt, e => e.stopPropagation());
   }
   depPanelEl.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
-  depPanelEl.addEventListener('pointerenter', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = false; });
-  depPanelEl.addEventListener('pointerleave', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = true; });
 }
 
 document.addEventListener('click', e => {
@@ -84,6 +94,7 @@ document.addEventListener('click', e => {
     if (!depPanelEl.contains(e.target) && !depPanelToggle.contains(e.target)) {
       depPanelEl.classList.remove('show');
       if (depPanelToggle) depPanelToggle.classList.remove('active');
+      updateTabLock();
     }
   }
 });
@@ -141,12 +152,10 @@ depPeek.append(depPeekHead,depPeekMinBar,depPeekBody);
 host.appendChild(depPeek);
 
 // Stop event bubbling to canvas/stage so clicking card does not orbit or click canvas behind it
-['pointerdown','pointerup','mousedown','mouseup','click','dblclick'].forEach(evt => {
+['pointerdown','pointerup','pointermove','mousedown','mouseup','mousemove','click','dblclick'].forEach(evt => {
   depPeek.addEventListener(evt, e => e.stopPropagation());
 });
 depPeek.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
-depPeek.addEventListener('pointerenter', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = false; });
-depPeek.addEventListener('pointerleave', () => { if (typeof controls !== 'undefined' && controls) controls.enabled = true; });
 
 function setDepPeekMinimized(minimized){
   depPeekIsMinimized=!!minimized;
@@ -185,6 +194,7 @@ if(depPeekCloseBtn){
     depSelected = null;
     depPeek.hidden = true;
     if(depUI('editor')) depUI('editor').hidden = true;
+    updateTabLock();
     depUpdate();
     draw();
   });
@@ -214,6 +224,7 @@ if(depPeekMinDel){
     depPeek.hidden = true;
     if(depUI('editor')) depUI('editor').hidden = true;
     depUI('status').textContent = '🗑️ Deployment removed (Auto-saved).';
+    updateTabLock();
     depUpdate();
     draw();
   });
@@ -397,6 +408,7 @@ function depBuild(){
 
 function depUpdate(){
   if(!depReady)return;
+  updateTabLock();
   depRefreshOcclusion();
   // NO CIRCLE on ground
   if(depLocation) depLocation.visible=false;
@@ -474,6 +486,7 @@ function depChoose(id, zoom = true){
   if(topList)topList.value=depSelected||'';
   depUI('editor').hidden=!depSelected;
   setDepPeekMinimized(true); // By default open in minimized state!
+  updateTabLock();
   const o=depItems.find(o=>o.id===depSelected);
   if(!o)return;
   depUI('editkind').value=o.kind;
@@ -563,12 +576,10 @@ depUI('first').onclick=()=>depView('first');depUI('third').onclick=()=>depView('
 // Contextual Click-to-Deploy Menu
 const depRadial=root.querySelector('#dep-radial-deploy'), depRadialClose=root.querySelector('#dep-radial-close');
 if(depRadial){
-  for(const evt of ['pointerdown','pointerup','mousedown','mouseup','click','dblclick','contextmenu']){
+  for(const evt of ['pointerdown','pointerup','pointermove','mousedown','mouseup','mousemove','click','dblclick','contextmenu']){
     depRadial.addEventListener(evt, e => e.stopPropagation());
   }
   depRadial.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
-  depRadial.addEventListener('pointerenter', () => { if(typeof controls!=='undefined'&&controls) controls.enabled = false; });
-  depRadial.addEventListener('pointerleave', () => { if(typeof controls!=='undefined'&&controls) controls.enabled = true; });
 }
 if(depRadialClose){
   depRadialClose.addEventListener('pointerdown', e => e.stopPropagation());
@@ -576,6 +587,7 @@ if(depRadialClose){
     e.preventDefault();
     e.stopPropagation();
     if(depRadial) depRadial.style.display = 'none';
+    updateTabLock();
   });
 }
 
@@ -766,6 +778,10 @@ function depHit(e){
 
 let depRightDown = null;
 canvas.addEventListener('pointerdown', e => {
+  if (isAnyTabOpen()) {
+    e.stopPropagation();
+    return;
+  }
   if (e.button === 2) {
     depRightDown = [e.clientX, e.clientY];
   }
@@ -774,6 +790,27 @@ canvas.addEventListener('pointerdown', e => {
 // Canvas Click handler: Left-click selects existing item or dismisses popups
 canvas.addEventListener('pointerup',e=>{
   if(e.button !== 0) return;
+
+  // If ANY tab is open and user clicks on canvas, close all open tabs cleanly without reacting:
+  if(isAnyTabOpen()){
+    e.stopImmediatePropagation();
+    if(typeof suppressClick!=='undefined')suppressClick=true;
+    if(depPanelEl && depPanelEl.classList.contains('show')){
+      depPanelEl.classList.remove('show');
+      if(depPanelToggle) depPanelToggle.classList.remove('active');
+    }
+    if(depRadial) depRadial.style.display='none';
+    if(depSelected){
+      depSelected=null;
+      depPeek.hidden=true;
+      if(depUI('editor')) depUI('editor').hidden=true;
+    }
+    updateTabLock();
+    depUpdate();
+    draw();
+    return;
+  }
+
   if(selection||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;
   
   // 1. Did the user click an existing item?
@@ -803,34 +840,6 @@ canvas.addEventListener('pointerup',e=>{
       depUpdate();draw();
       return;
     }
-  }
-
-  // If deployment panel is open and user clicked canvas outside, close it cleanly
-  if(depPanelEl && depPanelEl.classList.contains('show')){
-    e.stopImmediatePropagation();
-    if(typeof suppressClick!=='undefined')suppressClick=true;
-    depPanelEl.classList.remove('show');
-    if(depPanelToggle) depPanelToggle.classList.remove('active');
-    return;
-  }
-
-  // If choose-item radial popup is open and user clicked canvas outside, close it cleanly
-  if(depRadial && depRadial.style.display === 'block'){
-    e.stopImmediatePropagation();
-    if(typeof suppressClick!=='undefined')suppressClick=true;
-    depRadial.style.display = 'none';
-    return;
-  }
-
-  // If information tab is open and user clicks empty area, deselect and close without model reacting
-  if(depSelected){
-    e.stopImmediatePropagation();
-    if(typeof suppressClick!=='undefined')suppressClick=true;
-    depSelected=null;
-    depPeek.hidden=true;
-    if(depUI('editor'))depUI('editor').hidden=true;
-    depUpdate();draw();
-    return;
   }
 
   // Left click on empty space: close deploy popup if open (NEVER open deploy on left-click)
@@ -876,6 +885,7 @@ canvas.addEventListener('contextmenu', e => {
       if (top < 10) top = Math.min(Math.max(10, r.height - menuH - 10), e.clientY - r.top + 14);
       depRadial.style.left = left + 'px';
       depRadial.style.top = top + 'px';
+      updateTabLock();
     }
     depUI('status').textContent = `📍 Target: (${Math.round(targetPoint.x * 10) / 10}, ${Math.round(targetPoint.z * 10) / 10}). Choose item to deploy:`;
     draw();
