@@ -298,14 +298,14 @@ body {
     <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD -->
     <div class="canvas-overlay bottom-left">
       <div class="hud-pill" id="gms-detail" aria-live="polite">
-        Keys: W,A,S,D pan · Q,E rotate H · Z,X rotate V · Click item to inspect
+        Left-click to select · Right-click to deploy item · W,A,S,D pan · Q,E/Z,X rotate
       </div>
     </div>
 
     <!-- Canvas Floating Bottom-Right: Mouse Hint -->
     <div class="canvas-overlay bottom-right">
       <div class="hint-pill">
-        <span>🖱️ <b>Drag:</b> Orbit/Pan · <b>W/A/S/D:</b> Pan · <b>Q/E:</b> Rotate H · <b>Z/X:</b> Rotate V</span>
+        <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy Item · <b>Drag:</b> Orbit/Pan · <b>W/A/S/D:</b> Pan</span>
       </div>
     </div>
 
@@ -2185,8 +2185,16 @@ function depHit(e){
   return depOccCache.get(id)?null:id;
 }
 
-// Canvas Click handler: Deploy on ground OR Select existing item
+let depRightDown = null;
+canvas.addEventListener('pointerdown', e => {
+  if (e.button === 2) {
+    depRightDown = [e.clientX, e.clientY];
+  }
+});
+
+// Canvas Click handler: Left-click selects existing item or dismisses popups
 canvas.addEventListener('pointerup',e=>{
+  if(e.button !== 0) return;
   if(selection||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;
   
   // 1. Did the user click an existing item?
@@ -2246,44 +2254,54 @@ canvas.addEventListener('pointerup',e=>{
     return;
   }
 
-  // 3. User clicked anywhere on 3D model / ground -> Open Deploy-Here Menu!
-  const r=canvas.getBoundingClientRect(),rcast=new THREE.Raycaster();
-  rcast.setFromCamera(new THREE.Vector2((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2),camera);
+  // Left click on empty space: close deploy popup if open (NEVER open deploy on left-click)
+  if(depRadial) depRadial.style.display='none';
+},{capture:true});
+
+// RIGHT-CLICK: Open "Choose Item to Deploy" popup on 3D Model / Ground
+canvas.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // If user was right-click dragging/panning the camera (> 5px), ignore
+  if (depRightDown && Math.hypot(e.clientX - depRightDown[0], e.clientY - depRightDown[1]) > 5) {
+    return;
+  }
+
+  const r = canvas.getBoundingClientRect();
+  const rcast = new THREE.Raycaster();
+  rcast.setFromCamera(new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, 1 - (e.clientY - r.top) / r.height * 2), camera);
   scene.updateMatrixWorld(true);
-  
-  let targetPoint=null;
-  const hits=rcast.intersectObjects(clickable.filter(m=>m.visible&&m.parent&&m.parent.visible),false);
-  if(hits.length>0){
-    targetPoint=hits[0].point.clone();
+
+  let targetPoint = null;
+  const hits = rcast.intersectObjects(clickable.filter(m => m.visible && m.parent && m.parent.visible), false);
+  if (hits.length > 0) {
+    targetPoint = hits[0].point.clone();
   } else {
-    const groundPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
-    const gPoint=new THREE.Vector3();
-    if(rcast.ray.intersectPlane(groundPlane,gPoint)){
-      if(Math.abs(gPoint.x)<400&&Math.abs(gPoint.z)<400){
-        targetPoint=gPoint.clone();
+    const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+    const gPoint = new THREE.Vector3();
+    if (rcast.ray.intersectPlane(groundPlane, gPoint)) {
+      if (Math.abs(gPoint.x) < 400 && Math.abs(gPoint.z) < 400) {
+        targetPoint = gPoint.clone();
       }
     }
   }
 
-  if(targetPoint){
-    e.stopImmediatePropagation();
-    depClickPoint=targetPoint;
-    if(depRadial){
-      depRadial.style.display='block';
-      const menuW=260,menuH=210;
-      const left=THREE.MathUtils.clamp(e.clientX-r.left-menuW/2,10,Math.max(10,r.width-menuW-10));
-      let top=e.clientY-r.top-menuH-12;
-      if(top<10) top=Math.min(Math.max(10,r.height-menuH-10),e.clientY-r.top+14);
-      depRadial.style.left=left+'px';
-      depRadial.style.top=top+'px';
+  if (targetPoint) {
+    depClickPoint = targetPoint;
+    if (depRadial) {
+      depRadial.style.display = 'block';
+      const menuW = 260, menuH = 210;
+      const left = THREE.MathUtils.clamp(e.clientX - r.left - menuW / 2, 10, Math.max(10, r.width - menuW - 10));
+      let top = e.clientY - r.top - menuH - 12;
+      if (top < 10) top = Math.min(Math.max(10, r.height - menuH - 10), e.clientY - r.top + 14);
+      depRadial.style.left = left + 'px';
+      depRadial.style.top = top + 'px';
     }
-    depUI('status').textContent=`📍 Target: (${Math.round(targetPoint.x*10)/10}, ${Math.round(targetPoint.z*10)/10}). Click item above to deploy instantly:`;
-    return;
+    depUI('status').textContent = `📍 Target: (${Math.round(targetPoint.x * 10) / 10}, ${Math.round(targetPoint.z * 10) / 10}). Choose item to deploy:`;
+    draw();
   }
-
-  // Clicked elsewhere
-  if(depRadial)depRadial.style.display='none';
-},{capture:true});
+});
 
 depUI('export').onclick=()=>{
   const payload={version:1,coordinateFrame:'WGS84 local metres: east X, up Y, south Z',origin:[geo.originLongitude,geo.originLatitude],status:'Draft — user editable, not approved duty order',items:depItems},url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})),a=document.createElement('a');
