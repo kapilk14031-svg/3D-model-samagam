@@ -642,9 +642,9 @@ body {
       </div>
     </div>
 
-    <!-- Canvas Floating Bottom-Right: Mouse Hint -->
-    <div class="canvas-overlay bottom-right">
-      <div class="hint-pill">
+    <!-- Canvas Floating Bottom-Right: Mouse Hint (Hidden) -->
+    <div class="canvas-overlay bottom-right" style="display:none !important;">
+      <div class="hint-pill" style="display:none !important;">
         <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy · <b>W/S/A/D:</b> Move / Pan · <b>Q/E:</b> Rotate · <b>Z/X:</b> Angle · <b>K/L:</b> Zoom In/Out</span>
       </div>
     </div>
@@ -1772,6 +1772,7 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
 }
 .hint-pill {
+  display: none !important;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
   color: var(--text-muted);

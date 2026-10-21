@@ -150,9 +150,9 @@
       </div>
     </div>
 
-    <!-- Canvas Floating Bottom-Right: Mouse Hint -->
-    <div class="canvas-overlay bottom-right">
-      <div class="hint-pill">
+    <!-- Canvas Floating Bottom-Right: Mouse Hint (Hidden) -->
+    <div class="canvas-overlay bottom-right" style="display:none !important;">
+      <div class="hint-pill" style="display:none !important;">
         <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy · <b>W/S/A/D:</b> Move / Pan · <b>Q/E:</b> Rotate · <b>Z/X:</b> Angle · <b>K/L:</b> Zoom In/Out</span>
       </div>
     </div>
@@ -203,9 +203,9 @@
       <div class="vvip-finish-card">
         <div class="vvip-finish-icon">👑</div>
         <h3>VVIP Protocol Completed</h3>
-        <p>Honorable Female VVIP has safely arrived via Helipad &amp; Motorcade, escorted through the Main Gate into the Auditorium, and is now gracefully seated on the Main Stage.</p>
+        <p>Honorable Female VVIP has safely arrived via Helipad &amp; Motorcade, escorted through the Main Gate into the Auditorium, and has reached the existing Main Stage with two PSO escorts.</p>
         <div class="vvip-finish-details">
-          <div class="vvip-detail-item"><span>📍 Final Location:</span> <b>Auditorium Main Stage (VIP Chair)</b></div>
+          <div class="vvip-detail-item"><span>📍 Final Location:</span> <b>Auditorium Main Stage — with PSO escorts</b></div>
           <div class="vvip-detail-item"><span>🛡️ Security Corridor:</span> <b>Main Road Blocked &amp; Full Route Escorted</b></div>
           <div class="vvip-detail-item"><span>🚁 Air Transit:</span> <b>Helicopter Touchdown Verified (Helipad H-1)</b></div>
         </div>
@@ -1139,6 +1139,7 @@
   border: 1px solid rgba(255,255,255,0.1);
 }
 .hint-pill {
+  display: none !important;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
   color: var(--text-muted);
@@ -1515,7 +1516,8 @@ document.addEventListener('click',e=>{
 eventInput.addEventListener('change',()=>{groups.event.visible=current!=='alignment'&&eventInput.checked;draw();save()});contextInput.addEventListener('change',()=>{groups.context.visible=current!=='alignment'&&contextInput.checked;draw();save()});
 lightSelect.addEventListener('change',()=>{setLighting();draw();save()});
 snapshotInput.addEventListener('change',()=>{groups.snapshot.visible=current!=='alignment'&&snapshotInput.checked;draw();save()});
-controls.addEventListener('change',draw);
+let renderRequested=false;
+controls.addEventListener('change',()=>{renderRequested=true;});
 const navigation=root.querySelector('#gms-navigation'),canvas=renderer.domElement;
 let motion=null,selection=null,suppressClick=false;
 const zoomBox=document.createElement('div');zoomBox.style.cssText='position:absolute;pointer-events:none;display:none;border:2px solid var(--primary-accent);background:rgba(2,132,199,0.18);border-radius:4px';host.appendChild(zoomBox);
@@ -1612,7 +1614,7 @@ function animate(time){
     }catch(err){console.error('dep tick error',err);}
   }
   const changed=controls.update();
-  if(changed||needsDraw)draw();
+  if(changed||needsDraw||renderRequested){renderRequested=false;draw();}
   requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);
