@@ -685,7 +685,7 @@ body {
   border-radius: var(--radius-md);
   box-shadow: 0 10px 28px rgba(0,0,0,0.22);
   border: 1px solid #bae6fd;
-  z-index: 30;
+  z-index: 100 !important;
   width: 290px;
   animation: popIn 0.14s ease-out;
   transition: width 0.15s ease, padding 0.15s ease;
@@ -748,12 +748,13 @@ body {
   background: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
   color: #64748b;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -935,7 +936,8 @@ body {
 /* Contextual Click-to-Deploy Menu on 3D Model */
 .deploy-popup-card {
   position: absolute;
-  z-index: 25;
+  z-index: 105 !important;
+  pointer-events: auto !important;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
   padding: 10px 12px;
@@ -962,7 +964,8 @@ body {
   background: none;
   border: none;
   font-size: 14px;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
   color: #64748b;
   padding: 1px 5px;
   border-radius: 4px;
@@ -989,7 +992,8 @@ body {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
   transition: all 0.12s ease;
   text-align: left;
   white-space: nowrap;
@@ -1379,7 +1383,7 @@ function animate(time){const dt=Math.min((time-lastFrame)/1000,.05);lastFrame=ti
 
 const ray=new THREE.Raycaster(), pointer=new THREE.Vector2();let down;
 renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
-renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
+renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;if(window.__DEP_IS_TAB_OPEN&&window.__DEP_IS_TAB_OPEN())return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
 root.addEventListener('keydown',e=>{if(['SELECT','INPUT'].includes(e.target.tagName))return;const step=2;let dx=0,dz=0;if(e.key==='ArrowLeft')dx=-step;else if(e.key==='ArrowRight')dx=step;else if(e.key==='ArrowUp')dz=-step;else if(e.key==='ArrowDown')dz=step;else if(e.key==='+'||e.key==='=')camera.position.sub(controls.target).multiplyScalar(.9).add(controls.target);else if(e.key==='-')camera.position.sub(controls.target).multiplyScalar(1.1).add(controls.target);else return;camera.position.x+=dx;camera.position.z+=dz;controls.target.x+=dx;controls.target.z+=dz;e.preventDefault();controls.update();draw();});
 function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);if(current==='alignment'){const xs=rc.map(p=>p[0]),zs=rc.map(p=>p[1]),ww=Math.max(...xs)-Math.min(...xs),dd=Math.max(...zs)-Math.min(...zs),height=Math.max(dd,ww/camera.aspect)/(2*Math.tan(camera.fov*Math.PI/360))*1.1;camera.position.set((Math.max(...xs)+Math.min(...xs))/2,height,(Math.max(...zs)+Math.min(...zs))/2+.01);controls.target.set(camera.position.x,0,camera.position.z-.01);controls.update();}draw();}new ResizeObserver(resize).observe(host);
 function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
@@ -1418,7 +1422,15 @@ function depRefreshOcclusion(){const stamp=performance.now(),signature=current+'
 const depTooltip=root.querySelector('#dep-hover-tooltip');
 let depHover=null,depHoverTimer=null;
 
+function isAnyTabOpen(){
+  const radialOpen = depRadial && depRadial.style.display === 'block';
+  const peekOpen = !!depSelected && !depPeek.hidden;
+  return radialOpen || peekOpen;
+}
+window.__DEP_IS_TAB_OPEN = isAnyTabOpen;
+
 function depShowHover(id){
+  if(isAnyTabOpen()) return;
   clearTimeout(depHoverTimer);
   depHover=id;
   const item=depItems.find(o=>o.id===id);
@@ -1494,26 +1506,59 @@ function setDepPeekMinimized(minimized){
   depUpdate();
 }
 
-depPeekHead.querySelector('#dep-peek-min').onclick=e=>{
-  e.stopPropagation();
-  setDepPeekMinimized(!depPeekIsMinimized);
-};
-depPeekHead.querySelector('#dep-peek-close').onclick=e=>{
-  e.stopPropagation();
-  depSelected=null;depPeek.hidden=true;if(depUI('editor'))depUI('editor').hidden=true;depUpdate();
-};
+const depPeekMinBtn = depPeekHead.querySelector('#dep-peek-min');
+const depPeekCloseBtn = depPeekHead.querySelector('#dep-peek-close');
 
-depPeekMinBar.querySelector('#dep-peek-min-left').onclick=e=>{e.stopPropagation();depRotate(-15);};
-depPeekMinBar.querySelector('#dep-peek-min-right').onclick=e=>{e.stopPropagation();depRotate(15);};
-depPeekMinBar.querySelector('#dep-peek-min-del').onclick=e=>{
-  e.stopPropagation();
-  if(!depSelected)return;
-  depItems=depItems.filter(x=>x.id!==depSelected);
-  depSelected=null;depStore();depBuild();
-  depPeek.hidden=true;if(depUI('editor'))depUI('editor').hidden=true;
-  depUI('status').textContent='🗑️ Deployment removed (Auto-saved).';
-  depUpdate();draw();
-};
+if(depPeekMinBtn){
+  depPeekMinBtn.addEventListener('pointerdown', e => e.stopPropagation());
+  depPeekMinBtn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDepPeekMinimized(!depPeekIsMinimized);
+  });
+}
+
+if(depPeekCloseBtn){
+  depPeekCloseBtn.addEventListener('pointerdown', e => e.stopPropagation());
+  depPeekCloseBtn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    depSelected = null;
+    depPeek.hidden = true;
+    if(depUI('editor')) depUI('editor').hidden = true;
+    depUpdate();
+    draw();
+  });
+}
+
+const depPeekMinLeft = depPeekMinBar.querySelector('#dep-peek-min-left');
+const depPeekMinRight = depPeekMinBar.querySelector('#dep-peek-min-right');
+const depPeekMinDel = depPeekMinBar.querySelector('#dep-peek-min-del');
+
+if(depPeekMinLeft){
+  depPeekMinLeft.addEventListener('pointerdown', e => e.stopPropagation());
+  depPeekMinLeft.addEventListener('click', e => { e.stopPropagation(); depRotate(-15); });
+}
+if(depPeekMinRight){
+  depPeekMinRight.addEventListener('pointerdown', e => e.stopPropagation());
+  depPeekMinRight.addEventListener('click', e => { e.stopPropagation(); depRotate(15); });
+}
+if(depPeekMinDel){
+  depPeekMinDel.addEventListener('pointerdown', e => e.stopPropagation());
+  depPeekMinDel.addEventListener('click', e => {
+    e.stopPropagation();
+    if(!depSelected) return;
+    depItems = depItems.filter(x => x.id !== depSelected);
+    depSelected = null;
+    depStore();
+    depBuild();
+    depPeek.hidden = true;
+    if(depUI('editor')) depUI('editor').hidden = true;
+    depUI('status').textContent = '🗑️ Deployment removed (Auto-saved).';
+    depUpdate();
+    draw();
+  });
+}
 
 const depPeekFields={};
 for(const [key,label] of [['name','Name'],['belt','Belt no.'],['duty','Duty'],['mobile','Mobile']]){
@@ -1684,7 +1729,7 @@ function depBuild(){
     b.addEventListener('pointerenter',()=>depShowHover(item.id));
     b.addEventListener('pointerleave',depLeaveHover);
     b.addEventListener('pointerdown',e=>{e.stopPropagation();e.stopImmediatePropagation();});
-    b.addEventListener('click',e=>{e.stopPropagation();e.stopImmediatePropagation();if(typeof suppressClick!=='undefined')suppressClick=true;depChoose(item.id);});
+    b.addEventListener('click',e=>{e.stopPropagation();e.stopImmediatePropagation();if(typeof suppressClick!=='undefined')suppressClick=true;depChoose(item.id, true);});
     labelRoot.appendChild(b);depButtons.push({e:b,item});
   }
   if(list)list.value=depSelected||'';
@@ -1764,7 +1809,7 @@ function depUpdate(){
   }
 }
 
-function depChoose(id){
+function depChoose(id, zoom = true){
   depSelected=depItems.some(o=>o.id===id)?id:null;depHover=null;depPlace=false;
   if(depTooltip) depTooltip.style.display='none';
   const list=depUI('list'), topList=root.querySelector('#dep-top-list');
@@ -1778,10 +1823,19 @@ function depChoose(id){
   for(const k of ['name','duty','belt','mobile','x','y','z','angle'])depUI(k).value=typeof o[k]==='number'?Math.round(o[k]*100)/100:o[k];
   for(const k of ['belt','mobile','first','third'])depUI(k).disabled=o.kind!=='officer';
   depUI('status').textContent=o.name+' · '+o.duty+(o.kind==='officer'?' · Belt: '+(o.belt||'—')+' · Mobile: '+(o.mobile||'—'):'')+' (W/S/A/D to move, Q/E to rotate)';
+
+  if(zoom && depCamera!=='first'){
+    const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
+    let offset=camera.position.clone().sub(controls.target);
+    if(offset.lengthSq()<0.1) offset.set(10,8,10);
+    offset.normalize().multiplyScalar(13);
+    offset.y=Math.max(offset.y,4.5);
+    moveTo(target.clone().add(offset), target);
+  }
   depUpdate();draw();
 }
 
-depUI('list').addEventListener('change',()=>depChoose(depUI('list').value));
+depUI('list').addEventListener('change',()=>depChoose(depUI('list').value, true));
 
 // TOP bar dropdown sync
 const depTopSelect=root.querySelector('#dep-top-list');
@@ -1789,13 +1843,7 @@ if(depTopSelect){
   depTopSelect.addEventListener('change',()=>{
     const id=depTopSelect.value;
     if(!id)return;
-    depChoose(id);
-    const o=depItems.find(x=>x.id===id);
-    if(o){
-      const target=new THREE.Vector3(o.x,o.y+0.6,o.z);
-      const pos=new THREE.Vector3(o.x+12,o.y+14,o.z+14);
-      moveTo(pos,target);
-    }
+    depChoose(id, true);
   });
 }
 
@@ -1857,16 +1905,25 @@ depUI('first').onclick=()=>depView('first');depUI('third').onclick=()=>depView('
 
 // Contextual Click-to-Deploy Menu
 const depRadial=root.querySelector('#dep-radial-deploy'), depRadialClose=root.querySelector('#dep-radial-close');
-if(depRadialClose) depRadialClose.onclick=()=>{if(depRadial)depRadial.style.display='none';};
 if(depRadial){
-  for(const evt of ['pointerdown','pointerup','pointermove','mousedown','mouseup','mousemove','click','dblclick','wheel','touchstart','touchend']){
-    depRadial.addEventListener(evt,e=>{e.stopPropagation();e.stopImmediatePropagation();},{capture:true});
+  for(const evt of ['pointerdown','pointerup','mousedown','mouseup','click','dblclick','contextmenu']){
+    depRadial.addEventListener(evt, e => e.stopPropagation());
   }
-  depRadial.addEventListener('pointerenter',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=false;});
-  depRadial.addEventListener('pointerleave',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=true;});
+  depRadial.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+  depRadial.addEventListener('pointerenter', () => { if(typeof controls!=='undefined'&&controls) controls.enabled = false; });
+  depRadial.addEventListener('pointerleave', () => { if(typeof controls!=='undefined'&&controls) controls.enabled = true; });
+}
+if(depRadialClose){
+  depRadialClose.addEventListener('pointerdown', e => e.stopPropagation());
+  depRadialClose.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if(depRadial) depRadial.style.display = 'none';
+  });
 }
 
 root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
+  btn.addEventListener('pointerdown', e => e.stopPropagation());
   btn.addEventListener('click',e=>{
     e.preventDefault();
     e.stopPropagation();
@@ -1893,7 +1950,7 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
     depStore();
     depBuild();
     setDepPeekMinimized(true);
-    depChoose(id);
+    depChoose(id, true);
     depUI('status').textContent=`✅ Deployed ${name}! (Position: ${newItem.x}, ${newItem.z}) — Keys: W/S/A/D to move, Q/E to rotate.`;
   });
 });
@@ -1978,7 +2035,7 @@ function depHit(e){
 
 let depLastHover=0;
 canvas.addEventListener('pointermove',e=>{
-  if(depSelected||depPlace||e.buttons||performance.now()-depLastHover<80)return;
+  if(isAnyTabOpen()||depPlace||e.buttons||performance.now()-depLastHover<80)return;
   depLastHover=performance.now();const id=depHit(e);
   if(id)depShowHover(id);else if(depHover)depLeaveHover();
 });
@@ -1993,7 +2050,7 @@ canvas.addEventListener('pointerup',e=>{
     e.stopImmediatePropagation();
     if(typeof suppressClick!=='undefined')suppressClick=true;
     if(depRadial)depRadial.style.display='none';
-    depChoose(id);
+    depChoose(id, true);
     return;
   }
   
@@ -2014,6 +2071,14 @@ canvas.addEventListener('pointerup',e=>{
       depUpdate();draw();
       return;
     }
+  }
+
+  // If choose-item radial popup is open and user clicked canvas outside, close it cleanly
+  if(depRadial && depRadial.style.display === 'block'){
+    e.stopImmediatePropagation();
+    if(typeof suppressClick!=='undefined')suppressClick=true;
+    depRadial.style.display = 'none';
+    return;
   }
 
   // If information tab is open and user clicks empty area, deselect and close without model reacting
