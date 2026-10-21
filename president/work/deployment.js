@@ -2,7 +2,7 @@
 const depUI=id=>root.querySelector('#dep-'+id),depGroup=new THREE.Group();scene.add(depGroup);
 const dutyNames=['Outer perimeter duty','Binocular duty — rooftop','Lotus duty','Inner cordon duty','Outer cordon duty','Main gate — DFMD / HHMD','Naka & barricade duty','Auditorium main stage duty','Auditorium seating duty','VIP parking duty','VIP toilet duty','VIP lounge duty','Hall gate duty'];
 for(const text of dutyNames){const o=document.createElement('option');o.value=text;depUI('duties').appendChild(o);}
-const depSymbols={officer:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡'};
+const depSymbols={officer:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️'};
 // Visibility against the same opaque venue solids rendered by this viewer.
 const depOccluders=[],depOccBox=new THREE.Box3(new THREE.Vector3(-.5,-.5,-.5),new THREE.Vector3(.5,.5,.5));
 const depOccTransform=new THREE.Object3D();
@@ -355,7 +355,17 @@ const depMaterials={
   hhmdLedGreen:new THREE.MeshStandardMaterial({color:0x22c55e,emissive:0x15803d,emissiveIntensity:1.5,roughness:0.2}), // Power ON green LED
   hhmdLedAmber:new THREE.MeshStandardMaterial({color:0xf59e0b,emissive:0xb45309,emissiveIntensity:1.2,roughness:0.2}), // Ready/Standby amber LED
   hhmdLedRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xb91c1c,emissiveIntensity:1.5,roughness:0.2}), // Alarm metal-detect red LED
-  hhmdStripe:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.1}) // High-visibility hazard yellow band
+  hhmdStripe:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.1}), // High-visibility hazard yellow band
+  whiteBody:new THREE.MeshStandardMaterial({color:0xf8fafc,roughness:0.25,metalness:0.1}), // Gloss white vehicle body
+  fireRed:new THREE.MeshStandardMaterial({color:0xc1121f,roughness:0.28,metalness:0.12}), // Tactical fire engine signal red
+  chrome:new THREE.MeshStandardMaterial({color:0xd8dee9,roughness:0.15,metalness:0.85}), // Polished chrome & stainless steel
+  glassTint:new THREE.MeshStandardMaterial({color:0x1e293b,roughness:0.12,metalness:0.6,transparent:true,opacity:0.75}), // Tinted glass
+  tireRubber:new THREE.MeshStandardMaterial({color:0x111315,roughness:0.92,metalness:0.05}), // Black rubber tire tread
+  shutterMetal:new THREE.MeshStandardMaterial({color:0x94a3b8,roughness:0.45,metalness:0.65}), // Ribbed equipment roller shutter
+  stanchionChrome:new THREE.MeshStandardMaterial({color:0xe2e8f0,roughness:0.12,metalness:0.9}), // Polished queue stanchion
+  qbeltRibbon:new THREE.MeshStandardMaterial({color:0xbe123c,roughness:0.55,metalness:0.05}), // High-tension red nylon webbing
+  crateWood:new THREE.MeshStandardMaterial({color:0x8b5a2b,roughness:0.78,metalness:0.05}), // Heavy cargo crate wood
+  crateTrim:new THREE.MeshStandardMaterial({color:0x272e39,roughness:0.38,metalness:0.7}) // Reinforced steel corner brackets
 };
 function depPart(g,shape,p,s,mat){
   const m = (typeof mat === 'string' ? depMaterials[mat] : mat) || depMaterials.dark;
@@ -390,6 +400,351 @@ dhc.fillStyle='#dc2626';dhc.fillRect(16,382,96,28);
 dhc.fillStyle='#ffffff';dhc.font='bold 12px sans-serif';dhc.fillText('METAL DETECTOR',64,401);
 dhc.fillStyle='#94a3b8';dhc.font='bold 9px sans-serif';dhc.fillText('PWR ● BATT ● ALARM',64,435);
 const depHhmdDecalFront=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depHhmdCanvas),roughness:0.35,metalness:0.1});
+
+// Ambulance Emergency Livery Decal (Sides)
+const depAmbCanvas=document.createElement('canvas');depAmbCanvas.width=512;depAmbCanvas.height=128;
+const dac=depAmbCanvas.getContext('2d');
+dac.fillStyle='#f8fafc';dac.fillRect(0,0,512,128);
+// Battenburg fluorescent green & yellow checkered hazard stripes
+for(let x=0;x<128;x+=32){
+  dac.fillStyle='#16a34a';dac.fillRect(x,0,32,64);dac.fillRect(x+32,64,32,64);
+  dac.fillStyle='#eab308';dac.fillRect(x+32,0,32,64);dac.fillRect(x,64,32,64);
+  dac.fillStyle='#16a34a';dac.fillRect(384+x,0,32,64);dac.fillRect(384+x+32,64,32,64);
+  dac.fillStyle='#eab308';dac.fillRect(384+x+32,0,32,64);dac.fillRect(384+x,64,32,64);
+}
+// Red Cross emblem
+dac.fillStyle='#dc2626';
+dac.fillRect(160,34,60,60);
+dac.fillStyle='#f8fafc';
+dac.fillRect(160,54,60,20);dac.fillRect(180,34,20,60);
+dac.fillStyle='#dc2626';
+dac.fillRect(164,56,52,16);dac.fillRect(182,38,16,52);
+// Main Text AMBULANCE
+dac.fillStyle='#0284c7';
+dac.font='900 44px sans-serif';dac.textAlign='left';
+dac.fillText('AMBULANCE',232,74);
+dac.font='bold 16px sans-serif';dac.fillStyle='#dc2626';
+dac.fillText('EMERGENCY 108 · LIFE SUPPORT UNIT',234,102);
+const depAmbulanceDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depAmbCanvas),roughness:0.3,metalness:0.1});
+
+// Ambulance Hood Inverted/Mirrored Decal
+const depAmbHoodCanvas=document.createElement('canvas');depAmbHoodCanvas.width=256;depAmbHoodCanvas.height=128;
+const dahc=depAmbHoodCanvas.getContext('2d');
+dahc.fillStyle='#f8fafc';dahc.fillRect(0,0,256,128);
+dahc.fillStyle='#dc2626';
+dahc.fillRect(108,12,40,40);
+dahc.fillStyle='#f8fafc';
+dahc.fillRect(108,26,40,12);dahc.fillRect(122,12,12,40);
+dahc.fillStyle='#dc2626';
+dahc.fillRect(110,28,36,8);dahc.fillRect(124,14,8,36);
+dahc.font='900 36px sans-serif';dahc.textAlign='center';
+dahc.fillText('ECNALUBMA',128,96);
+const depAmbulanceHoodDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depAmbHoodCanvas),roughness:0.3,metalness:0.1});
+
+// Fire Engine Rear Tailgate Chevrons Decal
+const depFireChevCanvas=document.createElement('canvas');depFireChevCanvas.width=512;depFireChevCanvas.height=256;
+const dfc=depFireChevCanvas.getContext('2d');
+dfc.fillStyle='#eab308';dfc.fillRect(0,0,512,256);
+dfc.fillStyle='#dc2626';
+for(let x=-256;x<=512;x+=64){
+  dfc.beginPath();
+  dfc.moveTo(x,256);dfc.lineTo(x+64,0);dfc.lineTo(x+96,0);dfc.lineTo(x+32,256);
+  dfc.fill();
+}
+// Central Caution Box
+dfc.fillStyle='#1e293b';dfc.fillRect(64,88,384,80);
+dfc.strokeStyle='#eab308';dfc.lineWidth=4;dfc.strokeRect(68,92,376,72);
+dfc.fillStyle='#ffffff';dfc.font='bold 26px sans-serif';dfc.textAlign='center';
+dfc.fillText('FIRE & RESCUE SERVICE',256,124);
+dfc.fillStyle='#eab308';dfc.font='bold 18px sans-serif';
+dfc.fillText('अग्नि शमन सेवा · EMERGENCY 101',256,150);
+const depFireChevronDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depFireChevCanvas),roughness:0.4,metalness:0.1});
+
+// Industrial Cargo Crate Stencil Decal
+const depCrateCanvas=document.createElement('canvas');depCrateCanvas.width=256;depCrateCanvas.height=256;
+const dcc=depCrateCanvas.getContext('2d');
+dcc.fillStyle='#78350f';dcc.fillRect(0,0,256,256);
+// Corner Hazard Chevrons
+dcc.fillStyle='#eab308';
+for(const [cx,cy] of [[0,0],[208,0],[0,208],[208,208]]){
+  dcc.fillRect(cx,cy,48,48);
+}
+dcc.fillStyle='#1e293b';
+dcc.fillRect(16,32,224,192);
+dcc.strokeStyle='#f59e0b';dcc.lineWidth=3;
+dcc.strokeRect(22,38,212,180);
+dcc.fillStyle='#f8fafc';dcc.font='900 18px sans-serif';dcc.textAlign='center';
+dcc.fillText('DEPLOYMENT POINT',128,72);
+dcc.font='bold 14px sans-serif';dcc.fillStyle='#f59e0b';
+dcc.fillText('ITEM PLACEHOLDER',128,95);
+// Crosshair target symbol
+dcc.strokeStyle='#38bdf8';dcc.lineWidth=3;
+dcc.beginPath();dcc.arc(128,142,26,0,Math.PI*2);dcc.stroke();
+dcc.beginPath();dcc.moveTo(128,108);dcc.lineTo(128,176);dcc.moveTo(94,142);dcc.lineTo(162,142);dcc.stroke();
+dcc.fillStyle='#ffffff';dcc.font='bold 12px sans-serif';
+dcc.fillText('↑↑ THIS SIDE UP ↑↑',128,198);
+const depCrateDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depCrateCanvas),roughness:0.65,metalness:0.05});
+
+// 1. High-Fidelity Emergency Ambulance Van Builder
+function depBuildAmbulance(g){
+  g.scale.setScalar(1);
+  const wheels=[];
+  const beacons=[];
+
+  // Chassis Frame & Skid Plates
+  depPart(g,'box',[0,.32,0],[1.75,.22,4.8],'dark');
+  depPart(g,'box',[0,.44,-2.55],[2.08,.34,.32],'dark'); // Front bumper
+  depPart(g,'box',[0,.40,2.45],[2.04,.22,.32],'dark'); // Rear step bumper
+
+  // 4 Realistic Rubber Tires & Chrome Hubcaps
+  const wCoords=[[-0.96,.38,-1.5],[0.96,.38,-1.5],[-0.96,.38,1.4],[0.96,.38,1.4]];
+  for(const [wx,wy,wz] of wCoords){
+    const wGroup=new THREE.Group();wGroup.position.set(wx,wy,wz);g.add(wGroup);
+    const tire=depPart(wGroup,'cylinder',[0,0,0],[.38,.22,.38],'tireRubber');tire.rotation.z=Math.PI/2;
+    const rim=depPart(wGroup,'cylinder',[0,0,0],[.25,.23,.25],'chrome');rim.rotation.z=Math.PI/2;
+    const nut=depPart(wGroup,'cylinder',[wx>0?.12:-.12,0,0],[.08,.04,.08],'dark');nut.rotation.z=Math.PI/2;
+    wheels.push(wGroup);
+    depPart(g,'cylinder',[wx>0?1.02:-1.02,wy+.18,wz],[.44,.08,.44],'dark');
+  }
+
+  // Lower Front Cab, Grille & Headlights
+  depPart(g,'box',[0,.72,-2.58],[1.2,.30,.08],'dark');
+  depPart(g,'box',[0,.72,-2.54],[.9,.06,.09],'chrome');
+  for(const hx of [-0.78,0.78]){
+    depPart(g,'box',[hx,.72,-2.55],[.32,.20,.08],'white');
+    depPart(g,'box',[hx>0?hx+.14:hx-.14,.72,-2.55],[.08,.20,.085],'yellow');
+    depPart(g,'cylinder',[hx,.42,-2.62],[.08,.04,.08],'yellow');
+  }
+
+  // Sloping Hood & Windshield
+  depPart(g,'box',[0,1.05,-2.12],[1.98,.44,.96],'whiteBody');
+  const ws=depPart(g,'box',[0,1.56,-1.55],[1.88,.78,.08],'glassTint');ws.rotation.x=-0.48;
+  for(const wx of [-0.4,0.35]){
+    const wip=depPart(g,'cylinder',[wx,1.34,-1.72],[.012,.44,.012],'dark');wip.rotation.set(-0.48,0,0.25);
+  }
+
+  // Dual Side Mirrors
+  for(const mx of [-1.15,1.15]){
+    depPart(g,'cylinder',[mx>0?mx-.08:mx+.08,1.48,-1.48],[.018,.25,.018],'dark');
+    depPart(g,'box',[mx,1.48,-1.50],[.10,.26,.08],'dark');
+    depPart(g,'box',[mx,1.48,-1.46],[.08,.22,.01],'chrome');
+  }
+
+  // Main Van Body & High-Roof
+  depPart(g,'box',[0,1.42,.25],[2.06,1.56,3.85],'whiteBody');
+  depPart(g,'rounded',[0,2.26,.25],[2.00,.34,3.80],'whiteBody');
+
+  // Tinted Cabin Windows
+  for(const wx of [-1.04,1.04]){
+    depPart(g,'box',[wx,1.58,-1.18],[.04,.54,.68],'glassTint');
+    depPart(g,'box',[wx,1.58,.45],[.04,.54,1.95],'glassTint');
+  }
+
+  // Side Entry Step Plate & Door Handle
+  depPart(g,'box',[1.04,.45,.20],[.12,.08,.75],'dark');
+  depPart(g,'cylinder',[1.05,1.15,.55],[.015,.14,.015],'dark');
+
+  // Rear Twin Loading Doors & Taillights
+  for(const rx of [-0.48,0.48]){
+    depPart(g,'box',[rx,1.40,2.18],[.94,1.48,.04],'whiteBody');
+    depPart(g,'box',[rx,1.66,2.20],[.65,.48,.03],'glassTint');
+  }
+  depPart(g,'cylinder',[.08,1.15,2.22],[.015,.16,.015],'chrome');
+  for(const tx of [-0.98,0.98]){
+    depPart(g,'box',[tx,1.05,2.18],[.08,.45,.04],'red');
+    depPart(g,'box',[tx,.72,2.18],[.08,.16,.04],'yellow');
+  }
+
+  // Emergency Livery Decals
+  depPart(g,'sign',[-1.045,1.05,.25],[3.6,.42,1],depAmbulanceDecal);
+  const dR=depPart(g,'sign',[1.045,1.05,.25],[3.6,.42,1],depAmbulanceDecal);dR.rotation.y=Math.PI;
+  const dH=depPart(g,'sign',[0,1.28,-2.12],[1.3,.45,1],depAmbulanceHoodDecal);dH.rotation.x=-Math.PI/2;
+
+  // Roof Emergency Lightbar & Sirens (Flashing!)
+  depPart(g,'box',[0,2.47,-1.05],[1.45,.08,.28],'dark');
+  const bL=depPart(g,'box',[-0.46,2.53,-1.05],[.46,.10,.24],'blue');
+  const bLM=bL.material.clone();bLM.emissive=new THREE.Color(0x0284c7);bLM.emissiveIntensity=2.0;bL.material=bLM;
+  beacons.push({mat:bLM,speed:2.8,phase:0,intensity:2.4});
+
+  const bR=depPart(g,'box',[0.46,2.53,-1.05],[.46,.10,.24],'red');
+  const bRM=bR.material.clone();bRM.emissive=new THREE.Color(0xdc2626);bRM.emissiveIntensity=2.0;bR.material=bRM;
+  beacons.push({mat:bRM,speed:2.8,phase:Math.PI,intensity:2.4});
+
+  const siren=depPart(g,'cylinder',[0,2.52,-1.05],[.11,.14,.11],'chrome');siren.rotation.x=Math.PI/2;
+  for(const [px,phase] of [[-0.92,0.8],[0.92,2.4]]){
+    const rPod=depPart(g,'box',[px,2.44,2.05],[.14,.10,.14],px>0?'red':'yellow');
+    const rpm=rPod.material.clone();rpm.emissive=new THREE.Color(px>0?0xdc2626:0xd97706);rpm.emissiveIntensity=1.6;rPod.material=rpm;
+    beacons.push({mat:rpm,speed:2.5,phase,intensity:1.8});
+  }
+  depPart(g,'rounded',[0,2.48,.85],[.95,.16,1.25],'whiteBody'); // AC Unit
+
+  g.userData.wheels=wheels;
+  g.userData.beacons=beacons;
+}
+
+// 2. High-Fidelity Tactical Fire Engine / Rescue Tender Builder
+function depBuildFireBrigade(g){
+  g.scale.setScalar(1);
+  const wheels=[];
+  const beacons=[];
+
+  // Heavy Chassis Frame & Massive Push Bumper
+  depPart(g,'box',[0,.42,0],[1.95,.28,7.2],'dark');
+  depPart(g,'box',[0,.52,-3.75],[2.48,.42,.35],'dark');
+  for(const hx of [-0.65,0.65]){
+    depPart(g,'torus',[hx,.52,-3.95],[.08,.025,1],'chrome');
+  }
+  depPart(g,'box',[0,.45,3.35],[2.46,.24,.38],'dark');
+
+  // 6 Heavy-Duty Wheels (3 Axles: Front + Dual Rear Drive Axles)
+  const twCoords=[[-1.16,.52,-2.4],[1.16,.52,-2.4],[-1.16,.52,1.5],[1.16,.52,1.5],[-1.16,.52,2.7],[1.16,.52,2.7]];
+  for(const [wx,wy,wz] of twCoords){
+    const wGroup=new THREE.Group();wGroup.position.set(wx,wy,wz);g.add(wGroup);
+    const tire=depPart(wGroup,'cylinder',[0,0,0],[.52,.32,.52],'tireRubber');tire.rotation.z=Math.PI/2;
+    const rim=depPart(wGroup,'cylinder',[0,0,0],[.34,.33,.34],'chrome');rim.rotation.z=Math.PI/2;
+    const hub=depPart(wGroup,'cylinder',[wx>0?.17:-.17,0,0],[.14,.06,.14],'dark');hub.rotation.z=Math.PI/2;
+    wheels.push(wGroup);
+    depPart(g,'cylinder',[wx>0?1.22:-1.22,wy+.26,wz],[.60,.10,.60],'dark');
+  }
+
+  // Crew Cabin & Chrome Grille
+  depPart(g,'box',[0,1.65,-2.35],[2.45,1.85,2.45],'fireRed');
+  depPart(g,'box',[0,2.62,-2.35],[2.46,.16,2.45],'whiteBody');
+  depPart(g,'box',[0,1.18,-3.60],[1.65,.65,.08],'dark');
+  for(const gy of [1.04,1.18,1.32]){
+    depPart(g,'box',[0,gy,-3.55],[1.45,.08,.09],'chrome');
+  }
+
+  // Front Windshield & Wipers
+  const fWind=depPart(g,'box',[0,1.96,-3.40],[2.26,.92,.08],'glassTint');fWind.rotation.x=-0.16;
+  for(const wx of [-0.55,0.55]){
+    const wip=depPart(g,'cylinder',[wx,1.58,-3.55],[.014,.55,.014],'dark');wip.rotation.set(-0.16,0,0.18);
+  }
+
+  // Headlights & Bumper Fog Lights
+  for(const hx of [-1.02,1.02]){
+    depPart(g,'box',[hx,1.08,-3.58],[.34,.24,.08],'white');
+    depPart(g,'box',[hx>0?hx+.14:hx-.14,1.08,-3.58],[.08,.24,.085],'yellow');
+    depPart(g,'cylinder',[hx,.52,-3.85],[.10,.05,.10],'yellow');
+  }
+
+  // Side Cab Windows, Entry Steps & Tubular Chrome Mirrors
+  for(const sx of [-1.24,1.24]){
+    depPart(g,'box',[sx,1.95,-2.35],[.05,.72,1.85],'glassTint');
+    depPart(g,'box',[sx>0?sx+.06:sx-.06,.65,-2.35],[.14,.06,.85],'dark');
+    depPart(g,'cylinder',[sx>0?sx+.15:sx-.15,1.95,-3.20],[.02,.55,.02],'chrome');
+    depPart(g,'box',[sx>0?sx+.22:sx-.22,1.95,-3.20],[.08,.36,.14],'dark');
+  }
+
+  // Rear Equipment Body & 6 Metallic Roller Shutters
+  depPart(g,'box',[0,1.72,0.98],[2.45,1.98,4.35],'fireRed');
+  for(const sx of [-1.24,1.24]){
+    for(const [sz,sw] of [[-0.55,1.15],[0.85,1.25],[2.25,1.15]]){
+      depPart(g,'box',[sx,1.68,sz],[.04,1.48,sw],'shutterMetal');
+      depPart(g,'cylinder',[sx>0?sx+.03:sx-.03,.98,sz],[.015,sw*.85,.015],'chrome');
+    }
+  }
+
+  // Side External Suction Hoses & Delivery Valves
+  for(const hx of [-1.25,1.25]){
+    const hose=depPart(g,'cylinder',[hx,2.58,.95],[.06,4.1,.06],'dark');hose.rotation.x=Math.PI/2;
+    for(const hz of [-1.05,2.95]){
+      const coup=depPart(g,'cylinder',[hx,2.58,hz],[.075,.12,.075],'chrome');coup.rotation.x=Math.PI/2;
+    }
+    for(const vz of [0.75,0.95]){
+      const vOut=depPart(g,'cylinder',[hx>0?hx+.06:hx-.06,.78,vz],[.045,.12,.045],'chrome');vOut.rotation.z=Math.PI/2;
+    }
+  }
+
+  // Roof Water Monitor Cannon / Turret
+  depPart(g,'cylinder',[0,2.82,-.65],[.22,.22,.22],'chrome');
+  depPart(g,'sphereSmooth',[0,2.98,-.65],[.15,.15,.15],'dark');
+  const nozzle=depPart(g,'cylinder',[0,3.08,-.98],[.065,.75,.065],'chrome');nozzle.rotation.x=-Math.PI/2.3;
+  depPart(g,'torus',[.14,2.98,-.65],[.07,.015,1],'yellow');
+
+  // Roof Rescue Extension Ladder (Dual Fly Aluminum)
+  depPart(g,'box',[.38,2.85,.95],[.04,.10,4.4],'chrome');
+  depPart(g,'box',[.82,2.85,.95],[.04,.10,4.4],'chrome');
+  for(let rz=-1.1;rz<=3.0;rz+=.30){
+    const rung=depPart(g,'cylinder',[.60,2.85,rz],[.015,.42,.015],'chrome');rung.rotation.z=Math.PI/2;
+  }
+
+  // Full-Width Rear Tailgate Hazard Chevron Decal & Access Ladder
+  depPart(g,'sign',[0,1.68,3.18],[2.42,1.85,1],depFireChevronDecal);
+  for(const rz of [-0.72,-0.98]) depPart(g,'box',[rz,1.75,3.22],[.03,2.1,.03],'chrome');
+  for(let ry=0.85;ry<=2.65;ry+=.25) depPart(g,'cylinder',[-0.85,ry,3.22],[.014,.26,.014],'chrome');
+
+  // Emergency Red Lightbar & Dual Chrome Air Horns (Flashing!)
+  depPart(g,'box',[0,2.84,-2.35],[1.85,.16,.32],'dark');
+  for(const [bx,phase] of [[-0.65,0],[0.65,Math.PI]]){
+    const bec=depPart(g,'cylinder',[bx,2.95,-2.35],[.18,.16,.18],'fireRed');
+    const bm=bec.material.clone();bm.emissive=new THREE.Color(0xef4444);bm.emissiveIntensity=2.4;bec.material=bm;
+    beacons.push({mat:bm,speed:3.2,phase,intensity:2.6});
+  }
+  for(const hx of [-0.42,0.42]){
+    const horn=depPart(g,'cylinder',[hx,2.82,-3.15],[.05,.65,.05],'chrome');horn.rotation.x=Math.PI/2;
+    const flare=depPart(g,'cylinder',[hx,2.82,-3.45],[.09,.08,.09],'chrome');flare.rotation.x=Math.PI/2;
+  }
+  for(const [rx,phase] of [[-1.12,1.0],[1.12,2.6]]){
+    const rFlash=depPart(g,'box',[rx,2.75,3.12],[.15,.12,.12],'yellow');
+    const rfm=rFlash.material.clone();rfm.emissive=new THREE.Color(0xf59e0b);rfm.emissiveIntensity=1.8;rFlash.material=rfm;
+    beacons.push({mat:rfm,speed:2.8,phase,intensity:2.0});
+  }
+
+  g.userData.wheels=wheels;
+  g.userData.beacons=beacons;
+}
+
+// 3. Retractable Belt Barrier / Q-Belt Stanchion Builder
+function depBuildQBelt(g){
+  g.scale.setScalar(1);
+  for(const px of [-1.0,1.0]){
+    depPart(g,'cylinder',[px,.024,0],[.18,.048,.18],'stanchionChrome');
+    depPart(g,'torus',[px,.008,0],[.182,.012,1],'dark');
+    depPart(g,'cylinder',[px,.50,0],[.032,.92,.032],'stanchionChrome');
+    depPart(g,'cylinder',[px,.94,0],[.052,.12,.052],'stanchionChrome');
+    for(const rot of [0,Math.PI/2,Math.PI,-Math.PI/2]){
+      const slot=depPart(g,'box',[px+Math.sin(rot)*.053,.94,Math.cos(rot)*.053],[.008,.08,.016],'dark');
+      slot.rotation.y=rot;
+    }
+    depPart(g,'sphereSmooth',[px,1.02,0],[.044,.044,.044],'stanchionChrome');
+  }
+  depPart(g,'box',[0,.94,0],[1.92,.055,.006],'qbeltRibbon');
+  depPart(g,'box',[.94,.94,0],[.025,.068,.016],'stanchionChrome');
+  depPart(g,'box',[-.94,.94,0],[.025,.068,.016],'stanchionChrome');
+}
+
+// 4. Industrial Square Box / Deployment Point Placeholder Crate
+function depBuildSquareBox(g){
+  g.scale.setScalar(1);
+  for(const sx of [-0.42,0,0.42]){
+    depPart(g,'box',[sx,.05,0],[.10,.10,1.02],'dark');
+  }
+  depPart(g,'box',[0,.55,0],[.96,.90,.96],'crateWood');
+  for(const cx of [-0.47,0.47]){
+    for(const cy of [0.16,0.94]){
+      for(const cz of [-0.47,0.47]){
+        depPart(g,'box',[cx,cy,cz],[.10,.10,.10],'crateTrim');
+      }
+    }
+  }
+  depPart(g,'box',[0,.22,0],[.98,.04,.98],'crateTrim');
+  depPart(g,'box',[0,.88,0],[.98,.04,.98],'crateTrim');
+  for(const hx of [-0.49,0.49]){
+    depPart(g,'box',[hx,.55,0],[.02,.10,.24],'crateTrim');
+    const ring=depPart(g,'torus',[hx>0?hx+.02:hx-.02,.54,0],[.055,.012,1],'chrome');
+    ring.rotation.y=Math.PI/2;
+  }
+  depPart(g,'box',[0,1.005,0],[.98,.03,.98],'crateTrim');
+  depPart(g,'box',[0,.98,.49],[.08,.06,.02],'chrome');
+  depPart(g,'box',[0,.98,-.49],[.08,.06,.02],'chrome');
+
+  depPart(g,'sign',[0,.55,.485],[.72,.65,1],depCrateDecal);
+  const dB=depPart(g,'sign',[0,.55,-.485],[.72,.65,1],depCrateDecal);dB.rotation.y=Math.PI;
+  const dL=depPart(g,'sign',[-.485,.55,0],[.72,.65,1],depCrateDecal);dL.rotation.y=-Math.PI/2;
+  const dR=depPart(g,'sign',[.485,.55,0],[.72,.65,1],depCrateDecal);dR.rotation.y=Math.PI/2;
+}
+
 const depSignCanvas=document.createElement('canvas');depSignCanvas.width=512;depSignCanvas.height=128;const depSignCtx=depSignCanvas.getContext('2d');depSignCtx.fillStyle='#edbd2b';depSignCtx.fillRect(0,0,512,128);depSignCtx.fillStyle='#172837';depSignCtx.font='bold 82px sans-serif';depSignCtx.textAlign='center';depSignCtx.fillText('POLICE',256,93);const depPoliceSign=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depSignCanvas),side:THREE.FrontSide});
 const depConeGeometry=new THREE.ConeGeometry(.22,.7,12),depBoardGeometry=new THREE.PlaneGeometry(1.4,.38);
 
@@ -728,6 +1083,18 @@ function depBuild(){
     if(item.kind==='officer' || item.kind==='hhmd' || item.kind==='binocular' || item.kind==='radio'){
       depBuildOfficer(g, item.kind);
     }
+    else if(item.kind==='ambulance'){
+      depBuildAmbulance(g);
+    }
+    else if(item.kind==='firebrigade'){
+      depBuildFireBrigade(g);
+    }
+    else if(item.kind==='qbelt'){
+      depBuildQBelt(g);
+    }
+    else if(item.kind==='square_box'){
+      depBuildSquareBox(g);
+    }
     else if(item.kind==='barricade'){
       for(const x of [-1.25,1.25]){depPart(g,'box',[x,.6,0],[.12,1.2,.15],'dark');depPart(g,'box',[x,.06,0],[.2,.12,.9],'dark');}
       depPart(g,'box',[0,.88,0],[3,.66,.12],'yellow');
@@ -781,8 +1148,16 @@ function depUpdate(){
     const badgeEl=depPeekHead.querySelector('#dep-peek-duty-badge');
     if(titleEl) titleEl.textContent=(depSymbols[peekItem.kind]||'')+' '+peekItem.name;
     const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(peekItem.kind);
+    const canFirstPerson = isOfficerLike || peekItem.kind === 'ambulance' || peekItem.kind === 'firebrigade';
     if(badgeEl){
-      badgeEl.textContent=peekItem.duty||(isOfficerLike?'Security post':'Access control');
+      badgeEl.textContent=peekItem.duty||(
+        isOfficerLike?'Security post'
+        :peekItem.kind==='ambulance'?'Emergency Medical Response'
+        :peekItem.kind==='firebrigade'?'Fire & Safety Standby'
+        :peekItem.kind==='qbelt'?'Queue & Crowd Management'
+        :peekItem.kind==='square_box'?'Deployment Point / Placeholder'
+        :'Access control'
+      );
       badgeEl.title=peekItem.duty||'';
     }
     for(const [k,field] of Object.entries(depPeekFields)){
@@ -791,7 +1166,7 @@ function depUpdate(){
       field.parentElement.hidden=field.disabled;
     }
     for(const b of depPeekActions.querySelectorAll('button')){
-      if(b.textContent.includes('First')){ b.disabled=!isOfficerLike; b.hidden=b.disabled; }
+      if(b.textContent.includes('First')){ b.disabled=!canFirstPerson; b.hidden=!canFirstPerson; }
       else if(b.textContent.includes('Third')){ b.disabled=false; b.hidden=false; }
     }
   }
@@ -802,7 +1177,7 @@ function depUpdate(){
   
   for(const {e,item} of depButtons){
     const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(item.kind);
-    const headHeight = isOfficerLike ? 2.15 : (item.kind==='dfmd'?2.3:1.6);
+    const headHeight = isOfficerLike ? 2.15 : (item.kind==='firebrigade'?3.4:(item.kind==='ambulance'?2.7:(item.kind==='dfmd'?2.3:1.6)));
     const v = new THREE.Vector3(item.x, item.y + headHeight, item.z);
     const distance = camera.position.distanceTo(v);
     const p = v.project(camera);
@@ -871,11 +1246,14 @@ function depChoose(id, zoom = true){
   depUI('editkind').value=o.kind;
   for(const k of ['name','duty','belt','mobile','x','y','z','angle'])depUI(k).value=typeof o[k]==='number'?Math.round(o[k]*100)/100:o[k];
   const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
-  for(const k of ['belt','mobile','first']) depUI(k).disabled=!isOfficerLike;
+  const canFirstPerson = isOfficerLike || o.kind === 'ambulance' || o.kind === 'firebrigade';
+  for(const k of ['belt','mobile']) depUI(k).disabled=!isOfficerLike;
+  depUI('first').disabled = !canFirstPerson;
   depUI('third').disabled = false;
 
   updateOfficerHud(o);
-  depUI('status').textContent='🎮 Controlling ' + (depSymbols[o.kind] || '') + ' ' + o.name + ' · Move: W/S/↑/↓ · Rotate: A/D/←/→/Q/E · Jump: SPACE · Next: TAB · Deselect: CAPSLOCK';
+  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade';
+  depUI('status').textContent='🎮 Controlling ' + (depSymbols[o.kind] || '') + ' ' + o.name + (isVehicle ? ' · Drive: W/S/↑/↓ · Steer: A/D/←/→/Q/E · Turbo: SHIFT · Bump/Jump: SPACE · Next: TAB · Deselect: CAPSLOCK' : ' · Move: W/S/↑/↓ · Rotate: A/D/←/→/Q/E · Jump: SPACE · Next: TAB · Deselect: CAPSLOCK');
 
   if(zoom){
     depView('third', true);
@@ -944,11 +1322,19 @@ depUI('add').onclick=()=>{
     : kind === 'hhmd' ? `HHMD Officer ${count}`
     : kind === 'binocular' ? `Spotter Officer ${count}`
     : kind === 'radio' ? `Radio Officer ${count}`
+    : kind === 'ambulance' ? `Ambulance ${count}`
+    : kind === 'firebrigade' ? `Fire Tender ${count}`
+    : kind === 'qbelt' ? `Q-Belt Barrier ${count}`
+    : kind === 'square_box' ? `Item Box ${count}`
     : `${kind.toUpperCase()} #${count}`;
   const duty = kind === 'officer' ? 'Security post'
     : kind === 'hhmd' ? 'Main gate — DFMD / HHMD'
     : kind === 'binocular' ? 'Binocular duty — rooftop'
     : kind === 'radio' ? 'Control & wireless duty'
+    : kind === 'ambulance' ? 'Emergency Medical Response'
+    : kind === 'firebrigade' ? 'Fire & Safety Standby'
+    : kind === 'qbelt' ? 'Queue & Crowd Management'
+    : kind === 'square_box' ? 'Designated Deployment Point'
     : '';
   depItems.push({id,kind,name,duty,belt:'',mobile:'',x:controls.target.x,y:.3,z:controls.target.z,angle:0});
   depSelected=id;depNew=id;depBuild();depChoose(id);depPlace=true;depUpdate();
@@ -974,18 +1360,38 @@ function depView(mode, smooth = true){
   depCamera=mode;
   const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
   const itemHeight = isOfficerLike ? 1.65
+    : o.kind === 'firebrigade' ? 2.5
+    : o.kind === 'ambulance' ? 1.85
     : o.kind === 'dfmd' ? 1.8
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
     : o.kind === 'barricade' ? 0.9
+    : o.kind === 'square_box' ? 0.8
+    : o.kind === 'qbelt' ? 0.8
     : 0.6;
-  const distBehind = isOfficerLike ? 3.8
+  const distBehind = o.kind === 'firebrigade' ? 9.2
+    : o.kind === 'ambulance' ? 6.8
+    : isOfficerLike ? 3.8
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
     : 3.2;
-  const heightAbove = isOfficerLike ? 1.2 : 1.5;
+  const heightAbove = o.kind === 'firebrigade' ? 3.4
+    : o.kind === 'ambulance' ? 2.4
+    : isOfficerLike ? 1.2
+    : 1.5;
 
-  const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle)),eye=new THREE.Vector3(o.x,o.y+itemHeight,o.z);
+  const angle=o.angle*Math.PI/180,dir=new THREE.Vector3(Math.sin(angle),0,-Math.cos(angle));
+  let eyeY = o.y + itemHeight;
+  if(mode === 'first'){
+    if(o.kind === 'ambulance') eyeY = o.y + 1.62;
+    if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
+  }
+  const eye = new THREE.Vector3(o.x, eyeY, o.z);
+  if(mode === 'first'){
+    if(o.kind === 'ambulance') eye.addScaledVector(dir, 1.2);
+    if(o.kind === 'firebrigade') eye.addScaledVector(dir, 2.1);
+  }
   const idealCam = mode==='first' ? eye : eye.clone().addScaledVector(dir,-distBehind).add(new THREE.Vector3(0,heightAbove,0));
-  const targetLook = eye.clone().addScaledVector(dir,mode==='first'?10:2.0);
+  const lookDistance = o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0));
+  const targetLook = eye.clone().addScaledVector(dir, lookDistance);
 
   let targetCam = idealCam;
   if (mode !== 'first') {
@@ -1227,11 +1633,19 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
       : kind === 'hhmd' ? `HHMD Officer ${count}`
       : kind === 'binocular' ? `Spotter Officer ${count}`
       : kind === 'radio' ? `Radio Officer ${count}`
+      : kind === 'ambulance' ? `Ambulance ${count}`
+      : kind === 'firebrigade' ? `Fire Tender ${count}`
+      : kind === 'qbelt' ? `Q-Belt Barrier ${count}`
+      : kind === 'square_box' ? `Item Box ${count}`
       : `${kind.toUpperCase()} #${count}`;
     const duty = kind === 'officer' ? 'Security post'
       : kind === 'hhmd' ? 'Main gate — DFMD / HHMD'
       : kind === 'binocular' ? 'Binocular duty — rooftop'
       : kind === 'radio' ? 'Control & wireless duty'
+      : kind === 'ambulance' ? 'Emergency Medical Response'
+      : kind === 'firebrigade' ? 'Fire & Safety Standby'
+      : kind === 'qbelt' ? 'Queue & Crowd Management'
+      : kind === 'square_box' ? 'Designated Deployment Point'
       : 'Access control';
     const newItem={
       id,
@@ -1327,7 +1741,11 @@ window.__DEP_TICK = function(dt) {
       // Turn right: D, ArrowRight, or E
       const turnLeft = !!(depKeysDown['a'] || depKeysDown['arrowleft'] || depKeysDown['q']);
       const turnRight = !!(depKeysDown['d'] || depKeysDown['arrowright'] || depKeysDown['e']);
-      const turnSpeed = 95; // degrees per second
+      let turnSpeed = 95; // degrees per second
+      if (o.kind === 'ambulance') turnSpeed = 75;
+      else if (o.kind === 'firebrigade') turnSpeed = 65;
+      else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
+
       if (turnLeft && !turnRight) {
         o.angle = (o.angle - turnSpeed * dt + 360) % 360;
         needsDraw = true;
@@ -1345,8 +1763,27 @@ window.__DEP_TICK = function(dt) {
       const fwd = new THREE.Vector3(Math.sin(rad), 0, -Math.cos(rad));
       let moveSpeed = 0;
       const isShift = !!depKeysDown['shift'];
-      if (moveFwd && !moveBack) moveSpeed += (isShift ? 6.2 : 3.8);
-      if (moveBack && !moveFwd) moveSpeed -= (isShift ? 3.8 : 2.4);
+
+      let baseFwdSpeed = 3.8;
+      let sprintFwdSpeed = 6.2;
+      let baseBackSpeed = 2.4;
+
+      if (o.kind === 'ambulance') {
+        baseFwdSpeed = 6.8;
+        sprintFwdSpeed = 11.8;
+        baseBackSpeed = 3.4;
+      } else if (o.kind === 'firebrigade') {
+        baseFwdSpeed = 5.4;
+        sprintFwdSpeed = 9.2;
+        baseBackSpeed = 2.8;
+      } else if (o.kind === 'square_box' || o.kind === 'qbelt' || o.kind === 'barricade') {
+        baseFwdSpeed = 3.2;
+        sprintFwdSpeed = 5.5;
+        baseBackSpeed = 2.4;
+      }
+
+      if (moveFwd && !moveBack) moveSpeed += (isShift ? sprintFwdSpeed : baseFwdSpeed);
+      if (moveBack && !moveFwd) moveSpeed -= (isShift ? (sprintFwdSpeed * 0.6) : baseBackSpeed);
 
       const isMoving = Math.abs(moveSpeed) > 0.01;
 
@@ -1425,6 +1862,16 @@ window.__DEP_TICK = function(dt) {
         node.g.rotation.y = -o.angle * Math.PI / 180;
       }
 
+      // Animate vehicle wheels (Ambulance / Fire Brigade)
+      if (node?.g?.userData?.wheels && isMoving) {
+        const wheelRadius = o.kind === 'firebrigade' ? 0.52 : 0.38;
+        const wheelRot = (moveSpeed * dt) / wheelRadius;
+        for (const w of node.g.userData.wheels) {
+          w.rotation.x += wheelRot;
+        }
+        needsDraw = true;
+      }
+
       // Animate officer limbs (Legs & Arms walking cycle)
       if (rig) {
         if (isMoving) {
@@ -1468,18 +1915,28 @@ window.__DEP_TICK = function(dt) {
         const dir = new THREE.Vector3(Math.sin(angle), 0, -Math.cos(angle));
         const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
         const itemHeight = isOfficerLike ? 1.65
+          : o.kind === 'firebrigade' ? 2.5
+          : o.kind === 'ambulance' ? 1.85
           : o.kind === 'dfmd' ? 1.8
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
           : o.kind === 'barricade' ? 0.9
+          : o.kind === 'square_box' ? 0.8
+          : o.kind === 'qbelt' ? 0.8
           : 0.6;
-        const distBehind = isOfficerLike ? 3.8
+        const distBehind = o.kind === 'firebrigade' ? 9.2
+          : o.kind === 'ambulance' ? 6.8
+          : isOfficerLike ? 3.8
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
           : 3.2;
-        const heightAbove = isOfficerLike ? 1.2 : 1.5;
+        const heightAbove = o.kind === 'firebrigade' ? 3.4
+          : o.kind === 'ambulance' ? 2.4
+          : isOfficerLike ? 1.2
+          : 1.5;
 
         const eye = new THREE.Vector3(o.x, o.y + itemHeight, o.z);
         const idealCam = eye.clone().addScaledVector(dir, -distBehind).add(new THREE.Vector3(0, heightAbove, 0));
-        const targetLook = eye.clone().addScaledVector(dir, 2.0);
+        const lookDist = o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0);
+        const targetLook = eye.clone().addScaledVector(dir, lookDist);
 
         // Spring-arm camera obstacle avoidance
         const camRayVec = idealCam.clone().sub(eye);
@@ -1498,6 +1955,18 @@ window.__DEP_TICK = function(dt) {
         controls.target.lerp(targetLook, camDecay);
         needsDraw = true;
       }
+    }
+  }
+
+  // Live emergency vehicle strobe lights animation
+  const nowBeaconSec = Date.now() * 0.008;
+  for (const {item, g} of depNodes) {
+    if (g?.userData?.beacons) {
+      for (const b of g.userData.beacons) {
+        const pulse = Math.sin(nowBeaconSec * b.speed + b.phase) > 0.15;
+        b.mat.emissiveIntensity = pulse ? b.intensity : 0.08;
+      }
+      needsDraw = true;
     }
   }
 
