@@ -99,7 +99,7 @@
       "belt": "",
       "mobile": "",
       "x": -17.17,
-      "y": 0.92,
+      "y": 0.94,
       "z": -1.83,
       "angle": 0
     },
@@ -314,10 +314,10 @@
       "duty": "Security post",
       "belt": "",
       "mobile": "",
-      "x": 61.51,
+      "x": 62.93,
       "y": 0.36,
-      "z": -88.92,
-      "angle": 80.71
+      "z": -89.23,
+      "angle": 260.32
     },
     {
       "id": "post-mvhws9hy-lx2",
@@ -366,6 +366,18 @@
       "y": 0.36,
       "z": -74.08,
       "angle": 259.49
+    },
+    {
+      "id": "post-mvi1odjt-b2x",
+      "kind": "firebrigade",
+      "name": "Fire Tender 1",
+      "duty": "Fire & Safety Standby",
+      "belt": "",
+      "mobile": "",
+      "x": 69.05,
+      "y": 0,
+      "z": -82.33,
+      "angle": 337.34
     }
   ]
 }
