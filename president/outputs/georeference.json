@@ -947,7 +947,7 @@
   ],
   "accuracy": "Displayed-graticule registration only. Fit residual measures internal consistency, not absolute position accuracy; screenshot pixels, digitisation, imagery age, geometry simplification and ground survey error remain.",
   "helipadProposal": {
-    "status": "Proposed visual arrangement; site/flight suitability not verified",
+    "status": "Circular VIP Helipad matching user aerial reference design",
     "gate": [
       -12.767634044722858,
       -65.06607714366064
@@ -967,30 +967,30 @@
       0.9854601909245974,
       -0.16990648046162346
     ],
-    "widthMetres": 51.90216843351069,
-    "depthMetres": 47.284218522023124,
-    "areaSquareMetres": 2454.15347397697,
+    "widthMetres": 33.0,
+    "depthMetres": 33.0,
+    "areaSquareMetres": 855.2985999398212,
     "corners": [
       [
-        -49.80488093374834,
-        -185.85130926008463
+        -39.74606111897317,
+        -179.59408451565395
       ],
       [
-        1.8841862782097665,
-        -190.54975781872508
+        -6.881553344509828,
+        -182.58141254287813
       ],
       [
-        6.164594497489512,
-        -143.4596800239841
+        -3.894225317285664,
+        -149.7169047684148
       ],
       [
-        -45.524472714468594,
-        -138.76123146534366
+        -36.758733091749,
+        -146.7295767411906
       ]
     ],
     "helicopterCentre": [
-      -24.92593203714587,
-      -168.38967471424198
+      -21.820143218129413,
+      -164.65549464203437
     ],
     "helicopterDisplayScale": 1.45,
     "alignmentAxis": [
@@ -1018,53 +1018,43 @@
     "carpetDestination": "Auditorium side entrance",
     "vehicleAccess": [
       [
-        -19.770464200223607,
-        -142.1063499196476
+        -20.480371860465244,
+        -149.91626085227506
       ],
       [
-        -14.459037098705302,
+        -14.4590370987053,
         -83.67371859139573
       ]
     ],
     "vehicleAccessEnd": "Main road field-side edge",
     "vehicleAccessPolygon": [
       [
-        -17.03175521901833,
-        -142.35529392191629
+        -17.741662879259966,
+        -150.16520485454373
       ],
       [
-        -11.740307674889157,
-        -84.1424638050351
+        -11.740307674889156,
+        -84.14246380503509
       ],
       [
         -17.177766522521445,
-        -83.20497337775633
+        -83.20497337775635
       ],
       [
-        -22.509173181428885,
-        -141.85740591737894
+        -23.21908084167052,
+        -149.6673168500064
       ]
     ],
     "mainRoadJoinEdge": [
       [
         -17.177766522521445,
-        -83.20497337775633
+        -83.20497337775635
       ],
       [
-        -11.740307674889157,
-        -84.1424638050351
+        -11.740307674889156,
+        -84.14246380503509
       ]
     ],
-    "vehicleAccessWidthMetres": 5.5,
-    "helipadBoardingCarpet": [
-      [
-        -22.182243585065674,
-        -168.63907134196933
-      ],
-      [
-        -19.770464200223607,
-        -142.1063499196476
-      ]
-    ]
+    "vehicleAccessWidthMetres": 5.5
   }
 }

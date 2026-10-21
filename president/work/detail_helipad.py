@@ -1,4 +1,4 @@
-"""Ultra-realistic VIP Helicopter and International ICAO-compliant Helipad."""
+"""Ultra-realistic VIP Helicopter and Circular Helipad matching user reference images."""
 import json
 import math
 from pathlib import Path
@@ -6,25 +6,30 @@ import numpy as np
 
 def add_helipad(objects, colors, geo):
     colors.update(
-        helipadSurface='#383d42',     # Dark asphalt safety apron
-        helipadEdge='#e2e8f0',        # White safety perimeter trim
-        padConcrete='#2c3136',        # Textured non-slip landing core
-        padChevronRed='#b91c1c',      # ICAO safety perimeter chevron red
-        padChevronWhite='#f8fafc',    # ICAO safety perimeter chevron white
-        padLightGreen='#10b981',      # Elevated green landing light lens
-        padLightRed='#ef4444',        # Obstruction red warning beacon
-        padWindsockOrange='#ea580c',  # Aviation windsock day-glo orange
-        padWindsockWhite='#f8fafc',   # Aviation windsock white
-        heliWhite='#f8fafc',          # High-gloss aviation white fuselage
-        heliBlue='#10385c',           # Deep royal navy blue lower hull
-        heliGold='#c99a3e',           # VIP metallic gold cheatline stripe
-        heliGlass='#162f40',          # Transparent tinted cockpit canopy
-        heliMetal='#64748b',          # Titanium & aluminum rotor mechanism
-        heliDark='#181c22',           # Anti-glare shield & cockpit interior
-        heliNavRed='#ef4444',         # Port navigation light & beacon
-        heliNavGreen='#10b981',       # Starboard navigation light
-        heliYellow='#fbbf24',         # Safety yellow rotor tips & stencils
-        redCarpet='#991b1b'           # VIP red carpet runner
+        padConcrete='#525860',        # Slate gray inner touchdown circle (TLOF)
+        padOuterRim='#cbd5e1',        # Light concrete border rim
+        padAsphalt='#3b434a',         # Dark gray asphalt ring & approach road
+        padRoadCurb='#f8fafc',        # Crisp white road curb border
+        padLineWhite='#f8fafc',       # Solid white touchdown guide ring & markings
+        padLineYellow='#facc15',      # Aviation yellow ring & stencils ('VIP', '12 t')
+        padDashedRed='#ef4444',       # Dashed red safety circle
+        padLightTurquoise='#2dd4bf',  # Perimeter dome lights (turquoise glow)
+        padLightMetal='#475569',      # Perimeter dome light bezel
+        padPoleDark='#27272a',        # Floodlight tower dark mast
+        padPoleYellow='#facc15',      # Floodlight top yellow box
+        padWindsockOrange='#f97316',  # Windsock orange cone
+        padWindsockWhite='#f8fafc',   # Windsock white cone
+        # VIP Helicopter colors
+        heliWhite='#f8fafc',          # Upper fuselage white
+        heliBlue='#0d2b45',           # Deep navy blue lower hull & boom
+        heliGlass='#16202c',          # Dark tinted panoramic windows
+        heliMetal='#64748b',          # Rotor mechanics & landing gear struts
+        heliDark='#181c22',           # Tires & cockpit anti-glare
+        heliTirangaSaffron='#ff9933', # Indian flag top stripe
+        heliTirangaWhite='#ffffff',   # Indian flag center stripe
+        heliTirangaGreen='#138808',   # Indian flag bottom stripe
+        heliTirangaNavy='#000080',    # Ashoka chakra dot
+        redCarpet='#991b1b'           # Campus VIP red carpet runner
     )
 
     def add(name, p, s, mat, shape='box', rot=0):
@@ -62,120 +67,116 @@ def add_helipad(objects, colors, geo):
     angle = math.atan2(-u[1], u[0])
 
     # =========================================================================
-    # 1. HELIPAD GROUND APRON & TLOF (TOUCHDOWN & LIFT-OFF) SURFACE
+    # 1. CIRCULAR HELIPAD PLATFORM (EXACT MATCH TO REFERENCE PHOTOS)
     # =========================================================================
-    # Main asphalt safety apron
-    add('Helipad safety apron slab', [centre[0], 0.22, centre[1]], [width, 0.22, depth], 'helipadSurface', rot=angle)
+    # Concentric Radii (in meters):
+    # - R_outer_rim: 16.5m (Light concrete border rim with perimeter dome lights)
+    # - R_asphalt_ring: 15.0m (Dark asphalt circular ring)
+    # - R_yellow_ring: 12.8m (Solid aviation yellow safety circle)
+    # - R_white_ring: 11.2m (Concentric solid white guide circle)
+    # - R_dashed_red: 8.6m (Broken dashed red/salmon warning circle)
+    # - R_slate_core: 9.8m (Slate gray touchdown core surface)
 
-    # Circular non-slip touchdown core (TLOF)
-    pad_radius = min(width, depth) * 0.38
-    add('Helipad TLOF asphalt landing core', [centre[0], 0.25, centre[1]], [pad_radius * 2, 0.05, pad_radius * 2], 'padConcrete', 'cylinder')
+    r_outer_rim = 16.5
+    r_asphalt = 15.0
+    r_slate_core = 9.8
+    r_yellow_ring = 12.8
+    r_white_ring = 11.2
+    r_dashed_red = 8.6
 
-    # Alternating Red & White ICAO Safety Perimeter Border Kerbs
-    half_w, half_d = width / 2, depth / 2
-    for x_step in np.linspace(-half_w + 1.0, half_w - 1.0, int(width / 2.2)):
-        mat = 'padChevronRed' if int(x_step) % 2 == 0 else 'padChevronWhite'
-        p1 = centre + u * x_step + zaxis * half_d
-        p2 = centre + u * x_step - zaxis * half_d
-        add('Helipad perimeter kerb block', [p1[0], 0.36, p1[1]], [1.8, 0.06, 0.28], mat, rot=angle)
-        add('Helipad perimeter kerb block', [p2[0], 0.36, p2[1]], [1.8, 0.06, 0.28], mat, rot=angle)
-    for z_step in np.linspace(-half_d + 1.0, half_d - 1.0, int(depth / 2.2)):
-        mat = 'padChevronWhite' if int(z_step) % 2 == 0 else 'padChevronRed'
-        p1 = centre + u * half_w + zaxis * z_step
-        p2 = centre - u * half_w + zaxis * z_step
-        add('Helipad perimeter kerb block', [p1[0], 0.36, p1[1]], [0.28, 0.06, 1.8], mat, rot=angle)
-        add('Helipad perimeter kerb block', [p2[0], 0.36, p2[1]], [0.28, 0.06, 1.8], mat, rot=angle)
+    # 1.1 Outer Light Concrete Border Rim (Raised platform disc)
+    add('Helipad circular light concrete perimeter rim', [centre[0], 0.22, centre[1]], [r_outer_rim, 0.22, r_outer_rim], 'padOuterRim', 'cylinder')
 
-    # Touchdown guide ring: outer yellow safety ring & inner white ring
-    inner_ring_radius = pad_radius * 0.82
-    for k in range(48):
-        t = 2 * math.pi * k / 48
-        # Outer yellow ring
-        p_out = centre + pad_radius * np.array([math.cos(t), math.sin(t)])
-        add('Helipad yellow safety circle segment', [p_out[0], 0.275, p_out[1]], [pad_radius * 2 * math.pi / 48 + 0.08, 0.02, 0.40], 'heliYellow', rot=math.pi / 2 - t)
-        # Inner white touchdown circle
-        p_in = centre + inner_ring_radius * np.array([math.cos(t), math.sin(t)])
-        add('Helipad white touchdown ring segment', [p_in[0], 0.28, p_in[1]], [inner_ring_radius * 2 * math.pi / 48 + 0.05, 0.02, 0.35], 'heliWhite', rot=math.pi / 2 - t)
+    # 1.2 Dark Asphalt Circular Apron Ring
+    add('Helipad dark asphalt circular apron', [centre[0], 0.23, centre[1]], [r_asphalt, 0.23, r_asphalt], 'padAsphalt', 'cylinder')
 
-    # Standard Aviation 'H' Identification Mark (Crisp white with safety yellow bevel)
-    h_upright_len = 7.5
-    h_crossbar_len = 5.6
-    h_stroke = 0.95
-    for x in [-2.35, 2.35]:
+    # 1.3 Inner Slate Gray Touchdown Core (TLOF)
+    add('Helipad TLOF slate touchdown core', [centre[0], 0.24, centre[1]], [r_slate_core, 0.24, r_slate_core], 'padConcrete', 'cylinder')
+
+    # 1.4 Solid Yellow Safety Ring (64 smooth segments)
+    n_yellow = 64
+    seg_len_y = (2 * math.pi * r_yellow_ring) / n_yellow + 0.08
+    for k in range(n_yellow):
+        t = 2 * math.pi * k / n_yellow
+        p = centre + r_yellow_ring * np.array([math.cos(t), math.sin(t)])
+        add('Helipad yellow safety circle segment', [p[0], 0.252, p[1]], [seg_len_y, 0.02, 0.42], 'padLineYellow', rot=math.pi / 2 - t)
+
+    # 1.5 Solid White Guide Ring (64 smooth segments)
+    n_white = 64
+    seg_len_w = (2 * math.pi * r_white_ring) / n_white + 0.06
+    for k in range(n_white):
+        t = 2 * math.pi * k / n_white
+        p = centre + r_white_ring * np.array([math.cos(t), math.sin(t)])
+        add('Helipad white guide circle segment', [p[0], 0.253, p[1]], [seg_len_w, 0.02, 0.35], 'padLineWhite', rot=math.pi / 2 - t)
+
+    # 1.6 Dashed Red / Coral Warning Ring (36 dashes, alternating on/off)
+    n_dashed = 72
+    seg_len_r = (2 * math.pi * r_dashed_red) / n_dashed + 0.02
+    for k in range(0, n_dashed, 2):
+        t = 2 * math.pi * k / n_dashed
+        p = centre + r_dashed_red * np.array([math.cos(t), math.sin(t)])
+        add('Helipad red dashed safety circle segment', [p[0], 0.254, p[1]], [seg_len_r, 0.02, 0.28], 'padDashedRed', rot=math.pi / 2 - t)
+
+    # 1.7 Perimeter Dome Lights along Outer Light Gray Rim (Turquoise/Green LEDs)
+    n_lights = 28
+    r_lights = 15.75
+    for k in range(n_lights):
+        t = 2 * math.pi * k / n_lights
+        p = centre + r_lights * np.array([math.cos(t), math.sin(t)])
+        add('Perimeter dome light bezel', [p[0], 0.24, p[1]], [0.32, 0.04, 0.32], 'padLightMetal', 'cylinder')
+        add('Perimeter dome light turquoise lens', [p[0], 0.27, p[1]], [0.20, 0.08, 0.20], 'padLightTurquoise', 'cylinder')
+
+    # 1.8 Center White Aviation 'H'
+    h_upright_len = 7.2
+    h_crossbar_len = 4.4
+    h_stroke = 0.90
+    for x in [-2.2, 2.2]:
         p = centre + u * x
-        add('Helipad H upright stroke', [p[0], 0.29, p[1]], [h_stroke, 0.025, h_upright_len], 'heliWhite', rot=angle)
-    add('Helipad H crossbar stroke', [centre[0], 0.29, centre[1]], [h_crossbar_len, 0.025, h_stroke], 'heliWhite', rot=angle)
+        add('Helipad H upright stroke', [p[0], 0.262, p[1]], [h_stroke, 0.025, h_upright_len], 'padLineWhite', rot=angle)
+    add('Helipad H crossbar stroke', [centre[0], 0.262, centre[1]], [h_crossbar_len, 0.025, h_stroke], 'padLineWhite', rot=angle)
 
-    # Helipad Stencil Markings: MTOW (12 t) & Max D-Value (22 m)
-    p_t = centre + zaxis * 5.2 - u * 3.8
-    add('Helipad MTOW weight rating stencil', [p_t[0], 0.285, p_t[1]], [2.4, 0.02, 1.2], 'heliWhite', rot=angle)
-    p_d = centre - zaxis * 5.2 + u * 3.8
-    add('Helipad D-value rating stencil', [p_d[0], 0.285, p_d[1]], [2.4, 0.02, 1.2], 'heliWhite', rot=angle)
+    # 1.9 Yellow Aviation Stencils: "VIP" and "12 t"
+    # Helper to add stencil box segment relative to helipad center (u = x, zaxis = z)
+    def add_stencil(text, center_u, center_z, letter_spacing=1.3):
+        cur_u = center_u
+        for char in text:
+            if char == 'V':
+                add('Stencil V left', [centre[0] + u[0] * (cur_u - 0.25) + zaxis[0] * center_z, 0.265, centre[1] + u[1] * (cur_u - 0.25) + zaxis[1] * center_z], [0.22, 0.02, 1.4], 'padLineYellow', rot=angle + 0.22)
+                add('Stencil V right', [centre[0] + u[0] * (cur_u + 0.25) + zaxis[0] * center_z, 0.265, centre[1] + u[1] * (cur_u + 0.25) + zaxis[1] * center_z], [0.22, 0.02, 1.4], 'padLineYellow', rot=angle - 0.22)
+            elif char == 'I':
+                add('Stencil I bar', [centre[0] + u[0] * cur_u + zaxis[0] * center_z, 0.265, centre[1] + u[1] * cur_u + zaxis[1] * center_z], [0.24, 0.02, 1.4], 'padLineYellow', rot=angle)
+            elif char == 'P':
+                add('Stencil P stem', [centre[0] + u[0] * (cur_u - 0.3) + zaxis[0] * center_z, 0.265, centre[1] + u[1] * (cur_u - 0.3) + zaxis[1] * center_z], [0.22, 0.02, 1.4], 'padLineYellow', rot=angle)
+                add('Stencil P top', [centre[0] + u[0] * (cur_u + 0.05) + zaxis[0] * (center_z + 0.6), 0.265, centre[1] + u[1] * (cur_u + 0.05) + zaxis[1] * (center_z + 0.6)], [0.65, 0.02, 0.22], 'padLineYellow', rot=angle)
+                add('Stencil P mid', [centre[0] + u[0] * (cur_u + 0.05) + zaxis[0] * (center_z), 0.265, centre[1] + u[1] * (cur_u + 0.05) + zaxis[1] * (center_z)], [0.65, 0.02, 0.22], 'padLineYellow', rot=angle)
+                add('Stencil P loop', [centre[0] + u[0] * (cur_u + 0.38) + zaxis[0] * (center_z + 0.3), 0.265, centre[1] + u[1] * (cur_u + 0.38) + zaxis[1] * (center_z + 0.3)], [0.22, 0.02, 0.6], 'padLineYellow', rot=angle)
+            elif char == '1':
+                add('Stencil 1 stem', [centre[0] + u[0] * cur_u + zaxis[0] * center_z, 0.265, centre[1] + u[1] * cur_u + zaxis[1] * center_z], [0.24, 0.02, 1.4], 'padLineYellow', rot=angle)
+                add('Stencil 1 serif', [centre[0] + u[0] * (cur_u - 0.2) + zaxis[0] * (center_z + 0.5), 0.265, centre[1] + u[1] * (cur_u - 0.2) + zaxis[1] * (center_z + 0.5)], [0.35, 0.02, 0.22], 'padLineYellow', rot=angle + 0.4)
+            elif char == '2':
+                add('Stencil 2 top', [centre[0] + u[0] * cur_u + zaxis[0] * (center_z + 0.6), 0.265, centre[1] + u[1] * cur_u + zaxis[1] * (center_z + 0.6)], [0.8, 0.02, 0.22], 'padLineYellow', rot=angle)
+                add('Stencil 2 right', [centre[0] + u[0] * (cur_u + 0.3) + zaxis[0] * (center_z + 0.3), 0.265, centre[1] + u[1] * (cur_u + 0.3) + zaxis[1] * (center_z + 0.3)], [0.22, 0.02, 0.6], 'padLineYellow', rot=angle)
+                add('Stencil 2 mid', [centre[0] + u[0] * cur_u + zaxis[0] * center_z, 0.265, centre[1] + u[1] * cur_u + zaxis[1] * center_z], [0.8, 0.02, 0.22], 'padLineYellow', rot=angle)
+                add('Stencil 2 left', [centre[0] + u[0] * (cur_u - 0.3) + zaxis[0] * (center_z - 0.3), 0.265, centre[1] + u[1] * (cur_u - 0.3) + zaxis[1] * (center_z - 0.3)], [0.22, 0.02, 0.6], 'padLineYellow', rot=angle)
+                add('Stencil 2 bot', [centre[0] + u[0] * cur_u + zaxis[0] * (center_z - 0.6), 0.265, centre[1] + u[1] * cur_u + zaxis[1] * (center_z - 0.6)], [0.85, 0.02, 0.22], 'padLineYellow', rot=angle)
+            elif char == 't':
+                add('Stencil t stem', [centre[0] + u[0] * cur_u + zaxis[0] * (center_z - 0.1), 0.265, centre[1] + u[1] * cur_u + zaxis[1] * (center_z - 0.1)], [0.22, 0.02, 1.2], 'padLineYellow', rot=angle)
+                add('Stencil t cross', [centre[0] + u[0] * cur_u + zaxis[0] * (center_z + 0.2), 0.265, centre[1] + u[1] * cur_u + zaxis[1] * (center_z + 0.2)], [0.65, 0.02, 0.22], 'padLineYellow', rot=angle)
+            cur_u += letter_spacing
 
-    # Flight Approach & Departure Guidance Arrows
-    for fwd in [-1, 1]:
-        p_arr = centre + zaxis * (fwd * (inner_ring_radius + 1.8))
-        add('Flight corridor approach arrow shaft', [p_arr[0], 0.28, p_arr[1]], [0.65, 0.02, 3.2], 'heliYellow', rot=angle)
-        p_head = p_arr + zaxis * (fwd * 1.8)
-        add('Flight corridor approach arrowhead', [p_head[0], 0.282, p_head[1]], [1.8, 0.02, 0.75], 'heliYellow', rot=angle)
-
-    # =========================================================================
-    # 2. HELIPAD PERIMETER LIGHTING & AVIATION WINDSOCK
-    # =========================================================================
-    # 24 Elevated Green Perimeter Landing Lights (ICAO Omnidirectional Green LEDs)
-    for k in range(24):
-        t = 2 * math.pi * k / 24
-        p_light = centre + (pad_radius + 0.65) * np.array([math.cos(t), math.sin(t)])
-        add('Perimeter light base flange', [p_light[0], 0.28, p_light[1]], [0.22, 0.05, 0.22], 'heliYellow', 'cylinder')
-        add('Perimeter light elevated pole', [p_light[0], 0.40, p_light[1]], [0.08, 0.22, 0.08], 'heliYellow', 'cylinder')
-        add('Perimeter light green LED lens', [p_light[0], 0.54, p_light[1]], [0.12, 0.12, 0.12], 'padLightGreen', 'sphereSmooth')
-
-    # 4 Corner Floodlight Towers with Red Obstruction Beacons
-    corner_coords = [
-        (-half_w + 2.5, -half_d + 2.5),
-        (half_w - 2.5, -half_d + 2.5),
-        (half_w - 2.5, half_d - 2.5),
-        (-half_w + 2.5, half_d - 2.5)
-    ]
-    for cx, cz in corner_coords:
-        p_tower = centre + u * cx + zaxis * cz
-        add('Helipad floodlight concrete pedestal', [p_tower[0], 0.35, p_tower[1]], [0.75, 0.30, 0.75], 'padConcrete')
-        add('Helipad floodlight mast pole', [p_tower[0], 2.55, p_tower[1]], [0.12, 4.2, 0.12], 'heliMetal', 'cylinder')
-        add('Helipad floodlight fixture head', [p_tower[0], 4.60, p_tower[1]], [0.55, 0.25, 0.35], 'heliDark', rot=angle)
-        add('Helipad floodlight lens face', [p_tower[0], 4.58, p_tower[1]], [0.48, 0.20, 0.05], 'heliWhite', rot=angle)
-        add('Helipad corner red obstruction light', [p_tower[0], 4.85, p_tower[1]], [0.15, 0.16, 0.15], 'padLightRed', 'sphereSmooth')
-
-    # Illuminated Aviation Windsock Assembly
-    p_wind = centre + u * (-half_w + 4.2) + zaxis * (-half_d + 4.2)
-    add('Windsock foundation pedestal', [p_wind[0], 0.35, p_wind[1]], [0.9, 0.25, 0.9], 'padConcrete', 'cylinder')
-    add('Windsock steel tilt mast', [p_wind[0], 2.50, p_wind[1]], [0.08, 4.2, 0.08], 'heliMetal', 'cylinder')
-    p_hoop = p_wind + np.array([0.45, 4.45])
-    add('Windsock swivel frame hoop', [p_hoop[0], 4.50, p_wind[1]], [0.48, 0.48, 0.05], 'heliYellow', 'torus', rot=math.pi / 2)
-    wind_dir = np.array([0.85, 0.25])
-    wind_dir /= np.linalg.norm(wind_dir)
-    for i, w_mat in enumerate(['padWindsockOrange', 'padWindsockWhite', 'padWindsockOrange', 'padWindsockWhite', 'padWindsockOrange']):
-        p_cone = p_wind + wind_dir * (0.65 + i * 0.42)
-        r_cone = 0.42 - i * 0.055
-        add('Windsock cone fabric segment', [p_cone[0], 4.48 - i * 0.04, p_cone[1]], [r_cone, 0.44, r_cone], w_mat, 'cylinder', rot=angle + 0.3)
-    add('Windsock mast top red beacon', [p_wind[0], 4.82, p_wind[1]], [0.14, 0.15, 0.14], 'padLightRed', 'sphereSmooth')
-
-    # Mobile Fire Extinguisher Station (Twin-cylinder foam/powder unit)
-    p_fire = centre + u * (half_w - 3.8) + zaxis * (-half_d + 4.5)
-    add('Fire station yellow base plate', [p_fire[0], 0.35, p_fire[1]], [1.2, 0.06, 0.9], 'heliYellow')
-    for fx in [-0.22, 0.22]:
-        p_cyl = p_fire + u * fx
-        add('Emergency fire foam cylinder', [p_cyl[0], 0.85, p_cyl[1]], [0.34, 0.92, 0.34], 'heliNavRed', 'cylinder')
-        add('Cylinder chrome pressure valve', [p_cyl[0], 1.35, p_cyl[1]], [0.10, 0.12, 0.10], 'heliMetal', 'cylinder')
-    add('Fire cart push handle', [p_fire[0], 1.15, p_fire[1] + 0.35], [0.65, 0.04, 0.04], 'heliMetal')
-    add('Fire cart rubber wheel', [p_fire[0] - 0.45, 0.48, p_fire[1] + 0.35], [0.08, 0.30, 0.30], 'heliDark', 'cylinder')
-    add('Fire cart rubber wheel', [p_fire[0] + 0.45, 0.48, p_fire[1] + 0.35], [0.08, 0.30, 0.30], 'heliDark', 'cylinder')
+    # Place "VIP" on upper-left quadrant, and "12 t" on lower-right quadrant
+    add_stencil("VIP", -4.8, 3.2, letter_spacing=1.1)
+    add_stencil("12t", 3.2, -3.2, letter_spacing=1.0)
 
     # =========================================================================
-    # 3. VEHICLE CONNECTOR & RED CARPET PASSAGEWAYS
+    # 2. RADIAL APPROACH LINK ROAD ("MAIN GATE LINK ROAD")
     # =========================================================================
+    # Seamless connection from circular helipad rim to main road near campus gate
     helicopter_scale = 1.45
-    heli = centre + outward * 4 - u * (1.9 * helicopter_scale)
-    road_start = centre - outward * (depth / 2 - 1)
+    heli = centre.copy()  # Helicopter is parked right at touchdown center
+
+    # Road starts at circular rim (radius 15.0m) towards the gate
+    road_start = centre - outward * (r_asphalt - 0.2)
     direction = gate - road_start
     direction /= np.linalg.norm(direction)
     side = np.array([direction[1], -direction[0]])
@@ -185,9 +186,12 @@ def add_helipad(objects, colors, geo):
         t = np.dot(road_edge - start, original_outward) / np.dot(direction, original_outward)
         return start + direction * t
 
-    ends = [end_at_road(road_start - side * 2.75), end_at_road(road_start + side * 2.75)]
+    road_w = 5.5
+    half_rw = road_w / 2
+    ends = [end_at_road(road_start - side * half_rw), end_at_road(road_start + side * half_rw)]
     road_end = (ends[0] + ends[1]) / 2
-    polygon = np.array([road_start - side * 2.75, ends[0], ends[1], road_start + side * 2.75])
+
+    polygon = np.array([road_start - side * half_rw, ends[0], ends[1], road_start + side * half_rw])
     signed = sum(polygon[i, 0] * polygon[(i + 1) % 4, 1] - polygon[(i + 1) % 4, 0] * polygon[i, 1] for i in range(4))
     if signed < 0:
         polygon = polygon[::-1]
@@ -202,7 +206,29 @@ def add_helipad(objects, colors, geo):
         faces.extend([[i, j, j + 4], [i, j + 4, i + 4]])
     from detail_lotus_v8 import MESHES
     MESHES['helipadAccessTrimmed'] = {'vertices': vertices, 'faces': faces}
-    add('Proposed vehicle access • stops at main road edge', [mid[0], 0.30, mid[1]], [span[0], 0.12, span[1]], 'paving', 'helipadAccessTrimmed')
+
+    # 2.1 Asphalt road surface
+    add('Proposed vehicle access • stops at main road edge', [mid[0], 0.24, mid[1]], [span[0], 0.12, span[1]], 'padAsphalt', 'helipadAccessTrimmed')
+
+    # 2.2 White raised curbs along left and right edges
+    road_vector = road_end - road_start
+    road_len = np.linalg.norm(road_vector)
+    road_rot = math.atan2(direction[0], direction[1])
+
+    curb_w = 0.32
+    curb_h = 0.14
+    for sign in [-1, 1]:
+        curb_center = (road_start + road_end) / 2 + side * (sign * (half_rw - curb_w / 2))
+        add('Link road white curb border', [curb_center[0], 0.32, curb_center[1]], [curb_w, curb_h, road_len], 'padRoadCurb', rot=road_rot)
+
+    # 2.3 Dashed white centerline along the approach road
+    dash_len = 2.0
+    dash_gap = 2.0
+    dash_period = dash_len + dash_gap
+    num_dashes = int(road_len / dash_period)
+    for i in range(1, num_dashes):
+        d_pos = road_start + direction * (i * dash_period)
+        add('Link road dashed white centerline', [d_pos[0], 0.26, d_pos[1]], [0.22, 0.02, dash_len], 'padLineWhite', rot=road_rot)
 
     drive = road_end - road_start
     def approach_distance(o):
@@ -212,16 +238,44 @@ def add_helipad(objects, colors, geo):
 
     objects[:] = [o for o in objects if not (o['name'].startswith('Northern enclosure wall') and approach_distance(o) < 3.4)]
 
-    # Boarding red carpet
-    helicopter_exit = heli + u * (1.9 * helicopter_scale)
-    road_normal = np.array([drive[1], -drive[0]]) / np.linalg.norm(drive)
-    if np.dot(road_normal, u) < 0:
-        road_normal = -road_normal
-    boarding_end = road_start.copy()
-    boarding_delta = boarding_end - helicopter_exit
-    boarding_centre = (helicopter_exit + boarding_end) / 2
-    add('Short red carpet • helicopter to vehicle road only', [boarding_centre[0], 0.36, boarding_centre[1]], [2.4, 0.025, np.linalg.norm(boarding_delta)], 'redCarpet', rot=math.atan2(boarding_delta[0], boarding_delta[1]))
+    # =========================================================================
+    # 3. PERIMETER FLOODLIGHT POLES & WINDSOCK
+    # =========================================================================
+    # 5 Tall Dark Mast Poles with Yellow Floodlight Box Heads
+    # Spaced outside circular pad at radius ~21.5m, matching top-down reference photo
+    pole_angles = [
+        0.50 * math.pi,    # Top / North
+        0.12 * math.pi,    # Upper-right / East
+        -0.28 * math.pi,   # Lower-right / Southeast
+        -0.68 * math.pi,   # Lower-left / Southwest (near approach road)
+        0.88 * math.pi     # Upper-left / West
+    ]
+    r_pole = 21.5
+    for p_ang in pole_angles:
+        p_pole = centre + r_pole * np.array([math.cos(p_ang), math.sin(p_ang)])
+        # Tall dark cylindrical mast
+        add('Perimeter floodlight dark mast', [p_pole[0], 2.85, p_pole[1]], [0.14, 5.5, 0.14], 'padPoleDark', 'cylinder')
+        # Distinct yellow floodlight box head
+        add('Perimeter floodlight yellow head box', [p_pole[0], 5.65, p_pole[1]], [0.65, 0.48, 0.55], 'padPoleYellow', rot=p_ang + math.pi / 2)
+        # White floodlight lamp face facing toward helipad center
+        vec_to_center = centre - p_pole
+        face_rot = math.atan2(vec_to_center[0], vec_to_center[1])
+        add('Perimeter floodlight lamp reflector', [p_pole[0], 5.62, p_pole[1]], [0.55, 0.38, 0.05], 'heliWhite', rot=face_rot)
 
+    # Slender Aviation Windsock (at ~10 o'clock near outer rim)
+    wind_ang = 0.72 * math.pi
+    p_wind = centre + 16.2 * np.array([math.cos(wind_ang), math.sin(wind_ang)])
+    add('Windsock foundation collar', [p_wind[0], 0.30, p_wind[1]], [0.45, 0.20, 0.45], 'padConcrete', 'cylinder')
+    add('Windsock slender mast', [p_wind[0], 2.60, p_wind[1]], [0.08, 4.8, 0.08], 'padPoleDark', 'cylinder')
+    add('Windsock swivel frame hoop', [p_wind[0], 5.0, p_wind[1]], [0.35, 0.35, 0.05], 'padPoleYellow', 'torus', rot=math.pi / 2)
+    wind_vec = np.array([0.8, 0.35])
+    wind_vec /= np.linalg.norm(wind_vec)
+    for i, w_mat in enumerate(['padWindsockOrange', 'padWindsockWhite', 'padWindsockOrange', 'padWindsockWhite']):
+        p_cone = p_wind + wind_vec * (0.45 + i * 0.36)
+        r_cone = 0.34 - i * 0.05
+        add('Windsock cone fabric segment', [p_cone[0], 5.0 - i * 0.04, p_cone[1]], [r_cone, 0.36, r_cone], w_mat, 'cylinder', rot=angle + 0.3)
+
+    # Campus VIP Red Carpet (inside campus: main gate to auditorium entrance)
     steps = sorted([o for o in objects if o['name'].startswith('External black entry step')], key=lambda o: o['p'][1])
     entry_z = steps[0]['p'][2]
     turn = np.array([gate[0], entry_z])
@@ -241,156 +295,116 @@ def add_helipad(objects, colors, geo):
     carpet_route.append([door_x, entry_z])
 
     # =========================================================================
-    # 4. ULTRA-REALISTIC VIP TWIN-TURBINE HELICOPTER
+    # 4. ULTRA-REALISTIC VIP HELICOPTER WITH WHEELED GEAR & INDIAN FLAG
     # =========================================================================
     facing = -outward
     yaw = math.atan2(-facing[0], -facing[1])
     c, s = math.cos(yaw), math.sin(yaw)
 
-    def part(name, p, size, mat, shape='box', r=0):
+    def part(name, p, size, mat, shape='box', r=0, rot=0):
+        rot_val = r if r != 0 else rot
         x, y, z = p
         x *= helicopter_scale
         z *= helicopter_scale
-        y = 0.33 + (y - 0.54) * helicopter_scale
-        add('Parked helicopter • ' + name, [heli[0] + c * x + s * z, y, heli[1] - s * x + c * z], [v * helicopter_scale for v in size], mat, shape, yaw + r)
+        y = 0.28 + (y - 0.50) * helicopter_scale
+        add('Parked helicopter • ' + name, [heli[0] + c * x + s * z, y, heli[1] - s * x + c * z], [v * helicopter_scale for v in size], mat, shape, yaw + rot_val)
 
-    # 4.1 FUSELAGE & MAIN AERO SHELL
-    part('aerodynamic main fuselage', [0, 2.22, 0.05], [1.38, 1.25, 3.45], 'heliWhite', 'sphereSmooth')
-    part('royal navy blue lower hull', [0, 1.55, 0.15], [1.25, 0.58, 3.05], 'heliBlue', 'sphereSmooth')
-    # Metallic gold cheatline separating white top and blue bottom
-    for side in [-1, 1]:
-        part('metallic gold cheatline stripe', [side * 1.37, 1.82, 0.15], [0.03, 0.08, 3.15], 'heliGold')
+    # 4.1 FUSELAGE: Royal Navy Blue Lower Hull & Gloss White Upper Cabin
+    part('royal navy blue lower belly hull', [0, 1.45, 0.15], [1.38, 0.72, 3.8], 'heliBlue', 'sphereSmooth')
+    part('gloss white upper VIP passenger cabin', [0, 2.15, 0.1], [1.36, 0.85, 3.6], 'heliWhite', 'sphereSmooth')
 
-    # 4.2 NOSE CONE & WEATHER RADOME
-    part('nose radome cone', [0, 1.95, -3.35], [0.65, 0.55, 0.65], 'heliWhite', 'sphereSmooth')
-    part('radome front tip', [0, 1.95, -3.72], [0.22, 0.22, 0.22], 'heliDark', 'sphereSmooth')
-    for side in [-1, 1]:
-        part('pitot static probe', [side * 0.48, 1.95, -3.65], [0.018, 0.018, 0.45], 'heliMetal', 'cylinder')
+    # 4.2 COCKPIT CANOPY & NOSE
+    part('cockpit panoramic windshield canopy', [0, 2.18, -2.25], [1.22, 0.78, 1.35], 'heliGlass', 'sphereSmooth')
+    part('cockpit aerodynamic nose cone', [0, 1.62, -2.95], [1.05, 0.58, 0.95], 'heliBlue', 'sphereSmooth')
+    part('cockpit centre windshield post', [0, 2.25, -2.65], [0.06, 0.85, 0.12], 'heliWhite')
 
-    # 4.3 COCKPIT CANOPY GLAZING & WIRE CUTTERS
-    part('cockpit panoramic windshield', [0, 2.45, -2.4], [1.16, 0.82, 1.25], 'heliGlass', 'sphereSmooth')
-    part('cockpit centre windshield divider', [0, 2.45, -3.61], [0.055, 1.25, 0.06], 'heliWhite')
-    for side in [-1, 1]:
-        part('lower chin observation glass', [side * 0.42, 1.62, -2.85], [0.38, 0.48, 0.38], 'heliGlass', 'sphereSmooth')
-        part('overhead green tinted skylight window', [side * 0.45, 2.92, -2.05], [0.38, 0.06, 0.55], 'heliGlass')
-        part('windshield articulated wiper', [side * 0.38, 1.78, -3.15], [0.014, 0.45, 0.014], 'heliDark', r=0.25 * side)
+    # 4.3 VIP PASSENGER CABIN WINDOWS (Row of side windows)
+    for side_x in [-1, 1]:
+        for win_z in [-0.95, -0.25, 0.45, 1.15]:
+            part('VIP panoramic cabin passenger window', [side_x * 1.37, 2.15, win_z], [0.04, 0.44, 0.54], 'heliGlass', rot=math.pi / 2)
+            part('passenger window chrome frame', [side_x * 1.38, 2.15, win_z], [0.02, 0.48, 0.58], 'heliMetal', rot=math.pi / 2)
 
-    # Wire Strike Protection System (WSPS) cable cutters
-    part('upper WSPS wire cutter blade', [0, 3.12, -2.35], [0.045, 0.35, 0.22], 'heliMetal')
-    part('lower WSPS wire cutter blade', [0, 1.48, -3.15], [0.045, 0.28, 0.18], 'heliMetal')
+    # 4.4 TWIN TURBINE ENGINES & EXHAUST HOUSING
+    part('roof engine turbine housing cowl', [0, 2.78, 0.65], [0.95, 0.48, 2.2], 'heliWhite', 'sphereSmooth')
+    part('turbine dual air intake mouth', [0, 2.82, -0.45], [0.82, 0.32, 0.25], 'heliDark')
+    for side_x in [-1, 1]:
+        part('titanium canted exhaust tailpipe', [side_x * 0.55, 2.75, 1.85], [0.25, 0.25, 0.55], 'heliMetal', 'cylinder', r=0.15 * side_x)
 
-    # 4.4 COCKPIT & VIP CABIN INTERIOR
-    part('cockpit glare shield', [0, 2.38, -2.75], [1.05, 0.10, 0.55], 'heliDark')
-    for side in [-1, 1]:
-        part('glass cockpit MFD screen', [side * 0.28, 2.32, -2.82], [0.24, 0.16, 0.02], 'padLightGreen')
-    part('centre avionics pedestal', [0, 1.85, -2.45], [0.26, 0.45, 0.75], 'heliDark')
-    for side in [-1, 1]:
-        part('pilot leather bucket seat', [side * 0.35, 1.95, -2.10], [0.38, 0.55, 0.38], 'heliDark')
-        part('pilot seat headrest', [side * 0.35, 2.32, -1.95], [0.22, 0.18, 0.14], 'heliDark')
-        part('cyclic flight control stick', [side * 0.35, 1.85, -2.45], [0.02, 0.35, 0.02], 'heliMetal', 'cylinder')
-    for side in [-1, 1]:
-        part('VIP executive club chair', [side * 0.45, 1.95, 0.25], [0.44, 0.55, 0.44], 'heliDark')
-        part('VIP executive club chair', [side * 0.45, 1.95, 0.95], [0.44, 0.55, 0.44], 'heliDark')
+    # 4.5 TRICYCLE WHEELED LANDING GEAR (EXACT MATCH TO REFERENCE PHOTO - NO SKIDS)
+    # Front Nose Gear (under cockpit)
+    part('nose landing gear oleo strut', [0, 0.92, -2.25], [0.08, 0.85, 0.08], 'heliMetal', 'cylinder')
+    part('nose gear steering yoke', [0, 0.65, -2.25], [0.22, 0.14, 0.14], 'heliDark')
+    part('nose gear rubber tire', [0, 0.52, -2.25], [0.14, 0.42, 0.42], 'heliDark', 'cylinder')
+    part('nose gear chrome hub', [0, 0.52, -2.25], [0.15, 0.22, 0.22], 'heliMetal', 'cylinder')
 
-    # 4.5 CABIN DOORS & PANORAMIC SIDE WINDOWS
-    for side in [-1, 1]:
-        for z in [-0.5, 1.05]:
-            part('side cabin panoramic window', [side * 1.40, 2.55, z], [1.25, 0.65, 0.035], 'heliGlass', 'rounded', math.pi / 2)
-        part('flush chrome door handle', [side * 1.45, 1.95, 0.55], [0.04, 0.05, 0.32], 'heliMetal')
-        for z in [-1.23, 1.82]:
-            part('sliding door rubber seal', [side * 1.41, 2.2, z], [0.045, 1.5, 0.045], 'heliDark')
-        for y in [1.47, 2.96]:
-            part('stainless steel door guide track', [side * 1.41, y, 0.3], [0.055, 0.045, 3.05], 'heliMetal')
+    # Dual Rear Main Landing Gear (under mid-fuselage left & right)
+    for side_x in [-1, 1]:
+        part('main gear angled shock strut', [side_x * 0.95, 0.95, 0.65], [0.12, 0.82, 0.12], 'heliMetal', r=0.25 * side_x)
+        part('main gear retraction pivot link', [side_x * 0.75, 1.15, 0.65], [0.38, 0.12, 0.12], 'heliDark')
+        part('main gear heavy rubber tire', [side_x * 1.18, 0.54, 0.65], [0.18, 0.54, 0.54], 'heliDark', 'cylinder')
+        part('main gear silver wheel hub cap', [side_x * 1.19, 0.54, 0.65], [0.19, 0.28, 0.28], 'heliMetal', 'cylinder')
 
-    # 4.6 TWIN TURBOSHAFT ENGINES & EXHAUST
-    part('twin turbine engine fairing cowl', [0, 3.32, 1.05], [0.92, 0.48, 1.85], 'heliBlue', 'sphereSmooth')
-    for side in [-1, 1]:
-        part('turbine air intake mesh grille', [side * 0.34, 3.35, 0.12], [0.28, 0.22, 0.16], 'heliDark')
-        part('engine oil cooler louvers', [side * 0.83, 3.42, 1.05], [0.035, 0.22, 0.85], 'heliDark')
-    for side in [-1, 1]:
-        part('titanium canted exhaust tailpipe', [side * 0.72, 3.25, 2.05], [0.26, 0.24, 0.65], 'heliMetal', 'sphereSmooth')
-        part('exhaust heat shield lip', [side * 0.72, 3.25, 2.38], [0.28, 0.26, 0.08], 'heliDark', 'cylinder')
+    # 4.6 TAIL BOOM & HORIZONTAL STABILIZER
+    part('royal navy blue tapered tail boom', [0, 1.95, 4.4], [0.36, 0.36, 3.8], 'heliBlue', 'cylinder')
+    part('horizontal stabilizer airfoil wing', [0, 2.05, 5.8], [2.6, 0.08, 0.55], 'heliWhite')
+    for side_x in [-1, 1]:
+        part('horizontal stabilizer winglet fin', [side_x * 1.30, 2.05, 5.8], [0.06, 0.45, 0.38], 'heliBlue')
 
-    # 4.7 MAIN ROTOR MAST, DETAILED SWASHPLATE & DROOPED BLADES
-    part('main rotor mast shaft', [0, 3.95, 0.25], [0.14, 1.15, 0.14], 'heliMetal', 'cylinder')
-    part('stationary lower swashplate', [0, 3.82, 0.25], [0.44, 0.07, 0.44], 'heliMetal', 'cylinder')
-    part('rotating upper swashplate', [0, 3.96, 0.25], [0.42, 0.07, 0.42], 'heliMetal', 'cylinder')
-    for rod_ang in [0.8, 2.9, 4.9]:
-        rx, rz = math.cos(rod_ang) * 0.26, math.sin(rod_ang) * 0.26
-        part('hydraulic pitch actuator rod', [rx, 3.95, 0.25 + rz], [0.03, 0.75, 0.03], 'heliMetal', 'cylinder')
+    # 4.7 SWEPT VERTICAL TAIL FIN WITH INDIAN NATIONAL FLAG (TIRANGA)
+    part('swept vertical tail fin', [0, 2.95, 6.6], [0.12, 2.1, 1.25], 'heliWhite')
+    part('tail fin leading edge trim', [0, 2.95, 6.05], [0.13, 1.95, 0.15], 'heliBlue')
 
-    part('main rotor hub casting', [0, 4.49, 0.25], [0.52, 0.18, 0.52], 'heliMetal', 'cylinder')
-    part('pendulum vibration absorber cap', [0, 4.62, 0.25], [0.32, 0.12, 0.32], 'heliDark', 'sphereSmooth')
+    # INDIAN FLAG (Tiranga) painted prominently on vertical tail fin (both sides)
+    flag_h = 0.28
+    flag_l = 0.85
+    part('Indian Flag - Saffron top band', [0, 3.32, 6.6], [0.14, flag_h, flag_l], 'heliTirangaSaffron')
+    part('Indian Flag - White middle band', [0, 3.04, 6.6], [0.142, flag_h, flag_l], 'heliTirangaWhite')
+    part('Indian Flag - Ashoka Chakra dot', [0, 3.04, 6.6], [0.148, 0.14, 0.14], 'heliTirangaNavy', 'sphereSmooth')
+    part('Indian Flag - Green bottom band', [0, 2.76, 6.6], [0.14, flag_h, flag_l], 'heliTirangaGreen')
 
-    for k in range(4):
-        a = k * math.pi / 2 + 0.2
-        cos_a, sin_a = math.cos(a), math.sin(a)
-        gx, gz = 0.55 * cos_a, 0.25 + 0.55 * sin_a
-        part('rotor blade pitch cuff', [gx, 4.52, gz], [0.72, 0.16, 0.22], 'heliMetal', r=-a)
+    # Tail strike bumper skid
+    part('tail rotor protective bumper', [0, 1.45, 6.65], [0.06, 0.45, 0.45], 'heliMetal', 'torus', r=math.pi / 2)
 
-        m1_dist = 2.4
-        part('main rotor blade inner airfoil', [m1_dist * cos_a, 4.53, 0.25 + m1_dist * sin_a], [3.2, 0.07, 0.28], 'heliMetal', r=-a)
+    # Tail Rotor Assembly
+    part('tail rotor 90-degree gearbox', [0.26, 3.25, 6.8], [0.18, 0.22, 0.22], 'heliMetal', 'cylinder')
+    part('tail rotor vertical blade', [0.28, 3.25, 6.8], [0.06, 1.8, 0.14], 'heliDark')
+    part('tail rotor horizontal blade', [0.28, 3.25, 6.8], [0.06, 0.14, 1.8], 'heliDark')
+    for ty, tz in [(3.95, 6.8), (2.55, 6.8), (3.25, 6.1), (3.25, 7.5)]:
+        part('tail rotor yellow warning tip', [0.29, ty, tz], [0.07, 0.16, 0.16], 'padPoleYellow')
 
-        m2_dist = 5.2
-        part('main rotor blade droop aerofoil', [m2_dist * cos_a, 4.45, 0.25 + m2_dist * sin_a], [3.2, 0.065, 0.26], 'heliMetal', r=-a)
+    # 4.8 5-BLADE MAIN ROTOR SYSTEM WITH YELLOW SAFETY TIPS
+    part('main rotor mast shaft', [0, 3.35, 0.45], [0.14, 0.85, 0.14], 'heliMetal', 'cylinder')
+    part('main rotor swashplate disc', [0, 3.25, 0.45], [0.46, 0.08, 0.46], 'heliMetal', 'cylinder')
+    part('main rotor central hub casting', [0, 3.75, 0.45], [0.55, 0.16, 0.55], 'heliMetal', 'cylinder')
+    part('rotor hub vibration dampener dome', [0, 3.88, 0.45], [0.32, 0.12, 0.32], 'heliDark', 'sphereSmooth')
 
-        tip_dist = 6.85
-        part('rotor blade yellow hazard tip', [tip_dist * cos_a, 4.38, 0.25 + tip_dist * sin_a], [0.55, 0.05, 0.26], 'heliYellow', r=-a)
-        part('rotor blade white accent stripe', [(tip_dist - 0.32) * cos_a, 4.40, 0.25 + (tip_dist - 0.32) * sin_a], [0.18, 0.052, 0.26], 'heliWhite', r=-a)
+    # 5 Main Rotor Blades (equally spaced at 72 degrees, exactly matching top-down photo)
+    n_blades = 5
+    blade_len = 6.2
+    for k in range(n_blades):
+        b_ang = k * (2 * math.pi / n_blades) + 0.35
+        cos_b, sin_b = math.cos(b_ang), math.sin(b_ang)
 
-        for step in [2.0, 4.0, 6.0]:
-            part('blade stainless erosion strip', [step * cos_a, 4.50 - (step / 6.0) * 0.12, 0.25 + step * sin_a], [0.03, 0.03, 0.03], 'heliWhite', 'sphereSmooth')
+        # Inner blade root cuff
+        cuff_dist = 0.65
+        part('rotor blade root pitch cuff', [cuff_dist * cos_b, 3.76, 0.45 + cuff_dist * sin_b], [0.65, 0.12, 0.18], 'heliMetal', r=-b_ang)
 
-    # 4.8 TAIL BOOM, STABILIZERS & TAIL ROTOR
-    part('tapered tail boom', [0, 2.30, 5.6], [0.34, 0.36, 3.6], 'heliWhite', 'sphereSmooth')
-    part('drive shaft dorsal spine fairing', [0, 2.50, 5.5], [0.14, 0.08, 3.4], 'heliBlue')
+        # Titanium main aerofoil blade body
+        body_dist = 3.3
+        part('main rotor titanium blade airfoil', [body_dist * cos_b, 3.74, 0.45 + body_dist * sin_b], [blade_len * 0.85, 0.06, 0.24], 'heliMetal', r=-b_ang)
 
-    part('horizontal stabilizer wing', [0, 2.32, 7.7], [2.85, 0.12, 0.68], 'heliWhite')
-    for side in [-1, 1]:
-        part('horizontal stabilizer finlet', [side * 1.42, 2.32, 7.7], [0.08, 0.65, 0.45], 'heliBlue')
-        nav_mat = 'heliNavRed' if side < 0 else 'heliNavGreen'
-        part('winglet navigation light', [side * 1.48, 2.32, 7.7], [0.09, 0.09, 0.12], nav_mat, 'sphereSmooth')
+        # High-visibility bright yellow safety tip
+        tip_dist = blade_len
+        part('rotor blade aviation yellow safety tip', [tip_dist * cos_b, 3.72, 0.45 + tip_dist * sin_b], [0.65, 0.055, 0.24], 'padPoleYellow', r=-b_ang)
 
-    part('swept vertical tail fin', [0, 3.10, 8.55], [0.18, 2.35, 1.45], 'heliBlue')
-    part('tail strike bumper skid', [0, 1.82, 8.4], [0.06, 0.65, 0.55], 'heliMetal', 'torus', r=math.pi / 2)
+    # 4.9 External Beacons & Navigation Lights
+    part('tail fin apex red anticollision beacon', [0, 4.05, 6.75], [0.12, 0.15, 0.12], 'padDashedRed', 'sphereSmooth')
+    part('fuselage belly red anticollision beacon', [0, 1.05, 0.2], [0.12, 0.12, 0.12], 'padDashedRed', 'sphereSmooth')
+    part('forward steerable landing searchlight', [0, 1.25, -2.65], [0.22, 0.16, 0.18], 'heliWhite', 'sphereSmooth')
 
-    part('tail rotor 90-deg gearbox', [0.35, 3.02, 8.55], [0.16, 0.24, 0.24], 'heliMetal', 'cylinder')
-    part('tail rotor pitch slider hub', [0.44, 3.02, 8.55], [0.12, 0.22, 0.22], 'heliWhite', 'sphereSmooth')
-    part('tail rotor vertical blade', [0.36, 3.02, 8.55], [0.08, 2.5, 0.16], 'heliMetal')
-    part('tail rotor horizontal blade', [0.36, 3.02, 8.55], [0.08, 0.16, 2.5], 'heliMetal')
-    for ty, tz in [(4.25, 8.55), (1.79, 8.55), (3.02, 7.32), (3.02, 9.78)]:
-        part('tail rotor safety warning tip', [0.37, ty, tz], [0.10, 0.22, 0.22], 'heliYellow')
-        part('tail rotor black stripe', [0.37, ty, tz], [0.105, 0.08, 0.08], 'heliDark')
-
-    # 4.9 AVIONICS, ANTENNAS & STROBE LIGHTING
-    part('VHF communications blade antenna', [0, 2.68, 4.8], [0.03, 0.45, 0.18], 'heliMetal')
-    part('ATC transponder blade antenna', [0, 2.62, 6.4], [0.025, 0.35, 0.14], 'heliMetal')
-    part('GPS satellite mushroom antenna dome', [0, 3.78, 1.6], [0.18, 0.09, 0.18], 'heliWhite', 'sphereSmooth')
-
-    part('vertical fin apex red strobe beacon', [0, 4.35, 8.7], [0.14, 0.16, 0.14], 'padLightRed', 'sphereSmooth')
-    part('fuselage lower belly red beacon', [0, 1.24, 0.2], [0.14, 0.14, 0.14], 'padLightRed', 'sphereSmooth')
-    part('tail cone aft white position light', [0, 2.35, 9.4], [0.08, 0.08, 0.12], 'heliWhite', 'sphereSmooth')
-
-    for side in [-1, 1]:
-        part('nose steerable landing searchlight', [side * 0.26, 1.45, -3.05], [0.22, 0.16, 0.18], 'heliWhite', 'sphereSmooth')
-
-    # 4.10 HEAVY-DUTY TUBULAR SKIDS & BOARDING FOOTBOARDS
-    for side in [-1, 1]:
-        part('heavy-duty tubular landing skid', [side * 1.52, 0.62, 0.2], [0.12, 0.12, 6.2], 'heliMetal', 'rounded')
-        part('skid upturned nose curve', [side * 1.52, 0.78, -2.85], [0.10, 0.24, 0.45], 'heliMetal', 'sphereSmooth')
-        part('skid rear protective end cap', [side * 1.52, 0.62, 3.3], [0.13, 0.13, 0.15], 'heliDark', 'sphereSmooth')
-        for z in [-1.5, 1.5]:
-            part('cross-tube gear saddle arch', [side * 1.12, 1.02, z], [0.12, 0.88, 0.12], 'heliMetal')
-            part('hydraulic oleo damper collar', [side * 1.12, 0.95, z], [0.16, 0.22, 0.16], 'heliDark')
-        part('passenger boarding footboard', [side * 1.68, 0.98, 0.1], [0.42, 0.12, 1.6], 'heliMetal', 'rounded')
-        for z in [-0.5, -0.2, 0.1, 0.4, 0.7]:
-            part('footboard anti-slip grip rib', [side * 1.68, 1.05, z], [0.40, 0.025, 0.035], 'heliDark')
-        part('ground handling wheel tire', [side * 1.64, 0.62, 2.2], [0.12, 0.36, 0.36], 'heliDark', 'cylinder')
-        part('ground handling wheel hub', [side * 1.64, 0.62, 2.2], [0.13, 0.20, 0.20], 'heliMetal', 'cylinder')
-
-    corners = [(centre + u * x + zaxis * z).tolist() for x, z in [(-width / 2, -depth / 2), (width / 2, -depth / 2), (width / 2, depth / 2), (-width / 2, depth / 2)]]
+    corners = [(centre + u * x + zaxis * z).tolist() for x, z in [(-r_outer_rim, -r_outer_rim), (r_outer_rim, -r_outer_rim), (r_outer_rim, r_outer_rim), (-r_outer_rim, r_outer_rim)]]
     proposal = dict(
-        status='Proposed visual arrangement; site/flight suitability not verified',
+        status='Circular VIP Helipad matching user aerial reference design',
         gate=gate.tolist(),
         centre=centre.tolist(),
         gateToCentreMetres=float(np.linalg.norm(centre - gate)),
@@ -398,9 +412,9 @@ def add_helipad(objects, colors, geo):
         rightShiftReference='Looking outward from main gate',
         originalOutwardAxis=original_outward.tolist(),
         originalRightAxis=original_right.tolist(),
-        widthMetres=float(width),
-        depthMetres=float(depth),
-        areaSquareMetres=float(area),
+        widthMetres=float(r_outer_rim * 2),
+        depthMetres=float(r_outer_rim * 2),
+        areaSquareMetres=float(math.pi * r_outer_rim**2),
         corners=corners,
         helicopterCentre=heli.tolist(),
         helicopterDisplayScale=helicopter_scale,
@@ -411,8 +425,7 @@ def add_helipad(objects, colors, geo):
         vehicleAccessEnd='Main road field-side edge',
         vehicleAccessPolygon=polygon.tolist(),
         mainRoadJoinEdge=[ends[0].tolist(), ends[1].tolist()],
-        vehicleAccessWidthMetres=5.5,
-        helipadBoardingCarpet=[helicopter_exit.tolist(), boarding_end.tolist()]
+        vehicleAccessWidthMetres=5.5
     )
     geo['helipadProposal'] = proposal
     root = Path(__file__).resolve().parents[1]
