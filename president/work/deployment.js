@@ -309,7 +309,18 @@ function depBuild(){
     const blank=document.createElement('option');blank.value='';blank.textContent='Select officer / equipment';list.appendChild(blank);
   }
 
-  // Populate TOP bar dropdown next to camera perspectives
+  // Sort items according to Duty Place (duty name / location), then by item name
+  const sortedByDuty = [...depItems].sort((a, b) => {
+    const da = (a.duty || '').trim() || 'General / Unassigned Duty';
+    const db = (b.duty || '').trim() || 'General / Unassigned Duty';
+    if (da.startsWith('General') && !db.startsWith('General')) return 1;
+    if (!da.startsWith('General') && db.startsWith('General')) return -1;
+    const cmp = da.localeCompare(db, undefined, { sensitivity: 'base', numeric: true });
+    if (cmp !== 0) return cmp;
+    return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true });
+  });
+
+  // Populate TOP bar dropdown next to camera perspectives (Grouped & Sorted by Duty Place)
   const topList=root.querySelector('#dep-top-list');
   if(topList){
     topList.replaceChildren();
@@ -318,32 +329,27 @@ function depBuild(){
     topBlank.textContent=`👮 All Deployed Posts (${depItems.length})`;
     topList.appendChild(topBlank);
 
-    const kindLabels={
-      officer:'👮 Police Officers',
-      barricade:'🚧 Barricades',
-      dfmd:'🚪 DFMD Metal Detectors',
-      binocular:'🔭 Rooftop Binoculars',
-      hhmd:'🔍 Handheld Detectors',
-      radio:'📻 Wireless Radios',
-      cone:'⚠️ Traffic Cones',
-      cctv:'📹 CCTV Cameras',
-      light:'💡 Search Lights'
-    };
-
-    const byKind={};
+    const byDuty={};
     for(const item of depItems){
-      (byKind[item.kind]=byKind[item.kind]||[]).push(item);
+      const d = (item.duty || '').trim() || 'General / Unassigned Duty';
+      (byDuty[d] = byDuty[d] || []).push(item);
     }
 
-    for(const k of depTypes){
-      const items=byKind[k];
-      if(!items||!items.length)continue;
+    const sortedDuties = Object.keys(byDuty).sort((a, b) => {
+      if (a.startsWith('General')) return 1;
+      if (b.startsWith('General')) return -1;
+      return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true });
+    });
+
+    for(const d of sortedDuties){
+      const items = byDuty[d];
+      items.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }));
       const group=document.createElement('optgroup');
-      group.label=`${kindLabels[k]||k} (${items.length})`;
+      group.label=`📍 ${d} (${items.length})`;
       for(const item of items){
         const opt=document.createElement('option');
         opt.value=item.id;
-        opt.textContent=`${item.name} · ${item.duty||'Post'}`;
+        opt.textContent=`📍 ${d} — ${depSymbols[item.kind]||'👮'} ${item.name}${item.belt ? ' ('+item.belt+')' : ''}`;
         group.appendChild(opt);
       }
       topList.appendChild(group);
@@ -353,10 +359,16 @@ function depBuild(){
     if(badge)badge.textContent=depItems.length;
   }
 
-  for(const item of depItems){
-    if(list){
-      const o=document.createElement('option');o.value=item.id;o.textContent=(depSymbols[item.kind]+' '+item.name+' · '+item.duty).slice(0,100);list.appendChild(o);
+  if(list){
+    for(const item of sortedByDuty){
+      const o=document.createElement('option');
+      o.value=item.id;
+      o.textContent=(depSymbols[item.kind]+' '+(item.duty ? item.duty+' — ' : '')+item.name).slice(0,100);
+      list.appendChild(o);
     }
+  }
+
+  for(const item of depItems){
     const g=new THREE.Group();g.position.set(item.x,item.y,item.z);g.rotation.y=-item.angle*Math.PI/180;g.userData.depId=item.id;depGroup.add(g);
     if(item.kind==='officer'){
       g.scale.setScalar(1);depPart(g,'rounded',[0,1.05,0],[.46,.6,.28],'khaki');depPart(g,'sphereSmooth',[0,1.58,0],[.16,.19,.16],'skin');depPart(g,'cylinder',[0,1.77,0],[.19,.09,.19],'dark');depPart(g,'sphereSmooth',[0,1.72,-.11],[.21,.025,.22],'dark');
