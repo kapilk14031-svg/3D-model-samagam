@@ -225,53 +225,6 @@ body {
 .audit-link:hover { background: #bae6fd; }
 
 /* Deployed Asset Catalog & Lightbox Styles */
-.dep-catalog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  background: #f8fafc;
-  padding: 14px 18px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 16px;
-}
-.dep-catalog-filter-bar {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.dep-filter-btn {
-  padding: 6px 12px;
-  font-size: 12.5px;
-  font-weight: 600;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--text-main);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.dep-filter-btn:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-}
-.dep-filter-btn.active {
-  background: #0284c7;
-  color: #fff;
-  border-color: #0284c7;
-  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
-}
-.dep-total-badge {
-  font-size: 13px;
-  font-weight: 700;
-  color: #0369a1;
-  background: #e0f2fe;
-  padding: 5px 12px;
-  border-radius: 9999px;
-  border: 1px solid #bae6fd;
-}
 .dep-asset-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -294,19 +247,61 @@ body {
 }
 .dep-asset-thumb-wrap {
   position: relative;
-  background: #0f172a;
+  background: radial-gradient(circle at 50% 35%, #1e293b 0%, #0b1120 100%);
   height: 220px;
   overflow: hidden;
-  cursor: pointer;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
 }
-.dep-asset-thumb-wrap img {
+.dep-asset-thumb-wrap:active {
+  cursor: grabbing;
+}
+.dep-card-3d-canvas {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  display: block;
+  touch-action: none;
 }
-.dep-asset-card:hover .dep-asset-thumb-wrap img {
-  transform: scale(1.03);
+.dep-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(14, 165, 233, 0.9);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(14, 165, 233, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+.dep-card-drag-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.82);
+  color: #f1f5f9;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+.dep-asset-thumb-wrap:hover .dep-card-drag-hint {
+  background: rgba(2, 132, 199, 0.95);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
 }
 .dep-zoom-hint {
   position: absolute;
@@ -319,6 +314,7 @@ body {
   border-radius: 6px;
   backdrop-filter: blur(4px);
   pointer-events: none;
+  z-index: 2;
 }
 .dep-live-badge {
   position: absolute;
@@ -527,6 +523,50 @@ body {
 }
 .dep-modal-nav-arrow.left { left: 16px; }
 .dep-modal-nav-arrow.right { right: 16px; }
+.dep-modal-view-toggle {
+  position: absolute;
+  top: 14px;
+  right: 60px;
+  display: flex;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+  z-index: 15;
+  backdrop-filter: blur(6px);
+}
+.dep-modal-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dep-modal-toggle-btn.active {
+  background: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+}
+.dep-modal-3d-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.85);
+  color: #e2e8f0;
+  font-size: 12px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
 
 </style>'''
 
@@ -764,27 +804,6 @@ for it in catalog_items:
     }
 
 deployed_items_html = '''
-<div class="dep-catalog-header">
-  <div class="dep-catalog-filter-bar" id="dep-catalog-filters">
-    <button type="button" class="dep-filter-btn active" data-filter="all">🌟 All Items (13 Types)</button>
-    <button type="button" class="dep-filter-btn" data-filter="officer">👮 Officers</button>
-    <button type="button" class="dep-filter-btn" data-filter="barricade">🚧 Barricades</button>
-    <button type="button" class="dep-filter-btn" data-filter="dfmd">🚪 DFMD Gates</button>
-    <button type="button" class="dep-filter-btn" data-filter="hhmd">🔍 HHMD Wands</button>
-    <button type="button" class="dep-filter-btn" data-filter="binocular">🔭 Binoculars</button>
-    <button type="button" class="dep-filter-btn" data-filter="radio">📻 Radios</button>
-    <button type="button" class="dep-filter-btn" data-filter="cone">⚠️ Cones</button>
-    <button type="button" class="dep-filter-btn" data-filter="cctv">📹 CCTV Cameras</button>
-    <button type="button" class="dep-filter-btn" data-filter="light">💡 Floodlights</button>
-    <button type="button" class="dep-filter-btn" data-filter="ambulance">🚑 Ambulance</button>
-    <button type="button" class="dep-filter-btn" data-filter="firebrigade">🚒 Fire Brigade</button>
-    <button type="button" class="dep-filter-btn" data-filter="qbelt">🎗️ Q-Belt</button>
-    <button type="button" class="dep-filter-btn" data-filter="square_box">📦 Checkpost</button>
-  </div>
-  <div class="dep-total-badge" id="dep-catalog-total-badge">
-    ⚡ Synchronizing with 3D Map...
-  </div>
-</div>
 <div class="dep-asset-grid" id="dep-asset-grid">
 '''
 
@@ -793,10 +812,12 @@ for it in catalog_items:
     img_src = item_images_b64.get(k, '')
     deployed_items_html += f'''
   <div class="dep-asset-card" data-kind="{k}">
-    <div class="dep-asset-thumb-wrap" onclick="openDepLightbox('{k}');" title="Click to view full high-res photo &amp; specifications">
-      <img src="{img_src}" alt="{it['name']}" loading="lazy">
+    <div class="dep-asset-thumb-wrap" data-kind="{k}" title="360° 3D Preview — Drag to rotate or click to expand specs">
+      <canvas class="dep-card-3d-canvas" data-kind="{k}" width="320" height="220"></canvas>
+      <img class="dep-card-fallback-img" src="{img_src}" alt="{it['name']}" style="display:none;" loading="lazy">
       <span class="dep-live-badge badge-zero" data-kind="{k}">Checking...</span>
-      <span class="dep-zoom-hint">🔍 View Photo &amp; Specs (बड़ा करके देखें)</span>
+      <span class="dep-card-badge">🔄 3D 360° Live</span>
+      <span class="dep-card-drag-hint">↔️ Drag to Rotate (घुमाएँ)</span>
     </div>
     <div class="dep-asset-body">
       <div class="dep-asset-title-row">
@@ -815,8 +836,8 @@ for it in catalog_items:
         <div style="font-size:12px;font-weight:700;color:#1e293b;display:flex;justify-content:space-between;align-items:center;">
           <span>📍 Deployed on Map:</span>
           <div style="display:flex;gap:4px;">
-            <button type="button" class="btn btn-sm btn-primary" style="padding:2px 8px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:3px;" onclick="selectShowroomItem('{k}'); openDepLightbox('{k}');">🔄 Rotate 3D</button>
-            <button type="button" class="btn btn-sm btn-outline" style="padding:2px 8px;font-size:11px;" onclick="selectShowroomItem('{k}');">Showroom</button>
+            <button type="button" class="btn btn-sm btn-primary" style="padding:2px 8px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:3px;" onclick="openDepLightbox('{k}');">🔄 Full 3D View</button>
+            <button type="button" class="btn btn-sm btn-outline" style="padding:2px 8px;font-size:11px;" onclick="resetCardRotation('{k}');">Reset</button>
           </div>
         </div>
         <div class="dep-asset-instances-list" data-kind="{k}">
@@ -834,8 +855,16 @@ deployed_items_html += '''
     <button type="button" class="dep-lightbox-close" onclick="closeDepLightbox()" title="Close (ESC)">✕</button>
     <div class="dep-lightbox-media-wrap">
       <button type="button" class="dep-modal-nav-arrow left" onclick="stepDepModal(-1)" title="Previous Equipment (‹)">‹</button>
-      <img id="dep-lightbox-img" class="dep-lightbox-img" src="" alt="Equipment Photo">
+      <div id="dep-modal-3d-wrap" style="width:100%;height:100%;position:relative;">
+        <canvas id="dep-modal-3d-canvas" width="680" height="380" style="width:100%;height:100%;display:block;cursor:grab;touch-action:none;"></canvas>
+        <span class="dep-modal-3d-hint">🔄 Drag to Rotate 360° · Scroll to Zoom</span>
+      </div>
+      <img id="dep-lightbox-img" class="dep-lightbox-img" src="" alt="Equipment Photo" style="display:none;width:100%;height:100%;object-fit:contain;">
       <button type="button" class="dep-modal-nav-arrow right" onclick="stepDepModal(1)" title="Next Equipment (›)">›</button>
+      <div class="dep-modal-view-toggle">
+        <button type="button" id="dep-modal-tab-3d" class="dep-modal-toggle-btn active" onclick="setDepModalTab('3d')">🔄 3D Model</button>
+        <button type="button" id="dep-modal-tab-photo" class="dep-modal-toggle-btn" onclick="setDepModalTab('photo')">📸 Photo</button>
+      </div>
     </div>
     <div class="dep-lightbox-body">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
@@ -892,21 +921,7 @@ document.querySelectorAll('#ref-tabs .ref-tab-btn').forEach(btn => {{
   }});
 }});
 
-// Deployed catalog filtering
-document.querySelectorAll('#dep-catalog-filters .dep-filter-btn').forEach(btn => {{
-  btn.addEventListener('click', () => {{
-    document.querySelectorAll('#dep-catalog-filters .dep-filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('#dep-asset-grid .dep-asset-card').forEach(card => {{
-      if (filter === 'all' || card.dataset.kind === filter) {{
-        card.style.display = 'flex';
-      }} else {{
-        card.style.display = 'none';
-      }}
-    }});
-  }});
-}});
+
 
 // Update catalog counts & instances
 function updateDeployedCatalogCounts() {{
@@ -943,11 +958,31 @@ function updateDeployedCatalogCounts() {{
 window.updateDeployedCatalogCounts = updateDeployedCatalogCounts;
 
 // =========================================================================
-// EQUIPMENT PHOTO LIGHTBOX MODAL
+// EQUIPMENT 3D ROTATION & LIGHTBOX ENGINE
 // =========================================================================
 const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box'];
 const depCatalogData = {catalog_data_json};
 let modalCurrentKind = 'officer';
+let depModalTab = '3d';
+
+window.setDepModalTab = function(tab) {{
+  depModalTab = tab;
+  const btn3d = document.getElementById('dep-modal-tab-3d');
+  const btnPhoto = document.getElementById('dep-modal-tab-photo');
+  const wrap3d = document.getElementById('dep-modal-3d-wrap');
+  const imgEl = document.getElementById('dep-lightbox-img');
+  if (tab === '3d') {{
+    if (btn3d) btn3d.classList.add('active');
+    if (btnPhoto) btnPhoto.classList.remove('active');
+    if (wrap3d) wrap3d.style.display = 'block';
+    if (imgEl) imgEl.style.display = 'none';
+  }} else {{
+    if (btn3d) btn3d.classList.remove('active');
+    if (btnPhoto) btnPhoto.classList.add('active');
+    if (wrap3d) wrap3d.style.display = 'none';
+    if (imgEl) imgEl.style.display = 'block';
+  }}
+}};
 
 window.openDepLightbox = function(kind) {{
   modalCurrentKind = kind;
@@ -963,6 +998,12 @@ window.openDepLightbox = function(kind) {{
   document.getElementById('dep-lightbox-desc').textContent = data.desc;
   document.getElementById('dep-lightbox-specs').innerHTML = '<b>Technical Specs:</b> ' + data.specs;
   document.getElementById('dep-lightbox-guideline').innerHTML = '<b>Deployment Role:</b> ' + data.guideline;
+
+  if (cardStates[kind]) {{
+    modalState.rotY = cardStates[kind].rotY;
+    modalState.rotX = cardStates[kind].rotX;
+    modalState.zoom = 1.0;
+  }}
   modal.classList.add('show');
 }};
 
@@ -985,6 +1026,297 @@ document.addEventListener('keydown', e => {{
     if (e.key === 'ArrowLeft') window.stepDepModal(-1);
   }}
 }});
+
+// 3D Card Turntable Manager (High Performance Single-Renderer Architecture)
+const cardStates = {{}};
+let offRenderer = null;
+let offScene = null;
+let offCamera = null;
+let stageGroup = null;
+let activeGroup = null;
+let modalCanvas = null;
+const modalState = {{
+  rotY: Math.PI,
+  rotX: 0.12,
+  zoom: 1.0,
+  isDragging: false,
+  lastX: 0,
+  lastY: 0,
+  lastInteract: 0
+}};
+
+window.resetCardRotation = function(k) {{
+  if (cardStates[k]) {{
+    cardStates[k].rotY = Math.PI;
+    cardStates[k].rotX = 0.12;
+    cardStates[k].autoSpin = true;
+    cardStates[k].lastInteract = 0;
+  }}
+}};
+
+function init3DCardRotators() {{
+  if (typeof window.depCreateEquipmentMesh !== 'function' || typeof THREE === 'undefined') {{
+    setTimeout(init3DCardRotators, 60);
+    return;
+  }}
+
+  modalCanvas = document.getElementById('dep-modal-3d-canvas');
+  if (modalCanvas) {{
+    modalCanvas.addEventListener('pointerdown', e => {{
+      modalState.isDragging = true;
+      modalState.lastX = e.clientX;
+      modalState.lastY = e.clientY;
+      modalState.lastInteract = performance.now();
+      try {{ modalCanvas.setPointerCapture(e.pointerId); }} catch(_) {{}}
+    }});
+    modalCanvas.addEventListener('pointermove', e => {{
+      if (!modalState.isDragging) return;
+      const dx = e.clientX - modalState.lastX;
+      const dy = e.clientY - modalState.lastY;
+      modalState.rotY += dx * 0.012;
+      modalState.rotX = THREE.MathUtils.clamp(modalState.rotX + dy * 0.009, -0.45, 0.55);
+      modalState.lastX = e.clientX;
+      modalState.lastY = e.clientY;
+      modalState.lastInteract = performance.now();
+    }});
+    const endMDrag = e => {{
+      if (!modalState.isDragging) return;
+      modalState.isDragging = false;
+      try {{ modalCanvas.releasePointerCapture(e.pointerId); }} catch(_) {{}}
+    }};
+    modalCanvas.addEventListener('pointerup', endMDrag);
+    modalCanvas.addEventListener('pointercancel', endMDrag);
+    modalCanvas.addEventListener('wheel', e => {{
+      e.preventDefault();
+      modalState.zoom = THREE.MathUtils.clamp(modalState.zoom + (e.deltaY > 0 ? 0.08 : -0.08), 0.45, 2.5);
+      modalState.lastInteract = performance.now();
+    }}, {{ passive: false }});
+  }}
+
+  try {{
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = 680;
+    offCanvas.height = 380;
+    offRenderer = new THREE.WebGLRenderer({{
+      canvas: offCanvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    }});
+    offRenderer.outputEncoding = THREE.sRGBEncoding;
+    offRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+    offRenderer.toneMappingExposure = 1.05;
+  }} catch (err) {{
+    console.warn('Offscreen WebGLRenderer could not be initialized:', err);
+    document.querySelectorAll('.dep-card-fallback-img').forEach(img => img.style.display = 'block');
+    document.querySelectorAll('.dep-card-3d-canvas').forEach(c => c.style.display = 'none');
+    return;
+  }}
+
+  offScene = new THREE.Scene();
+  const amb = new THREE.AmbientLight(0xffffff, 0.9);
+  offScene.add(amb);
+  const dir1 = new THREE.DirectionalLight(0xffffff, 1.25);
+  dir1.position.set(5, 10, 7);
+  offScene.add(dir1);
+  const dir2 = new THREE.DirectionalLight(0x38bdf8, 0.6);
+  dir2.position.set(-6, -4, -5);
+  offScene.add(dir2);
+  const dir3 = new THREE.DirectionalLight(0xffedd5, 0.4);
+  dir3.position.set(0, -5, 5);
+  offScene.add(dir3);
+
+  // Turntable pedestal
+  stageGroup = new THREE.Group();
+  const stageGeo = new THREE.CylinderGeometry(1, 1.08, 0.08, 48);
+  const stageMat = new THREE.MeshStandardMaterial({{
+    color: 0x1e293b,
+    roughness: 0.35,
+    metalness: 0.25
+  }});
+  const stageMesh = new THREE.Mesh(stageGeo, stageMat);
+  stageMesh.position.y = -0.04;
+  stageGroup.add(stageMesh);
+
+  const ringGeo = new THREE.RingGeometry(0.94, 0.99, 48);
+  const ringMat = new THREE.MeshBasicMaterial({{
+    color: 0x38bdf8,
+    side: THREE.DoubleSide
+  }});
+  const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+  ringMesh.rotation.x = -Math.PI / 2;
+  ringMesh.position.y = 0.003;
+  stageGroup.add(ringMesh);
+
+  offScene.add(stageGroup);
+
+  activeGroup = new THREE.Group();
+  offScene.add(activeGroup);
+
+  offCamera = new THREE.PerspectiveCamera(36, 320 / 220, 0.05, 150);
+
+  // Setup each card canvas
+  const cardCanvases = document.querySelectorAll('#dep-asset-grid .dep-card-3d-canvas');
+  cardCanvases.forEach(canvas => {{
+    const kind = canvas.dataset.kind;
+    if (!kind) return;
+    try {{
+      const mesh = window.depCreateEquipmentMesh(kind);
+      const bbox = new THREE.Box3().setFromObject(mesh);
+      const center = new THREE.Vector3();
+      bbox.getCenter(center);
+      const size = new THREE.Vector3();
+      bbox.getSize(size);
+
+      mesh.position.set(-center.x, -bbox.min.y, -center.z);
+
+      const pivot = new THREE.Group();
+      pivot.add(mesh);
+      pivot.rotation.y = Math.PI; // Face front initially
+      pivot.rotation.x = 0.12;
+
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const camDist = Math.max(maxDim * 1.7, 2.0);
+      const camTargetY = Math.max(size.y * 0.48, 0.3);
+      const stageRadius = Math.max(Math.hypot(size.x, size.z) * 0.65, 0.9);
+
+      const state = {{
+        kind,
+        pivot,
+        canvas,
+        ctx: canvas.getContext('2d'),
+        rotY: Math.PI,
+        rotX: 0.12,
+        camDist,
+        camTargetY,
+        stageRadius,
+        isDragging: false,
+        lastX: 0,
+        lastY: 0,
+        dragDist: 0,
+        autoSpin: true,
+        lastInteract: 0,
+        visible: true
+      }};
+      cardStates[kind] = state;
+
+      canvas.addEventListener('pointerdown', e => {{
+        state.isDragging = true;
+        state.autoSpin = false;
+        state.lastX = e.clientX;
+        state.lastY = e.clientY;
+        state.dragDist = 0;
+        state.lastInteract = performance.now();
+        try {{ canvas.setPointerCapture(e.pointerId); }} catch(_) {{}}
+      }});
+      canvas.addEventListener('pointermove', e => {{
+        if (!state.isDragging) return;
+        const dx = e.clientX - state.lastX;
+        const dy = e.clientY - state.lastY;
+        state.dragDist += Math.hypot(dx, dy);
+        state.rotY += dx * 0.014;
+        state.rotX = THREE.MathUtils.clamp(state.rotX + dy * 0.01, -0.35, 0.45);
+        state.lastX = e.clientX;
+        state.lastY = e.clientY;
+        state.lastInteract = performance.now();
+      }});
+      const endDrag = e => {{
+        if (!state.isDragging) return;
+        state.isDragging = false;
+        try {{ canvas.releasePointerCapture(e.pointerId); }} catch(_) {{}}
+        if (state.dragDist < 6) {{
+          window.openDepLightbox(kind);
+        }}
+      }};
+      canvas.addEventListener('pointerup', endDrag);
+      canvas.addEventListener('pointercancel', endDrag);
+
+      if (window.IntersectionObserver) {{
+        const obs = new IntersectionObserver(entries => {{
+          entries.forEach(en => {{
+            if (en.target === canvas) state.visible = en.isIntersecting;
+          }});
+        }}, {{ threshold: 0.05 }});
+        obs.observe(canvas);
+      }}
+    }} catch (ex) {{
+      console.warn('Could not create 3D mesh for', kind, ex);
+    }}
+  }});
+
+  function renderLoop(now) {{
+    requestAnimationFrame(renderLoop);
+
+    const tabEl = document.getElementById('tab-deployment-items');
+    const isTabActive = tabEl && tabEl.classList.contains('active');
+
+    // 1. Render visible cards
+    if (isTabActive) {{
+      offCamera.aspect = 320 / 220;
+      offCamera.updateProjectionMatrix();
+      offRenderer.setSize(320, 220, false);
+
+      for (const k of depCatalogKinds) {{
+        const s = cardStates[k];
+        if (!s || !s.visible) continue;
+
+        if (!s.isDragging && (!s.lastInteract || now - s.lastInteract > 2500)) {{
+          s.rotY += 0.014;
+        }}
+        s.pivot.rotation.y = s.rotY;
+        s.pivot.rotation.x = s.rotX;
+
+        stageGroup.scale.set(s.stageRadius, 1, s.stageRadius);
+
+        offCamera.position.set(0, s.camTargetY + s.camDist * 0.28, s.camDist);
+        offCamera.lookAt(0, s.camTargetY, 0);
+
+        activeGroup.clear();
+        activeGroup.add(s.pivot);
+
+        offRenderer.render(offScene, offCamera);
+
+        s.ctx.clearRect(0, 0, 320, 220);
+        s.ctx.drawImage(offRenderer.domElement, 0, 0, 320, 220);
+      }}
+    }}
+
+    // 2. Render modal if open
+    const modalEl = document.getElementById('dep-lightbox-modal');
+    if (modalEl && modalEl.classList.contains('show') && depModalTab === '3d') {{
+      const s = cardStates[modalCurrentKind];
+      if (s && modalCanvas) {{
+        if (!modalState.isDragging && (!modalState.lastInteract || now - modalState.lastInteract > 2000)) {{
+          modalState.rotY += 0.012;
+        }}
+        s.pivot.rotation.y = modalState.rotY;
+        s.pivot.rotation.x = modalState.rotX;
+
+        stageGroup.scale.set(s.stageRadius * 1.05, 1, s.stageRadius * 1.05);
+
+        const mDist = s.camDist * modalState.zoom;
+        offCamera.aspect = modalCanvas.width / modalCanvas.height;
+        offCamera.updateProjectionMatrix();
+        offCamera.position.set(0, s.camTargetY + mDist * 0.26, mDist);
+        offCamera.lookAt(0, s.camTargetY, 0);
+
+        activeGroup.clear();
+        activeGroup.add(s.pivot);
+
+        offRenderer.setSize(modalCanvas.width, modalCanvas.height, false);
+        offRenderer.render(offScene, offCamera);
+
+        const mCtx = modalCanvas.getContext('2d');
+        mCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+        mCtx.drawImage(offRenderer.domElement, 0, 0, modalCanvas.width, modalCanvas.height);
+      }}
+    }}
+  }}
+
+  requestAnimationFrame(renderLoop);
+}}
+
+setTimeout(init3DCardRotators, 150);
 
 // Jump button click listener
 document.addEventListener('click', e => {{
