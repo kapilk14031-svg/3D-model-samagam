@@ -676,6 +676,8 @@ body {
 /* Floating Information Tab Card on Click */
 #gms-stage .dep-peek {
   position: absolute;
+  pointer-events: auto !important;
+  cursor: default;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(14px);
   color: var(--text-main);
@@ -1467,6 +1469,13 @@ depPeekBody.append(depPeekText,depPeekActions,depPeekHint);
 depPeek.append(depPeekHead,depPeekMinBar,depPeekBody);
 host.appendChild(depPeek);
 
+// Isolate Information Tab: model cursor will not react or drag while interacting with info tab
+for(const evt of ['pointerdown','pointerup','pointermove','mousedown','mouseup','mousemove','click','dblclick','wheel','touchstart','touchend']){
+  depPeek.addEventListener(evt,e=>{e.stopPropagation();e.stopImmediatePropagation();},{capture:true});
+}
+depPeek.addEventListener('pointerenter',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=false;});
+depPeek.addEventListener('pointerleave',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=true;});
+
 function setDepPeekMinimized(minimized){
   depPeekIsMinimized=!!minimized;
   const minBtn=depPeekHead.querySelector('#dep-peek-min');
@@ -1651,8 +1660,8 @@ function depBuild(){
     b.setAttribute('aria-label',item.name+' · '+item.duty);
     b.addEventListener('pointerenter',()=>depShowHover(item.id));
     b.addEventListener('pointerleave',depLeaveHover);
-    b.addEventListener('pointerdown',e=>e.stopPropagation());
-    b.addEventListener('click',e=>{e.stopPropagation();depChoose(item.id);});
+    b.addEventListener('pointerdown',e=>{e.stopPropagation();e.stopImmediatePropagation();});
+    b.addEventListener('click',e=>{e.stopPropagation();e.stopImmediatePropagation();if(typeof suppressClick!=='undefined')suppressClick=true;depChoose(item.id);});
     labelRoot.appendChild(b);depButtons.push({e:b,item});
   }
   if(list)list.value=depSelected||'';
@@ -1826,6 +1835,13 @@ depUI('first').onclick=()=>depView('first');depUI('third').onclick=()=>depView('
 // Contextual Click-to-Deploy Menu
 const depRadial=root.querySelector('#dep-radial-deploy'), depRadialClose=root.querySelector('#dep-radial-close');
 if(depRadialClose) depRadialClose.onclick=()=>{if(depRadial)depRadial.style.display='none';};
+if(depRadial){
+  for(const evt of ['pointerdown','pointerup','pointermove','mousedown','mouseup','mousemove','click','dblclick','wheel','touchstart','touchend']){
+    depRadial.addEventListener(evt,e=>{e.stopPropagation();e.stopImmediatePropagation();},{capture:true});
+  }
+  depRadial.addEventListener('pointerenter',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=false;});
+  depRadial.addEventListener('pointerleave',()=>{if(typeof controls!=='undefined'&&controls)controls.enabled=true;});
+}
 
 root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
   btn.addEventListener('click',e=>{
@@ -1939,7 +1955,7 @@ function depHit(e){
 
 let depLastHover=0;
 canvas.addEventListener('pointermove',e=>{
-  if(depPlace||e.buttons||performance.now()-depLastHover<80)return;
+  if(depSelected||depPlace||e.buttons||performance.now()-depLastHover<80)return;
   depLastHover=performance.now();const id=depHit(e);
   if(id)depShowHover(id);else if(depHover)depLeaveHover();
 });
@@ -1952,6 +1968,7 @@ canvas.addEventListener('pointerup',e=>{
   const id=depHit(e);
   if(id){
     e.stopImmediatePropagation();
+    if(typeof suppressClick!=='undefined')suppressClick=true;
     if(depRadial)depRadial.style.display='none';
     depChoose(id);
     return;
@@ -1974,6 +1991,17 @@ canvas.addEventListener('pointerup',e=>{
       depUpdate();draw();
       return;
     }
+  }
+
+  // If information tab is open and user clicks empty area, deselect and close without model reacting
+  if(depSelected){
+    e.stopImmediatePropagation();
+    if(typeof suppressClick!=='undefined')suppressClick=true;
+    depSelected=null;
+    depPeek.hidden=true;
+    if(depUI('editor'))depUI('editor').hidden=true;
+    depUpdate();draw();
+    return;
   }
 
   // 3. User clicked anywhere on 3D model / ground -> Open Deploy-Here Menu!
