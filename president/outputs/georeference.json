@@ -947,7 +947,7 @@
   ],
   "accuracy": "Displayed-graticule registration only. Fit residual measures internal consistency, not absolute position accuracy; screenshot pixels, digitisation, imagery age, geometry simplification and ground survey error remain.",
   "helipadProposal": {
-    "status": "Circular VIP Helipad matching user aerial reference design",
+    "status": "Circular VIP Helipad matching user aerial reference design with prominent H",
     "gate": [
       -12.767634044722858,
       -65.06607714366064
