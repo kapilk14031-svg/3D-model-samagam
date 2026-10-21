@@ -854,19 +854,23 @@ window.addEventListener('keydown', e => {
     return;
   }
 
-  // 2. Camera Controls (smooth 3D Orbit, Rotate, Angle, Zoom)
+  // 2. Camera Controls (A/D: slide left/right without rotating, W/S: move forward/back, Q/E: rotate, Z/X: angle, K/L: zoom)
   const v = window.__CAM_VELOCITY;
   if (v) {
     const mult = e.shiftKey ? 1.8 : 1.0;
+    const dist = camera.position.distanceTo(controls.target);
+    const panSpeed = (e.shiftKey ? 1.6 : 0.8) * Math.max(0.4, dist * 0.016);
     let handled = false;
 
-    // W, S, A, D: Smooth Orbit 3D around target
-    if (key === 'w') { v.phi -= 0.035 * mult; handled = true; }
-    else if (key === 's') { v.phi += 0.035 * mult; handled = true; }
-    else if (key === 'a') { v.theta -= 0.045 * mult; handled = true; }
-    else if (key === 'd') { v.theta += 0.045 * mult; handled = true; }
+    // A, D: Left / Right Pan (Move sideways without rotation!)
+    if (key === 'a') { v.panX -= panSpeed; handled = true; }
+    else if (key === 'd') { v.panX += panSpeed; handled = true; }
 
-    // Q, E: Horizontal rotate around target
+    // W, S: Forward / Backward Pan
+    else if (key === 'w') { v.panZ -= panSpeed; handled = true; }
+    else if (key === 's') { v.panZ += panSpeed; handled = true; }
+
+    // Q, E: Horizontal turntable rotate
     else if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
     else if (key === 'e') { v.theta += 0.045 * mult; handled = true; }
 

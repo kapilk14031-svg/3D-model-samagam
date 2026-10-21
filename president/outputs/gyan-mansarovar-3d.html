@@ -290,7 +290,7 @@ body {
     <!-- Canvas Floating Bottom-Right: Mouse Hint -->
     <div class="canvas-overlay bottom-right">
       <div class="hint-pill">
-        <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy · <b>W/S/A/D:</b> Orbit 3D · <b>Q/E:</b> Rotate · <b>Z/X:</b> Angle · <b>K/L:</b> Zoom In/Out</span>
+        <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy · <b>W/S/A/D:</b> Move / Pan · <b>Q/E:</b> Rotate · <b>Z/X:</b> Angle · <b>K/L:</b> Zoom In/Out</span>
       </div>
     </div>
 
@@ -1410,7 +1410,7 @@ canvas.addEventListener('pointerup',e=>{if(!selection||selection.id!==e.pointerI
 canvas.addEventListener('pointercancel',cancelBox);canvas.addEventListener('lostpointercapture',()=>{if(selection)cancelBox();});
 root.addEventListener('keydown',e=>{if(e.key==='Escape')cancelBox();});
 let lastFrame=0;
-const camVelocity = { theta: 0, phi: 0, zoom: 0 };
+const camVelocity = { theta: 0, phi: 0, zoom: 0, panX: 0, panZ: 0 };
 window.__CAM_VELOCITY = camVelocity;
 
 function animate(time){
@@ -1442,6 +1442,25 @@ function animate(time){
     camVelocity.theta *= 0.84;
     camVelocity.phi *= 0.84;
     camVelocity.zoom *= 0.84;
+    needsDraw = true;
+  }
+  if(Math.abs(camVelocity.panX) > 0.0005 || Math.abs(camVelocity.panZ) > 0.0005){
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    forward.y = 0;
+    forward.normalize();
+    const right = new THREE.Vector3();
+    right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+    
+    const moveVec = new THREE.Vector3();
+    moveVec.addScaledVector(right, camVelocity.panX);
+    moveVec.addScaledVector(forward, -camVelocity.panZ);
+    
+    camera.position.add(moveVec);
+    controls.target.add(moveVec);
+    
+    camVelocity.panX *= 0.84;
+    camVelocity.panZ *= 0.84;
     needsDraw = true;
   }
   const changed=controls.update();
@@ -2312,19 +2331,23 @@ window.addEventListener('keydown', e => {
     return;
   }
 
-  // 2. Camera Controls (smooth 3D Orbit, Rotate, Angle, Zoom)
+  // 2. Camera Controls (A/D: slide left/right without rotating, W/S: move forward/back, Q/E: rotate, Z/X: angle, K/L: zoom)
   const v = window.__CAM_VELOCITY;
   if (v) {
     const mult = e.shiftKey ? 1.8 : 1.0;
+    const dist = camera.position.distanceTo(controls.target);
+    const panSpeed = (e.shiftKey ? 1.6 : 0.8) * Math.max(0.4, dist * 0.016);
     let handled = false;
 
-    // W, S, A, D: Smooth Orbit 3D around target
-    if (key === 'w') { v.phi -= 0.035 * mult; handled = true; }
-    else if (key === 's') { v.phi += 0.035 * mult; handled = true; }
-    else if (key === 'a') { v.theta -= 0.045 * mult; handled = true; }
-    else if (key === 'd') { v.theta += 0.045 * mult; handled = true; }
+    // A, D: Left / Right Pan (Move sideways without rotation!)
+    if (key === 'a') { v.panX -= panSpeed; handled = true; }
+    else if (key === 'd') { v.panX += panSpeed; handled = true; }
 
-    // Q, E: Horizontal rotate around target
+    // W, S: Forward / Backward Pan
+    else if (key === 'w') { v.panZ -= panSpeed; handled = true; }
+    else if (key === 's') { v.panZ += panSpeed; handled = true; }
+
+    // Q, E: Horizontal turntable rotate
     else if (key === 'q') { v.theta -= 0.045 * mult; handled = true; }
     else if (key === 'e') { v.theta += 0.045 * mult; handled = true; }
 
