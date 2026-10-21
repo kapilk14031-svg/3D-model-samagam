@@ -1,3 +1,5 @@
+var vvipSavedView = null;
+var vvipHiddenHelicopterMatrices = [];
 // User-authored draft deployment, independent of the registered venue geometry.
 
 
@@ -20594,7 +20596,7 @@ let vvipSavedTarget = null;
 
 
 
-let vvipSavedView = null;
+vvipSavedView = null;
 
 
 
@@ -20602,7 +20604,7 @@ let vvipSavedView = null;
 
 
 
-let vvipHiddenHelicopterMatrices = [];
+vvipHiddenHelicopterMatrices = [];
 
 
 

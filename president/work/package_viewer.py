@@ -56,10 +56,16 @@ geo['raster'] = {
 for k in ['gridControlPoints', 'verticalGridFits', 'horizontalGridFits']:
     geo.pop(k, None)
 
+draft_p = out / 'deployment-draft.json'
+draft_plan_json = draft_p.read_text(encoding='utf-8').strip() if draft_p.exists() else 'null'
+if not draft_plan_json:
+    draft_plan_json = 'null'
+
 fragment = (
     (root / 'work/viewer-fragment.html')
     .read_text(encoding='utf-8')
     .replace('__DEPLOYMENT_PANEL__', (root / 'work/deployment-panel.html').read_text(encoding='utf-8'))
+    .replace('__DEPLOYMENT_PLAN__', draft_plan_json)
     .replace('__DEPLOYMENT_JS__', (root / 'work/deployment.js').read_text(encoding='utf-8'))
     .replace('__SCENE_DATA__', json.dumps(packed, ensure_ascii=False, separators=(',', ':')))
 )
