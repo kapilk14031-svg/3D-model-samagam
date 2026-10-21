@@ -170,8 +170,24 @@ def register(objects,colors,signs,labels):
             d=b-a;c=(a+b)/2;length=np.linalg.norm(d);angle=math.atan2(d[0],d[1])
             add('Frontage boundary wall • image aligned',[c[0],1,c[1]],[.4,2,length],'stone',rot=angle)
             add('Frontage wall white coping',[c[0],2.06,c[1]],[.5,.12,length],'white',rot=angle)
-    a=pixel([685,159]);b=gate;d=b-a;c=(a+b)/2
-    add('Main road to entry gate • continuous paved apron',[c[0],.27,c[1]],[14,.14,np.linalg.norm(d)+1],'paving',rot=math.atan2(d[0],d[1]))
+    # Gate apron meets the campus-side road edge without covering the carriageway.
+    choices=[]
+    for a,b in zip(main,main[1:]):
+        v=b-a;q=a+np.clip(np.dot(gate-a,v)/np.dot(v,v),0,1)*v;choices.append((np.linalg.norm(q-gate),q))
+    _,road_centre=min(choices,key=lambda x:x[0]);normal=gate-road_centre;normal/=np.linalg.norm(normal)
+    tangent=np.array([normal[1],-normal[0]]);edge=road_centre+normal*(roads[0]['width']/2)
+    apron=np.array([gate-tangent*7,edge-tangent*7,edge+tangent*7,gate+tangent*7])
+    area=sum(apron[i,0]*apron[(i+1)%4,1]-apron[(i+1)%4,0]*apron[i,1] for i in range(4))
+    if area<0:apron=apron[::-1]
+    lo=apron.min(axis=0);hi=apron.max(axis=0);mid=(lo+hi)/2;span=hi-lo
+    verts=[[float((x-mid[0])/span[0]),y,float((z-mid[1])/span[1])] for y in [-.5,.5] for x,z in apron]
+    faces=[[0,1,2],[0,2,3],[4,6,5],[4,7,6]]
+    for i in range(4):
+        j=(i+1)%4;faces.extend([[i,j,j+4],[i,j+4,i+4]])
+    from detail_lotus_v8 import MESHES
+    MESHES['gateApronTrimmed']={'vertices':verts,'faces':faces}
+    add('Main gate apron • stops at campus-side road edge',[mid[0],.27,mid[1]],[span[0],.14,span[1]],'paving',shape='gateApronTrimmed')
+    geo['gateApronPolygon']=apron.tolist()
     geo['roadRevision']='Removed legacy crossing frontage wall; clipped north enclosure wall outside 6.5m road corridor; redrawn frontage returns, continuous entrance apron and earth shoulders. Width/detail estimated from supplied images.'
     # A true local-to-WGS84 frame is shared by model, signs and footprint GeoJSON.
     geo.update(globalPlanTransform=glob.tolist(),hallPlanTransform=hm.tolist(),gardenPlanTransform=gm.tolist(),gateDelta=gdelta.tolist(),pavilionCentre=pc.tolist(),footprints=footprints,roads=roads,

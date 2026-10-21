@@ -66,7 +66,15 @@ fragment = (
 
 viz = Path(r'C:\Users\HP\.codex\visualizations\2026\10\20\01a15786-1405-7681-bdee-4876e7a65935\gyan-mansarovar-3d.html')
 if viz.parent.exists():
-    viz.write_text(fragment, encoding='utf-8')
+    inline_fragment = fragment
+    if len(inline_fragment.encode('utf-8')) > 1000000:
+        import gzip
+        payload = json.dumps(packed, ensure_ascii=False, separators=(',', ':'))
+        zipped = base64.b64encode(gzip.compress(payload.encode('utf-8'), mtime=0)).decode('ascii')
+        expression = "await new Response(new Blob([Uint8Array.from(atob('" + zipped + "'),c=>c.charCodeAt(0))]).stream().pipeThrough(new DecompressionStream('gzip'))).json()"
+        inline_fragment = inline_fragment.replace('(()=>{', '(async()=>{', 1).replace('const data='+payload+';', 'const data='+expression+';', 1)
+    assert len(inline_fragment.encode('utf-8')) < 1000000
+    viz.write_text(inline_fragment, encoding='utf-8')
 
 style = '''<style>
 :root {

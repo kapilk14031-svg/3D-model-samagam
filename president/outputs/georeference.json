@@ -368,6 +368,24 @@
       "status": "Listing pin only; cadastral ownership and facade text unverified"
     }
   ],
+  "gateApronPolygon": [
+    [
+      -19.66585538119504,
+      -63.876731780429274
+    ],
+    [
+      -21.301115244908228,
+      -73.36126405446525
+    ],
+    [
+      -7.504672571963865,
+      -75.73995478092799
+    ],
+    [
+      -5.8694127082506755,
+      -66.255422506892
+    ]
+  ],
   "roadRevision": "Removed legacy crossing frontage wall; clipped north enclosure wall outside 6.5m road corridor; redrawn frontage returns, continuous entrance apron and earth shoulders. Width/detail estimated from supplied images.",
   "globalPlanTransform": [
     [
@@ -927,5 +945,126 @@
       "status": "Centreline manually digitised from displayed image; width estimated"
     }
   ],
-  "accuracy": "Displayed-graticule registration only. Fit residual measures internal consistency, not absolute position accuracy; screenshot pixels, digitisation, imagery age, geometry simplification and ground survey error remain."
+  "accuracy": "Displayed-graticule registration only. Fit residual measures internal consistency, not absolute position accuracy; screenshot pixels, digitisation, imagery age, geometry simplification and ground survey error remain.",
+  "helipadProposal": {
+    "status": "Proposed visual arrangement; site/flight suitability not verified",
+    "gate": [
+      -12.767634044722858,
+      -65.06607714366064
+    ],
+    "centre": [
+      -21.820143218129413,
+      -164.65549464203437
+    ],
+    "gateToCentreMetres": 99.99999999999999,
+    "rightShiftMetres": 8.0,
+    "rightShiftReference": "Looking outward from main gate",
+    "originalOutwardAxis": [
+      -0.1699064804616234,
+      -0.9854601909245975
+    ],
+    "originalRightAxis": [
+      0.9854601909245974,
+      -0.16990648046162346
+    ],
+    "widthMetres": 51.90216843351069,
+    "depthMetres": 47.284218522023124,
+    "areaSquareMetres": 2454.15347397697,
+    "corners": [
+      [
+        -49.80488093374834,
+        -185.85130926008463
+      ],
+      [
+        1.8841862782097665,
+        -190.54975781872508
+      ],
+      [
+        6.164594497489512,
+        -143.4596800239841
+      ],
+      [
+        -45.524472714468594,
+        -138.76123146534366
+      ]
+    ],
+    "helicopterCentre": [
+      -24.92593203714587,
+      -168.38967471424198
+    ],
+    "helicopterDisplayScale": 1.45,
+    "alignmentAxis": [
+      -0.09052509173406556,
+      -0.9958941749837373
+    ],
+    "carpet": [
+      [
+        -12.767634044722858,
+        -65.06607714366064
+      ],
+      [
+        -12.767634044722858,
+        -2.3567370431640224
+      ],
+      [
+        -15.654954855095001,
+        -2.3567370431640224
+      ],
+      [
+        -19.56971450358106,
+        -2.3567370431640224
+      ]
+    ],
+    "carpetDestination": "Auditorium side entrance",
+    "vehicleAccess": [
+      [
+        -19.770464200223607,
+        -142.1063499196476
+      ],
+      [
+        -14.459037098705302,
+        -83.67371859139573
+      ]
+    ],
+    "vehicleAccessEnd": "Main road field-side edge",
+    "vehicleAccessPolygon": [
+      [
+        -17.03175521901833,
+        -142.35529392191629
+      ],
+      [
+        -11.740307674889157,
+        -84.1424638050351
+      ],
+      [
+        -17.177766522521445,
+        -83.20497337775633
+      ],
+      [
+        -22.509173181428885,
+        -141.85740591737894
+      ]
+    ],
+    "mainRoadJoinEdge": [
+      [
+        -17.177766522521445,
+        -83.20497337775633
+      ],
+      [
+        -11.740307674889157,
+        -84.1424638050351
+      ]
+    ],
+    "vehicleAccessWidthMetres": 5.5,
+    "helipadBoardingCarpet": [
+      [
+        -22.182243585065674,
+        -168.63907134196933
+      ],
+      [
+        -19.770464200223607,
+        -142.1063499196476
+      ]
+    ]
+  }
 }

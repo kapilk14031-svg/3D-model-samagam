@@ -3403,40 +3403,6 @@
     {
       "name": "Landscape tree trunk",
       "p": [
-        1.4417610760856179,
-        1.6,
-        -53.51457129035561
-      ],
-      "s": [
-        0.35051935324587175,
-        3,
-        0.35795996698895277
-      ],
-      "mat": "bark",
-      "shape": "cylinder",
-      "group": "campus",
-      "rot": -0.016303537667456174
-    },
-    {
-      "name": "Landscape tree canopy",
-      "p": [
-        1.4417610760856179,
-        4.4,
-        -53.51457129035561
-      ],
-      "s": [
-        2.3034128927585855,
-        3.1,
-        2.3523083544988324
-      ],
-      "mat": "tree",
-      "shape": "sphereSmooth",
-      "group": "campus",
-      "rot": -0.016303537667456174
-    },
-    {
-      "name": "Landscape tree trunk",
-      "p": [
         1.736176451079689,
         1.6,
         -33.061834966044216
@@ -234850,21 +234816,3013 @@
       "rot": 1.7452561561123383
     },
     {
-      "name": "Main road to entry gate • continuous paved apron",
+      "name": "Main gate apron • stops at campus-side road edge",
       "p": [
-        -12.476538755835964,
+        -13.585263976579451,
         0.27,
-        -72.28782208864432
+        -69.80834328067863
       ],
       "s": [
-        14,
+        15.431702536657554,
         0.14,
-        15.455218644850659
+        11.863223000498714
       ],
       "mat": "paving",
-      "shape": "box",
+      "shape": "gateApronTrimmed",
       "group": "campus",
-      "rot": -0.040286356335084185
+      "rot": 0
+    },
+    {
+      "name": "Proposed helipad field area • central-lawn-sized",
+      "p": [
+        -21.820143218129413,
+        0.22,
+        -164.65549464203437
+      ],
+      "s": [
+        51.90216843351069,
+        0.22,
+        47.284218522023124
+      ],
+      "mat": "helipadSurface",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Proposed helipad edge",
+      "p": [
+        -47.66467682410847,
+        0.35,
+        -162.30627036271414
+      ],
+      "s": [
+        0.18,
+        0.04,
+        47.284218522023124
+      ],
+      "mat": "helipadEdge",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Proposed helipad edge",
+      "p": [
+        4.024390387849639,
+        0.35,
+        -167.0047189213546
+      ],
+      "s": [
+        0.18,
+        0.04,
+        47.284218522023124
+      ],
+      "mat": "helipadEdge",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Proposed helipad edge",
+      "p": [
+        -23.960347327769284,
+        0.35,
+        -188.20053353940486
+      ],
+      "s": [
+        51.90216843351069,
+        0.04,
+        0.18
+      ],
+      "mat": "helipadEdge",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Proposed helipad edge",
+      "p": [
+        -19.679939108489542,
+        0.35,
+        -141.11045574466388
+      ],
+      "s": [
+        51.90216843351069,
+        0.04,
+        0.18
+      ],
+      "mat": "helipadEdge",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -5.743508920641549,
+        0.36,
+        -164.65549464203437
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 1.5707963267948966
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -5.820922308975087,
+        0.36,
+        -163.07970892207047
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 1.4726215563702154
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -6.052416940727587,
+        0.36,
+        -161.51909888000193
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 1.3744467859455345
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -6.435763396047433,
+        0.36,
+        -159.98869404365007
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 1.2762720155208536
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -6.967269839011406,
+        0.36,
+        -158.50323304819338
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 1.1780972450961724
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -7.641817572022788,
+        0.36,
+        -157.07702169505367
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 1.0799224746714913
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -8.452910331667377,
+        0.36,
+        -155.7237951792081
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.9817477042468103
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -9.392736851281393,
+        0.36,
+        -154.45658581175314
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.8835729338221293
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -10.452246087719516,
+        0.36,
+        -153.28759751162448
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.7853981633974483
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -11.621234387848185,
+        0.36,
+        -152.22808827518634
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.6872233929727672
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -12.88844375530315,
+        0.36,
+        -151.28826175557234
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.5890486225480862
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -14.241670271148717,
+        0.36,
+        -150.47716899592774
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.4908738521234053
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -15.667881624288434,
+        0.36,
+        -149.80262126291638
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.39269908169872414
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -17.15334261974513,
+        0.36,
+        -149.2711148199524
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.294524311274043
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -18.683747456096974,
+        0.36,
+        -148.88776836463254
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.19634954084936207
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -20.244357498165517,
+        0.36,
+        -148.65627373288004
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09817477042468115
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -21.820143218129413,
+        0.36,
+        -148.5788603445465
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.0
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -23.39592893809331,
+        0.36,
+        -148.65627373288004
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.09817477042468115
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -24.956538980161852,
+        0.36,
+        -148.88776836463254
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.19634954084936207
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -26.486943816513694,
+        0.36,
+        -149.2711148199524
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.294524311274043
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -27.972404811970392,
+        0.36,
+        -149.80262126291638
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.39269908169872414
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -29.39861616511011,
+        0.36,
+        -150.47716899592774
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.4908738521234053
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -30.75184268095567,
+        0.36,
+        -151.28826175557234
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.589048622548086
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -32.01905204841064,
+        0.36,
+        -152.22808827518634
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.6872233929727671
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -33.18804034853931,
+        0.36,
+        -153.28759751162448
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.7853981633974483
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -34.247549584977435,
+        0.36,
+        -154.45658581175314
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.8835729338221294
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -35.18737610459145,
+        0.36,
+        -155.7237951792081
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -0.9817477042468106
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -35.99846886423604,
+        0.36,
+        -157.07702169505367
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.0799224746714913
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -36.67301659724742,
+        0.36,
+        -158.50323304819338
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.1780972450961724
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.20452304021139,
+        0.36,
+        -159.98869404365007
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.2762720155208536
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.58786949553124,
+        0.36,
+        -161.51909888000193
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.3744467859455343
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.819364127283734,
+        0.36,
+        -163.07970892207047
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.4726215563702154
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.89677751561727,
+        0.36,
+        -164.65549464203437
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.5707963267948966
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.81936412728374,
+        0.36,
+        -166.23128036199827
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.6689710972195777
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.58786949553124,
+        0.36,
+        -167.7918904040668
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.7671458676442588
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -37.2045230402114,
+        0.36,
+        -169.32229524041864
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.8653206380689396
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -36.673016597247425,
+        0.36,
+        -170.80775623587536
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.9634954084936207
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -35.99846886423604,
+        0.36,
+        -172.23396758901507
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.061670178918302
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -35.18737610459145,
+        0.36,
+        -173.58719410486063
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.1598449493429825
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -34.247549584977435,
+        0.36,
+        -174.8544034723156
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.2580197197676637
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -33.18804034853931,
+        0.36,
+        -176.02339177244426
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.356194490192345
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -32.01905204841065,
+        0.36,
+        -177.08290100888237
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.4543692606170255
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -30.751842680955676,
+        0.36,
+        -178.0227275284964
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.552544031041707
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -29.398616165110113,
+        0.36,
+        -178.833820288141
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.650718801466388
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -27.972404811970403,
+        0.36,
+        -179.50836802115236
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.7488935718910685
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -26.4869438165137,
+        0.36,
+        -180.03987446411634
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.84706834231575
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -24.95653898016186,
+        0.36,
+        -180.4232209194362
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -2.945243112740431
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -23.395928938093306,
+        0.36,
+        -180.6547155511887
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0434178831651124
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -21.820143218129417,
+        0.36,
+        -180.73212893952223
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.141592653589793
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -20.244357498165527,
+        0.36,
+        -180.6547155511887
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.239767424014474
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -18.683747456096974,
+        0.36,
+        -180.4232209194362
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.3379421944391554
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -17.153342619745132,
+        0.36,
+        -180.03987446411634
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.436116964863836
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -15.66788162428843,
+        0.36,
+        -179.50836802115236
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.5342917352885177
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -14.24167027114872,
+        0.36,
+        -178.833820288141
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.6324665057131984
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -12.888443755303157,
+        0.36,
+        -178.0227275284964
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.730641276137879
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -11.621234387848183,
+        0.36,
+        -177.0829010088824
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.8288160465625607
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -10.45224608771952,
+        0.36,
+        -176.02339177244426
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.9269908169872414
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -9.3927368512814,
+        0.36,
+        -174.8544034723156
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.025165587411922
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -8.452910331667377,
+        0.36,
+        -173.58719410486063
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.123340357836604
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -7.641817572022791,
+        0.36,
+        -172.23396758901507
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.221515128261284
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -6.96726983901141,
+        0.36,
+        -170.80775623587536
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.319689898685965
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -6.435763396047433,
+        0.36,
+        -169.32229524041867
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.417864669110647
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -6.052416940727589,
+        0.36,
+        -167.7918904040668
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.516039439535327
+    },
+    {
+      "name": "Helipad white circular marking",
+      "p": [
+        -5.820922308975087,
+        0.36,
+        -166.23128036199827
+      ],
+      "s": [
+        1.6283198813574244,
+        0.035,
+        0.35
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.614214209960009
+    },
+    {
+      "name": "Helipad H upright",
+      "p": [
+        -23.91152098559526,
+        0.37,
+        -164.46539194939282
+      ],
+      "s": [
+        0.8,
+        0.04,
+        7.0
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Helipad H upright",
+      "p": [
+        -19.728765450663566,
+        0.37,
+        -164.84559733467592
+      ],
+      "s": [
+        0.8,
+        0.04,
+        7.0
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Helipad H crossbar",
+      "p": [
+        -21.820143218129413,
+        0.37,
+        -164.65549464203437
+      ],
+      "s": [
+        5.0,
+        0.04,
+        0.8
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.09064918896201533
+    },
+    {
+      "name": "Proposed vehicle access • stops at main road edge",
+      "p": [
+        -17.124740428159022,
+        0.3,
+        -112.7801336498363
+      ],
+      "s": [
+        10.768865506539727,
+        0.12,
+        59.15032054415995
+      ],
+      "mat": "paving",
+      "shape": "helipadAccessTrimmed",
+      "group": "helipad",
+      "rot": 0.0
+    },
+    {
+      "name": "Short red carpet • helicopter to vehicle road only",
+      "p": [
+        -20.97635389264464,
+        0.36,
+        -155.37271063080846
+      ],
+      "s": [
+        2.4,
+        0.025,
+        26.642109261011576
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.0906491889620152
+    },
+    {
+      "name": "Proposed red carpet • main gate to auditorium",
+      "p": [
+        -12.767634044722858,
+        0.38,
+        -33.711407093412326
+      ],
+      "s": [
+        2.4,
+        0.025,
+        62.70934010049661
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.0
+    },
+    {
+      "name": "Proposed red carpet • main gate to auditorium",
+      "p": [
+        -14.21129444990893,
+        0.38,
+        -2.3567370431640224
+      ],
+      "s": [
+        2.4,
+        0.025,
+        2.8873208103721435
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -1.5707963267948966
+    },
+    {
+      "name": "Auditorium red-carpet stair tread",
+      "p": [
+        -15.921897909898606,
+        0.5149999999999999,
+        -2.3567370431640224
+      ],
+      "s": [
+        0.5338861096072095,
+        0.025,
+        2.4
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.00036452859711810277
+    },
+    {
+      "name": "Auditorium red-carpet stair tread",
+      "p": [
+        -16.41129347785617,
+        0.6549999999999999,
+        -2.356558644476296
+      ],
+      "s": [
+        0.5338861096072095,
+        0.025,
+        2.4
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.00036452859711810277
+    },
+    {
+      "name": "Auditorium red-carpet stair tread",
+      "p": [
+        -16.90068904581373,
+        0.7949999999999999,
+        -2.3563802457885714
+      ],
+      "s": [
+        0.5338861096072095,
+        0.025,
+        2.4
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.00036452859711810277
+    },
+    {
+      "name": "Auditorium red-carpet stair tread",
+      "p": [
+        -17.390084613771297,
+        0.9349999999999999,
+        -2.356201847100847
+      ],
+      "s": [
+        0.5338861096072095,
+        0.025,
+        2.4
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.00036452859711810277
+    },
+    {
+      "name": "Auditorium red-carpet stair tread",
+      "p": [
+        -17.87948018172886,
+        1.075,
+        -2.3560234484131204
+      ],
+      "s": [
+        0.5338861096072095,
+        0.025,
+        2.4
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.00036452859711810277
+    },
+    {
+      "name": "Auditorium red-carpet entrance landing",
+      "p": [
+        -18.72459734265496,
+        1.075,
+        -2.3567370431640224
+      ],
+      "s": [
+        1.690234321852202,
+        0.025,
+        2.4
+      ],
+      "mat": "redCarpet",
+      "shape": "box",
+      "group": "helipad",
+      "rot": 0.0
+    },
+    {
+      "name": "Parked helicopter • rounded fuselage",
+      "p": [
+        -24.92593203714587,
+        2.737,
+        -168.38967471424198
+      ],
+      "s": [
+        1.9575,
+        1.769,
+        4.8575
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • blue belly",
+      "p": [
+        -24.94562124459803,
+        1.7945,
+        -168.60628169730094
+      ],
+      "s": [
+        1.769,
+        0.7975,
+        4.2775
+      ],
+      "mat": "heliBlue",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cockpit glazing",
+      "p": [
+        -24.61090471791132,
+        3.0995000000000004,
+        -164.92396298529857
+      ],
+      "s": [
+        1.624,
+        1.131,
+        1.74
+      ],
+      "mat": "heliGlass",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cockpit centre frame",
+      "p": [
+        -24.452078444463904,
+        3.0995000000000004,
+        -163.1766666552896
+      ],
+      "s": [
+        0.07975,
+        1.8125,
+        0.087
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • side cabin window",
+      "p": [
+        -22.838636170421683,
+        3.2444999999999995,
+        -167.8514173735989
+      ],
+      "s": [
+        1.8125,
+        0.9425,
+        0.05075
+      ],
+      "mat": "heliGlass",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -1.4801471378328812
+    },
+    {
+      "name": "Parked helicopter • side cabin window",
+      "p": [
+        -23.042091314093998,
+        3.2444999999999995,
+        -170.08968953187485
+      ],
+      "s": [
+        1.8125,
+        0.9425,
+        0.05075
+      ],
+      "mat": "heliGlass",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -1.4801471378328812
+    },
+    {
+      "name": "Parked helicopter • door handle",
+      "p": [
+        -22.90425829490048,
+        2.3745,
+        -169.37422932416237
+      ],
+      "s": [
+        0.057999999999999996,
+        0.0725,
+        0.46399999999999997
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • door rear seam",
+      "p": [
+        -23.128722113477817,
+        2.621,
+        -171.20291799207436
+      ],
+      "s": [
+        0.03625,
+        1.9575,
+        0.03625
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • landing skid",
+      "p": [
+        -22.757233552084593,
+        0.4169999999999999,
+        -168.87800132716913
+      ],
+      "s": [
+        0.174,
+        0.174,
+        8.555
+      ],
+      "mat": "heliMetal",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid support",
+      "p": [
+        -23.097267356913424,
+        0.9969999999999999,
+        -166.37193024645862
+      ],
+      "s": [
+        0.174,
+        1.2325,
+        0.174
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid support",
+      "p": [
+        -23.49105150595661,
+        0.9969999999999999,
+        -170.7040699076379
+      ],
+      "s": [
+        0.174,
+        1.2325,
+        0.174
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • side cabin window",
+      "p": [
+        -26.88196652085566,
+        3.2444999999999995,
+        -167.48388550115862
+      ],
+      "s": [
+        1.8125,
+        0.9425,
+        0.05075
+      ],
+      "mat": "heliGlass",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -1.4801471378328812
+    },
+    {
+      "name": "Parked helicopter • side cabin window",
+      "p": [
+        -27.085421664527974,
+        3.2444999999999995,
+        -169.72215765943457
+      ],
+      "s": [
+        1.8125,
+        0.9425,
+        0.05075
+      ],
+      "mat": "heliGlass",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -1.4801471378328812
+    },
+    {
+      "name": "Parked helicopter • door handle",
+      "p": [
+        -27.091993300707095,
+        2.3745,
+        -168.99357131342063
+      ],
+      "s": [
+        0.057999999999999996,
+        0.0725,
+        0.46399999999999997
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • door rear seam",
+      "p": [
+        -27.20093339498632,
+        2.621,
+        -170.83276089197378
+      ],
+      "s": [
+        0.03625,
+        1.9575,
+        0.03625
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • landing skid",
+      "p": [
+        -27.147135075412905,
+        0.4169999999999999,
+        -168.47896672280538
+      ],
+      "s": [
+        0.174,
+        0.174,
+        8.555
+      ],
+      "mat": "heliMetal",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid support",
+      "p": [
+        -26.36081256833513,
+        0.9969999999999999,
+        -166.07527952084607
+      ],
+      "s": [
+        0.174,
+        1.2325,
+        0.174
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid support",
+      "p": [
+        -26.754596717378316,
+        0.9969999999999999,
+        -170.40741918202534
+      ],
+      "s": [
+        0.174,
+        1.2325,
+        0.174
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine housing",
+      "p": [
+        -25.063756489310986,
+        4.332,
+        -169.9059235956547
+      ],
+      "s": [
+        1.2325,
+        0.6525,
+        2.465
+      ],
+      "mat": "heliBlue",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine exhaust",
+      "p": [
+        -24.177622215566167,
+        4.2595,
+        -171.3696507898049
+      ],
+      "s": [
+        0.348,
+        0.319,
+        0.9425
+      ],
+      "mat": "heliMetal",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine exhaust",
+      "p": [
+        -26.199287390783155,
+        4.2595,
+        -171.18588485358475
+      ],
+      "s": [
+        0.348,
+        0.319,
+        0.9425
+      ],
+      "mat": "heliMetal",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • main rotor mast",
+      "p": [
+        -24.958747382899467,
+        5.2745,
+        -168.75068635267357
+      ],
+      "s": [
+        0.1885,
+        1.5225,
+        0.1885
+      ],
+      "mat": "heliMetal",
+      "shape": "cylinder",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • rotor hub",
+      "p": [
+        -24.958747382899467,
+        6.0575,
+        -168.75068635267357
+      ],
+      "s": [
+        0.522,
+        0.23199999999999998,
+        0.522
+      ],
+      "mat": "heliMetal",
+      "shape": "cylinder",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • stationary main rotor blade",
+      "p": [
+        -30.147569133895928,
+        6.1155,
+        -169.3203606775172
+      ],
+      "s": [
+        9.569999999999999,
+        0.1015,
+        0.319
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.250943464627778
+    },
+    {
+      "name": "Parked helicopter • rotor blade white tip",
+      "p": [
+        -34.543654228490155,
+        6.1445,
+        -169.80300142495415
+      ],
+      "s": [
+        0.6525,
+        0.06525,
+        0.348
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.250943464627778
+    },
+    {
+      "name": "Parked helicopter • stationary main rotor blade",
+      "p": [
+        -24.389073058055853,
+        6.1155,
+        -173.93950810367005
+      ],
+      "s": [
+        9.569999999999999,
+        0.1015,
+        0.319
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.821739791422674
+    },
+    {
+      "name": "Parked helicopter • rotor blade white tip",
+      "p": [
+        -23.906432310618904,
+        6.1445,
+        -178.33559319826426
+      ],
+      "s": [
+        0.6525,
+        0.06525,
+        0.348
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -4.821739791422674
+    },
+    {
+      "name": "Parked helicopter • stationary main rotor blade",
+      "p": [
+        -19.76992563190301,
+        6.1155,
+        -168.18101202782998
+      ],
+      "s": [
+        9.569999999999999,
+        0.1015,
+        0.319
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -6.392536118217571
+    },
+    {
+      "name": "Parked helicopter • rotor blade white tip",
+      "p": [
+        -15.373840537308785,
+        6.1445,
+        -167.69837128039302
+      ],
+      "s": [
+        0.6525,
+        0.06525,
+        0.348
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -6.392536118217571
+    },
+    {
+      "name": "Parked helicopter • stationary main rotor blade",
+      "p": [
+        -25.52842170774308,
+        6.1155,
+        -163.56186460167712
+      ],
+      "s": [
+        9.569999999999999,
+        0.1015,
+        0.319
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -7.963332445012467
+    },
+    {
+      "name": "Parked helicopter • rotor blade white tip",
+      "p": [
+        -26.011062455180035,
+        6.1445,
+        -159.1657795070829
+      ],
+      "s": [
+        0.6525,
+        0.06525,
+        0.348
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -7.963332445012467
+    },
+    {
+      "name": "Parked helicopter • tail boom",
+      "p": [
+        -25.660995782026482,
+        2.8529999999999998,
+        -176.47633541510993
+      ],
+      "s": [
+        0.46399999999999997,
+        0.493,
+        5.075
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • vertical tail fin",
+      "p": [
+        -26.04821686191895,
+        3.9694999999999996,
+        -180.73627274860286
+      ],
+      "s": [
+        0.261,
+        3.2624999999999997,
+        1.9575
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail stabilizer",
+      "p": [
+        -25.936644686356715,
+        2.8819999999999997,
+        -179.5088331779354
+      ],
+      "s": [
+        4.06,
+        0.174,
+        0.9425
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor vertical",
+      "p": [
+        -26.481430828036874,
+        3.897,
+        -180.69689433369854
+      ],
+      "s": [
+        0.145,
+        3.48,
+        0.2175
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor horizontal",
+      "p": [
+        -26.481430828036874,
+        3.897,
+        -180.69689433369854
+      ],
+      "s": [
+        0.145,
+        0.2175,
+        3.48
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door vertical seal",
+      "p": [
+        -22.728374895283913,
+        2.737,
+        -166.79857600320878
+      ],
+      "s": [
+        0.06525,
+        2.175,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door vertical seal",
+      "p": [
+        -23.128722113477817,
+        2.737,
+        -171.20291799207436
+      ],
+      "s": [
+        0.06525,
+        2.175,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door guide track",
+      "p": [
+        -22.92920481129594,
+        1.6784999999999999,
+        -169.0079672304102
+      ],
+      "s": [
+        0.07975,
+        0.06525,
+        4.422499999999999
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door guide track",
+      "p": [
+        -22.92920481129594,
+        3.839,
+        -169.0079672304102
+      ],
+      "s": [
+        0.07975,
+        0.06525,
+        4.422499999999999
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • boarding footboard",
+      "p": [
+        -22.513059965186926,
+        0.968,
+        -168.75459849307882
+      ],
+      "s": [
+        0.609,
+        0.174,
+        2.32
+      ],
+      "mat": "heliMetal",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -22.434303135378286,
+        1.0695,
+        -167.88817056084295
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -22.473681550282606,
+        1.0695,
+        -168.32138452696088
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -22.513059965186926,
+        1.0695,
+        -168.75459849307882
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -22.552438380091242,
+        1.0695,
+        -169.18781245919672
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -22.591816794995562,
+        1.0695,
+        -169.62102642531465
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid curved nose",
+      "p": [
+        -22.37788815517299,
+        0.591,
+        -164.70470678689978
+      ],
+      "s": [
+        0.11599999999999999,
+        0.261,
+        0.522
+      ],
+      "mat": "heliMetal",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid end cap",
+      "p": [
+        -23.13789156282634,
+        0.4169999999999999,
+        -173.06573633297575
+      ],
+      "s": [
+        0.1305,
+        0.11599999999999999,
+        0.174
+      ],
+      "mat": "heliMetal",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • navigation light",
+      "p": [
+        -23.1628552132786,
+        2.708,
+        -171.09789689182307
+      ],
+      "s": [
+        0.10875,
+        0.1015,
+        0.145
+      ],
+      "mat": "heliNavRed",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -23.832382503964457,
+        4.476999999999999,
+        -169.65385890512508
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -23.865197849718058,
+        4.476999999999999,
+        -170.01487054355667
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -23.898013195471655,
+        4.476999999999999,
+        -170.3758821819883
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -23.930828541225253,
+        4.476999999999999,
+        -170.73689382041988
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -23.963643886978854,
+        4.476999999999999,
+        -171.0979054588515
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -22.94497673812583,
+        1.7365,
+        -167.25935999997677
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -23.023733567934467,
+        1.7365,
+        -168.1257879322126
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -23.102490397743107,
+        1.7365,
+        -168.99221586444847
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -23.181247227551744,
+        1.7365,
+        -169.8586437966843
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -23.26000405736038,
+        1.7365,
+        -170.72507172892017
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door vertical seal",
+      "p": [
+        -26.800586176792415,
+        2.737,
+        -166.4284189031082
+      ],
+      "s": [
+        0.06525,
+        2.175,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door vertical seal",
+      "p": [
+        -27.20093339498632,
+        2.737,
+        -170.83276089197378
+      ],
+      "s": [
+        0.06525,
+        2.175,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door guide track",
+      "p": [
+        -27.00141609280444,
+        1.6784999999999999,
+        -168.63781013030962
+      ],
+      "s": [
+        0.07975,
+        0.06525,
+        4.422499999999999
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • sliding door guide track",
+      "p": [
+        -27.00141609280444,
+        3.839,
+        -168.63781013030962
+      ],
+      "s": [
+        0.07975,
+        0.06525,
+        4.422499999999999
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • boarding footboard",
+      "p": [
+        -27.365056385707696,
+        0.968,
+        -168.31356024615044
+      ],
+      "s": [
+        0.609,
+        0.174,
+        2.32
+      ],
+      "mat": "heliMetal",
+      "shape": "rounded",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -27.286299555899056,
+        1.0695,
+        -167.44713231391458
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -27.325677970803376,
+        1.0695,
+        -167.8803462800325
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -27.365056385707696,
+        1.0695,
+        -168.31356024615044
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -27.404434800612012,
+        1.0695,
+        -168.74677421226835
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • footboard grip rib",
+      "p": [
+        -27.443813215516332,
+        1.0695,
+        -169.17998817838628
+      ],
+      "s": [
+        0.58,
+        0.03625,
+        0.05075
+      ],
+      "mat": "heliBlue",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid curved nose",
+      "p": [
+        -26.767789678501302,
+        0.591,
+        -164.30567218253603
+      ],
+      "s": [
+        0.11599999999999999,
+        0.261,
+        0.522
+      ],
+      "mat": "heliMetal",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • skid end cap",
+      "p": [
+        -27.527793086154652,
+        0.4169999999999999,
+        -172.666701728612
+      ],
+      "s": [
+        0.1305,
+        0.11599999999999999,
+        0.174
+      ],
+      "mat": "heliMetal",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • navigation light",
+      "p": [
+        -27.14842370156352,
+        2.708,
+        -170.73561547470334
+      ],
+      "s": [
+        0.10875,
+        0.1015,
+        0.145
+      ],
+      "mat": "heliNavGreen",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -26.229499783150313,
+        4.476999999999999,
+        -169.43596500932117
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -26.262315128903914,
+        4.476999999999999,
+        -169.79697664775276
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -26.295130474657512,
+        4.476999999999999,
+        -170.15798828618438
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -26.32794582041111,
+        4.476999999999999,
+        -170.51899992461597
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • engine cooling grille",
+      "p": [
+        -26.36076116616471,
+        4.476999999999999,
+        -170.8800115630476
+      ],
+      "s": [
+        0.05075,
+        0.3625,
+        0.06525
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -26.670616846739996,
+        1.7365,
+        -166.92070563179965
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -26.749373676548633,
+        1.7365,
+        -167.78713356403549
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -26.828130506357272,
+        1.7365,
+        -168.65356149627135
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -26.90688733616591,
+        1.7365,
+        -169.5199894285072
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • cabin lower rivet",
+      "p": [
+        -26.985644165974545,
+        1.7365,
+        -170.38641736074305
+      ],
+      "s": [
+        0.03625,
+        0.03625,
+        0.03625
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • nose search lamp",
+      "p": [
+        -24.529522660442396,
+        1.9394999999999998,
+        -164.02865412198818
+      ],
+      "s": [
+        0.319,
+        0.23199999999999998,
+        0.261
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • roof beacon",
+      "p": [
+        -25.103134904215302,
+        5.028,
+        -170.33913756177265
+      ],
+      "s": [
+        0.145,
+        0.174,
+        0.145
+      ],
+      "mat": "heliNavRed",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • roof antenna",
+      "p": [
+        -25.22127014892826,
+        5.1295,
+        -171.63877946012641
+      ],
+      "s": [
+        0.03625,
+        1.0875,
+        0.03625
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • mast brace",
+      "p": [
+        -24.511092951244276,
+        5.028,
+        -168.79137738140804
+      ],
+      "s": [
+        0.174,
+        0.87,
+        0.203
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • rotor grip housing",
+      "p": [
+        -24.337807364797108,
+        6.043,
+        -168.80712874736975
+      ],
+      "s": [
+        0.899,
+        0.203,
+        0.27549999999999997
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • mast brace",
+      "p": [
+        -25.40640181455466,
+        5.028,
+        -168.7099953239391
+      ],
+      "s": [
+        0.174,
+        0.87,
+        0.203
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • rotor grip housing",
+      "p": [
+        -25.579687401001827,
+        6.043,
+        -168.6942439579774
+      ],
+      "s": [
+        0.899,
+        0.203,
+        0.27549999999999997
+      ],
+      "mat": "heliMetal",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor hub",
+      "p": [
+        -26.59695455233499,
+        3.897,
+        -180.68639342305738
+      ],
+      "s": [
+        0.174,
+        0.29,
+        0.29
+      ],
+      "mat": "heliWhite",
+      "shape": "sphereSmooth",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor safety tip",
+      "p": [
+        -26.510311759111403,
+        5.491999999999999,
+        -180.69426910603826
+      ],
+      "s": [
+        0.1885,
+        0.261,
+        0.261
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor safety tip",
+      "p": [
+        -26.510311759111403,
+        2.3019999999999996,
+        -180.69426910603826
+      ],
+      "s": [
+        0.1885,
+        0.261,
+        0.261
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor safety tip",
+      "p": [
+        -26.365924237795568,
+        3.897,
+        -179.10581789693921
+      ],
+      "s": [
+        0.1885,
+        0.261,
+        0.261
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
+    },
+    {
+      "name": "Parked helicopter • tail rotor safety tip",
+      "p": [
+        -26.654699280427238,
+        3.897,
+        -182.28272031513734
+      ],
+      "s": [
+        0.1885,
+        0.261,
+        0.261
+      ],
+      "mat": "heliWhite",
+      "shape": "box",
+      "group": "helipad",
+      "rot": -3.0509434646277778
     }
   ],
   "colors": {
@@ -234922,7 +237880,16 @@
     "lampBrown": "#72564a",
     "redRoof": "#a55250",
     "solar": "#344b5c",
-    "paverObject": "#d6d1c4"
+    "paverObject": "#d6d1c4",
+    "helipadSurface": "#59636b",
+    "helipadEdge": "#d6cbaa",
+    "heliWhite": "#e6edf0",
+    "heliBlue": "#1e4c6b",
+    "heliGlass": "#173646",
+    "heliMetal": "#424c53",
+    "heliNavRed": "#df3e36",
+    "heliNavGreen": "#39b77d",
+    "redCarpet": "#a92035"
   },
   "labels": [
     [
@@ -235706,6 +238673,24 @@
         "status": "Listing pin only; cadastral ownership and facade text unverified"
       }
     ],
+    "gateApronPolygon": [
+      [
+        -19.66585538119504,
+        -63.876731780429274
+      ],
+      [
+        -21.301115244908228,
+        -73.36126405446525
+      ],
+      [
+        -7.504672571963865,
+        -75.73995478092799
+      ],
+      [
+        -5.8694127082506755,
+        -66.255422506892
+      ]
+    ],
     "roadRevision": "Removed legacy crossing frontage wall; clipped north enclosure wall outside 6.5m road corridor; redrawn frontage returns, continuous entrance apron and earth shoulders. Width/detail estimated from supplied images.",
     "globalPlanTransform": [
       [
@@ -236265,7 +239250,128 @@
         "status": "Centreline manually digitised from displayed image; width estimated"
       }
     ],
-    "accuracy": "Displayed-graticule registration only. Fit residual measures internal consistency, not absolute position accuracy; screenshot pixels, digitisation, imagery age, geometry simplification and ground survey error remain."
+    "accuracy": "Displayed-graticule registration only. Fit residual measures internal consistency, not absolute position accuracy; screenshot pixels, digitisation, imagery age, geometry simplification and ground survey error remain.",
+    "helipadProposal": {
+      "status": "Proposed visual arrangement; site/flight suitability not verified",
+      "gate": [
+        -12.767634044722858,
+        -65.06607714366064
+      ],
+      "centre": [
+        -21.820143218129413,
+        -164.65549464203437
+      ],
+      "gateToCentreMetres": 99.99999999999999,
+      "rightShiftMetres": 8.0,
+      "rightShiftReference": "Looking outward from main gate",
+      "originalOutwardAxis": [
+        -0.1699064804616234,
+        -0.9854601909245975
+      ],
+      "originalRightAxis": [
+        0.9854601909245974,
+        -0.16990648046162346
+      ],
+      "widthMetres": 51.90216843351069,
+      "depthMetres": 47.284218522023124,
+      "areaSquareMetres": 2454.15347397697,
+      "corners": [
+        [
+          -49.80488093374834,
+          -185.85130926008463
+        ],
+        [
+          1.8841862782097665,
+          -190.54975781872508
+        ],
+        [
+          6.164594497489512,
+          -143.4596800239841
+        ],
+        [
+          -45.524472714468594,
+          -138.76123146534366
+        ]
+      ],
+      "helicopterCentre": [
+        -24.92593203714587,
+        -168.38967471424198
+      ],
+      "helicopterDisplayScale": 1.45,
+      "alignmentAxis": [
+        -0.09052509173406556,
+        -0.9958941749837373
+      ],
+      "carpet": [
+        [
+          -12.767634044722858,
+          -65.06607714366064
+        ],
+        [
+          -12.767634044722858,
+          -2.3567370431640224
+        ],
+        [
+          -15.654954855095001,
+          -2.3567370431640224
+        ],
+        [
+          -19.56971450358106,
+          -2.3567370431640224
+        ]
+      ],
+      "carpetDestination": "Auditorium side entrance",
+      "vehicleAccess": [
+        [
+          -19.770464200223607,
+          -142.1063499196476
+        ],
+        [
+          -14.459037098705302,
+          -83.67371859139573
+        ]
+      ],
+      "vehicleAccessEnd": "Main road field-side edge",
+      "vehicleAccessPolygon": [
+        [
+          -17.03175521901833,
+          -142.35529392191629
+        ],
+        [
+          -11.740307674889157,
+          -84.1424638050351
+        ],
+        [
+          -17.177766522521445,
+          -83.20497337775633
+        ],
+        [
+          -22.509173181428885,
+          -141.85740591737894
+        ]
+      ],
+      "mainRoadJoinEdge": [
+        [
+          -17.177766522521445,
+          -83.20497337775633
+        ],
+        [
+          -11.740307674889157,
+          -84.1424638050351
+        ]
+      ],
+      "vehicleAccessWidthMetres": 5.5,
+      "helipadBoardingCarpet": [
+        [
+          -22.182243585065674,
+          -168.63907134196933
+        ],
+        [
+          -19.770464200223607,
+          -142.1063499196476
+        ]
+      ]
+    }
   },
   "profiles": {
     "scallopedSpandrel": [
@@ -251673,6 +254779,218 @@
             161,
             160,
             152
+          ]
+        ]
+      },
+      "gateApronTrimmed": {
+        "vertices": [
+          [
+            -0.39403244004809734,
+            -0.5,
+            0.4999999999999997
+          ],
+          [
+            -0.5,
+            -0.5,
+            -0.29949034706987
+          ],
+          [
+            0.3940324400480972,
+            -0.5,
+            -0.5000000000000003
+          ],
+          [
+            0.49999999999999994,
+            -0.5,
+            0.29949034706987
+          ],
+          [
+            -0.39403244004809734,
+            0.5,
+            0.4999999999999997
+          ],
+          [
+            -0.5,
+            0.5,
+            -0.29949034706987
+          ],
+          [
+            0.3940324400480972,
+            0.5,
+            -0.5000000000000003
+          ],
+          [
+            0.49999999999999994,
+            0.5,
+            0.29949034706987
+          ]
+        ],
+        "faces": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            4,
+            6,
+            5
+          ],
+          [
+            4,
+            7,
+            6
+          ],
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            2,
+            6
+          ],
+          [
+            1,
+            6,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ],
+          [
+            2,
+            7,
+            6
+          ],
+          [
+            3,
+            0,
+            4
+          ],
+          [
+            3,
+            4,
+            7
+          ]
+        ]
+      },
+      "helipadAccessTrimmed": {
+        "vertices": [
+          [
+            0.008634633711807869,
+            -0.5,
+            -0.5000000000000001
+          ],
+          [
+            0.5000000000000001,
+            -0.5,
+            0.4841507126478059
+          ],
+          [
+            -0.00492401862853808,
+            -0.5,
+            0.4999999999999999
+          ],
+          [
+            -0.49999999999999994,
+            -0.5,
+            -0.49158266599475775
+          ],
+          [
+            0.008634633711807869,
+            0.5,
+            -0.5000000000000001
+          ],
+          [
+            0.5000000000000001,
+            0.5,
+            0.4841507126478059
+          ],
+          [
+            -0.00492401862853808,
+            0.5,
+            0.4999999999999999
+          ],
+          [
+            -0.49999999999999994,
+            0.5,
+            -0.49158266599475775
+          ]
+        ],
+        "faces": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            4,
+            6,
+            5
+          ],
+          [
+            4,
+            7,
+            6
+          ],
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            2,
+            6
+          ],
+          [
+            1,
+            6,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ],
+          [
+            2,
+            7,
+            6
+          ],
+          [
+            3,
+            0,
+            4
+          ],
+          [
+            3,
+            4,
+            7
           ]
         ]
       }

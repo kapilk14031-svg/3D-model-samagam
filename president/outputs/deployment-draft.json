@@ -5,31 +5,19 @@
     29.413077
   ],
   "coordinateFrame": "WGS84 local metres: east X, up Y, south Z",
-  "status": "Draft — not an approved duty order",
+  "status": "Draft — user editable duty order",
   "items": [
     {
       "id": "post-1",
       "kind": "officer",
       "name": "Officer 1",
-      "duty": "Outer perimeter duty",
+      "duty": "Test Duty 93",
       "belt": "",
       "mobile": "",
-      "x": -13.724822507958674,
-      "y": 0.3,
-      "z": -62.014493701630045,
-      "angle": 0
-    },
-    {
-      "id": "post-2",
-      "kind": "officer",
-      "name": "Officer 2",
-      "duty": "Binocular duty — rooftop",
-      "belt": "",
-      "mobile": "",
-      "x": -29.650888238968907,
-      "y": 10,
-      "z": -36.04750323378075,
-      "angle": 0
+      "x": -17.46,
+      "y": 0.41,
+      "z": -64.34,
+      "angle": 359.15
     },
     {
       "id": "post-3",
@@ -38,10 +26,10 @@
       "duty": "Lotus duty",
       "belt": "",
       "mobile": "",
-      "x": 27.12341338544826,
-      "y": 0.3,
-      "z": -42.87186445948887,
-      "angle": 0
+      "x": 16.12,
+      "y": 0.15,
+      "z": -39.87,
+      "angle": 274.63
     },
     {
       "id": "post-4",
@@ -50,9 +38,9 @@
       "duty": "Inner cordon duty",
       "belt": "",
       "mobile": "",
-      "x": -10.294922798741666,
-      "y": 0.3,
-      "z": 0.48109238636809604,
+      "x": -10.29,
+      "y": 0.35,
+      "z": 0.48,
       "angle": 0
     },
     {
@@ -62,34 +50,22 @@
       "duty": "Outer cordon duty",
       "belt": "",
       "mobile": "",
-      "x": 53.644318760796544,
-      "y": 0.3,
-      "z": -8.700347352355955,
-      "angle": 0
-    },
-    {
-      "id": "post-6",
-      "kind": "officer",
-      "name": "Officer 6",
-      "duty": "Main gate — DFMD / HHMD",
-      "belt": "",
-      "mobile": "",
-      "x": -12.74,
-      "y": 0.3,
-      "z": -63.02,
+      "x": 53.64,
+      "y": 5.93,
+      "z": -8.7,
       "angle": 0
     },
     {
       "id": "post-7",
       "kind": "officer",
-      "name": "Officer 7",
+      "name": "kapil",
       "duty": "Naka & barricade duty",
       "belt": "",
       "mobile": "",
-      "x": -12.885400194720487,
-      "y": 0.3,
-      "z": -73.2471716733852,
-      "angle": 0
+      "x": -58.33,
+      "y": 0.36,
+      "z": -68.36,
+      "angle": 261.56
     },
     {
       "id": "post-8",
@@ -98,9 +74,9 @@
       "duty": "Auditorium main stage duty",
       "belt": "",
       "mobile": "",
-      "x": -50.08817717711039,
+      "x": -50.09,
       "y": 1.2,
-      "z": 0.8146960557773077,
+      "z": 0.81,
       "angle": 0
     },
     {
@@ -110,45 +86,9 @@
       "duty": "Auditorium seating duty",
       "belt": "",
       "mobile": "",
-      "x": -40.31565250855012,
+      "x": -40.32,
       "y": 0.5,
-      "z": -19.195730221839316,
-      "angle": 0
-    },
-    {
-      "id": "post-10",
-      "kind": "officer",
-      "name": "Officer 10",
-      "duty": "VIP parking duty",
-      "belt": "",
-      "mobile": "",
-      "x": -8.100851266025668,
-      "y": 0.3,
-      "z": 13.808025010402744,
-      "angle": 0
-    },
-    {
-      "id": "post-11",
-      "kind": "officer",
-      "name": "Officer 11",
-      "duty": "VIP toilet duty",
-      "belt": "",
-      "mobile": "",
-      "x": 20.187223348297216,
-      "y": 0.3,
-      "z": 31.650007071318782,
-      "angle": 0
-    },
-    {
-      "id": "post-12",
-      "kind": "officer",
-      "name": "Officer 12",
-      "duty": "VIP lounge duty",
-      "belt": "",
-      "mobile": "",
-      "x": 0.17492872734840326,
-      "y": 0.3,
-      "z": 32.346103755211956,
+      "z": -19.2,
       "angle": 0
     },
     {
@@ -158,9 +98,9 @@
       "duty": "Hall gate duty",
       "belt": "",
       "mobile": "",
-      "x": -17.167227169971206,
-      "y": 0.9,
-      "z": -1.8297866662591815,
+      "x": -17.17,
+      "y": 0.92,
+      "z": -1.83,
       "angle": 0
     },
     {
@@ -170,10 +110,10 @@
       "duty": "Main gate — DFMD / HHMD",
       "belt": "",
       "mobile": "",
-      "x": -15.767634044722858,
-      "y": 0.3,
-      "z": -65.06607714366064,
-      "angle": 0
+      "x": -15.17,
+      "y": 0.34,
+      "z": -65.9,
+      "angle": 181.5
     },
     {
       "id": "equipment-14",
@@ -182,10 +122,10 @@
       "duty": "Main gate — DFMD / HHMD",
       "belt": "",
       "mobile": "",
-      "x": -14.767634044722858,
-      "y": 0.3,
-      "z": -63.066077143660635,
-      "angle": 0
+      "x": -13.15,
+      "y": 0.36,
+      "z": -64.14,
+      "angle": 352.81
     },
     {
       "id": "equipment-15",
@@ -194,10 +134,10 @@
       "duty": "Road barricade — boundary corner",
       "belt": "",
       "mobile": "",
-      "x": -58.43806872039645,
+      "x": -58.44,
       "y": 0.36,
-      "z": -71.52475246652457,
-      "angle": 80.22
+      "z": -71.52,
+      "angle": 262.2
     },
     {
       "id": "equipment-16",
@@ -206,10 +146,10 @@
       "duty": "Road barricade — boundary corner",
       "belt": "",
       "mobile": "",
-      "x": 63.20502773270095,
+      "x": 62.06,
       "y": 0.36,
-      "z": -92.49764470660074,
-      "angle": 80.22
+      "z": -91.65,
+      "angle": 82.17
     },
     {
       "id": "equipment-17",
@@ -218,10 +158,214 @@
       "duty": "Binocular duty — rooftop",
       "belt": "",
       "mobile": "",
-      "x": -28.650888238968907,
-      "y": 10,
-      "z": -36.04750323378075,
-      "angle": 0
+      "x": -22.14,
+      "y": 10.15,
+      "z": -38.34,
+      "angle": 91.02
+    },
+    {
+      "id": "post-mvhpefek-wu7",
+      "kind": "officer",
+      "name": "Officer 14",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 14.94,
+      "y": 0.15,
+      "z": -60.08,
+      "angle": 286.25
+    },
+    {
+      "id": "post-mvhquwbr-4bo",
+      "kind": "officer",
+      "name": "Officer 15",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 32.72,
+      "y": 0.38,
+      "z": 10.1,
+      "angle": 270
+    },
+    {
+      "id": "post-mvhvzybt-bz8",
+      "kind": "officer",
+      "name": "Officer 16",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 61.17,
+      "y": 0.36,
+      "z": -93.88,
+      "angle": 89.32
+    },
+    {
+      "id": "post-mvhwoavk-r0t",
+      "kind": "binocular",
+      "name": "Spotter Officer 2",
+      "duty": "Binocular duty — rooftop",
+      "belt": "",
+      "mobile": "",
+      "x": 88.42,
+      "y": 7.8,
+      "z": -43.25,
+      "angle": 266.78
+    },
+    {
+      "id": "post-mvhwom80-w5q",
+      "kind": "binocular",
+      "name": "Spotter Officer 3",
+      "duty": "Binocular duty — rooftop",
+      "belt": "",
+      "mobile": "",
+      "x": 23.6,
+      "y": 9.45,
+      "z": 24.62,
+      "angle": 341.06
+    },
+    {
+      "id": "post-mvhwot7y-9he",
+      "kind": "binocular",
+      "name": "Spotter Officer 4",
+      "duty": "Binocular duty — rooftop",
+      "belt": "",
+      "mobile": "",
+      "x": -29.93,
+      "y": 14.15,
+      "z": 23.75,
+      "angle": 56.95
+    },
+    {
+      "id": "post-mvhwpcyo-nye",
+      "kind": "binocular",
+      "name": "Spotter Officer 5",
+      "duty": "Binocular duty — rooftop",
+      "belt": "",
+      "mobile": "",
+      "x": -88.68,
+      "y": 7.8,
+      "z": -47.38,
+      "angle": 90.38
+    },
+    {
+      "id": "post-mvhwprze-ydp",
+      "kind": "officer",
+      "name": "Officer 17",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": -57.7,
+      "y": 0,
+      "z": 61.24,
+      "angle": 167.68
+    },
+    {
+      "id": "post-mvhwq9lo-20n",
+      "kind": "officer",
+      "name": "Officer 18",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": -1.35,
+      "y": 0,
+      "z": 60.01,
+      "angle": 180.42
+    },
+    {
+      "id": "post-mvhwqhd2-cp3",
+      "kind": "officer",
+      "name": "Officer 19",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 53.06,
+      "y": 0,
+      "z": 60.56,
+      "angle": 184.94
+    },
+    {
+      "id": "post-mvhwqoyz-dav",
+      "kind": "officer",
+      "name": "Officer 20",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 68.95,
+      "y": 0,
+      "z": 30.93,
+      "angle": 92.68
+    },
+    {
+      "id": "post-mvhwrjom-4no",
+      "kind": "officer",
+      "name": "Officer 21",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 67.58,
+      "y": 0,
+      "z": -45.26,
+      "angle": 86.2
+    },
+    {
+      "id": "post-mvhwruyr-ylk",
+      "kind": "officer",
+      "name": "Officer 22",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": 61.51,
+      "y": 0.36,
+      "z": -88.92,
+      "angle": 80.71
+    },
+    {
+      "id": "post-mvhws9hy-lx2",
+      "kind": "officer",
+      "name": "Officer 23",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": -64.48,
+      "y": 0,
+      "z": 34.88,
+      "angle": 265.89
+    },
+    {
+      "id": "post-mvhwsq81-dz2",
+      "kind": "officer",
+      "name": "Officer 24",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": -64.6,
+      "y": 0,
+      "z": -21.41,
+      "angle": 270.56
+    },
+    {
+      "id": "post-mvhwsxyj-202",
+      "kind": "officer",
+      "name": "Officer 25",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": -69.33,
+      "y": 0.28,
+      "z": -60.74,
+      "angle": 261.97
+    },
+    {
+      "id": "post-mvhwuceb-zti",
+      "kind": "officer",
+      "name": "Officer 26",
+      "duty": "Security post",
+      "belt": "",
+      "mobile": "",
+      "x": -59.31,
+      "y": 0.36,
+      "z": -74.08,
+      "angle": 259.49
     }
   ]
 }

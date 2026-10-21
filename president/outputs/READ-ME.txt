@@ -1,3 +1,8 @@
+21 OCTOBER 2026: Added proposed helipad 100 m across from main gate,
+matching central-garden area, parked helicopter, vehicle access to gate,
+short helicopter-to-road carpet and separate gate-to-auditorium carpet.
+See HELIPAD-PROPOSAL.md. Existing deployment database is preserved.
+
 GYAN MANSAROVAR — SATELLITE / PHOTO INFORMED 3D STUDY
 20 October 2026
 
