@@ -31,12 +31,17 @@ def extruded_polygon(points):
     return trimesh.Trimesh(vertices=verts,faces=faces,process=False)
 
 def paint_and_architecture(objects,colors):
-    objects[:]=[o for o in objects if not o['name'].startswith(('Scalloped frontage arch lobe','Hall facade pilaster'))]
+    objects[:]=[o for o in objects if not o['name'].startswith(('Scalloped frontage arch lobe','Hall facade pilaster','Hall pink parapet cap'))]
     colors.update(plaster='#ece5db',pinkColumn='#c598a2',nicheGreen='#536443')
     def add(name,p,s,mat,shape='box',rot=0):objects.append(dict(name=name,p=p,s=s,mat=mat,shape=shape,group='shell',rot=rot))
-    for z in range(-38,24,8):
-        add('Hall solid scalloped arcade spandrel • photo design',[-18.15,6.45,z+4],[8,2.6,.35],'plaster','spandrel',np.pi/2)
-        add('Hall pink circular arcade column',[-18.25,3.1,z],[.19,6.2,.19],'pinkColumn','cylinder')
+    # All eight panels share exact springing stations over the hall envelope.
+    stations=np.linspace(-43,23,9)
+    for a,b in zip(stations,stations[1:]):
+        add('Hall solid scalloped arcade spandrel • photo design',[-18.15,6.45,(a+b)/2],[b-a,2.6,.35],'plaster','spandrel',np.pi/2)
+    for z in stations:
+        add('Hall pink circular arcade column',[-18.25,2.65,float(z)],[.21,5.3,.21],'pinkColumn','cylinder')
+        add('Hall arcade white springing collar',[-18.25,5.24,float(z)],[.26,.18,.26],'plaster','cylinder')
+    add('Hall continuous pink parapet coping',[-18.4,8.5,-10],[1.1,.12,66],'pink')
     for o in objects:
         if o['name'].startswith('Facade gold uplight niche'):
             o['mat']='nicheGreen';x,y,z=o['p']

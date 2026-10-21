@@ -50,7 +50,11 @@ def register(objects,colors,signs,labels):
         if n.startswith(('Entry pier','Entry beam','Entry driveway','Open gate','Gate ','Entrance threshold','Entrance white')) or mat=='sign-gate':return 'gate'
         return 'global'
     def apply(o,m):
-        p=trans([o['p'][0],o['p'][2]],m);sx=np.linalg.norm(m[0]);sz=np.linalg.norm(m[1]);angle=math.atan2(-m[0][1],m[0][0]);o['p'][0],o['p'][2]=p.tolist();o['s'][0]*=sx;o['s'][2]*=sz;o['rot']+=angle
+        p=trans([o['p'][0],o['p'][2]],m)
+        # Dimensions are in each mesh's LOCAL axes. A side-facing arch's
+        # width runs along world Z, so applying world-X scale left gaps.
+        r=o['rot'];u=np.array([math.cos(r),-math.sin(r)])@m[:2];v=np.array([math.sin(r),math.cos(r)])@m[:2]
+        o['p'][0],o['p'][2]=p.tolist();o['s'][0]*=np.linalg.norm(u);o['s'][2]*=np.linalg.norm(v);o['rot']=math.atan2(-u[1],u[0])
     for o in objects:
         r=region(o);oldp=o['p'].copy()
         if r=='hall':apply(o,hm)
@@ -67,6 +71,20 @@ def register(objects,colors,signs,labels):
     for i,l in enumerate(labels):
         p=trans([l[1][0],l[1][2]],hm if i==0 else glob);l[1][0],l[1][2]=p.tolist()
         if i==1:l[1][0],l[1][2]=pc.tolist()
+    # Map listings checked directly on 20 Oct 2026. A business pin is not a
+    # cadastral boundary or evidence of physical facade lettering.
+    listings=[('Luft india',29.4133618,76.8499721),('BAMC Medical',29.4134342,76.8502209),('Birmi Industries Private Limited',29.4138875,76.8512636)]
+    def listing_position(lat,lon,height=12):return [(lon-origin[0])*ex,height,(origin[1]-lat)*ny]
+    labels[4]=['पश्चिमी इमारतें • नाम अपुष्ट',labels[4][1],'Three roofed buildings visible west of the auditorium. Official names and ownership are not verified; no service/business name assigned.']
+    labels[5]=['Luft india (map listing)',listing_position(listings[0][1],listings[0][2],10),'Verified map listing beside the blue-roof building; exact legal roof association and facade lettering unverified.']
+    labels[:]=[l for l in labels if not l[0].startswith(('Birmi Industries','Birmi Impex'))]
+    for name,lat,lon in listings[1:]:labels.append([name+' (map listing)',listing_position(lat,lon,15),'Verified Google Maps listing position; no fabricated painted sign or ownership boundary.'])
+    geo['verifiedMapListings']=[dict(name=n,latitude=lat,longitude=lon,source='Google Maps place listing selected directly, 2026-10-20',status='Listing pin only; cadastral ownership and facade text unverified') for n,lat,lon in listings]
+    for f in footprints:
+        if f['id']=='east-blue':
+            f['name']='Blue-roof building beside Luft india map listing';f['status']='Nearby Luft india listing checked; ownership and exact roof association not established.'
+        if f['id']=='industrial-east':
+            f['name']='BAMC Medical • partial industrial roof beside verified map pin';f['status']='Map listing and BAMC roof lettering corroborate industrial context; legal boundary/height unverified.'
     colors.update({'redRoof':'#a55250','solar':'#344b5c','paverObject':'#d6d1c4'})
     def add(name,p,s,mat,group='campus',shape='box',rot=0):objects.append(dict(name=name,p=p,s=s,mat=mat,shape=shape,group=group,rot=rot))
     # Reconstruct the surrounding roof extents directly from the registered image.
@@ -77,6 +95,14 @@ def register(objects,colors,signs,labels):
         add(f['name']+' roof',[c[0],h+.15,c[1]],[w+.3,.3,d+.3],'redRoof' if f['id']=='red' else 'glass' if f['id']=='east-blue' else 'roof',f['group'],rot=angle)
         if f['id'].startswith('west'):
             for dz in np.arange(-d/2+2,d/2,6):add('Registered west roof seam',[c[0],h+.33,c[1]+dz],[w,.04,.07],'metal','context',rot=angle)
+        if f['id']=='red':
+            # Garden hut seen in both YouTube references; association with this
+            # overhead red-roof feature is a visual interpretation, not survey.
+            objects[:]=[o for o in objects if o['name']!=f['name']+' roof']
+            add('Red garden hut pitched roof • satellite match inferred',[c[0],h,c[1]],[w+1.3,1.25,d+1.3],'redRoof',shape='hutRoof',rot=angle)
+            add('Garden hut green frontage • video informed',[c[0],1.4,c[1]+d/2+.05],[w,.9,.10],'carpet')
+            for xx in [-w*.45,0,w*.45]:add('Garden hut slim veranda post',[c[0]+xx,2,c[1]+d/2+.25],[.1,2.2,.1],'carpet')
+            for i in range(3):add('Garden hut front terracotta step',[c[0],.25+i*.16,c[1]+d/2+1.2-i*.3],[w*.5,.2,.45],'redRoof')
     q=np.array(next(f['points'] for f in footprints if f['id']=='construction'));c=q.mean(axis=0);w=np.linalg.norm(q[1]-q[0]);d=np.linalg.norm(q[3]-q[0])
     for y in [2,5,8,11,14]:
         add('Southwest construction floor slab • registered footprint',[c[0],y,c[1]],[w,.3,d],'context')
@@ -156,5 +182,7 @@ def register(objects,colors,signs,labels):
         ring=[ll(p) for p in f['points']];ring.append(ring[0]);gj['features'].append({'type':'Feature','id':f['id'],'properties':{k:v for k,v in f.items() if k!='points'},'geometry':{'type':'Polygon','coordinates':[ring]}})
     for r in roads:gj['features'].append({'type':'Feature','id':r['id'],'properties':{k:v for k,v in r.items() if k!='points'},'geometry':{'type':'LineString','coordinates':[ll(p) for p in r['points']]}})
     gj['features'].append({'type':'Feature','id':'origin-pin','properties':{'name':'Supplied Google Maps pin / model origin'},'geometry':{'type':'Point','coordinates':origin}})
+    for i,p in enumerate(geo['verifiedMapListings']):
+        gj['features'].append({'type':'Feature','id':f'verified-listing-{i+1}','properties':{k:v for k,v in p.items() if k not in ['latitude','longitude']},'geometry':{'type':'Point','coordinates':[p['longitude'],p['latitude']]}})
     (out/'site-footprints.geojson').write_text(json.dumps(gj,indent=2),encoding='utf-8')
     return objects,colors,signs,labels,geo

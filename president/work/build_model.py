@@ -163,6 +163,10 @@ from detail_photo_buildings import improve
 objects=improve(objects)
 from detail_side_gates import improve_gate
 objects=improve_gate(objects)
+from detail_youtube import improve as youtube_details
+objects,colors=youtube_details(objects,colors)
+from correct_stage_stairs import correct as correct_stage_stairs
+objects=correct_stage_stairs(objects)
 from register_scene import register
 objects,colors,signs,labels,georeference=register(objects,colors,signs,labels)
 data={'objects':objects,'colors':colors,'labels':labels,'origin':{'latitude':29.413077,'longitude':76.848831,'coordinateFrame':'local metres, +X east, +Z south; schematic alignment'},'assumptions':{'geometry':'Satellite/photo informed schematic, not survey or photogrammetry','hall':[42,66,9.8],'coreCompound':[120,120],'audienceSeatsIllustrated':320,'seatCountIsCapacity':False,'event':'All room assignments, partitions, parking and furniture are proposals','heights':'Estimated; not measured','boundary':'Approximate visual core only; legal ownership not verified'},'sources':[{'title':'Google Maps: supplied venue pin, satellite and public photographs','url':'https://maps.app.goo.gl/JG881XSsXu1Vi61L9?g_st=aw','accessed':'2026-10-20'},{'title':'Brahma Kumaris Panipat: auditorium name and event report','url':'https://panipat.bk.ooo/?p=2036','note':'Search-indexed report identifies Dadi Chandramani Universal Peace Auditorium; exact roofed footprint not established.'}]}
@@ -178,6 +182,9 @@ data['assumptions']['surroundings']='Schematic satellite massing of adjoining ag
 data['sources'].append({'title':'User supplied WhatsApp Unknown 2026-10-20 at 9.45.02 AM.zip','photos':65,'videos':9,'review':'All photo contact sheets and 147 frames covering nine full video durations at 2-second intervals plus first/last frames reviewed; no audio transcription.','observations':['Scalloped frontage with pink parapet','Classroom signage','Portico and glass entrance','Raised stage with green carpet stairs','Cream chairs with arms and centre aisle','Acoustic wall panels','Ceiling light grid and suspended speakers','Landscaped paths and lotus pavilion','Unfinished multi-storey block visible near building','Side entrance near stage shown continuously in video 9','Green stage fascia with gold trim','Metal-framed upholstered seats with rounded backs','Pleated beige curtains','Two stage lighting crossbars','Large slab garden path and red/yellow peripheral paving']})
 data['sources'].append({'title':'User supplied WhatsApp Unknown 2026-10-20 at 10.43.32 AM.zip','photos':11,'videos':0,'review':'All eleven Google Earth screenshot images visually reviewed at full resolution. Satellite capture date unknown; phone time is not imagery date.','observations':['Concentric pavilion terraces','Small solar panel banks on blue roof','Approach and eastern circulation lanes','Southern roof arrays and adjacent fields','Wider industrial roofs and BAMC roof lettering'],'limits':'Adds satellite context; no new measured height, ground facade, gate paint, interior photograph or survey control.'})
 data['sources'].append({'title':'12 new architectural references: screenshots 110115–110332, 110902 and Retreat-centre-Panipat-5.jpg','review':'All inspected; several depict 2016–2022 historical states. Updated lotus curved petal courses, open entrance, fan stair, front garden; balcony/roof rails; both pedestrian side gates.','limits':'Counts/dimensions estimated. Current 2026 finish/signs take precedence. Health-centre footprint not verified; separate facade study supplied.'})
+data['sources'].extend([{'title':'Brahma Kumaris Panipat garden short','url':'https://www.youtube.com/shorts/Z506BEp8GG4','review':'Seven approximate positions over 12.34 seconds; garden, lanterns and red-roof hut compared.'},{'title':'Gyan Mansarovar campus tour','url':'https://www.youtube.com/watch?v=qjMKc4im7YQ','review':'33 targeted timestamp views across 25:29; auto-captions used as navigation only. See YOUTUBE-DETAIL-REVIEW.md for coverage and unresolved lettering.'}])
+data['assumptions']['meditationInterior']='Partial older-tour reconstruction; object arrangement approximate. Portrait/artwork and unresolved donation-box text not reproduced.'
+data['assumptions']['stageAccess']='User site correction: two side staircases, left and right; no central stage staircase. Widths, rises and railing dimensions remain estimated.'
 (OUT/'model-data.json').write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'work/signs.json').write_text(json.dumps(signs,ensure_ascii=False,indent=2),encoding='utf-8')
 (OUT/'observed-signage.json').write_text(json.dumps(signs,ensure_ascii=False,indent=2),encoding='utf-8')
@@ -219,11 +226,18 @@ for k in range(16):
     for a,b,c,d in [(j,n,n+1,j+1),(j+2,j+3,n+3,n+2),(j,j+2,n+2,n),(j+1,n+1,n+3,j+3)]:faces.extend([[a,b,c],[a,c,d]])
 base['arch']=trimesh.Trimesh(vertices=verts,faces=faces,process=False)
 from PIL import Image
+from material_textures import create as create_material_textures
+surface_textures=create_material_textures(OUT)
 for shape,mat in set((o['shape'],o['mat']) for o in objects):
     m=base[shape].copy();rgba=list(bytes.fromhex(colors[mat][1:]))+[255]
     if shape=='sign':
         material=trimesh.visual.material.PBRMaterial(name=mat,baseColorTexture=Image.open(OUT/'sign-textures'/f'{mat}.png').convert('RGBA'),baseColorFactor=[255,255,255,255],roughnessFactor=1,doubleSided=True)
         m.visual=trimesh.visual.TextureVisuals(uv=[[0,0],[1,0],[1,1],[0,1]],material=material)
+    elif mat in surface_textures:
+        axes=[0,2] if mat=='wood' else [2,1] if mat=='acoustic' else [0,1]
+        uv=m.vertices[:,axes].copy();lo=uv.min(axis=0);span=np.maximum(np.ptp(uv,axis=0),.001);uv=(uv-lo)/span
+        material=trimesh.visual.material.PBRMaterial(name=mat,baseColorTexture=surface_textures[mat],baseColorFactor=[255,255,255,255],roughnessFactor=.92 if mat!='wood' else .72)
+        m.visual=trimesh.visual.TextureVisuals(uv=uv,material=material)
     else:m.visual=trimesh.visual.ColorVisuals(m,vertex_colors=np.tile(rgba,(len(m.vertices),1)))
     scene.geometry[shape+'_'+mat]=m
 for i,o in enumerate(objects):

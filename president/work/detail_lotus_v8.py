@@ -34,6 +34,7 @@ def petal(inverted=False):
     return dict(vertices=vertices,faces=faces)
 
 MESHES={
+ 'hutRoof':dict(vertices=[[-.5,0,-.5],[.5,0,-.5],[.5,0,.5],[-.5,0,.5],[0,1,0]],faces=[[0,4,1],[1,4,2],[2,4,3],[3,4,0],[0,1,2],[0,2,3]]),
  'lotusCup':swept([(6.1,0),(6.1,1),(8,1),(8.2,.9),(7.1,.4),(7.5,0),(6.1,0)],math.radians(18),math.tau-math.radians(18)),
  'lotusDrum':swept([(5.74,0),(5.74,1),(5.92,1),(5.92,0),(5.74,0)],math.radians(10),math.tau-math.radians(10)),
  'lotusStair':swept([(0,0),(0,1),(1,1),(1,0),(0,0)],-math.radians(28),math.radians(28),32),

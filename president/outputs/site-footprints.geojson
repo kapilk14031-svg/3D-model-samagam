@@ -310,9 +310,9 @@
       "id": "east-blue",
       "properties": {
         "id": "east-blue",
-        "name": "Eastern blue-roof building",
+        "name": "Blue-roof building beside Luft india map listing",
         "group": "context",
-        "status": "Ownership/use/height unverified",
+        "status": "Nearby Luft india listing checked; ownership and exact roof association not established.",
         "source": "Google Earth user screenshot with visible one-arcsecond graticule"
       },
       "geometry": {
@@ -386,9 +386,9 @@
       "id": "industrial-east",
       "properties": {
         "id": "industrial-east",
-        "name": "Eastern industrial roof visible in screenshot",
+        "name": "BAMC Medical \u2022 partial industrial roof beside verified map pin",
         "group": "context",
-        "status": "Partial footprint; screen overlays obscure remaining extent",
+        "status": "Map listing and BAMC roof lettering corroborate industrial context; legal boundary/height unverified.",
         "source": "Google Earth user screenshot with visible one-arcsecond graticule"
       },
       "geometry": {
@@ -700,6 +700,54 @@
         "coordinates": [
           76.848831,
           29.413077
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "verified-listing-1",
+      "properties": {
+        "name": "Luft india",
+        "source": "Google Maps place listing selected directly, 2026-10-20",
+        "status": "Listing pin only; cadastral ownership and facade text unverified"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8499721,
+          29.4133618
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "verified-listing-2",
+      "properties": {
+        "name": "BAMC Medical",
+        "source": "Google Maps place listing selected directly, 2026-10-20",
+        "status": "Listing pin only; cadastral ownership and facade text unverified"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8502209,
+          29.4134342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "verified-listing-3",
+      "properties": {
+        "name": "Birmi Industries Private Limited",
+        "source": "Google Maps place listing selected directly, 2026-10-20",
+        "status": "Listing pin only; cadastral ownership and facade text unverified"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8512636,
+          29.4138875
         ]
       }
     }

@@ -1,26 +1,953 @@
 <div id="gms-model">
-  <h2>Gyan Mansarovar · Compound &amp; auditorium</h2>
-  <div class="viz-controls">
-    <label class="form-label" for="gms-view">View <select class="form-select" id="gms-view"><option value="campus" selected>Poora compound</option><option value="alignment">Satellite + registered footprints</option><option value="neighborhood">Aas-paas ka area</option><option value="gate">Main entry gate</option><option value="mainroad">Main road &amp; boundary</option><option value="roads">Inner roads</option><option value="residential">Residential Complex &amp; name board</option><option value="classroom">Class Room</option><option value="cutaway">Roof hata kar dekhein</option><option value="hall">Hall ke andar</option><option value="stage">Stage se hall</option><option value="entry">Hall side entrance &amp; name</option><option value="garden">Garden &amp; lotus</option><option value="lounge">VVIP rooms — proposal</option><option value="plan">Upar se layout</option></select></label>
-    <label class="form-label" for="gms-light">Lighting <select class="form-select" id="gms-light"><option value="day">Day</option><option value="evening">Evening — video reference</option></select></label>
-    <label class="form-check"><input class="form-check-input" id="gms-event" type="checkbox"><span class="form-check-label">VVIP arrangements (proposed)</span></label>
-    <label class="form-check"><input class="form-check-input" id="gms-context" type="checkbox" checked><span class="form-check-label">Nearby blocks*</span></label>
-    <label class="form-check"><input class="form-check-input" id="gms-snapshot" type="checkbox" checked><span class="form-check-label">Satellite-date objects*</span></label>
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge">📍 3D Spatial Atlas</div>
+      <h1 class="brand-title">Gyan Mansarovar — Compound &amp; Auditorium</h1>
+      <span class="brand-sub">Bhodwal Majri, Panipat · 29.4131° N, 76.8488° E · Study Revision 15</span>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="action-pill" id="gms-reset-btn" title="Reset camera to whole compound">↺ Reset View</button>
+      <button type="button" class="action-pill" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas">⛶ Fullscreen</button>
+    </div>
+  </header>
+
+  <!-- Primary View Bar with Dual Top Dropdowns -->
+  <div class="view-bar-container">
+    <div class="quick-pills-row" id="gms-quick-views">
+      <span class="pills-label">Quick Views:</span>
+      <button type="button" class="view-pill active" data-view="campus">🏛️ Poora Compound</button>
+      <button type="button" class="view-pill" data-view="plan">📐 Top-Down Layout</button>
+      <button type="button" class="view-pill" data-view="hall">🎭 Hall ke Andar</button>
+      <button type="button" class="view-pill" data-view="stage">🎤 Stage View</button>
+      <button type="button" class="view-pill" data-view="garden">🪷 Garden &amp; Lotus</button>
+      <button type="button" class="view-pill" data-view="gate">🚪 Main Gate</button>
+    </div>
+
+    <div class="top-dropdowns-group">
+      <!-- Camera Perspectives Dropdown -->
+      <div class="dropdown-wrapper">
+        <label for="gms-view" class="dropdown-header-label">📷 Camera Perspectives</label>
+        <select class="form-select select-views" id="gms-view">
+          <optgroup label="🏛️ Compound &amp; Layout">
+            <option value="campus" selected>Poora compound (Isometric)</option>
+            <option value="plan">Upar se layout (Top-down 2D)</option>
+            <option value="neighborhood">Aas-paas ka area (Surroundings)</option>
+            <option value="alignment">Satellite + registered footprints (GIS)</option>
+          </optgroup>
+          <optgroup label="🎭 Auditorium &amp; Stage">
+            <option value="hall">Hall ke andar (Auditorium seating)</option>
+            <option value="stage">Stage se hall (Speaker perspective)</option>
+            <option value="stageplan">Stage &amp; dono side stairs</option>
+            <option value="cutaway">Roof hata kar dekhein (Open Cutaway)</option>
+            <option value="entry">Hall side entrance &amp; name</option>
+            <option value="classroom">Class Room</option>
+          </optgroup>
+          <optgroup label="🪷 Meditation &amp; Garden">
+            <option value="garden">Garden &amp; lotus pavilion</option>
+            <option value="lotusinside">Tapasya Dham — andar</option>
+          </optgroup>
+          <optgroup label="🏢 Campus Gates, Roads &amp; VVIP">
+            <option value="gate">Main entry gate</option>
+            <option value="mainroad">Main road &amp; boundary</option>
+            <option value="roads">Inner circulation roads</option>
+            <option value="residential">Residential Complex &amp; name board</option>
+            <option value="lounge">VVIP rooms — proposal</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Police Duty & Equipment Dropdown -->
+      <div class="dropdown-wrapper">
+        <label for="dep-top-list" class="dropdown-header-label">👮 Police Deployment (<span id="dep-count-badge">13</span>)</label>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <select class="form-select select-dep" id="dep-top-list">
+            <option value="">Select deployed post...</option>
+          </select>
+          <button type="button" id="dep-top-quick-deploy" class="btn btn-sm btn-primary" style="padding:4px 9px;font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;" title="Deploy item anywhere on model">➕ Deploy</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="gms-stage" role="img" aria-label="Interactive schematic 3D campus and photo informed hall. Dimensions estimated. Drag to orbit; wheel to zoom."><div id="gms-labels"></div></div>
-  <div class="viz-row text-small"><span>Drag: ghumayein · Scroll/pinch: zoom · Right-drag: pan</span></div>
-  <p class="text-small" id="gms-detail" aria-live="polite">Satellite/photo-based schematic · Dimensions estimated · *Nearby ownership/use unverified</p>
-  <details><summary>References &amp; accuracy</summary><p class="text-small">65 photos, 147 video frames and the new Google Earth coordinate-grid screenshots. The plan now uses WGS84 graticule registration, with separately digitised hall/garden/nearby roof outlines and road centrelines. The lotus position was cross-checked against the Google Maps coordinate menu; this is not ground-survey accuracy. Names, pink/white paint, solid scalloped arcade panels and green lighting niches follow readable ground references. Heights, exact gate/facade dimensions, interiors and unseen details remain estimated. Nearby names are map labels, not observed facade signs. 840 chairs are illustrative, not verified capacity. VVIP room use and parking are proposals. Toilets, kitchen, utilities and a complete room inventory are not established.</p><a href="https://maps.app.goo.gl/JG881XSsXu1Vi61L9?g_st=aw" target="_blank" rel="noopener">Google Maps location</a> · <a href="https://panipat.bk.ooo/?p=2036" target="_blank" rel="noopener">Venue auditorium report</a></details>
+
+  <!-- 3D Stage Viewport -->
+  <div id="gms-stage" role="img" aria-label="Interactive 3D model of Gyan Mansarovar campus">
+    <div id="gms-labels"></div>
+
+    <!-- Minimalist Hover Tooltip (Name & Duty only) -->
+    <div id="dep-hover-tooltip" class="dep-hover-tooltip" style="display:none"></div>
+
+    <!-- Contextual Deploy-Here Radial Menu on Canvas -->
+    <div id="dep-radial-deploy" class="deploy-popup-card" style="display:none">
+      <div class="deploy-popup-header">
+        <span>📍 Choose Item to Deploy</span>
+        <button type="button" class="deploy-popup-close" id="dep-radial-close" title="Close">✕</button>
+      </div>
+      <div class="deploy-popup-sub">Click item to deploy immediately here:</div>
+      <div class="deploy-popup-grid">
+        <button type="button" class="deploy-item-btn" data-kind="officer">👮 Officer</button>
+        <button type="button" class="deploy-item-btn" data-kind="barricade">🚧 Barricade</button>
+        <button type="button" class="deploy-item-btn" data-kind="dfmd">🚪 DFMD Gate</button>
+        <button type="button" class="deploy-item-btn" data-kind="binocular">🔭 Binoculars</button>
+        <button type="button" class="deploy-item-btn" data-kind="hhmd">🔍 HHMD</button>
+        <button type="button" class="deploy-item-btn" data-kind="radio">📻 Radio</button>
+        <button type="button" class="deploy-item-btn" data-kind="cone">⚠️ Cone</button>
+        <button type="button" class="deploy-item-btn" data-kind="cctv">📹 CCTV</button>
+        <button type="button" class="deploy-item-btn" data-kind="light">💡 Light</button>
+      </div>
+    </div>
+
+    <!-- Canvas Floating Top-Left: Navigation Mode Pills -->
+    <div class="canvas-overlay top-left">
+      <div class="mode-segmented-control" id="gms-mode-pills">
+        <button type="button" class="mode-pill active" data-mode="orbit" title="Left drag: Rotate 3D · Right drag: Pan">🔄 Orbit 3D</button>
+        <button type="button" class="mode-pill" data-mode="pan" title="Left drag: Pan">🖐️ Pan</button>
+        <button type="button" class="mode-pill" data-mode="box" title="Shift-drag or box zoom">🔍 Box Zoom</button>
+      </div>
+      <!-- Hidden legacy select kept for backward compatibility -->
+      <select id="gms-navigation" style="display:none">
+        <option value="orbit" selected>Rotate 3D</option>
+        <option value="pan">Drag / pan</option>
+        <option value="box">Rectangle zoom</option>
+      </select>
+    </div>
+
+    <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
+    <div class="canvas-overlay top-right">
+      <div class="layers-dropdown">
+        <button type="button" class="overlay-btn" id="gms-layers-toggle">
+          <span>⚙️ Layers &amp; Lights</span> ▾
+        </button>
+        <div class="layers-menu" id="gms-layers-menu">
+          <div class="layer-item">
+            <span class="layer-item-title">Lighting</span>
+            <select class="form-select form-select-sm" id="gms-light">
+              <option value="day" selected>☀️ Day</option>
+              <option value="evening">🌙 Evening Video</option>
+            </select>
+          </div>
+          <div class="layer-divider"></div>
+          <label class="layer-check-label">
+            <input type="checkbox" id="gms-event" class="form-check-input">
+            <span>🛡️ VVIP Proposals</span>
+          </label>
+          <label class="layer-check-label">
+            <input type="checkbox" id="gms-context" class="form-check-input" checked>
+            <span>🏘️ Nearby Blocks*</span>
+          </label>
+          <label class="layer-check-label">
+            <input type="checkbox" id="gms-snapshot" class="form-check-input" checked>
+            <span>🛰️ Satellite Objects*</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD -->
+    <div class="canvas-overlay bottom-left">
+      <div class="hud-pill" id="gms-detail" aria-live="polite">
+        Hover icon for name · Click item to open info tab · W,S,A,D to move
+      </div>
+    </div>
+
+    <!-- Canvas Floating Bottom-Right: Mouse Hint -->
+    <div class="canvas-overlay bottom-right">
+      <div class="hint-pill">
+        <span>🖱️ <b>Left-drag:</b> Rotate · <b>Right-drag:</b> Pan · <b>Scroll:</b> Zoom · <b>W/A/S/D:</b> Move · <b>Q/E:</b> Rotate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deployment Section -->
+  __DEPLOYMENT_PANEL__
 </div>
+
 <style>
-#gms-model {color:var(--foreground);width:100%} #gms-stage {height:480px;width:100%;position:relative;overflow:hidden;touch-action:none} #gms-model[data-view="alignment"] #gms-stage{height:360px!important} #gms-stage canvas {display:block;width:100%;height:100%} #gms-labels {position:absolute;inset:0;pointer-events:none} #gms-labels span {position:absolute;background:var(--background);color:var(--foreground);padding:3px 6px;white-space:nowrap;transform:translate(-50%,-50%)} #gms-detail {min-height:2.5em} @media(max-width:500px){#gms-stage{height:380px}}
+/* Modern Resilient 3D Viewer Styles */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --border-focus: #0284c7;
+  --primary-accent: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-subtle: #e0f2fe;
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.12);
+  --transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#gms-model {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-main);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.header-brand { display: flex; flex-direction: column; gap: 4px; }
+.brand-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  background: var(--primary-subtle);
+  color: var(--primary-hover);
+  border-radius: 9999px;
+}
+.brand-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+.brand-sub { font-size: 13px; color: var(--text-muted); }
+
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.action-pill {
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.action-pill:hover { background: var(--primary-subtle); border-color: var(--primary-accent); color: var(--primary-hover); }
+
+/* Quick Views & Dual Select Bar */
+.view-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.quick-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pills-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-right: 4px; }
+.view-pill {
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 9999px;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.view-pill:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.view-pill.active {
+  background: var(--primary-accent);
+  border-color: var(--primary-accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+}
+
+.top-dropdowns-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 220px;
+}
+.dropdown-header-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.select-views, .select-dep {
+  width: 100%;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.select-dep {
+  border-color: #bae6fd;
+  background-color: #f0f9ff;
+  color: #0369a1;
+  font-weight: 600;
+}
+.select-views:focus, .select-dep:focus { outline: none; border-color: var(--border-focus); ring: 2px var(--primary-subtle); }
+
+/* 3D Stage Viewport */
+#gms-stage {
+  height: 640px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #eef2f6 0%, #e2e8f0 100%);
+  border: 1px solid var(--border-light);
+  touch-action: none;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);
+}
+#gms-stage canvas { display: block; width: 100%; height: 100%; }
+#gms-labels { position: absolute; inset: 0; pointer-events: none; }
+#gms-labels span {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  color: var(--text-main);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Clean Icon Only — No circles around icon, compact size */
+#gms-labels .dep-marker {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+  transition: filter 0.12s ease;
+  user-select: none;
+}
+#gms-labels .dep-marker:hover, #gms-labels .dep-marker[aria-pressed="true"] {
+  background: transparent !important;
+  filter: drop-shadow(0 0 6px rgba(2, 132, 199, 1)) drop-shadow(0 1px 4px rgba(0,0,0,0.8)) !important;
+  z-index: 10;
+}
+
+/* Minimalist Hover Tooltip — Just Name & Duty */
+.dep-hover-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 35;
+  border: 1px solid rgba(255,255,255,0.18);
+  animation: fadeIn 0.1s ease;
+}
+
+/* Floating Information Tab Card on Click */
+#gms-stage .dep-peek {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  color: var(--text-main);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+  border: 1px solid #bae6fd;
+  z-index: 30;
+  width: 290px;
+  animation: popIn 0.14s ease-out;
+  transition: width 0.15s ease, padding 0.15s ease;
+}
+
+#gms-stage .dep-peek.minimized {
+  width: 260px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  border: 1.5px solid #38bdf8;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.dep-peek-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+#gms-stage .dep-peek:not(.minimized) .dep-peek-head {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e0f2fe;
+}
+.dep-peek-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.dep-peek-title {
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #0369a1;
+  white-space: nowrap;
+}
+.dep-peek-duty-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  background: #f0f9ff;
+  color: #0284c7;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #bae6fd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+}
+.dep-peek-controls {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.dep-peek-btn-icon {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #64748b;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.1s ease;
+}
+.dep-peek-btn-icon:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+#dep-peek-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Minimized quick action bar */
+.dep-peek-min-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px dashed #e2e8f0;
+  gap: 4px;
+}
+.dep-peek-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.dep-peek-min-bar .btn-xs {
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.dep-peek-min-bar .btn-xs:hover {
+  background: #0284c7;
+  color: #fff;
+  border-color: #0284c7;
+}
+.btn-danger-soft {
+  color: #dc2626 !important;
+}
+.btn-danger-soft:hover {
+  background: #dc2626 !important;
+  color: #fff !important;
+  border-color: #dc2626 !important;
+}
+.dep-peek-keys-hint {
+  font-size: 10.5px;
+  color: #0284c7;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#gms-stage .dep-peek .form-label {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+#gms-stage .dep-peek input {
+  font-size: 12.5px;
+  padding: 4px 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+#gms-stage .dep-peek .viz-controls {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+#gms-stage .dep-peek .btn {
+  padding: 5px 9px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Floating Canvas HUD Overlays */
+.canvas-overlay {
+  position: absolute;
+  z-index: 5;
+  pointer-events: auto;
+}
+.canvas-overlay.top-left { top: 12px; left: 12px; }
+.canvas-overlay.top-right { top: 12px; right: 12px; }
+.canvas-overlay.bottom-left { bottom: 12px; left: 12px; max-width: calc(100% - 320px); }
+.canvas-overlay.bottom-right { bottom: 12px; right: 12px; }
+
+/* Segmented Control for Modes */
+.mode-segmented-control {
+  display: flex;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  padding: 3px;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+.mode-pill {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.mode-pill:hover { background: rgba(0,0,0,0.05); }
+.mode-pill.active {
+  background: #0f172a;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Layers Popover */
+.layers-dropdown { position: relative; }
+.overlay-btn {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.overlay-btn:hover { background: #fff; }
+.layers-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 210px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  flex-direction: column;
+  gap: 8px;
+}
+.layers-menu.show { display: flex; }
+.layer-item-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2px; }
+.layer-divider { height: 1px; background: var(--border-light); margin: 4px 0; }
+.layer-check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* Contextual Click-to-Deploy Menu on 3D Model */
+.deploy-popup-card {
+  position: absolute;
+  z-index: 25;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  border: 1px solid #bae6fd;
+  width: 260px;
+  animation: popIn 0.16s ease-out;
+}
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.deploy-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #0369a1;
+  margin-bottom: 2px;
+}
+.deploy-popup-close {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #64748b;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+.deploy-popup-close:hover { color: #0f172a; background: #e2e8f0; }
+.deploy-popup-sub {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 7px;
+}
+.deploy-popup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+.deploy-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1e293b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  text-align: left;
+  white-space: nowrap;
+}
+.deploy-item-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+/* HUD Readouts */
+.hud-pill {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(8px);
+  color: #f8fafc;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.hint-pill {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Deployment Card Styles */
+.dep-card {
+  margin-top: 18px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.dep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.dep-title-wrap { display: flex; align-items: center; gap: 10px; }
+.dep-badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 9999px;
+}
+.dep-title { margin: 0; font-size: 17px; font-weight: 700; color: var(--text-main); }
+.status-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.dep-toolbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid #edf2f7;
+}
+.dep-tool-group { display: flex; flex-direction: column; gap: 4px; }
+.field-label { font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+.select-btn-group { display: flex; gap: 6px; align-items: center; }
+.select-btn-group .form-select { flex: 1; }
+
+.dep-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+.dep-hint-icon { font-size: 18px; line-height: 1.2; }
+.dep-hint-text { display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; color: #166534; }
+.dep-subhint { font-size: 11.5px; color: #15803d; opacity: 0.9; }
+
+/* Inspector */
+.dep-inspector {
+  background: #ffffff;
+  border: 1px solid #bae6fd;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.inspector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0f2fe;
+}
+.inspector-tag { font-size: 13px; font-weight: 700; color: #0369a1; }
+.inspector-note { font-size: 11.5px; color: var(--text-muted); }
+
+.inspector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+.input-block { display: flex; flex-direction: column; gap: 4px; }
+.input-label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); }
+.form-control {
+  padding: 7px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+.form-control:focus { outline: none; border-color: var(--primary-accent); ring: 2px var(--primary-subtle); }
+
+.inspector-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+.action-btn-cluster { display: flex; gap: 6px; align-items: center; }
+
+.dep-coords-accordion {
+  margin-top: 6px;
+  border-top: 1px dashed var(--border-light);
+  padding-top: 8px;
+}
+.dep-coords-accordion summary {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+.coords-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.input-block-sm { display: flex; flex-direction: column; gap: 2px; }
+
+/* Buttons */
+.btn {
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-primary { background: #0284c7; color: #fff; }
+.btn-primary:hover { background: #0369a1; }
+.btn-secondary { background: #e2e8f0; color: #1e293b; }
+.btn-secondary:hover { background: #cbd5e1; }
+.btn-danger { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
+.btn-danger:hover { background: #fca5a5; }
+.btn-success { background: #16a34a; color: #fff; }
+.btn-success:hover { background: #15803d; }
+.btn-camera { background: #f0f9ff; color: #0284c7; border-color: #bae6fd; }
+.btn-camera:hover { background: #0284c7; color: #fff; }
+.btn-outline { background: #fff; border: 1px solid var(--border-light); color: var(--text-main); }
+.btn-outline:hover { background: #f8fafc; border-color: #cbd5e1; }
+
+.dep-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+.backup-actions { display: flex; gap: 8px; align-items: center; }
+.file-btn-label { cursor: pointer; }
+.dep-disclaimer { font-size: 11.5px; color: var(--text-muted); }
+
+#gms-stage .dep-confirm {
+  position: absolute;
+  z-index: 16;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  gap: 6px;
+  border: 1px solid var(--primary-accent);
+}
+
+@media (max-width: 768px) {
+  #gms-stage { height: 460px; }
+  .canvas-overlay.bottom-left { max-width: calc(100% - 24px); }
+  .canvas-overlay.bottom-right { display: none; }
+  .top-dropdowns-group { width: 100%; }
+  .dropdown-wrapper { flex: 1; }
+}
 </style>
+
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 (()=>{
 const data=__SCENE_DATA__;
-data.objects=data.rows.map(r=>({name:data.names[r[0]],p:r.slice(1,4),s:r.slice(4,7),mat:data.mats[r[7]],shape:data.shapes[r[8]],group:data.groups[r[9]],rot:r[10],tilt:r[11],rz:r[12]||0}));
+data.objects=data.rows.map(r=>({name:data.names[r[0]],p:r.slice(1,4),s:r.slice(4,7),mat:data.mats[r[7]],shape:data.shapes[r[8]],group:data.groups[r[9]],rot:r[10]||0,tilt:r[11]||0,rz:r[12]||0}));
 const root=document.getElementById('gms-model'), host=root.querySelector('#gms-stage'), labelRoot=root.querySelector('#gms-labels'), info=root.querySelector('#gms-detail');
 if(!window.THREE){ info.textContent='3D library load nahi hui. Internet connection ke saath dobara kholein; GLB file offline 3D software mein khul sakti hai.';return; }
 let renderer;
@@ -28,6 +955,9 @@ try{ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true}); }catch(e){in
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;host.appendChild(renderer.domElement);
 const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(44,1,.1,3000);
 const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.maxDistance=1800;controls.minDistance=1;controls.maxPolarAngle=Math.PI*.495;controls.target.set(-10,0,0);
+const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;controls.enableDamping=!reducedMotion;controls.dampingFactor=.16;controls.screenSpacePanning=true;controls.panSpeed=1.8;controls.rotateSpeed=.75;
+// Natural Controls: Left-drag Orbit 3D, Right-drag Pan, Wheel Zoom
+controls.mouseButtons.LEFT=THREE.MOUSE.ROTATE;controls.mouseButtons.RIGHT=THREE.MOUSE.PAN;controls.touches.ONE=THREE.TOUCH.ROTATE;controls.touches.TWO=THREE.TOUCH.DOLLY_PAN;
 const hemi=new THREE.HemisphereLight(0xdbe6ef,0x6a634d,.5);scene.add(hemi);const light=new THREE.DirectionalLight(0xffefda,1.1);light.position.set(-60,100,-60);light.castShadow=true;light.shadow.mapSize.set(2048,2048);Object.assign(light.shadow.camera,{left:-150,right:150,top:120,bottom:-120,near:1,far:350});light.shadow.bias=-.00015;light.shadow.normalBias=.12;scene.add(light);
 const ambient=new THREE.AmbientLight(0xffffff,.2);scene.add(ambient);
 const interiorLights=new THREE.Group();scene.add(interiorLights);for(const z of [-28,-7,15]){const l=new THREE.PointLight(0xfff6e7,.75,85,1.2);l.position.set(-40,8.2,z);interiorLights.add(l);}
@@ -42,8 +972,8 @@ const sp=new THREE.Shape();data.profiles.scallopedSpandrel.forEach((p,i)=>i?sp.l
 geos.lotusDome=new THREE.LatheGeometry(data.profiles.lotusDome.map(p=>new THREE.Vector2(...p)),64);
 for(const [key,m] of Object.entries(data.profiles.lotusMeshes||{})){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(m.vertices.flat(),3));g.setIndex(m.faces.flat());g.computeVertexNormals();geos[key]=g;}
 const mats=Object.fromEntries(Object.entries(data.colors).map(([k,v])=>[k,new THREE.MeshStandardMaterial({color:new THREE.Color(v).convertSRGBToLinear(),roughness:.85,metalness:k==='gold'?.25:0})]));mats.light.emissive=new THREE.Color(data.colors.light).convertSRGBToLinear();mats.light.emissiveIntensity=.35;
-function texture(kind){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');ctx.fillStyle='#eeeae1';ctx.fillRect(0,0,512,512);let seed=12345;const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};if(kind==='wood'){for(let y=0;y<512;y+=32){ctx.fillStyle=`rgb(${207+rand()*35},${201+rand()*30},${183+rand()*35})`;ctx.fillRect(0,y,512,31);ctx.strokeStyle='rgba(75,55,30,.35)';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(512,y);ctx.stroke();for(let x=0;x<512;x+=128){const xx=x+(y%64?50:0);ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+32);ctx.stroke();}for(let k=0;k<70;k++){ctx.strokeStyle='rgba(70,48,30,.045)';const yy=y+rand()*30;ctx.beginPath();ctx.moveTo(rand()*512,yy);ctx.lineTo(rand()*512,yy+.3);ctx.stroke();}}}else{for(let i=0;i<18000;i++){const a=rand()*.13;ctx.fillStyle=`rgba(30,35,22,${a})`;ctx.fillRect(rand()*512,rand()*512,1+rand()*3,1+rand()*3);}if(kind==='paving'){ctx.strokeStyle='rgba(55,60,45,.22)';for(let i=0;i<=512;i+=64){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(kind==='wood'?4:6,kind==='wood'?5:6);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t;}
-mats.wood.map=texture('wood');mats.paving.map=texture('paving');mats.road.map=texture('asphalt');mats.road.roughness=1;mats.grass.map=texture('grass');mats.seat.roughness=.96;mats.metal.metalness=.65;mats.metal.roughness=.38;mats.glass.metalness=.22;mats.glass.roughness=.22;
+function texture(kind){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');ctx.fillStyle='#eeeae1';ctx.fillRect(0,0,512,512);let seed=12345;const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};if(kind==='wood'){for(let y=0;y<512;y+=32){ctx.fillStyle=`rgb(${185+rand()*30},${144+rand()*25},${102+rand()*25})`;ctx.fillRect(0,y,512,31);ctx.strokeStyle='rgba(75,55,30,.35)';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(512,y);ctx.stroke();for(let x=0;x<512;x+=128){const xx=x+(y%64?50:0);ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+32);ctx.stroke();}for(let k=0;k<70;k++){ctx.strokeStyle='rgba(70,48,30,.045)';const yy=y+rand()*30;ctx.beginPath();ctx.moveTo(rand()*512,yy);ctx.lineTo(rand()*512,yy+.3);ctx.stroke();}}}else{for(let i=0;i<18000;i++){const a=rand()*.13;ctx.fillStyle=`rgba(30,35,22,${a})`;ctx.fillRect(rand()*512,rand()*512,1+rand()*3,1+rand()*3);}if(kind==='fabric'){ctx.strokeStyle='rgba(50,45,35,.10)';for(let i=0;i<512;i+=4){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}if(kind==='paving'){ctx.strokeStyle='rgba(55,60,45,.22)';for(let i=0;i<=512;i+=64){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(kind==='wood'?4:6,kind==='wood'?5:6);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t;}
+mats.wood.map=texture('wood');mats.paving.map=texture('paving');mats.road.map=texture('asphalt');mats.road.roughness=1;mats.grass.map=texture('grass');mats.seat.map=texture('fabric');mats.seat.bumpMap=mats.seat.map;mats.seat.bumpScale=.012;mats.acoustic.map=texture('fabric');mats.acoustic.bumpMap=mats.acoustic.map;mats.acoustic.bumpScale=.01;mats.seat.roughness=.96;mats.metal.metalness=.65;mats.metal.roughness=.38;mats.glass.metalness=.22;mats.glass.roughness=.22;
 mats.lotusFinial.emissive=new THREE.Color('#ffb83b').convertSRGBToLinear();mats.lotusFinial.emissiveIntensity=.8;mats.lotusGlass.emissive=new THREE.Color('#dfedee').convertSRGBToLinear();
 mats.glass.color=new THREE.Color('#bfd1ca').convertSRGBToLinear();mats.glass.transparent=true;mats.glass.opacity=.25;mats.glass.depthWrite=false;
 for(const s of data.signs||[]){const im=new Image(),tex=new THREE.Texture(im);tex.encoding=THREE.sRGBEncoding;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());mats[s.key]=new THREE.MeshStandardMaterial({map:tex,roughness:.95,side:THREE.DoubleSide});im.onload=()=>{tex.needsUpdate=true;draw();};im.src=s.image;}
@@ -60,36 +990,115 @@ for(const f of geo.footprints){const pts=[...f.points,f.points[0]].map(p=>new TH
 const insideRaster=p=>rc.every((a,i)=>{const b=rc[(i+1)%4];return (b[0]-a[0])*(p[1]-a[1])-(b[1]-a[1])*(p[0]-a[0])>=-.01;});
 for(const r of geo.roads){const pts=r.points.filter(insideRaster).map(p=>new THREE.Vector3(p[0],.75,p[1]));if(pts.length>1)referenceGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:0x16823b})));}
 function transformPoint(p,m){return [p[0]*m[0][0]+p[2]*m[1][0]+m[2][0],p[1],p[0]*m[0][1]+p[2]*m[1][1]+m[2][1]];}
-function mapPreset(p,v){const hall=['hall','stage','entry','classroom'].includes(v),q=transformPoint(p,hall?geo.hallPlanTransform:geo.globalPlanTransform);if(v==='gate'){q[0]+=geo.gateDelta[0];q[2]+=geo.gateDelta[1]}return q;}
+function mapPreset(p,v){const hall=['hall','stage','stageplan','entry','classroom'].includes(v),q=transformPoint(p,hall?geo.hallPlanTransform:geo.globalPlanTransform);if(v==='gate'){q[0]+=geo.gateDelta[0];q[2]+=geo.gateDelta[1]}return q;}
 for(const l of interiorLights.children)l.position.fromArray(mapPreset(l.position.toArray(),'hall'));hallKey.position.fromArray(mapPreset(hallKey.position.toArray(),'hall'));hallKey.target.position.fromArray(mapPreset(hallKey.target.position.toArray(),'hall'));for(const l of eveningLights.children)l.position.fromArray(mapPreset(l.position.toArray(),'campus'));
+const lotusRoomLight=new THREE.PointLight(0xfff6e7,.8,17,1);lotusRoomLight.position.set(geo.pavilionCentre[0],6.8,geo.pavilionCentre[1]);scene.add(lotusRoomLight);
 function coord(p){return 'WGS84 reference (estimated): '+(geo.originLatitude-p.z/geo.northMetresPerDegree).toFixed(6)+'° N, '+(geo.originLongitude+p.x/geo.eastMetresPerDegree).toFixed(6)+'° E';}
 const labels=data.labels.map((d,i)=>{const e=document.createElement('span');e.className='text-small';e.textContent=d[0];labelRoot.appendChild(e);return {e,p:new THREE.Vector3(...d[1]),context:i>=6}});
 const select=root.querySelector('#gms-view'), eventInput=root.querySelector('#gms-event'), contextInput=root.querySelector('#gms-context'),lightSelect=root.querySelector('#gms-light'),snapshotInput=root.querySelector('#gms-snapshot');
 let current='campus';
-function draw(){renderer.render(scene,camera);const rect=host.getBoundingClientRect();for(const l of labels){const v=l.p.clone().project(camera);l.e.style.display=(['hall','stage','lounge','entry','garden','gate','roads','residential','classroom','mainroad','alignment'].includes(current)||(l.context&&current!=='neighborhood')||(!l.context&&current==='neighborhood')||v.z>1||Math.abs(v.x)>.85||Math.abs(v.y)>.9)?'none':'block';l.e.style.left=((v.x+1)*rect.width/2)+'px';l.e.style.top=((-v.y+1)*rect.height/2)+'px';}}
+function draw(){renderer.render(scene,camera);if(typeof depUpdate==='function')depUpdate();const rect=host.getBoundingClientRect();for(const l of labels){const v=l.p.clone().project(camera);l.e.style.display=(['hall','stage','lounge','entry','garden','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment'].includes(current)||(l.context&&current!=='neighborhood')||(!l.context&&current==='neighborhood')||v.z>1||Math.abs(v.x)>.85||Math.abs(v.y)>.9)?'none':'block';l.e.style.left=((v.x+1)*rect.width/2)+'px';l.e.style.top=((-v.y+1)*rect.height/2)+'px';}}
 function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:current,lighting:lightSelect.value,eventProposal:eventInput.checked,nearbyBlocks:contextInput.checked,satelliteDateObjects:snapshotInput.checked},privateContent:null}).catch(()=>{});}
-function setLighting(){const internal=['hall','stage'].includes(current),evening=lightSelect.value==='evening';light.intensity=internal?.1:evening?.1:1.1;hemi.intensity=internal?.23:evening?.23:.5;ambient.intensity=internal?.17:.16;interiorLights.visible=internal;interiorLights.children.forEach(l=>l.intensity=.3);hallKey.visible=internal;eveningLights.visible=evening&&!internal;renderer.toneMappingExposure=internal?.8:evening?1:.85;scene.background=evening&&!internal?new THREE.Color('#152735'):null;mats.light.emissiveIntensity=evening?1.8:.6;mats.lotusGlass.emissiveIntensity=evening?.65:0;mats.lotusFinial.emissiveIntensity=evening?2:.8;}
+function setLighting(){lotusRoomLight.visible=current==='lotusinside';const internal=['hall','stage'].includes(current),evening=lightSelect.value==='evening';light.intensity=internal?.1:evening?.1:1.1;hemi.intensity=internal?.23:evening?.23:.5;ambient.intensity=current==='lotusinside'?.45:internal?.17:.16;interiorLights.visible=internal;interiorLights.children.forEach(l=>l.intensity=.3);hallKey.visible=internal;eveningLights.visible=evening&&!internal;renderer.toneMappingExposure=internal?.8:evening?1:.85;scene.background=evening&&!internal?new THREE.Color('#152735'):null;mats.light.emissiveIntensity=evening?1.8:.6;mats.lotusGlass.emissiveIntensity=evening?.65:0;mats.lotusFinial.emissiveIntensity=evening?2:.8;}
+
+function syncQuickPills(val){
+  root.querySelectorAll('#gms-quick-views .view-pill').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.view===val);
+  });
+}
+
 function applyView(){
- current=select.value;const internal=['hall','stage'].includes(current), cut=['cutaway','plan','lounge'].includes(current);
+ motion=null;
+ current=select.value;const internal=['hall','stage'].includes(current), cut=['cutaway','plan','lounge','stageplan'].includes(current);
  root.dataset.view=current;
+ syncQuickPills(current);
  for(const g of Object.values(groups))g.visible=current!=='alignment';referenceGroup.visible=current==='alignment';
  groups.roof.visible=!cut;groups.ceiling.visible=internal;groups.shell.visible=!cut;groups.event.visible=eventInput.checked;groups.context.visible=contextInput.checked;
- groups.snapshot.visible=snapshotInput.checked;if(current==='alignment')for(const g of Object.values(groups))g.visible=false;
- const views={campus:[[135,135,157],[-20,0,0]],neighborhood:[[640,630,730],[60,0,10]],mainroad:[[5,115,-195],[-10,0,-61]],gate:[[-13,4.5,-108],[-13,3.2,-61]],roads:[[-9,3.3,-53],[-9,2.8,23]],residential:[[-9,4,1],[0,5.8,28]],classroom:[[-6,2.2,-34],[-18,1.5,-34]],cutaway:[[112,133,145],[-10,0,0]],plan:[[-15,270,1],[-15,0,0]],hall:[[-40,2.7,-37],[-40,3.3,10]],stage:[[-40,3.8,13],[-40,2.3,-35]],entry:[[3,3.8,12],[-19,3,12]],garden:[[28,7,-7],[28,6,-45]],lounge:[[2,58,82],[0,1,39]]};
+ groups.lotusInterior.visible=current==='lotusinside';groups.snapshot.visible=snapshotInput.checked;if(current==='alignment')for(const g of Object.values(groups))g.visible=false;
+ const views={campus:[[135,135,157],[-20,0,0]],neighborhood:[[640,630,730],[60,0,10]],mainroad:[[5,145,-235],[-10,0,-61]],gate:[[-13,4.5,-108],[-13,3.2,-61]],roads:[[-9,3.3,-53],[-9,2.8,23]],residential:[[-9,4,1],[0,5.8,28]],classroom:[[-6,2.2,-34],[-18,1.5,-34]],cutaway:[[112,133,145],[-10,0,0]],plan:[[-15,270,1],[-15,0,0]],hall:[[-40,2.7,-37],[-40,3.3,10]],stage:[[-40,3.8,13],[-40,2.3,-35]],stageplan:[[-40,23,-23],[-40,1.4,12]],entry:[[3,3.8,12],[-19,3,12]],garden:[[28,7,-7],[28,6,-45]],lotusinside:[[28,5.1,-41.2],[28,5.1,-49.5]],lounge:[[2,58,82],[0,1,39]]};
  let pos,target;if(current==='alignment'){const cx=rc.reduce((a,p)=>a+p[0],0)/4,cz=rc.reduce((a,p)=>a+p[1],0)/4;pos=[cx,490,cz+.01];target=[cx,0,cz];}else{[pos,target]=views[current];pos=mapPreset(pos,current);target=mapPreset(target,current);}camera.position.fromArray(pos);controls.target.fromArray(target);controls.update();
- info.textContent=current==='alignment'?'Google Earth graticule registered reference. Blue: core footprint traces; orange: adjacent blocks. Click the map for estimated latitude / longitude.':internal?'Video-informed interior; registered footprint. Heights, exact details and chair count estimated.':current==='lounge'?'South building cutaway: room allocations proposed; existing room use unverified.':'WGS84 graticule registered plan · Heights/details estimated · *Satellite objects and nearby ownership/use unverified';setLighting();draw();
+ info.textContent=current==='lotusinside'?'Video-supported partial meditation interior. Curtains, furniture and fittings approximate; portrait/artwork and small donation-box lettering not replicated.':current==='alignment'?'Google Earth graticule registered reference. Blue: core footprint traces; orange: adjacent blocks. Click the map for estimated latitude / longitude.':internal?'Video-informed interior; registered footprint. Heights, exact details and chair count estimated.':current==='lounge'?'South building cutaway: room allocations proposed; existing room use unverified.':'WGS84 graticule registered plan · Heights/details estimated · *Satellite objects and nearby ownership/use unverified';setLighting();draw();
 }
+
 select.addEventListener('change',()=>{if(select.value==='lounge')eventInput.checked=true;if(select.value==='neighborhood')contextInput.checked=true;applyView();save()});
+root.querySelectorAll('#gms-quick-views .view-pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    select.value=btn.dataset.view;
+    select.dispatchEvent(new Event('change'));
+  });
+});
+
+root.querySelector('#gms-reset-btn').addEventListener('click',()=>{
+  select.value='campus';
+  select.dispatchEvent(new Event('change'));
+});
+
+root.querySelector('#gms-fullscreen-btn').addEventListener('click',()=>{
+  if(!document.fullscreenElement){
+    host.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen().catch(()=>{});
+  }
+});
+
+// Layers Toggle Popover
+const layersToggle=root.querySelector('#gms-layers-toggle'), layersMenu=root.querySelector('#gms-layers-menu');
+layersToggle.addEventListener('click',e=>{
+  e.stopPropagation();
+  layersMenu.classList.toggle('show');
+});
+document.addEventListener('click',e=>{
+  if(!layersMenu.contains(e.target)&&!layersToggle.contains(e.target)) layersMenu.classList.remove('show');
+});
+
 eventInput.addEventListener('change',()=>{groups.event.visible=current!=='alignment'&&eventInput.checked;draw();save()});contextInput.addEventListener('change',()=>{groups.context.visible=current!=='alignment'&&contextInput.checked;draw();save()});
 lightSelect.addEventListener('change',()=>{setLighting();draw();save()});
 snapshotInput.addEventListener('change',()=>{groups.snapshot.visible=current!=='alignment'&&snapshotInput.checked;draw();save()});
 controls.addEventListener('change',draw);
+const navigation=root.querySelector('#gms-navigation'),canvas=renderer.domElement;
+let motion=null,selection=null,suppressClick=false;
+const zoomBox=document.createElement('div');zoomBox.style.cssText='position:absolute;pointer-events:none;display:none;border:2px solid var(--primary-accent);background:rgba(2,132,199,0.18);border-radius:4px';host.appendChild(zoomBox);
+
+function navigationMode(){
+  if(navigation.value==='orbit'){
+    controls.mouseButtons.LEFT=THREE.MOUSE.ROTATE;
+    controls.mouseButtons.RIGHT=THREE.MOUSE.PAN;
+  } else if(navigation.value==='pan') {
+    controls.mouseButtons.LEFT=THREE.MOUSE.PAN;
+    controls.mouseButtons.RIGHT=THREE.MOUSE.ROTATE;
+  }
+  root.querySelectorAll('#gms-mode-pills .mode-pill').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.mode===navigation.value);
+  });
+}
+navigation.addEventListener('change',()=>{cancelBox();navigationMode();});
+root.querySelectorAll('#gms-mode-pills .mode-pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    navigation.value=btn.dataset.mode;
+    navigation.dispatchEvent(new Event('change'));
+  });
+});
+
+function planePoint(x,y){const r=canvas.getBoundingClientRect(),p=new THREE.Vector2((x-r.left)/r.width*2-1,1-(y-r.top)/r.height*2),raycaster=new THREE.Raycaster();camera.updateMatrixWorld();raycaster.setFromCamera(p,camera);const hit=raycaster.intersectObjects(current==='alignment'?[referenceMesh]:clickable.filter(o=>o.visible&&o.parent.visible),false)[0];if(hit)return hit.point;const plane=new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()),controls.target);return raycaster.ray.intersectPlane(plane,new THREE.Vector3());}
+function moveTo(p,t){if(reducedMotion){camera.position.copy(p);controls.target.copy(t);controls.update();draw();motion=null;}else motion={p,t};}
+canvas.addEventListener('wheel',e=>{e.preventDefault();e.stopImmediatePropagation();const anchor=planePoint(e.clientX,e.clientY);if(!anchor)return;const p=motion?motion.p:camera.position,t=motion?motion.t:controls.target,unit=e.deltaMode===1?16:e.deltaMode===2?host.clientHeight:1,factor=Math.exp(THREE.MathUtils.clamp(e.deltaY*unit,-240,240)*.0018),distance=p.distanceTo(t),scale=THREE.MathUtils.clamp(distance*factor,controls.minDistance,controls.maxDistance)/distance;moveTo(p.clone().sub(anchor).multiplyScalar(scale).add(anchor),t.clone().sub(anchor).multiplyScalar(scale).add(anchor));},{capture:true,passive:false});
+function cancelBox(){if(selection){const id=selection.id;selection=null;if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}zoomBox.style.display='none';controls.enabled=true;}
+function localPoint(e){const r=canvas.getBoundingClientRect();return [THREE.MathUtils.clamp(e.clientX-r.left,0,r.width),THREE.MathUtils.clamp(e.clientY-r.top,0,r.height)];}
+canvas.addEventListener('pointerdown',e=>{motion=null;if(e.button!==0||!(e.shiftKey||navigation.value==='box'))return;e.preventDefault();e.stopImmediatePropagation();controls.enabled=false;suppressClick=true;selection={id:e.pointerId,start:localPoint(e)};canvas.setPointerCapture(e.pointerId);zoomBox.style.display='block';zoomBox.style.left=selection.start[0]+'px';zoomBox.style.top=selection.start[1]+'px';zoomBox.style.width=zoomBox.style.height='0px';},{capture:true});
+canvas.addEventListener('pointermove',e=>{if(!selection||selection.id!==e.pointerId)return;e.preventDefault();e.stopImmediatePropagation();const a=selection.start,b=localPoint(e);zoomBox.style.left=Math.min(a[0],b[0])+'px';zoomBox.style.top=Math.min(a[1],b[1])+'px';zoomBox.style.width=Math.abs(a[0]-b[0])+'px';zoomBox.style.height=Math.abs(a[1]-b[1])+'px';},{capture:true});
+canvas.addEventListener('pointerup',e=>{if(!selection||selection.id!==e.pointerId){suppressClick=false;return;}e.preventDefault();e.stopImmediatePropagation();const a=selection.start,b=localPoint(e),w=Math.abs(a[0]-b[0]),h=Math.abs(a[1]-b[1]),r=canvas.getBoundingClientRect();if(w>8&&h>8){const centre=planePoint(r.left+(a[0]+b[0])/2,r.top+(a[1]+b[1])/2),offset=camera.position.clone().sub(controls.target),scale=Math.max(w/r.width,h/r.height)*1.08;if(centre){offset.multiplyScalar(THREE.MathUtils.clamp(offset.length()*scale,controls.minDistance,controls.maxDistance)/offset.length());moveTo(centre.clone().add(offset),centre);}}cancelBox();},{capture:true});
+canvas.addEventListener('pointercancel',cancelBox);canvas.addEventListener('lostpointercapture',()=>{if(selection)cancelBox();});
+root.addEventListener('keydown',e=>{if(e.key==='Escape')cancelBox();});
+let lastFrame=0;
+function animate(time){const dt=Math.min((time-lastFrame)/1000,.05);lastFrame=time;if(motion){const a=1-Math.exp(-14*dt);camera.position.lerp(motion.p,a);controls.target.lerp(motion.t,a);if(camera.position.distanceTo(motion.p)<.0005&&controls.target.distanceTo(motion.t)<.0005){camera.position.copy(motion.p);controls.target.copy(motion.t);motion=null;}}controls.update();requestAnimationFrame(animate);}requestAnimationFrame(animate);
+
 const ray=new THREE.Raycaster(), pointer=new THREE.Vector2();let down;
 renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
-renderer.domElement.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
+renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
 root.addEventListener('keydown',e=>{if(['SELECT','INPUT'].includes(e.target.tagName))return;const step=2;let dx=0,dz=0;if(e.key==='ArrowLeft')dx=-step;else if(e.key==='ArrowRight')dx=step;else if(e.key==='ArrowUp')dz=-step;else if(e.key==='ArrowDown')dz=step;else if(e.key==='+'||e.key==='=')camera.position.sub(controls.target).multiplyScalar(.9).add(controls.target);else if(e.key==='-')camera.position.sub(controls.target).multiplyScalar(1.1).add(controls.target);else return;camera.position.x+=dx;camera.position.z+=dz;controls.target.x+=dx;controls.target.z+=dz;e.preventDefault();controls.update();draw();});
 function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);if(current==='alignment'){const xs=rc.map(p=>p[0]),zs=rc.map(p=>p[1]),ww=Math.max(...xs)-Math.min(...xs),dd=Math.max(...zs)-Math.min(...zs),height=Math.max(dd,ww/camera.aspect)/(2*Math.tan(camera.fov*Math.PI/360))*1.1;camera.position.set((Math.max(...xs)+Math.min(...xs))/2,height,(Math.max(...zs)+Math.min(...zs))/2+.01);controls.target.set(camera.position.x,0,camera.position.z-.01);controls.update();}draw();}new ResizeObserver(resize).observe(host);
-function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','alignment'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
+function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
+__DEPLOYMENT_JS__
 applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();
 })();
 </script>

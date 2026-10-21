@@ -1,6 +1,35 @@
 GYAN MANSAROVAR — SATELLITE / PHOTO INFORMED 3D STUDY
 20 October 2026
 
+REVISION 15: Officer height returned to normal (~1.8 m) at user request.
+Icons/leader lines now hide behind modeled opaque walls, roofs and ceilings.
+Hall view checked: only the two indoor duty icons remain visible.
+
+REVISION 14: Officer display size doubled; nearest-surface placement
+with blue base marker and leader lines; faster pan. Pending placement now
+requires Place here confirmation. See DEPLOYMENT-GUIDE.md.
+
+REVISION 13: Editable police deployment, dark blue 3D officers, equipment,
+WASD movement, hover editing and first/third person views. SQLite backend
+autosave at localhost:8794. See DEPLOYMENT-GUIDE.md; start-deployment.cmd
+restarts the backend. Static venue GLB does not contain this editable layer.
+
+REVISION 12: Fixed facade joins and window covering hall entrance.
+Added cursor wheel zoom, drag pan, rectangle zoom and smooth navigation.
+See FACADE-AND-NAVIGATION-CORRECTIONS.md.
+
+REVISION 11: User clarified two SIDE stage staircases, no centre stairs.
+Centre stair removed, both side runs/rails added. See STAGE-ACCESS-CORRECTION.md.
+
+REVISION 10: Corrected east/neighbor labels to checked map listing pins:
+Luft india, BAMC Medical and Birmi Industries Private Limited.
+Western roof names remain unverified; see NAME-CORRECTIONS.md.
+
+REVISION 9: Both YouTube references reviewed at documented timestamps.
+Main hall fittings/materials and compound lanterns/hut refined; partial
+Tapasya Dham interior added. See YOUTUBE-DETAIL-REVIEW.md for coverage,
+lettering audit and remaining unresolved locations/text.
+
 REVISION 8: 12 additional architectural references reviewed. Sculpted pink
 lotus petal courses, open entrance, curved dark steps, pots, windows,
 name, broad walkway, lights, palms; residential rails; BOTH side gates.

@@ -20,6 +20,9 @@ def detail(objects,colors):
             o['p'][2]=-20-z
         if o['name'].startswith('Side entrance metal jamb'):o['p'][2]=6.5 if o['p'][2]<8 else 10.5
         if o['name'].startswith('Open glazed door leaf'):o['p'][2]=6.6 if o['p'][2]<8 else 10.4
+    # Repeated facade windows must not cover the actual entrance opening.
+    window_parts=('Dark window frame','Window illuminated glass','Facade gold uplight niche')
+    objects[:]=[o for o in objects if not (o['name'] in window_parts and o['p'][2]+o['s'][2]/2>6.5 and o['p'][2]-o['s'][2]/2<10.5)]
     box('Hall side doorway north infill',-19,5,5.25,.5,9,2.5,'white','shell')
     box('Hall side doorway south infill',-19,5,11.75,.5,9,2.5,'white','shell')
     # Replace the solid portico placeholder with columns and a real entrance void.

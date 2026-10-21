@@ -345,6 +345,29 @@
     "differenceMetres": 0.8619319330070844,
     "status": "Checks grid-label assignment against Google Maps UI; does not establish ground-survey accuracy."
   },
+  "verifiedMapListings": [
+    {
+      "name": "Luft india",
+      "latitude": 29.4133618,
+      "longitude": 76.8499721,
+      "source": "Google Maps place listing selected directly, 2026-10-20",
+      "status": "Listing pin only; cadastral ownership and facade text unverified"
+    },
+    {
+      "name": "BAMC Medical",
+      "latitude": 29.4134342,
+      "longitude": 76.8502209,
+      "source": "Google Maps place listing selected directly, 2026-10-20",
+      "status": "Listing pin only; cadastral ownership and facade text unverified"
+    },
+    {
+      "name": "Birmi Industries Private Limited",
+      "latitude": 29.4138875,
+      "longitude": 76.8512636,
+      "source": "Google Maps place listing selected directly, 2026-10-20",
+      "status": "Listing pin only; cadastral ownership and facade text unverified"
+    }
+  ],
   "roadRevision": "Removed legacy crossing frontage wall; clipped north enclosure wall outside 6.5m road corridor; redrawn frontage returns, continuous entrance apron and earth shoulders. Width/detail estimated from supplied images.",
   "globalPlanTransform": [
     [
@@ -599,7 +622,7 @@
     },
     {
       "id": "east-blue",
-      "name": "Eastern blue-roof building",
+      "name": "Blue-roof building beside Luft india map listing",
       "points": [
         [
           73.60530416987028,
@@ -619,7 +642,7 @@
         ]
       ],
       "group": "context",
-      "status": "Ownership/use/height unverified",
+      "status": "Nearby Luft india listing checked; ownership and exact roof association not established.",
       "source": "Google Earth user screenshot with visible one-arcsecond graticule"
     },
     {
@@ -649,7 +672,7 @@
     },
     {
       "id": "industrial-east",
-      "name": "Eastern industrial roof visible in screenshot",
+      "name": "BAMC Medical \u2022 partial industrial roof beside verified map pin",
       "points": [
         [
           134.24468955730575,
@@ -669,7 +692,7 @@
         ]
       ],
       "group": "context",
-      "status": "Partial footprint; screen overlays obscure remaining extent",
+      "status": "Map listing and BAMC roof lettering corroborate industrial context; legal boundary/height unverified.",
       "source": "Google Earth user screenshot with visible one-arcsecond graticule"
     },
     {
