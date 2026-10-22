@@ -77,7 +77,6 @@
       <div class="deploy-popup-sub">Click item to deploy immediately here:</div>
       <div class="deploy-popup-grid">
         <button type="button" class="deploy-item-btn" data-kind="officer">👮 Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="helicopter">🚁 Helicopter</button>
         <button type="button" class="deploy-item-btn" data-kind="ambulance">🚑 Ambulance</button>
         <button type="button" class="deploy-item-btn" data-kind="firebrigade">🚒 Fire Brigade</button>
         <button type="button" class="deploy-item-btn" data-kind="parking">🅿️ Parking</button>
@@ -1786,6 +1785,7 @@ function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h
 function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
 window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
 __DEPLOYMENT_JS__
+try{const _uv=(new URLSearchParams(window.location.search)).get('view');if(_uv&&['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(_uv)){select.value=_uv;}}catch(e){}
 applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();
 })();
 </script>

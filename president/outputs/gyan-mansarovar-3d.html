@@ -584,7 +584,6 @@ body {
       <div class="deploy-popup-sub">Click item to deploy immediately here:</div>
       <div class="deploy-popup-grid">
         <button type="button" class="deploy-item-btn" data-kind="officer">👮 Officer</button>
-        <button type="button" class="deploy-item-btn" data-kind="helicopter">🚁 Helicopter</button>
         <button type="button" class="deploy-item-btn" data-kind="ambulance">🚑 Ambulance</button>
         <button type="button" class="deploy-item-btn" data-kind="firebrigade">🚒 Fire Brigade</button>
         <button type="button" class="deploy-item-btn" data-kind="parking">🅿️ Parking</button>
@@ -744,7 +743,6 @@ body {
       <div class="select-btn-group">
         <select id="dep-kind" class="form-select">
           <option value="officer">👮 Police officer</option>
-          <option value="helicopter">🚁 VIP Helicopter</option>
           <option value="ambulance">🚑 Emergency Ambulance</option>
           <option value="firebrigade">🚒 Fire Brigade / Engine</option>
           <option value="parking">🅿️ Vehicle Parking (3 Cars + Police Bus)</option>
@@ -2937,7 +2935,7 @@ for(const text of dutyNames){const o=document.createElement('option');o.value=te
 
 
 
-const depSymbols={officer:'👮',helicopter:'🚁',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️'};
+const depSymbols={officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️'};
 
 
 
@@ -5541,6 +5539,19 @@ if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInit
 } else {
   depItems=depSeed();
 }
+depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
+try{
+  const _raw=localStorage.getItem(depStorage);
+  if(_raw){
+    const _p=JSON.parse(_raw);
+    const _arr=Array.isArray(_p)?_p:(_p&&_p.items);
+    if(_arr&&_arr.some(x=>x.kind==='helicopter')){
+      const _c=_arr.filter(x=>x.kind!=='helicopter');
+      if(Array.isArray(_p))localStorage.setItem(depStorage,JSON.stringify(_c));
+      else{_p.items=_c;localStorage.setItem(depStorage,JSON.stringify(_p));}
+    }
+  }
+}catch(e){}
 
 
 
@@ -11246,8 +11257,8 @@ function depBuild(){
 
 
   depGroup.clear();depButtons.forEach(o=>o.e.remove());depButtons=[];depNodes=[];
-  if (depItems.some(o => o.kind === 'helicopter') && typeof hideStaticHelicopter === 'function') {
-    try { hideStaticHelicopter(); } catch(e){}
+  if (typeof restoreStaticHelicopter === 'function') {
+    try { restoreStaticHelicopter(); } catch(e){}
   }
 
 
@@ -22045,7 +22056,7 @@ depUI('import').onchange=async e=>{
 
 
 
-depReady=true;depBuild();hideStaticHelicopter();
+depReady=true;depBuild();if(typeof restoreStaticHelicopter==='function'){try{restoreStaticHelicopter();}catch(e){}}
 
 
 
@@ -33107,6 +33118,7 @@ if (document.readyState === 'loading') {
 }
 
 
+try{const _uv=(new URLSearchParams(window.location.search)).get('view');if(_uv&&['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(_uv)){select.value=_uv;}}catch(e){}
 applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();
 })();
 </script>

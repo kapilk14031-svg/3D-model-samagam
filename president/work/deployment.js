@@ -32,7 +32,7 @@ for(const text of dutyNames){const o=document.createElement('option');o.value=te
 
 
 
-const depSymbols={officer:'👮',helicopter:'🚁',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️'};
+const depSymbols={officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️'};
 
 
 
@@ -2636,6 +2636,19 @@ if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInit
 } else {
   depItems=depSeed();
 }
+depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
+try{
+  const _raw=localStorage.getItem(depStorage);
+  if(_raw){
+    const _p=JSON.parse(_raw);
+    const _arr=Array.isArray(_p)?_p:(_p&&_p.items);
+    if(_arr&&_arr.some(x=>x.kind==='helicopter')){
+      const _c=_arr.filter(x=>x.kind!=='helicopter');
+      if(Array.isArray(_p))localStorage.setItem(depStorage,JSON.stringify(_c));
+      else{_p.items=_c;localStorage.setItem(depStorage,JSON.stringify(_p));}
+    }
+  }
+}catch(e){}
 
 
 
@@ -8341,8 +8354,8 @@ function depBuild(){
 
 
   depGroup.clear();depButtons.forEach(o=>o.e.remove());depButtons=[];depNodes=[];
-  if (depItems.some(o => o.kind === 'helicopter') && typeof hideStaticHelicopter === 'function') {
-    try { hideStaticHelicopter(); } catch(e){}
+  if (typeof restoreStaticHelicopter === 'function') {
+    try { restoreStaticHelicopter(); } catch(e){}
   }
 
 
@@ -19140,7 +19153,7 @@ depUI('import').onchange=async e=>{
 
 
 
-depReady=true;depBuild();hideStaticHelicopter();
+depReady=true;depBuild();if(typeof restoreStaticHelicopter==='function'){try{restoreStaticHelicopter();}catch(e){}}
 
 
 

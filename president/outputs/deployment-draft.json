@@ -386,10 +386,22 @@
       "duty": "Vehicle parking & police bus depot",
       "belt": "",
       "mobile": "",
-      "x": 68.19,
+      "x": 86.28,
       "y": 0,
-      "z": -131.49,
-      "angle": 181.05
+      "z": -120.55,
+      "angle": 60.86
+    },
+    {
+      "id": "post-mvj29k60-jps",
+      "kind": "firebrigade",
+      "name": "Fire Tender 1",
+      "duty": "Fire & Safety Standby",
+      "belt": "",
+      "mobile": "",
+      "x": 72.23,
+      "y": 0,
+      "z": -76.34,
+      "angle": 353.49
     }
   ]
 }
