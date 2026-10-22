@@ -1884,7 +1884,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit details" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title" title="Click to edit officer details" style="cursor:pointer;">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge" title="Click to edit duty & details" style="cursor:pointer;"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit details" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Duplicate post">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit details" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title" title="Click to edit officer details" style="cursor:pointer;">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge" title="Click to edit duty & details" style="cursor:pointer;"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit details" style="display:none;">✏️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Duplicate post / Add another (+1)">+</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -2076,7 +2076,7 @@ function setDepPeekMinimized(minimized){
 
 
 
-    if(minBtn){minBtn.textContent='+';minBtn.title='Maximize full details';}
+    if(minBtn){minBtn.textContent='+';minBtn.title='Duplicate post / Add another (+1)';}
 
 
 
@@ -2108,7 +2108,7 @@ function setDepPeekMinimized(minimized){
 
 
 
-    if(minBtn){minBtn.textContent='−';minBtn.title='Minimize';}
+    if(minBtn){minBtn.textContent='+';minBtn.title='Duplicate post / Add another (+1)';}
 
 
 
