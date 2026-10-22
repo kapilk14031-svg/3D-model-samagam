@@ -792,6 +792,65 @@ initTouchControls();
 
 
 
+function depGetAutoDuty(x, y, z, kind='officer'){
+  if(kind==='ambulance') return 'Emergency Medical Response';
+  if(kind==='firebrigade') return 'Fire & Safety Standby';
+  if(kind==='qbelt') return 'Queue & Crowd Management';
+  if(kind==='dfmd') return 'Main gate — DFMD / HHMD';
+  if(kind==='parking') return 'Vehicle parking & police bus depot';
+  if(kind==='square_box') return 'Security Sentry Booth';
+  if(kind==='barricade'){
+    if(z <= -64) return 'Road barricade — highway naka';
+    return 'Campus security barricade';
+  }
+
+  // 1. Elevated observation posts / Rooftops
+  if(y >= 6.5) return 'Binocular duty — rooftop';
+
+  // 2. Helipad & Flight Corridor
+  const distHelipad = Math.hypot(x - 6.39, z - (-308.2));
+  if(distHelipad <= 42) return 'Helipad security & landing cordon';
+  if(z <= -135) return 'Helipad approach road security';
+
+  // 3. Vehicle Parking & Bus Fleet Depot
+  if((x >= 55 && z <= -85 && z >= -145) || (x >= 80 && z <= -70 && z >= -145)) return 'VIP parking duty';
+
+  // 4. Highway Naka & Outer Barricades
+  if(z <= -66) return 'Naka & barricade duty';
+
+  // 5. Main Gate & Entry Checkpoint
+  if(z > -66 && z <= -54 && x >= -32 && x <= 5) return 'Main gate — DFMD / HHMD';
+
+  // 6. Auditorium Complex
+  if(x >= -58 && x <= -17 && z >= -58 && z <= 15){
+    if(z >= 0 && z <= 15 && x >= -55 && x <= -20) return 'Auditorium main stage duty';
+    if(x >= -24 && x <= -17 && z >= -8 && z <= 5) return 'Hall gate duty';
+    if(x <= -48 && z >= 5) return 'VIP lounge duty';
+    if(x <= -42 && z >= -14 && z <= -4) return 'VIP toilet duty';
+    return 'Auditorium seating duty';
+  }
+
+  // 7. Lotus Meditation Temple
+  if(Math.hypot(x - 27.0, z - (-53.1)) <= 24) return 'Lotus duty';
+
+  // 8. Central Lawn & Garden
+  if(Math.hypot(x - 27.6, z - (-11.2)) <= 25) return 'Central lawn duty';
+
+  // 9. Dadi Prakashmani Residential Complex
+  if(x >= -25 && x <= 25 && z >= 20 && z <= 48){
+    if(x >= 12) return 'VIP toilet duty';
+    return 'VIP lounge duty';
+  }
+
+  // 10. Outer Campus Boundary / Perimeter Walls
+  if(x <= -55 || x >= 52 || z <= -68 || z >= 45) return 'Outer perimeter duty';
+
+  // 11. Campus Corridors
+  if(x >= -24 && x <= 5 && z >= -54 && z <= 15) return 'Inner cordon duty';
+
+  return 'Outer cordon duty';
+}
+
 function depSyncDropdownLabels(item) {
 
 
@@ -865,21 +924,12 @@ function depSyncDropdownLabels(item) {
 
 
   const titleEl = depPeekHead.querySelector('#dep-peek-title');
-
-
-
-
-
-
-
   if (titleEl) titleEl.textContent = (depSymbols[item.kind] || '') + ' ' + item.name;
-
-
-
-
-
-
-
+  const dutyEl = depPeekHead.querySelector('#dep-peek-duty');
+  if (dutyEl) dutyEl.textContent = item.duty || 'Unassigned';
+  if (depSelected === item.id && depUI('duty') && document.activeElement !== depUI('duty')) {
+    depUI('duty').value = item.duty || '';
+  }
 }
 
 
@@ -2637,6 +2687,13 @@ if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInit
   depItems=depSeed();
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
+depItems.forEach(o => {
+  if (o && ['officer', 'hhmd', 'binocular', 'radio'].includes(o.kind)) {
+    if (!o.duty || o.duty === 'Security post' || o.duty.trim() === '') {
+      o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+    }
+  }
+});
 try{
   const _raw=localStorage.getItem(depStorage);
   if(_raw){
@@ -13835,15 +13892,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-    const duty = kind === 'officer' ? 'Security post'
-
-
-
-
-
-
-
-      : kind === 'hhmd' ? 'Main gate — DFMD / HHMD'
+    const duty = depGetAutoDuty(Math.round(depClickPoint.x*100)/100, Math.round(depClickPoint.y*100)/100, Math.round(depClickPoint.z*100)/100, kind);
+    const _ignoredDuty = kind === 'hhmd' ? 'Main gate — DFMD / HHMD'
 
 
 
@@ -15894,46 +15944,19 @@ window.__DEP_TICK = function(dt) {
 
 
 
+        // Auto-update duty when officer walks into a new duty zone
+        if (['officer', 'hhmd', 'binocular', 'radio'].includes(o.kind)) {
+          const autoDuty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+          if (autoDuty && autoDuty !== o.duty) {
+            o.duty = autoDuty;
+            depSyncDropdownLabels(o);
+          }
+        }
         // Throttle auto-save position when walking
-
-
-
-
-
-
-
         const now = Date.now();
-
-
-
-
-
-
-
         if (now - lastDepStoreTime > 1500) {
-
-
-
-
-
-
-
           lastDepStoreTime = now;
-
-
-
-
-
-
-
           depStore();
-
-
-
-
-
-
-
         }
 
 
@@ -16999,29 +17022,9 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
 
 
         o.x=depCandidate.point.x;
-
-
-
-
-
-
-
         o.y=getSurfaceHeight(depCandidate.point.x, depCandidate.point.z, depCandidate.point.y);
-
-
-
-
-
-
-
         o.z=depCandidate.point.z;
-
-
-
-
-
-
-
+        o.duty=depGetAutoDuty(o.x, o.y, o.z, o.kind);
         depPlace=false;depNew=null;depStore();depBuild();depChoose(o.id);
 
 
