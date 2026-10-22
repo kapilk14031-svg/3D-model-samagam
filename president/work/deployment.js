@@ -927,6 +927,211 @@ function depGetAutoDuty(x, y, z, kind='officer'){
   return 'Outer cordon duty';
 }
 
+function depDeleteItemById(id) {
+  if (!id) return;
+  const item = depItems.find(x => x.id === id);
+  const name = item ? item.name : 'Post';
+  depItems = depItems.filter(x => x.id !== id);
+  if (depSelected === id) {
+    depSelected = null;
+    depPeek.hidden = true;
+    if (depUI('editor')) depUI('editor').hidden = true;
+  }
+  depStore();
+  depBuild();
+  draw();
+  if (typeof depShowToast === 'function') {
+    depShowToast(`🗑️ ${name} removed`);
+  }
+}
+window.depDeleteItemById = depDeleteItemById;
+
+function depDuplicateItemById(id) {
+  if (!id) return;
+  const cur = depItems.find(x => x.id === id);
+  if (!cur) return;
+  depSelected = id;
+  depDuplicateSelectedItem();
+}
+window.depDuplicateItemById = depDuplicateItemById;
+
+function depRebuildTopList() {
+  const topList = root.querySelector('#dep-top-list');
+  const customBtn = root.querySelector('#dep-top-custom-btn');
+  const btnLabel = root.querySelector('#dep-top-btn-label');
+  const menu = root.querySelector('#dep-top-menu');
+  const badge = root.querySelector('#dep-count-badge');
+
+  if (badge) badge.textContent = depItems.length;
+
+  const currentId = (typeof depSelected !== 'undefined' && depSelected) ? depSelected : (topList ? topList.value : '');
+  const selItem = depItems.find(o => o.id === currentId);
+
+  // Update button label
+  if (btnLabel) {
+    if (selItem) {
+      btnLabel.textContent = `${depSymbols[selItem.kind] || '👮'} ${selItem.name} · ${selItem.duty || 'Post'}`;
+    } else {
+      btnLabel.textContent = `👮 All Deployed Posts (${depItems.length})`;
+    }
+  }
+
+  // 1. Sync hidden native <select> for compatibility
+  if (topList) {
+    topList.replaceChildren();
+    const topBlank = document.createElement('option');
+    topBlank.value = '';
+    topBlank.textContent = `👮 All Deployed Posts (${depItems.length})`;
+    topList.appendChild(topBlank);
+  }
+
+  // 2. Build grouped custom menu with +, ✏️, 🗑️ on each item
+  const byDuty = {};
+  for (const item of depItems) {
+    const d = (item.duty || '').trim() || 'General / Unassigned Duty';
+    (byDuty[d] = byDuty[d] || []).push(item);
+  }
+
+  const sortedDuties = Object.keys(byDuty).sort((a, b) => {
+    if (a.startsWith('General')) return 1;
+    if (b.startsWith('General')) return -1;
+    return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true });
+  });
+
+  if (menu) {
+    menu.replaceChildren();
+
+    // Top 'All Deployed Posts' header
+    const allHdr = document.createElement('div');
+    allHdr.className = 'dep-menu-all-header';
+    allHdr.innerHTML = `<span>👮 All Deployed Posts (${depItems.length})</span><span style="font-size:11px;color:#0284c7;font-weight:600;">Overview View ↩</span>`;
+    allHdr.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.style.display = 'none';
+      if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+      if (typeof depFreeCamera === 'function') depFreeCamera();
+    });
+    menu.appendChild(allHdr);
+
+    for (const d of sortedDuties) {
+      const items = byDuty[d];
+      items.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }));
+
+      // Optgroup header in native select
+      let nativeGroup = null;
+      if (topList) {
+        nativeGroup = document.createElement('optgroup');
+        nativeGroup.label = `📍 ${d} (${items.length})`;
+        topList.appendChild(nativeGroup);
+      }
+
+      // Group header in custom menu
+      const grpHdr = document.createElement('div');
+      grpHdr.className = 'dep-menu-group-header';
+      grpHdr.innerHTML = `<span>📍 ${d} (${items.length})</span>`;
+      menu.appendChild(grpHdr);
+
+      for (const item of items) {
+        // Native option
+        if (nativeGroup) {
+          const opt = document.createElement('option');
+          opt.value = item.id;
+          opt.textContent = `📍 ${d} — ${depSymbols[item.kind]||'👮'} ${item.name}${item.belt ? ' ('+item.belt+')' : ''}`;
+          nativeGroup.appendChild(opt);
+        }
+
+        // Custom interactive row with +, ✏️, 🗑️
+        const row = document.createElement('div');
+        row.className = 'dep-menu-item-row' + (currentId === item.id ? ' selected' : '');
+        row.dataset.id = item.id;
+
+        row.innerHTML = `
+          <div class="dep-menu-item-info" title="Click to view & select ${item.name} on 3D map">
+            <span style="font-size:14px;line-height:1;">${depSymbols[item.kind] || '👮'}</span>
+            <span class="dep-menu-item-name">${item.name || 'Post'}</span>
+            ${item.belt ? `<span class="dep-menu-item-belt">(${item.belt})</span>` : ''}
+          </div>
+          <div class="dep-menu-actions">
+            <button type="button" class="dep-row-action-btn btn-add" data-id="${item.id}" title="Add another / Duplicate (एक और जोड़ें)">+</button>
+            <button type="button" class="dep-row-action-btn btn-edit" data-id="${item.id}" title="Edit officer details (अधिकारी विवरण बदलें)">✏️</button>
+            <button type="button" class="dep-row-action-btn btn-del" data-id="${item.id}" title="Delete post (हटाएं)">🗑️</button>
+          </div>
+        `;
+
+        // Select item on row info click
+        row.querySelector('.dep-menu-item-info').addEventListener('click', (e) => {
+          e.stopPropagation();
+          menu.style.display = 'none';
+          if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+          depChoose(item.id, true);
+        });
+
+        // + Action: Duplicate item
+        row.querySelector('.btn-add').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          depDuplicateItemById(item.id);
+        });
+
+        // ✏️ Action: Open Minimalist Edit Dialog
+        row.querySelector('.btn-edit').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          menu.style.display = 'none';
+          if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+          openOfficerDialog(item.id);
+        });
+
+        // 🗑️ Action: Delete item
+        row.querySelector('.btn-del').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          depDeleteItemById(item.id);
+        });
+
+        menu.appendChild(row);
+      }
+    }
+  }
+
+  if (topList) topList.value = currentId || '';
+}
+window.depRebuildTopList = depRebuildTopList;
+
+// Bind Custom Dropdown Toggle & Outside Click
+function initCustomTopDropdown() {
+  const customBtn = root.querySelector('#dep-top-custom-btn');
+  const menu = root.querySelector('#dep-top-menu');
+  const container = root.querySelector('#dep-top-dropdown-container');
+
+  if (customBtn && menu) {
+    customBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isClosed = menu.style.display === 'none' || !menu.style.display;
+      if (isClosed) {
+        depRebuildTopList();
+        menu.style.display = 'flex';
+        customBtn.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.style.display = 'none';
+        customBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (container && !container.contains(e.target)) {
+        menu.style.display = 'none';
+        if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCustomTopDropdown);
+} else {
+  setTimeout(initCustomTopDropdown, 80);
+}
+
 function depSyncDropdownLabels(item) {
 
 
@@ -1006,6 +1211,7 @@ function depSyncDropdownLabels(item) {
   if (depSelected === item.id && depUI('duty') && document.activeElement !== depUI('duty')) {
     depUI('duty').value = item.duty || '';
   }
+  depRebuildTopList();
 }
 
 
@@ -2748,9 +2954,14 @@ if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInit
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
-  if (o && ['officer', 'hhmd', 'binocular', 'radio'].includes(o.kind)) {
-    if (!o.duty || o.duty === 'Security post' || o.duty.trim() === '') {
-      o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+  if (o) {
+    if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
+      const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
+      if (match && match.duty && match.duty !== 'Security post') {
+        o.duty = match.duty;
+      } else {
+        o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+      }
     }
   }
 });
@@ -8659,302 +8870,7 @@ function depBuild(){
 
 
   // Populate TOP bar dropdown next to camera perspectives (Grouped & Sorted by Duty Place)
-
-
-
-
-
-
-
-  const topList=root.querySelector('#dep-top-list');
-
-
-
-
-
-
-
-  if(topList){
-
-
-
-
-
-
-
-    topList.replaceChildren();
-
-
-
-
-
-
-
-    const topBlank=document.createElement('option');
-
-
-
-
-
-
-
-    topBlank.value='';
-
-
-
-
-
-
-
-    topBlank.textContent=`👮 All Deployed Posts (${depItems.length})`;
-
-
-
-
-
-
-
-    topList.appendChild(topBlank);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const byDuty={};
-
-
-
-
-
-
-
-    for(const item of depItems){
-
-
-
-
-
-
-
-      const d = (item.duty || '').trim() || 'General / Unassigned Duty';
-
-
-
-
-
-
-
-      (byDuty[d] = byDuty[d] || []).push(item);
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const sortedDuties = Object.keys(byDuty).sort((a, b) => {
-
-
-
-
-
-
-
-      if (a.startsWith('General')) return 1;
-
-
-
-
-
-
-
-      if (b.startsWith('General')) return -1;
-
-
-
-
-
-
-
-      return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true });
-
-
-
-
-
-
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    for(const d of sortedDuties){
-
-
-
-
-
-
-
-      const items = byDuty[d];
-
-
-
-
-
-
-
-      items.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }));
-
-
-
-
-
-
-
-      const group=document.createElement('optgroup');
-
-
-
-
-
-
-
-      group.label=`📍 ${d} (${items.length})`;
-
-
-
-
-
-
-
-      for(const item of items){
-
-
-
-
-
-
-
-        const opt=document.createElement('option');
-
-
-
-
-
-
-
-        opt.value=item.id;
-
-
-
-
-
-
-
-        opt.textContent=`📍 ${d} — ${depSymbols[item.kind]||'👮'} ${item.name}${item.belt ? ' ('+item.belt+')' : ''}`;
-
-
-
-
-
-
-
-        group.appendChild(opt);
-
-
-
-
-
-
-
-      }
-
-
-
-
-
-
-
-      topList.appendChild(group);
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-    topList.value=depSelected||'';
-
-
-
-
-
-
-
-    const badge=root.querySelector('#dep-count-badge');
-
-
-
-
-
-
-
-    if(badge)badge.textContent=depItems.length;
-
-
-
-
-
-
-
-  }
+  depRebuildTopList();
 
 
 
@@ -9762,6 +9678,7 @@ window.depCreateEquipmentMesh = depCreateEquipmentMesh;
 
 
 
+  const topList = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-top-list') : document.getElementById('dep-top-list');
   if(topList)topList.value=depSelected||'';
 
 
@@ -10587,7 +10504,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const list=depUI('list'), topList=root.querySelector('#dep-top-list');
+  const list=depUI('list');
 
 
 
@@ -10603,6 +10520,7 @@ function depChoose(id, zoom = true){
 
 
 
+  const topList = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-top-list') : document.getElementById('dep-top-list');
   if(topList)topList.value=depSelected||'';
 
 

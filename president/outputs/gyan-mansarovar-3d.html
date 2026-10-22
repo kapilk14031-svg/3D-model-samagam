@@ -555,13 +555,22 @@ body {
         </select>
       </div>
 
-      <!-- Police Duty & Equipment Dropdown -->
-      <div class="dropdown-wrapper">
-        <label for="dep-top-list" class="dropdown-header-label">👮 Deployment by Duty Place (<span id="dep-count-badge">13</span>)</label>
+      <!-- Police Duty & Equipment Dropdown (Interactive Custom Menu with +, ✏️, 🗑️) -->
+      <div class="dropdown-wrapper" id="dep-top-dropdown-container" style="position:relative;">
+        <label for="dep-top-custom-btn" class="dropdown-header-label">👮 Deployment by Duty Place (<span id="dep-count-badge">38</span>)</label>
         <div style="display:flex;gap:6px;align-items:center;">
-          <select class="form-select select-dep" id="dep-top-list">
-            <option value="">Select post by duty place...</option>
-          </select>
+          <div class="dep-custom-select-wrapper" style="position:relative;flex:1;min-width:0;">
+            <button type="button" class="form-select select-dep dep-custom-dropdown-btn" id="dep-top-custom-btn" aria-haspopup="listbox" aria-expanded="false" title="Click to view all deployed posts and manage items">
+              <span id="dep-top-btn-label" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">👮 All Deployed Posts (38)</span>
+              <span class="dep-dd-arrow" style="font-size:10px;color:#0369a1;margin-left:6px;flex-shrink:0;">▼</span>
+            </button>
+            <!-- Custom Dropdown Menu with Action Buttons (+, ✏️, 🗑️) -->
+            <div id="dep-top-menu" class="dep-custom-menu" style="display:none;" role="listbox"></div>
+            <!-- Hidden native select for backwards compatibility -->
+            <select class="form-select select-dep" id="dep-top-list" style="display:none;">
+              <option value="">Select post by duty place...</option>
+            </select>
+          </div>
           <button type="button" id="dep-top-quick-deploy" class="btn btn-sm btn-primary" style="padding:4px 9px;font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;" title="Deploy item anywhere on model">➕ Deploy</button>
         </div>
       </div>
@@ -2315,6 +2324,160 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
+
+/* Custom Dropdown Menu with +, ✏️, 🗑️ Actions */
+.dep-custom-select-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.dep-custom-dropdown-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  user-select: none;
+  overflow: hidden;
+  gap: 6px;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+.dep-custom-dropdown-btn:hover {
+  border-color: #0284c7;
+}
+.dep-custom-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  min-width: 340px;
+  max-width: 460px;
+  max-height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px -4px rgba(15, 23, 42, 0.24), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  animation: depMenuPopIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes depMenuPopIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.dep-menu-all-header {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #f0f9ff;
+  border-bottom: 1px solid #e0f2fe;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.12s ease;
+}
+.dep-menu-all-header:hover {
+  background: #e0f2fe;
+}
+.dep-menu-group-header {
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0284c7;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: -0.01em;
+}
+.dep-menu-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-bottom: 1px solid #f8fafc;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  gap: 8px;
+}
+.dep-menu-item-row:hover {
+  background: #f1f5f9;
+}
+.dep-menu-item-row.selected {
+  background: #e0f2fe;
+  border-left: 3px solid #0284c7;
+}
+.dep-menu-item-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.dep-menu-item-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dep-menu-item-belt {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+.dep-menu-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.dep-row-action-btn {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  transition: all 0.12s ease;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 0;
+}
+.dep-row-action-btn:hover {
+  transform: scale(1.08);
+}
+.dep-row-action-btn.btn-add:hover {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+.dep-row-action-btn.btn-edit:hover {
+  background: #e0f2fe;
+  color: #0284c7;
+  border-color: #7dd3fc;
+}
+.dep-row-action-btn.btn-del:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
@@ -2715,7 +2878,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhpefek-wu7",
       "kind": "officer",
       "name": "Officer 14",
-      "duty": "Security post",
+      "duty": "Lotus duty",
       "belt": "",
       "mobile": "",
       "x": 14.94,
@@ -2727,7 +2890,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhquwbr-4bo",
       "kind": "officer",
       "name": "Officer 15",
-      "duty": "Security post",
+      "duty": "Central lawn duty",
       "belt": "",
       "mobile": "",
       "x": 32.72,
@@ -2799,7 +2962,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwprze-ydp",
       "kind": "officer",
       "name": "Officer 17",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": -57.7,
@@ -2811,7 +2974,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwq9lo-20n",
       "kind": "officer",
       "name": "Officer 18",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": -1.35,
@@ -2823,7 +2986,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwqhd2-cp3",
       "kind": "officer",
       "name": "Officer 19",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": 53.06,
@@ -2835,7 +2998,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwqoyz-dav",
       "kind": "officer",
       "name": "Officer 20",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": 68.95,
@@ -2847,7 +3010,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwrjom-4no",
       "kind": "officer",
       "name": "Officer 21",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": 67.58,
@@ -2859,7 +3022,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwruyr-ylk",
       "kind": "officer",
       "name": "Officer 22",
-      "duty": "Security post",
+      "duty": "VIP parking duty",
       "belt": "",
       "mobile": "",
       "x": 61.51,
@@ -2871,7 +3034,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhws9hy-lx2",
       "kind": "officer",
       "name": "Officer 23",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": -64.48,
@@ -2883,7 +3046,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwsq81-dz2",
       "kind": "officer",
       "name": "Officer 24",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": -64.6,
@@ -2895,7 +3058,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwsxyj-202",
       "kind": "officer",
       "name": "Officer 25",
-      "duty": "Security post",
+      "duty": "Outer perimeter duty",
       "belt": "",
       "mobile": "",
       "x": -69.33,
@@ -2907,7 +3070,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwuceb-zti",
       "kind": "officer",
       "name": "Officer 26",
-      "duty": "Security post",
+      "duty": "Naka & barricade duty",
       "belt": "",
       "mobile": "",
       "x": -59.31,
@@ -2943,7 +3106,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvj37x89-gq9",
       "kind": "officer",
       "name": "Officer 19",
-      "duty": "Security post",
+      "duty": "Hall gate duty",
       "belt": "",
       "mobile": "",
       "x": -22.61,
@@ -2955,7 +3118,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvj399r0-kzi",
       "kind": "officer",
       "name": "Officer 20",
-      "duty": "Security post",
+      "duty": "Auditorium seating duty",
       "belt": "",
       "mobile": "",
       "x": -38.79,
@@ -3984,6 +4147,211 @@ function depGetAutoDuty(x, y, z, kind='officer'){
   return 'Outer cordon duty';
 }
 
+function depDeleteItemById(id) {
+  if (!id) return;
+  const item = depItems.find(x => x.id === id);
+  const name = item ? item.name : 'Post';
+  depItems = depItems.filter(x => x.id !== id);
+  if (depSelected === id) {
+    depSelected = null;
+    depPeek.hidden = true;
+    if (depUI('editor')) depUI('editor').hidden = true;
+  }
+  depStore();
+  depBuild();
+  draw();
+  if (typeof depShowToast === 'function') {
+    depShowToast(`🗑️ ${name} removed`);
+  }
+}
+window.depDeleteItemById = depDeleteItemById;
+
+function depDuplicateItemById(id) {
+  if (!id) return;
+  const cur = depItems.find(x => x.id === id);
+  if (!cur) return;
+  depSelected = id;
+  depDuplicateSelectedItem();
+}
+window.depDuplicateItemById = depDuplicateItemById;
+
+function depRebuildTopList() {
+  const topList = root.querySelector('#dep-top-list');
+  const customBtn = root.querySelector('#dep-top-custom-btn');
+  const btnLabel = root.querySelector('#dep-top-btn-label');
+  const menu = root.querySelector('#dep-top-menu');
+  const badge = root.querySelector('#dep-count-badge');
+
+  if (badge) badge.textContent = depItems.length;
+
+  const currentId = (typeof depSelected !== 'undefined' && depSelected) ? depSelected : (topList ? topList.value : '');
+  const selItem = depItems.find(o => o.id === currentId);
+
+  // Update button label
+  if (btnLabel) {
+    if (selItem) {
+      btnLabel.textContent = `${depSymbols[selItem.kind] || '👮'} ${selItem.name} · ${selItem.duty || 'Post'}`;
+    } else {
+      btnLabel.textContent = `👮 All Deployed Posts (${depItems.length})`;
+    }
+  }
+
+  // 1. Sync hidden native <select> for compatibility
+  if (topList) {
+    topList.replaceChildren();
+    const topBlank = document.createElement('option');
+    topBlank.value = '';
+    topBlank.textContent = `👮 All Deployed Posts (${depItems.length})`;
+    topList.appendChild(topBlank);
+  }
+
+  // 2. Build grouped custom menu with +, ✏️, 🗑️ on each item
+  const byDuty = {};
+  for (const item of depItems) {
+    const d = (item.duty || '').trim() || 'General / Unassigned Duty';
+    (byDuty[d] = byDuty[d] || []).push(item);
+  }
+
+  const sortedDuties = Object.keys(byDuty).sort((a, b) => {
+    if (a.startsWith('General')) return 1;
+    if (b.startsWith('General')) return -1;
+    return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true });
+  });
+
+  if (menu) {
+    menu.replaceChildren();
+
+    // Top 'All Deployed Posts' header
+    const allHdr = document.createElement('div');
+    allHdr.className = 'dep-menu-all-header';
+    allHdr.innerHTML = `<span>👮 All Deployed Posts (${depItems.length})</span><span style="font-size:11px;color:#0284c7;font-weight:600;">Overview View ↩</span>`;
+    allHdr.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.style.display = 'none';
+      if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+      if (typeof depFreeCamera === 'function') depFreeCamera();
+    });
+    menu.appendChild(allHdr);
+
+    for (const d of sortedDuties) {
+      const items = byDuty[d];
+      items.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }));
+
+      // Optgroup header in native select
+      let nativeGroup = null;
+      if (topList) {
+        nativeGroup = document.createElement('optgroup');
+        nativeGroup.label = `📍 ${d} (${items.length})`;
+        topList.appendChild(nativeGroup);
+      }
+
+      // Group header in custom menu
+      const grpHdr = document.createElement('div');
+      grpHdr.className = 'dep-menu-group-header';
+      grpHdr.innerHTML = `<span>📍 ${d} (${items.length})</span>`;
+      menu.appendChild(grpHdr);
+
+      for (const item of items) {
+        // Native option
+        if (nativeGroup) {
+          const opt = document.createElement('option');
+          opt.value = item.id;
+          opt.textContent = `📍 ${d} — ${depSymbols[item.kind]||'👮'} ${item.name}${item.belt ? ' ('+item.belt+')' : ''}`;
+          nativeGroup.appendChild(opt);
+        }
+
+        // Custom interactive row with +, ✏️, 🗑️
+        const row = document.createElement('div');
+        row.className = 'dep-menu-item-row' + (currentId === item.id ? ' selected' : '');
+        row.dataset.id = item.id;
+
+        row.innerHTML = `
+          <div class="dep-menu-item-info" title="Click to view & select ${item.name} on 3D map">
+            <span style="font-size:14px;line-height:1;">${depSymbols[item.kind] || '👮'}</span>
+            <span class="dep-menu-item-name">${item.name || 'Post'}</span>
+            ${item.belt ? `<span class="dep-menu-item-belt">(${item.belt})</span>` : ''}
+          </div>
+          <div class="dep-menu-actions">
+            <button type="button" class="dep-row-action-btn btn-add" data-id="${item.id}" title="Add another / Duplicate (एक और जोड़ें)">+</button>
+            <button type="button" class="dep-row-action-btn btn-edit" data-id="${item.id}" title="Edit officer details (अधिकारी विवरण बदलें)">✏️</button>
+            <button type="button" class="dep-row-action-btn btn-del" data-id="${item.id}" title="Delete post (हटाएं)">🗑️</button>
+          </div>
+        `;
+
+        // Select item on row info click
+        row.querySelector('.dep-menu-item-info').addEventListener('click', (e) => {
+          e.stopPropagation();
+          menu.style.display = 'none';
+          if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+          depChoose(item.id, true);
+        });
+
+        // + Action: Duplicate item
+        row.querySelector('.btn-add').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          depDuplicateItemById(item.id);
+        });
+
+        // ✏️ Action: Open Minimalist Edit Dialog
+        row.querySelector('.btn-edit').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          menu.style.display = 'none';
+          if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+          openOfficerDialog(item.id);
+        });
+
+        // 🗑️ Action: Delete item
+        row.querySelector('.btn-del').addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          depDeleteItemById(item.id);
+        });
+
+        menu.appendChild(row);
+      }
+    }
+  }
+
+  if (topList) topList.value = currentId || '';
+}
+window.depRebuildTopList = depRebuildTopList;
+
+// Bind Custom Dropdown Toggle & Outside Click
+function initCustomTopDropdown() {
+  const customBtn = root.querySelector('#dep-top-custom-btn');
+  const menu = root.querySelector('#dep-top-menu');
+  const container = root.querySelector('#dep-top-dropdown-container');
+
+  if (customBtn && menu) {
+    customBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isClosed = menu.style.display === 'none' || !menu.style.display;
+      if (isClosed) {
+        depRebuildTopList();
+        menu.style.display = 'flex';
+        customBtn.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.style.display = 'none';
+        customBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (container && !container.contains(e.target)) {
+        menu.style.display = 'none';
+        if (customBtn) customBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCustomTopDropdown);
+} else {
+  setTimeout(initCustomTopDropdown, 80);
+}
+
 function depSyncDropdownLabels(item) {
 
 
@@ -4063,6 +4431,7 @@ function depSyncDropdownLabels(item) {
   if (depSelected === item.id && depUI('duty') && document.activeElement !== depUI('duty')) {
     depUI('duty').value = item.duty || '';
   }
+  depRebuildTopList();
 }
 
 
@@ -5805,9 +6174,14 @@ if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInit
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
-  if (o && ['officer', 'hhmd', 'binocular', 'radio'].includes(o.kind)) {
-    if (!o.duty || o.duty === 'Security post' || o.duty.trim() === '') {
-      o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+  if (o) {
+    if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
+      const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
+      if (match && match.duty && match.duty !== 'Security post') {
+        o.duty = match.duty;
+      } else {
+        o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+      }
     }
   }
 });
@@ -11716,302 +12090,7 @@ function depBuild(){
 
 
   // Populate TOP bar dropdown next to camera perspectives (Grouped & Sorted by Duty Place)
-
-
-
-
-
-
-
-  const topList=root.querySelector('#dep-top-list');
-
-
-
-
-
-
-
-  if(topList){
-
-
-
-
-
-
-
-    topList.replaceChildren();
-
-
-
-
-
-
-
-    const topBlank=document.createElement('option');
-
-
-
-
-
-
-
-    topBlank.value='';
-
-
-
-
-
-
-
-    topBlank.textContent=`👮 All Deployed Posts (${depItems.length})`;
-
-
-
-
-
-
-
-    topList.appendChild(topBlank);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const byDuty={};
-
-
-
-
-
-
-
-    for(const item of depItems){
-
-
-
-
-
-
-
-      const d = (item.duty || '').trim() || 'General / Unassigned Duty';
-
-
-
-
-
-
-
-      (byDuty[d] = byDuty[d] || []).push(item);
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const sortedDuties = Object.keys(byDuty).sort((a, b) => {
-
-
-
-
-
-
-
-      if (a.startsWith('General')) return 1;
-
-
-
-
-
-
-
-      if (b.startsWith('General')) return -1;
-
-
-
-
-
-
-
-      return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true });
-
-
-
-
-
-
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    for(const d of sortedDuties){
-
-
-
-
-
-
-
-      const items = byDuty[d];
-
-
-
-
-
-
-
-      items.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }));
-
-
-
-
-
-
-
-      const group=document.createElement('optgroup');
-
-
-
-
-
-
-
-      group.label=`📍 ${d} (${items.length})`;
-
-
-
-
-
-
-
-      for(const item of items){
-
-
-
-
-
-
-
-        const opt=document.createElement('option');
-
-
-
-
-
-
-
-        opt.value=item.id;
-
-
-
-
-
-
-
-        opt.textContent=`📍 ${d} — ${depSymbols[item.kind]||'👮'} ${item.name}${item.belt ? ' ('+item.belt+')' : ''}`;
-
-
-
-
-
-
-
-        group.appendChild(opt);
-
-
-
-
-
-
-
-      }
-
-
-
-
-
-
-
-      topList.appendChild(group);
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-    topList.value=depSelected||'';
-
-
-
-
-
-
-
-    const badge=root.querySelector('#dep-count-badge');
-
-
-
-
-
-
-
-    if(badge)badge.textContent=depItems.length;
-
-
-
-
-
-
-
-  }
+  depRebuildTopList();
 
 
 
@@ -12819,6 +12898,7 @@ window.depCreateEquipmentMesh = depCreateEquipmentMesh;
 
 
 
+  const topList = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-top-list') : document.getElementById('dep-top-list');
   if(topList)topList.value=depSelected||'';
 
 
@@ -13644,7 +13724,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const list=depUI('list'), topList=root.querySelector('#dep-top-list');
+  const list=depUI('list');
 
 
 
@@ -13660,6 +13740,7 @@ function depChoose(id, zoom = true){
 
 
 
+  const topList = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-top-list') : document.getElementById('dep-top-list');
   if(topList)topList.value=depSelected||'';
 
 
