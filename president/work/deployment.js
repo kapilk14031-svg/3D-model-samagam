@@ -5721,13 +5721,19 @@ function depBuildParking(g){
     depPart(g,'box',[x,0.045,0],[1.6,0.02,0.16],'yellow');
   }
 
-  // Row 1 (North bays: z = -5.0) stall divider lines
-  for(let x=-12.6; x<=12.6; x+=3.6){
-    depPart(g,'box',[x,0.05,-5.0],[0.14,0.02,8.5],'white');
+  // Row 1 (North bays: z = -5.8) stall divider lines and concrete wheel stops
+  for(const x of [-11.4, -7.6, -3.8, 0, 3.8, 7.6, 11.4]){
+    depPart(g,'box',[x,0.05,-5.8],[0.14,0.02,7.6],'white');
+    if (x > -11.4) {
+      depPart(g,'box',[x - 1.9, 0.08, -9.2],[2.4, 0.12, 0.22],'white');
+    }
   }
-  // Row 2 (South bays: z = 5.0) stall divider lines
-  for(let x=-12.6; x<=12.6; x+=3.6){
-    depPart(g,'box',[x,0.05,5.0],[0.14,0.02,8.5],'white');
+  // Row 2 (South bays: z = 5.8) stall divider lines and concrete wheel stops
+  for(const x of [-11.4, -7.6, -3.8, 0, 3.8, 7.6, 11.4]){
+    depPart(g,'box',[x,0.05,5.8],[0.14,0.02,7.6],'white');
+    if (x > -11.4) {
+      depPart(g,'box',[x - 1.9, 0.08, 9.2],[2.4, 0.12, 0.22],'white');
+    }
   }
 
   // Parking Entrance Signboard "P" at corner
@@ -5738,8 +5744,9 @@ function depBuildParking(g){
   depPart(g,'box',[13.14,2.78,-8.93],[0.18,0.18,0.03],'blue'); // P hole
 
   // Vehicles: Sizes remain EXACTLY the same (1:1 standard scale)
-  // 1. White VIP Staff Car (Exact original size: 2.1 x 0.55 x 4.2)
-  const car1X=-7.2, car1Z=-5.0;
+  // Perfectly centered inside their respective parking stalls!
+  // 1. White VIP Staff Car (Exact original size: 2.1 x 0.55 x 4.2) in Stall 1 (center X = -9.5)
+  const car1X=-9.5, car1Z=-5.8;
   depPart(g,'box',[car1X,0.42,car1Z],[2.1,0.55,4.2],'whiteBody');
   depPart(g,'box',[car1X,0.88,car1Z-0.2],[1.9,0.48,2.4],'glassTint');
   depPart(g,'cylinder',[car1X-0.95,0.28,car1Z+1.2],[0.35,0.25,0.35],'tireRubber');
@@ -5747,8 +5754,8 @@ function depBuildParking(g){
   depPart(g,'cylinder',[car1X-0.95,0.28,car1Z-1.2],[0.35,0.25,0.35],'tireRubber');
   depPart(g,'cylinder',[car1X+0.95,0.28,car1Z-1.2],[0.35,0.25,0.35],'tireRubber');
 
-  // 2. Dark VIP SUV (Exact original size: 2.2 x 0.65 x 4.4)
-  const car2X=-3.6, car2Z=-5.0;
+  // 2. Dark VIP SUV (Exact original size: 2.2 x 0.65 x 4.4) in Stall 2 (center X = -5.7)
+  const car2X=-5.7, car2Z=-5.8;
   depPart(g,'box',[car2X,0.5,car2Z],[2.2,0.65,4.4],'vipCar');
   depPart(g,'box',[car2X,1.02,car2Z-0.1],[2.0,0.55,2.8],'glassTint');
   depPart(g,'box',[car2X,1.34,car2Z-0.1],[0.3,0.1,0.8],'vipBeaconRed');
@@ -5757,8 +5764,8 @@ function depBuildParking(g){
   depPart(g,'cylinder',[car2X-1.0,0.32,car2Z-1.3],[0.4,0.28,0.4],'tireRubber');
   depPart(g,'cylinder',[car2X+1.0,0.32,car2Z-1.3],[0.4,0.28,0.4],'tireRubber');
 
-  // 3. Official VIP Sedan (Exact original size: 2.1 x 0.55 x 4.2)
-  const car3X=0, car3Z=-5.0;
+  // 3. Official VIP Sedan (Exact original size: 2.1 x 0.55 x 4.2) in Stall 3 (center X = -1.9)
+  const car3X=-1.9, car3Z=-5.8;
   depPart(g,'box',[car3X,0.42,car3Z],[2.1,0.55,4.2],'whiteBody');
   depPart(g,'box',[car3X,0.88,car3Z-0.2],[1.9,0.48,2.4],'glassTint');
   depPart(g,'cylinder',[car3X-0.95,0.28,car3Z+1.2],[0.35,0.25,0.35],'tireRubber');
@@ -5766,8 +5773,8 @@ function depBuildParking(g){
   depPart(g,'cylinder',[car3X-0.95,0.28,car3Z-1.2],[0.35,0.25,0.35],'tireRubber');
   depPart(g,'cylinder',[car3X+0.95,0.28,car3Z-1.2],[0.35,0.25,0.35],'tireRubber');
 
-  // 4. Police Troop Bus (Exact original size: 2.3 x 1.1 x 5.0)
-  const busX=4.0, busZ=-5.0;
+  // 4. Police Troop Bus (Exact original size: 2.3 x 1.1 x 5.0) in Stall 5 (center X = +5.7)
+  const busX=5.7, busZ=-5.8;
   depPart(g,'box',[busX,0.75,busZ],[2.3,1.1,5.0],'dark');
   depPart(g,'box',[busX,1.45,busZ-0.2],[2.2,0.6,3.8],'glassTint');
   depPart(g,'box',[busX,0.85,busZ],[2.34,0.18,5.02],'yellow');
@@ -14247,101 +14254,20 @@ if(depTopQuickDeploy){
 
 
 function getSurfaceHeight(x, z, currentY = 0) {
-
-
-
-
-
-
-
-  const startY = Math.max(currentY + 3.0, 15);
-
-
-
-
-
-
-
+  // If character is below roof level (< 7m), cast from head height (currentY + 1.8)
+  // so we stay underneath ceilings/roofs inside buildings like the auditorium!
+  const startY = currentY < 7.0 ? Math.min(currentY + 1.8, 6.5) : (currentY + 3.0);
   const rayOrigin = new THREE.Vector3(x, startY, z);
-
-
-
-
-
-
-
   const ray = new THREE.Raycaster(rayOrigin, new THREE.Vector3(0, -1, 0), 0.05, 50);
-
-
-
-
-
-
-
   const targets = (typeof clickable !== 'undefined' ? clickable : []).filter(m => m.visible && m.parent.visible && m !== depGroup);
-
-
-
-
-
-
-
   const hits = ray.intersectObjects(targets, false);
-
-
-
-
-
-
-
   for (const h of hits) {
-
-
-
-
-
-
-
     if (h.face && h.face.normal && h.face.normal.y > 0.25) {
-
-
-
-
-
-
-
+      if (currentY < 7.0 && h.point.y > 6.8) continue; // Skip roof/ceiling surfaces when walking on ground/floor
       return h.point.y;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-  return 0.3; // Default ground plane level
-
-
-
-
-
-
-
+  return 0.36; // Default ground plane level
 }
 
 
@@ -15787,46 +15713,24 @@ window.__DEP_TICK = function(dt) {
 
 
         const wallHits = fwdCaster.intersectObjects(occluderMeshes, false);
-
-
-
-
-
-
-
-        const wallBlocked = wallHits.length > 0 && Math.abs(wallHits[0].face.normal.y) < 0.4;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        let wallBlocked = false;
+        if (wallHits.length > 0 && Math.abs(wallHits[0].face.normal.y) < 0.4) {
+          const hitObj = wallHits[0].object;
+          const hitItem = hitObj?.userData?.items && hitObj.userData.items[wallHits[0].instanceId];
+          const hitName = (hitItem?.name || '').toLowerCase();
+          const isPassable = hitName.includes('door') || hitName.includes('glazed') || hitName.includes('entry') ||
+                             hitName.includes('step') || hitName.includes('stair') || hitName.includes('rail') ||
+                             hitName.includes('jamb') || hitName.includes('curtain') || hitName.includes('carpet') ||
+                             hitName.includes('aisle') || hitName.includes('open') || hitName.includes('foyer') ||
+                             hitName.includes('chair') || hitName.includes('seat');
+          if (!isPassable) {
+            wallBlocked = true;
+          }
+        }
 
         if (wallBlocked && (!depOfficerJump.isJumping || o.y < surfaceNext - 0.2)) {
-
-
-
-
-
-
-
           depUI('status').textContent = '⚠️ Blocked by obstacle / wall! Press SPACE to jump over.';
-
-
-
-
-
-
-
-        } else if (heightDiff <= 0.45) {
+        } else if (heightDiff <= 0.65) {
 
 
 
@@ -15875,21 +15779,25 @@ window.__DEP_TICK = function(dt) {
 
 
             o.y = THREE.MathUtils.lerp(o.y, surfaceNext, stepDecay);
-
-
-
-
-
-
-
           }
-
-
-
-
-
-
-
+          // Auto-cutaway roof when officer walks into or out of the auditorium
+          const hq = geo.footprints?.find(f => f.id === 'hall')?.points;
+          if (hq && o.y < 7.5 && typeof select !== 'undefined' && typeof applyView === 'function') {
+            let insideAuditorium = false;
+            for (let i = 0, j = hq.length - 1; i < hq.length; j = i++) {
+              const a = hq[i], b = hq[j];
+              if (((a[1] > o.z) !== (b[1] > o.z)) && (o.x < (b[0] - a[0]) * (o.z - a[1]) / (b[1] - a[1]) + a[0])) {
+                insideAuditorium = !insideAuditorium;
+              }
+            }
+            if (insideAuditorium && select.value !== 'hall' && select.value !== 'stage' && select.value !== 'stageplan') {
+              select.value = 'hall';
+              applyView();
+            } else if (!insideAuditorium && (select.value === 'hall' || select.value === 'stage')) {
+              select.value = 'campus';
+              applyView();
+            }
+          }
           needsDraw = true;
 
 
