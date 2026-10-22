@@ -1,1 +1,0 @@
-Frontage corner repair: replaced legacy side walls and copings that stopped short of the image-aligned front boundary. Both side walls now join the exact front corner points and existing rear boundary endpoints, with consistent coping and corner pilasters. This corrects model continuity; cadastral accuracy is not claimed. Deployment database unchanged.
