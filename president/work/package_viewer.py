@@ -822,6 +822,11 @@ catalog_items = [
     }
 ]
 
+catalog_items.extend([
+    dict(kind='qrt',symbol='🚙',name='QRT Open Gypsy',hindi='क्यूआरटी ओपन जिप्सी',role='QRT vehicle',desc='Open vehicle with two blue-uniform commandos and a mounted LMG visual model.',specs='2 commandos · Open body · Mounted LMG',guideline='Editable visual deployment item.'),
+    dict(kind='xray',symbol='🧳',name='Baggage X-ray Scanner',hindi='बैगेज एक्स-रे स्कैनर',role='Baggage screening',desc='Inspection tunnel with conveyor, curtains, operator monitor and sample baggage.',specs='Conveyor · Tunnel · Monitor',guideline='Editable visual deployment item.'),
+    dict(kind='armed_officer',symbol='👮‍✈️',name='Armed Police Officer',hindi='सशस्त्र पुलिस अधिकारी',role='Armed duty',desc='Police character with a visible rifle and editable duty record.',specs='Name · Belt number · Mobile · Duty',guideline='Editable visual deployment item.')
+])
 dep_assets_dir = out / 'deployment-assets'
 item_images_b64 = {}
 catalog_json_map = {}
@@ -942,7 +947,7 @@ ref_hub = f'''
       <h3 class="ref-hub-title">Reference Imagery &amp; Audit Logs</h3>
     </div>
     <div class="ref-tabs-nav" id="ref-tabs">
-      <button type="button" class="ref-tab-btn active" data-tab="tab-deployment-items">🛡️ Deployed Equipment (13 Types)</button>
+      <button type="button" class="ref-tab-btn active" data-tab="tab-deployment-items">🛡️ Deployed Equipment (16 Types)</button>
       <button type="button" class="ref-tab-btn" data-tab="tab-photos">📸 Site Photos (9)</button>
       <button type="button" class="ref-tab-btn" data-tab="tab-videos">🎥 Video Frames (8)</button>
       <button type="button" class="ref-tab-btn" data-tab="tab-satellite">🛰️ Satellite GIS (11)</button>
@@ -1016,7 +1021,7 @@ window.refreshDeployedCatalogCounts = updateDeployedCatalogCounts;
 // =========================================================================
 // EQUIPMENT 3D ROTATION & LIGHTBOX ENGINE
 // =========================================================================
-const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box','parking','helipad'];
+const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box','parking','helipad','qrt','xray','armed_officer'];
 const depCatalogData = {catalog_data_json};
 let modalCurrentKind = 'officer';
 let depModalTab = '3d';

@@ -108,7 +108,7 @@ setTimeout(depSyncDutyLists, 60);
 
 
 
-const depSymbols={officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️',helipad:'🚁'};
+const depSymbols={qrt:'🚙',xray:'🧳',armed_officer:'👮‍✈️',officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️',helipad:'🚁'};
 
 
 
@@ -869,6 +869,9 @@ initTouchControls();
 
 
 function depGetAutoDuty(x, y, z, kind='officer'){
+  if(kind==='qrt') return 'QRT standby & rapid response';
+  if(kind==='xray') return 'Baggage screening / X-Ray inspection';
+  if(kind==='armed_officer') return 'Armed security / escort cordon';
   if(kind==='helipad') return 'Helipad security & landing cordon';
   if(kind==='ambulance') return 'Emergency Medical Response';
   if(kind==='firebrigade') return 'Fire & Safety Standby';
@@ -9202,6 +9205,79 @@ function depBuild(){
 
 
 
+// New deployable visual equipment; shared editor and backend lifecycle.
+function depBuildRifle(g,y=1.06,z=-.30,lmg=false){
+ depPart(g,'box',[.05,y,z],[.12,.13,.40],'dark');
+ depPart(g,'box',[.05,y,z+.30],[.10,.12,.26],'dark');
+ const barrel=depPart(g,'cylinder',[.05,y,z-.43],[.026,lmg?.65:.48,.026],'dark');barrel.rotation.x=Math.PI/2;
+ depPart(g,'box',[.05,y-.16,z-.03],[.07,.24,.12],'dark');
+ depPart(g,'box',[.05,y+.09,z-.08],[.04,.05,.12],'dark');
+ if(lmg){depPart(g,'box',[.20,y-.12,z],[.24,.20,.25],'dark');for(const x of [-.14,.24]){const leg=depPart(g,'box',[x,y-.18,z-.57],[.025,.35,.025],'chrome');leg.rotation.z=x<0?-.4:.4;}}
+}
+function depBuildArmedOfficer(g){depBuildOfficer(g,'officer');depBuildRifle(g);}
+function depBuildQRT(g){
+ if(!depBuildQRT.bodyMat)depBuildQRT.bodyMat=new THREE.MeshStandardMaterial({color:0x10151b,metalness:.65,roughness:.28});
+ const body=depBuildQRT.bodyMat;
+ const part=(p,s,m=body,shape='box')=>depPart(g,shape,p,s,m);
+ part([0,.48,0],[1.85,.24,4.35],'dark');
+ part([0,.91,0],[1.93,.64,4.25]);
+ part([0,1.29,-1.50],[1.91,.23,1.30]);
+ part([0,1.14,1.88],[1.92,.55,.15]);
+ for(const x of [-.94,.94]){
+  part([x,1.12,.30],[.08,.58,2.9]);
+  part([x,1.70,.30],[.045,.76,2.75],'glassTint');
+  for(const z of [-1.02,-.10,1.05,1.73])part([x,1.70,z],[.09,.85,.09]);
+  part([x,2.10,.30],[.10,.10,2.94]);
+  part([x*1.10,.56,.15],[.22,.12,2.78],'chrome');
+  for(const z of [-.55,.67]){part([x*1.025,1.19,z],[.045,.06,.23],'chrome');part([x*1.035,.97,z],[.028,.035,1.03],'chrome');}
+  part([x*1.14,1.61,-.98],[.21,.19,.29]);
+ }
+ const windshield=part([0,1.72,-1.04],[1.76,.77,.035],'glassTint');windshield.rotation.x=-.25;
+ for(const x of [-.89,.89]){const pillar=part([x,1.72,-1.04],[.085,.85,.07]);pillar.rotation.x=-.25;}
+ part([0,1.70,1.80],[1.78,.69,.035],'glassTint');
+ part([0,2.12,-.53],[1.94,.12,1.45]);part([0,2.12,1.56],[1.94,.12,.55]);
+ for(const x of [-.76,.76])part([x,2.12,.61],[.40,.12,1.6]);
+ for(const x of [-.77,.77])part([x,2.25,.32],[.055,.07,2.70],'dark');
+ for(const x of [-1.02,1.02])for(const z of [-1.32,1.36]){
+  const w=part([x,.48,z],[.46,.25,.46],'tireRubber','cylinder');w.rotation.z=Math.PI/2;
+  const rim=part([x*1.13,.48,z],[.30,.04,.30],'chrome','cylinder');rim.rotation.z=Math.PI/2;
+  for(let i=0;i<5;i++){const a=i*Math.PI*2/5;part([x*1.16,.48+.18*Math.sin(a),z+.18*Math.cos(a)],[.018,.09,.10],'dark');}
+  part([x*.91,.99,z],[.17,.08,.98]);
+ }
+ part([0,.57,-2.19],[2.02,.28,.19]);part([0,.83,-2.21],[.88,.32,.035],'dark');
+ for(let x=-.36;x<.4;x+=.12)part([x,.85,-2.24],[.045,.24,.025],'chrome');
+ for(const x of [-.72,.72]){part([x,1.02,-2.17],[.43,.28,.06],'glassTint');for(const dx of [-.10,.10])part([x+dx,1.02,-2.21],[.075,.075,.035],'white','sphereSmooth');part([x,.62,-2.29],[.12,.12,.035],'white','sphereSmooth');part([x,1.20,2.0],[.17,.43,.04],'red');}
+ part([0,.63,-2.30],[.48,.12,.025],'white');
+ part([0,2.25,-.72],[1.05,.06,.26],'dark');part([-.28,2.32,-.72],[.48,.12,.24],'vipBeaconRed');part([.28,2.32,-.72],[.48,.12,.24],'vipBeaconBlue');
+ for(const [x,y,z,scale] of [[.46,.25,-.40,.78],[0,1.32,.72,.84]]){
+  const man=new THREE.Group();depBuildOfficer(man,'officer');
+  man.traverse(m=>{if(m.isMesh&&(m.material===depMaterials.khaki||m.material===depMaterials.trousers))m.material=depMaterials.blue;});
+  man.scale.setScalar(scale);man.position.set(x,y,z);g.add(man);
+ }
+ part([0,2.28,.36],[.055,.38,.055],'chrome','cylinder');
+ const mount=new THREE.Group();depBuildRifle(mount,2.58,.20,true);g.add(mount);
+ for(const x of [-.48,.48]){part([x,2.63,.72],[.07,.83,.97],'dark');for(const z of [.30,1.11])part([x,2.63,z],[.08,.73,.025],'shutterMetal');}
+ part([0,2.21,.72],[1.13,.09,1.15],'dark');
+ if(!depBuildQRT.labelMat){const c=document.createElement('canvas');c.width=512;c.height=256;const ctx=c.getContext('2d');ctx.clearRect(0,0,512,256);ctx.fillStyle='#f04444';ctx.textAlign='center';ctx.font='bold 66px Arial';ctx.fillText('GURUGRAM',256,100);ctx.fillText('POLICE',256,182);const tex=new THREE.CanvasTexture(c);tex.encoding=THREE.sRGBEncoding;depBuildQRT.labelMat=new THREE.MeshStandardMaterial({map:tex,transparent:true,side:THREE.DoubleSide,roughness:.7});}
+ for(const side of [-1,1]){const label=part([side*.99,1.08,-.53],[.82,.40,1],depBuildQRT.labelMat,'sign');label.rotation.y=side*Math.PI/2;}
+}
+function depBuildXray(g){
+ depPart(g,'box',[0,.88,0],[1.14,.18,3.2],'chrome');
+ depPart(g,'box',[0,.99,0],[.91,.05,3.35],'dark');
+ for(const x of [-.58,.58])depPart(g,'box',[x,1.45,0],[.20,1.02,1.35],'blue');
+ depPart(g,'box',[0,1.98,0],[1.36,.18,1.35],'blue');
+ for(const x of [-.43,.43])for(const z of [-1.25,1.25])depPart(g,'box',[x,.43,z],[.09,.86,.09],'chrome');
+ for(const z of [-.71,.71])for(let x=-.40;x<.45;x+=.10)depPart(g,'box',[x,1.49,z],[.085,.80,.025],'dark');
+ for(let z=-1.5;z<1.55;z+=.15)depPart(g,'box',[0,1.025,z],[.88,.018,.018],'shutterMetal');
+ depPart(g,'box',[.91,1.0,.20],[.48,.10,.65],'chrome');
+ depPart(g,'box',[.91,1.36,.35],[.48,.35,.06],'dark');
+ depPart(g,'box',[.91,1.36,.313],[.40,.27,.012],'blue');
+ depPart(g,'box',[.91,1.08,-.03],[.39,.025,.18],'dark');
+ depPart(g,'box',[0,1.20,-1.14],[.46,.30,.48],'crateWood');
+ depPart(g,'box',[0,1.38,-1.14],[.18,.06,.05],'dark');
+ for(const z of [-.75,.75])depPart(g,'box',[.60,1.84,z],[.08,.08,.06],'hhmdLedGreen');
+}
+
 function depCreateEquipmentMesh(kind) {
 
 
@@ -9218,7 +9294,7 @@ function depCreateEquipmentMesh(kind) {
 
 
 
-  if (kind === 'officer' || kind === 'hhmd' || kind === 'binocular' || kind === 'radio') {
+  if(kind==='qrt'){depBuildQRT(g);} else if(kind==='xray'){depBuildXray(g);} else if(kind==='armed_officer'){depBuildArmedOfficer(g);} else if (kind === 'officer' || kind === 'hhmd' || kind === 'binocular' || kind === 'radio') {
 
 
 
@@ -10101,7 +10177,7 @@ function depUpdate(){
 
 
 
-    const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(peekItem.kind);
+    const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(peekItem.kind);
 
 
 
@@ -10109,7 +10185,7 @@ function depUpdate(){
 
 
 
-    const canFirstPerson = isOfficerLike || peekItem.kind === 'ambulance' || peekItem.kind === 'firebrigade';
+    const canFirstPerson = isOfficerLike || peekItem.kind === 'qrt' || peekItem.kind === 'ambulance' || peekItem.kind === 'firebrigade';
 
 
 
@@ -10333,7 +10409,7 @@ function depUpdate(){
 
 
 
-    const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(item.kind);
+    const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(item.kind);
 
 
 
@@ -10888,7 +10964,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
+  const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(o.kind);
 
 
 
@@ -10896,7 +10972,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const canFirstPerson = isOfficerLike || o.kind === 'ambulance' || o.kind === 'firebrigade';
+  const canFirstPerson = isOfficerLike || o.kind === 'qrt' || o.kind === 'ambulance' || o.kind === 'firebrigade';
 
 
 
@@ -11543,7 +11619,10 @@ depUI('add').onclick=()=>{
 
 
 
-  const name = kind === 'officer' ? `Officer ${count}`
+  const name = kind === 'qrt' ? `QRT Open Gypsy ${count}`
+    : kind === 'xray' ? `Baggage X-ray Scanner ${count}`
+    : kind === 'armed_officer' ? `Armed Police Officer ${count}`
+    : kind === 'officer' ? `Officer ${count}`
 
 
 
@@ -13918,7 +13997,10 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-    const name = kind === 'officer' ? `Officer ${count}`
+    const name = kind === 'qrt' ? `QRT Open Gypsy ${count}`
+    : kind === 'xray' ? `Baggage X-ray Scanner ${count}`
+    : kind === 'armed_officer' ? `Armed Police Officer ${count}`
+    : kind === 'officer' ? `Officer ${count}`
 
 
 
@@ -26336,10 +26418,10 @@ function openOfficerDialog(itemId) {
   const symEl = document.getElementById('dep-dlg-symbol');
   const titleTextEl = document.getElementById('dep-dlg-title-text');
   const badgeEl = document.getElementById('dep-dlg-badge');
-  const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
+  const isOfficer = item.kind === 'officer' || item.kind === 'armed_officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
   const isHelipad = item.kind === 'helipad';
   if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
-  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : (isHelipad ? 'Helipad Details' : 'Equipment Details');
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : (isHelipad ? 'Helipad Details' : (item.kind === 'qrt' ? 'QRT Vehicle Details' : (item.kind === 'xray' ? 'X-Ray Scanner Details' : 'Equipment Details')));
   if (badgeEl) badgeEl.textContent = item.name || '';
 
   // Fill input fields with current values
