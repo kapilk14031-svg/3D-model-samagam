@@ -650,10 +650,9 @@ body {
         </div>
       </div>
 
-    <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD -->
-    <div class="canvas-overlay bottom-left">
-      <div class="hud-pill" id="gms-detail" aria-live="polite">
-        Left-click to select · Right-click to deploy item · W,A,S,D pan · Q,E/Z,X rotate
+    <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD (Hidden per user request) -->
+    <div class="canvas-overlay bottom-left" style="display:none !important;">
+      <div class="hud-pill" id="gms-detail" aria-live="polite" style="display:none !important;">
       </div>
     </div>
 
@@ -1848,6 +1847,7 @@ body {
 
 /* HUD Readouts */
 .hud-pill {
+  display: none !important;
   background: rgba(15, 23, 42, 0.88);
   backdrop-filter: blur(8px);
   color: #f8fafc;
@@ -2547,7 +2547,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "belt": "",
       "mobile": "",
       "x": -10.29,
-      "y": 0.35,
+      "y": 0.36,
       "z": 0.48,
       "angle": 0
     },
@@ -2576,42 +2576,6 @@ window.__DEP_INITIAL_PLAN__ = {
       "angle": 261.56
     },
     {
-      "id": "post-8",
-      "kind": "officer",
-      "name": "Officer 8",
-      "duty": "Auditorium main stage duty",
-      "belt": "",
-      "mobile": "",
-      "x": -50.09,
-      "y": 1.2,
-      "z": 0.81,
-      "angle": 0
-    },
-    {
-      "id": "post-9",
-      "kind": "officer",
-      "name": "Officer 9",
-      "duty": "Auditorium seating duty",
-      "belt": "",
-      "mobile": "",
-      "x": -40.32,
-      "y": 0.5,
-      "z": -19.2,
-      "angle": 0
-    },
-    {
-      "id": "post-13",
-      "kind": "officer",
-      "name": "Officer 13",
-      "duty": "Hall gate duty",
-      "belt": "",
-      "mobile": "",
-      "x": -17.17,
-      "y": 0.92,
-      "z": -1.83,
-      "angle": 0
-    },
-    {
       "id": "equipment-13",
       "kind": "dfmd",
       "name": "DFMD",
@@ -2631,7 +2595,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "belt": "",
       "mobile": "",
       "x": -13.15,
-      "y": 0.36,
+      "y": 0.39,
       "z": -64.14,
       "angle": 352.81
     },
@@ -2894,9 +2858,9 @@ window.__DEP_INITIAL_PLAN__ = {
       "duty": "Vehicle parking & police bus depot",
       "belt": "",
       "mobile": "",
-      "x": 101.52,
+      "x": 100.46,
       "y": 0,
-      "z": -108.86,
+      "z": -113.46,
       "angle": 167.02
     },
     {

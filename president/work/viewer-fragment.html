@@ -143,10 +143,9 @@
         </div>
       </div>
 
-    <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD -->
-    <div class="canvas-overlay bottom-left">
-      <div class="hud-pill" id="gms-detail" aria-live="polite">
-        Left-click to select · Right-click to deploy item · W,A,S,D pan · Q,E/Z,X rotate
+    <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD (Hidden per user request) -->
+    <div class="canvas-overlay bottom-left" style="display:none !important;">
+      <div class="hud-pill" id="gms-detail" aria-live="polite" style="display:none !important;">
       </div>
     </div>
 
@@ -1125,6 +1124,7 @@
 
 /* HUD Readouts */
 .hud-pill {
+  display: none !important;
   background: rgba(15, 23, 42, 0.88);
   backdrop-filter: blur(8px);
   color: #f8fafc;
