@@ -801,6 +801,16 @@ catalog_items = [
         "guideline": "Positioned at designated venue parking zones, outer boundary roads, and VIP transit sectors.",
     },
     {
+        "kind": "helipad",
+        "symbol": "🚁",
+        "name": "Circular Helipad (VIP TLOF)",
+        "hindi": "गोलाकार वीआईपी हेलीपैड (TLOF)",
+        "role": "VIP Helicopter Air Arrival & Landing Area",
+        "desc": "Full-scale aviation circular helipad with light concrete perimeter rim, dark asphalt apron, slate TLOF core, ICAO 'H' markings, perimeter green LED beacons, and flight floodlights.",
+        "specs": "16.5m Outer Rim · Slate Gray TLOF Core · Bold 'H' Marking · 28 Inset Perimeter Lights · Windsock & Floodlights",
+        "guideline": "Stationed in open flight zone with 360-degree obstacle-free approach corridor."
+    },
+    {
         "kind": "square_box",
         "symbol": "📦",
         "name": "Security Checkpost Booth",
@@ -1006,7 +1016,7 @@ window.refreshDeployedCatalogCounts = updateDeployedCatalogCounts;
 // =========================================================================
 // EQUIPMENT 3D ROTATION & LIGHTBOX ENGINE
 // =========================================================================
-const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box','parking'];
+const depCatalogKinds = ['officer','barricade','dfmd','hhmd','binocular','radio','cone','cctv','light','ambulance','firebrigade','qbelt','square_box','parking','helipad'];
 const depCatalogData = {catalog_data_json};
 let modalCurrentKind = 'officer';
 let depModalTab = '3d';

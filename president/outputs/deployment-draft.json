@@ -125,7 +125,7 @@
       "x": -22.14,
       "y": 10.15,
       "z": -38.34,
-      "angle": 91.02
+      "angle": 92.01
     },
     {
       "id": "post-mvhpefek-wu7",
@@ -159,7 +159,7 @@
       "belt": "123",
       "mobile": "9999999999",
       "x": 49.54,
-      "y": 0.8,
+      "y": 0,
       "z": -100.3,
       "angle": 262.99
     },
@@ -408,10 +408,10 @@
       "id": "post-mvj679uy-gcwt",
       "kind": "parking",
       "name": "Vehicle Parking #2",
-      "x": 100.12,
+      "x": 112.17,
       "y": 0,
-      "z": -114.92,
-      "angle": 167.02,
+      "z": -115.31,
+      "angle": 170.28,
       "duty": "Vehicle parking & police bus depot",
       "customDuty": false,
       "belt": "",
@@ -443,6 +443,18 @@
       "y": 10.15,
       "z": -7.51,
       "angle": 101.28
+    },
+    {
+      "id": "post-mvje8qfb-3mp",
+      "kind": "helipad",
+      "name": "Helipad H-1",
+      "duty": "Helipad security & landing cordon",
+      "belt": "",
+      "mobile": "",
+      "x": 54.92,
+      "y": 0,
+      "z": -167.17,
+      "angle": 178.3
     }
   ]
 }

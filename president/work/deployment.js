@@ -108,7 +108,7 @@ setTimeout(depSyncDutyLists, 60);
 
 
 
-const depSymbols={officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️'};
+const depSymbols={officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️',helipad:'🚁'};
 
 
 
@@ -869,6 +869,7 @@ initTouchControls();
 
 
 function depGetAutoDuty(x, y, z, kind='officer'){
+  if(kind==='helipad') return 'Helipad security & landing cordon';
   if(kind==='ambulance') return 'Emergency Medical Response';
   if(kind==='firebrigade') return 'Fire & Safety Standby';
   if(kind==='qbelt') return 'Queue & Crowd Management';
@@ -3416,7 +3417,21 @@ const depMaterials={
 
 
 
-  crateTrim:new THREE.MeshStandardMaterial({color:0x272e39,roughness:0.38,metalness:0.7}) // Reinforced steel corner brackets
+  crateTrim:new THREE.MeshStandardMaterial({color:0x272e39,roughness:0.38,metalness:0.7}),
+  // Helipad Materials (Exact match to circular helipad in detail_helipad.py)
+  padConcrete:new THREE.MeshStandardMaterial({color:0x4b535d,roughness:0.85}),
+  padOuterRim:new THREE.MeshStandardMaterial({color:0xcbd5e1,roughness:0.75}),
+  padAsphalt:new THREE.MeshStandardMaterial({color:0x2c323c,roughness:0.90}),
+  padLineWhite:new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.50}),
+  padLineDark:new THREE.MeshStandardMaterial({color:0x181e24,roughness:0.80}),
+  padLineYellow:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.40,metalness:0.2}),
+  padDashedRed:new THREE.MeshStandardMaterial({color:0xef4444,roughness:0.60}),
+  padLightTurquoise:new THREE.MeshStandardMaterial({color:0x2dd4bf,emissive:0x14b8a6,emissiveIntensity:2.5,roughness:0.2}),
+  padLightMetal:new THREE.MeshStandardMaterial({color:0x475569,roughness:0.35,metalness:0.7}),
+  padPoleDark:new THREE.MeshStandardMaterial({color:0x27272a,roughness:0.60,metalness:0.4}),
+  padPoleYellow:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.3}),
+  padWindsockOrange:new THREE.MeshStandardMaterial({color:0xf97316,roughness:0.70}),
+  padWindsockWhite:new THREE.MeshStandardMaterial({color:0xf8fafc,roughness:0.70}) // Reinforced steel corner brackets
 
 
 
@@ -6032,6 +6047,235 @@ function depBuildQBelt(g){
 
 
 
+
+
+// =========================================================================
+// Circular Tactical Helipad (Exact copy of campus VIP Helipad without helicopter)
+// =========================================================================
+function depBuildHelipad(g){
+  g.scale.setScalar(1);
+  const padGroup = new THREE.Group();
+
+  // 1.1 Outer Light Concrete Perimeter Rim (Raised platform disc, R = 16.5m, H = 0.28m)
+  const rimMesh = new THREE.Mesh(geos.cylinder, depMaterials.padOuterRim);
+  rimMesh.position.set(0, 0.14, 0);
+  rimMesh.scale.set(16.5, 0.28, 16.5);
+  rimMesh.receiveShadow = true;
+  rimMesh.castShadow = true;
+  padGroup.add(rimMesh);
+
+  // 1.2 Dark Asphalt Circular Apron Ring (R = 15.0m, H = 0.30m)
+  const asphaltMesh = new THREE.Mesh(geos.cylinder, depMaterials.padAsphalt);
+  asphaltMesh.position.set(0, 0.15, 0);
+  asphaltMesh.scale.set(15.0, 0.30, 15.0);
+  asphaltMesh.receiveShadow = true;
+  padGroup.add(asphaltMesh);
+
+  // 1.3 Inner Slate Gray Touchdown Core (TLOF, R = 9.8m, H = 0.32m)
+  const tlofMesh = new THREE.Mesh(geos.cylinder, depMaterials.padConcrete);
+  tlofMesh.position.set(0, 0.16, 0);
+  tlofMesh.scale.set(9.8, 0.32, 9.8);
+  tlofMesh.receiveShadow = true;
+  padGroup.add(tlofMesh);
+
+  const markY = 0.328;
+
+  // 1.4 Solid Yellow Safety Ring (R = 12.8m, W = 0.48m)
+  const yellowRingGeo = new THREE.RingGeometry(12.56, 13.04, 64);
+  yellowRingGeo.rotateX(-Math.PI / 2);
+  const yellowRingMesh = new THREE.Mesh(yellowRingGeo, depMaterials.padLineYellow);
+  yellowRingMesh.position.set(0, markY + 0.002, 0);
+  padGroup.add(yellowRingMesh);
+
+  // 1.5 Solid White Guide Ring (R = 11.2m, W = 0.40m)
+  const whiteRingGeo = new THREE.RingGeometry(11.00, 11.40, 64);
+  whiteRingGeo.rotateX(-Math.PI / 2);
+  const whiteRingMesh = new THREE.Mesh(whiteRingGeo, depMaterials.padLineWhite);
+  whiteRingMesh.position.set(0, markY + 0.004, 0);
+  padGroup.add(whiteRingMesh);
+
+  // 1.6 Dashed Red Warning Ring (R = 8.6m, 36 dashes)
+  const nDashed = 72;
+  const segLenR = (2 * Math.PI * 8.6) / nDashed + 0.03;
+  for (let k = 0; k < nDashed; k += 2) {
+    const t = 2 * Math.PI * k / nDashed;
+    const px = 8.6 * Math.cos(t);
+    const pz = 8.6 * Math.sin(t);
+    const dashMesh = new THREE.Mesh(geos.box, depMaterials.padDashedRed);
+    dashMesh.position.set(px, markY + 0.006, pz);
+    dashMesh.scale.set(segLenR, 0.024, 0.32);
+    dashMesh.rotation.y = Math.PI / 2 - t;
+    padGroup.add(dashMesh);
+  }
+
+  // 1.7 Perimeter Dome Lights (28 turquoise glowing LED dome lights along outer rim R = 15.75m)
+  const nLights = 28;
+  const rLights = 15.75;
+  for (let k = 0; k < nLights; k++) {
+    const t = 2 * Math.PI * k / nLights;
+    const px = rLights * Math.cos(t);
+    const pz = rLights * Math.sin(t);
+
+    const bezel = new THREE.Mesh(geos.cylinder, depMaterials.padLightMetal);
+    bezel.position.set(px, 0.29, pz);
+    bezel.scale.set(0.34, 0.05, 0.34);
+    padGroup.add(bezel);
+
+    const lens = new THREE.Mesh(geos.cylinder, depMaterials.padLightTurquoise);
+    lens.position.set(px, 0.34, pz);
+    lens.scale.set(0.22, 0.08, 0.22);
+    padGroup.add(lens);
+  }
+
+  // 2. AVIATION 'H' MARKINGS (Large, bold, prominent)
+  const hUprightLen = 8.6;
+  const hCrossbarLen = 5.0;
+  const hStroke = 1.15;
+  const hSep = 2.50;
+
+  // 2.1 Dark contrast underlay
+  for (const x of [-hSep, hSep]) {
+    const backUpright = new THREE.Mesh(geos.box, depMaterials.padLineDark);
+    backUpright.position.set(x, markY + 0.008, 0);
+    backUpright.scale.set(hStroke + 0.16, 0.015, hUprightLen + 0.16);
+    padGroup.add(backUpright);
+  }
+  const backBar = new THREE.Mesh(geos.box, depMaterials.padLineDark);
+  backBar.position.set(0, markY + 0.008, 0);
+  backBar.scale.set(hCrossbarLen + 0.16, 0.015, hStroke + 0.16);
+  padGroup.add(backBar);
+
+  // 2.2 Pure White 'H' Strokes
+  for (const x of [-hSep, hSep]) {
+    const whiteUpright = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    whiteUpright.position.set(x, markY + 0.012, 0);
+    whiteUpright.scale.set(hStroke, 0.024, hUprightLen);
+    padGroup.add(whiteUpright);
+  }
+  const whiteBar = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+  whiteBar.position.set(0, markY + 0.012, 0);
+  whiteBar.scale.set(hCrossbarLen, 0.024, hStroke);
+  padGroup.add(whiteBar);
+
+  // 2.3 Flight Approach Alignment Arrows (North & South)
+  for (const sign of [-1, 1]) {
+    const pzArrow = sign * 6.8;
+    const arrowShaft = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    arrowShaft.position.set(0, markY + 0.010, pzArrow);
+    arrowShaft.scale.set(0.45, 0.02, 1.8);
+    padGroup.add(arrowShaft);
+
+    const chevL = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    chevL.position.set(-0.45, markY + 0.010, pzArrow + sign * 0.7);
+    chevL.scale.set(0.35, 0.02, 0.9);
+    chevL.rotation.y = 0.45 * sign;
+    padGroup.add(chevL);
+
+    const chevR = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    chevR.position.set(0.45, markY + 0.010, pzArrow + sign * 0.7);
+    chevR.scale.set(0.35, 0.02, 0.9);
+    chevR.rotation.y = -0.45 * sign;
+    padGroup.add(chevR);
+  }
+
+  // 2.4 Yellow Aviation Stencils: "VIP" and "15t"
+  function addLetterBox(px, pz, sx, sz, rot) {
+    const b = new THREE.Mesh(geos.box, depMaterials.padLineYellow);
+    b.position.set(px, markY + 0.014, pz);
+    b.scale.set(sx, 0.022, sz);
+    if (rot) b.rotation.y = rot;
+    padGroup.add(b);
+  }
+
+  // Stencil "VIP" (upper-left)
+  const vipZ = 3.8;
+  addLetterBox(-6.4, vipZ, 0.26, 1.6, 0.22);
+  addLetterBox(-5.8, vipZ, 0.26, 1.6, -0.22);
+  addLetterBox(-4.9, vipZ, 0.28, 1.6);
+  addLetterBox(-3.9, vipZ, 0.26, 1.6);
+  addLetterBox(-3.5, vipZ + 0.65, 0.75, 0.26);
+  addLetterBox(-3.5, vipZ, 0.75, 0.26);
+  addLetterBox(-3.1, vipZ + 0.32, 0.26, 0.7);
+
+  // Stencil "15t" (lower-right)
+  const tZ = -3.8;
+  addLetterBox(3.4, tZ, 0.28, 1.6);
+  addLetterBox(3.2, tZ + 0.55, 0.4, 0.26, 0.4);
+  addLetterBox(4.4, tZ + 0.65, 0.95, 0.26);
+  addLetterBox(4.0, tZ + 0.35, 0.26, 0.65);
+  addLetterBox(4.4, tZ, 0.95, 0.26);
+  addLetterBox(4.8, tZ - 0.35, 0.26, 0.65);
+  addLetterBox(4.4, tZ - 0.65, 0.95, 0.26);
+  addLetterBox(5.6, tZ - 0.15, 0.26, 1.35);
+  addLetterBox(5.6, tZ + 0.22, 0.75, 0.26);
+
+  // 3. Perimeter Floodlight Masts (5 tall dark poles with yellow box heads at radius 21.5m)
+  const poleAngles = [
+    0.50 * Math.PI,    // North
+    0.12 * Math.PI,    // East
+    -0.28 * Math.PI,   // Southeast
+    -0.68 * Math.PI,   // Southwest
+    0.88 * Math.PI     // West
+  ];
+  for (const ang of poleAngles) {
+    const px = 21.5 * Math.cos(ang);
+    const pz = 21.5 * Math.sin(ang);
+
+    const mast = new THREE.Mesh(geos.cylinder, depMaterials.padPoleDark);
+    mast.position.set(px, 2.85, pz);
+    mast.scale.set(0.14, 5.5, 0.14);
+    mast.castShadow = true;
+    padGroup.add(mast);
+
+    const headBox = new THREE.Mesh(geos.box, depMaterials.padPoleYellow);
+    headBox.position.set(px, 5.65, pz);
+    headBox.scale.set(0.65, 0.48, 0.55);
+    headBox.rotation.y = ang + Math.PI / 2;
+    headBox.castShadow = true;
+    padGroup.add(headBox);
+
+    const faceRot = Math.atan2(-px, -pz);
+    const reflector = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    reflector.position.set(px, 5.62, pz);
+    reflector.scale.set(0.55, 0.38, 0.05);
+    reflector.rotation.y = faceRot;
+    padGroup.add(reflector);
+  }
+
+  // 4. Windsock near rim (radius 16.2m at 10 o'clock)
+  const windAng = 0.72 * Math.PI;
+  const wx = 16.2 * Math.cos(windAng);
+  const wz = 16.2 * Math.sin(windAng);
+
+  const windCollar = new THREE.Mesh(geos.cylinder, depMaterials.padConcrete);
+  windCollar.position.set(wx, 0.32, wz);
+  windCollar.scale.set(0.45, 0.20, 0.45);
+  padGroup.add(windCollar);
+
+  const windMast = new THREE.Mesh(geos.cylinder, depMaterials.padPoleDark);
+  windMast.position.set(wx, 2.65, wz);
+  windMast.scale.set(0.08, 4.8, 0.08);
+  windMast.castShadow = true;
+  padGroup.add(windMast);
+
+  const windHoop = new THREE.Mesh(geos.torus, depMaterials.padPoleYellow);
+  windHoop.position.set(wx, 5.05, wz);
+  windHoop.scale.set(0.35, 0.35, 0.05);
+  windHoop.rotation.x = Math.PI / 2;
+  padGroup.add(windHoop);
+
+  const windColors = [depMaterials.padWindsockOrange, depMaterials.padWindsockWhite, depMaterials.padWindsockOrange, depMaterials.padWindsockWhite];
+  for (let i = 0; i < 4; i++) {
+    const rCone = 0.34 - i * 0.05;
+    const coneSeg = new THREE.Mesh(geos.cylinder, windColors[i]);
+    coneSeg.position.set(wx + (0.45 + i * 0.36) * 0.9, 5.05 - i * 0.04, wz + (0.45 + i * 0.36) * 0.4);
+    coneSeg.scale.set(rCone, 0.36, rCone);
+    coneSeg.rotation.z = Math.PI / 2 - 0.1;
+    padGroup.add(coneSeg);
+  }
+
+  g.add(padGroup);
+}
 
 function depBuildParking(g){
   g.scale.setScalar(1);
@@ -8990,6 +9234,8 @@ function depCreateEquipmentMesh(kind) {
 
 
 
+  } else if (kind === 'helipad') {
+    depBuildHelipad(g);
   } else if (kind === 'ambulance') {
 
 
@@ -10489,6 +10735,7 @@ function depChoose(id, zoom = true){
 
 
   depSelected=depItems.some(o=>o.id===id)?id:null;depHover=null;depPlace=false;
+  if (typeof updateGtaMinimap === 'function') updateGtaMinimap(0.016);
 
 
 
@@ -11328,6 +11575,7 @@ depUI('add').onclick=()=>{
 
 
 
+    : kind === 'helipad' ? `Helipad H-${count}`
     : kind === 'ambulance' ? `Ambulance ${count}`
 
 
@@ -11406,6 +11654,7 @@ depUI('add').onclick=()=>{
 
 
 
+    : kind === 'helipad' ? 'Helipad security & landing cordon'
     : kind === 'ambulance' ? 'Emergency Medical Response'
 
 
@@ -11628,150 +11877,30 @@ function depView(mode, smooth = true){
 
 
 
-  const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
-
-
-
-
-
-
-
+  const isOfficerLike = o.kind === 'officer' || o.kind === '_dummy' || (o.kind && o.kind.startsWith('officer_')) || ['hhmd','binocular','radio'].includes(o.kind);
   const itemHeight = isOfficerLike ? 1.65
-
-
-
-
-
-
-
     : o.kind === 'firebrigade' ? 2.5
-
-
-
-
-
-
-
     : o.kind === 'ambulance' ? 1.85
-
-
-
-
-
-
-
     : o.kind === 'dfmd' ? 1.8
-
-
-
-
-
-
-
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
-
-
-
-
-
-
-
     : o.kind === 'barricade' ? 0.9
-
-
-
-
-
-
-
     : o.kind === 'square_box' ? 0.8
-
-
-
-
-
-
-
     : o.kind === 'qbelt' ? 0.8
-
-
-
-
-
-
-
+    : o.kind === 'parking' ? 1.0
+    : o.kind === 'helipad' ? 0.5
     : 0.6;
-
-
-
-
-
-
-
-  const distBehind = o.kind === 'parking' ? 18.0 : o.kind === 'firebrigade' ? 9.2
-
-
-
-
-
-
-
+  const distBehind = o.kind === 'helipad' ? 36.0
+    : o.kind === 'parking' ? 28.0
+    : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
-
-
-
-
-
-
-
     : isOfficerLike ? 3.8
-
-
-
-
-
-
-
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
-
-
-
-
-
-
-
     : 3.2;
-
-
-
-
-
-
-
-  const heightAbove = o.kind === 'firebrigade' ? 3.4
-
-
-
-
-
-
-
+  const heightAbove = o.kind === 'helipad' ? 24.0
+    : o.kind === 'parking' ? 18.0
+    : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
-
-
-
-
-
-
-
     : isOfficerLike ? 1.2
-
-
-
-
-
-
-
     : 1.5;
 
 
@@ -11805,22 +11934,10 @@ function depView(mode, smooth = true){
 
 
   if(mode === 'first'){
-
-
-
-
-
-
-
     if(o.kind === 'ambulance') eyeY = o.y + 1.62;
-
-
-
-
-
-
-
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
+    if(o.kind === 'helipad') eyeY = o.y + 4.0;
+    if(o.kind === 'parking') eyeY = o.y + 3.0;
 
 
 
@@ -11884,7 +12001,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
 
 
 
@@ -13558,6 +13675,10 @@ function depCycleNearestItem(reverse = false) {
 
 
 window.__DEP_CYCLE_NEAREST = depCycleNearestItem;
+window.__camera = camera;
+window.__controls = controls;
+window.__depView = depView;
+window.__depItems = depItems;
 
 
 
@@ -13829,7 +13950,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-      : kind === 'ambulance' ? `Ambulance ${count}`
+      : kind === 'helipad' ? `Helipad H-${count}`
+    : kind === 'ambulance' ? `Ambulance ${count}`
 
 
 
@@ -13896,7 +14018,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-      : kind === 'ambulance' ? 'Emergency Medical Response'
+      : kind === 'helipad' ? 'Helipad security & landing cordon'
+    : kind === 'ambulance' ? 'Emergency Medical Response'
 
 
 
@@ -14489,7 +14612,376 @@ let lastDepStoreTime = 0;
 
 
 
+
+// =========================================================================
+// GTA-Style Tactical Radar Navigation Minimap HUD
+// =========================================================================
+let gtaRadarZoom = 2.4; // Pixels per meter (~35-40m visible radius around player)
+let gtaSweepAngle = 0;
+
+function updateGtaMinimap(dt = 0.016) {
+  const container = root.querySelector('#dep-gta-minimap-container');
+  if (!container) return;
+
+  const targetId = (typeof depSelected !== 'undefined') ? depSelected : null;
+  if (!targetId) {
+    if (container.style.display !== 'none') container.style.display = 'none';
+    return;
+  }
+  const o = depItems.find(x => x.id === targetId);
+  if (!o) {
+    if (container.style.display !== 'none') container.style.display = 'none';
+    return;
+  }
+
+  // Reveal minimap HUD
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+  }
+
+  const canvas = root.querySelector('#dep-gta-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const w = canvas.width;  // 352
+  const h = canvas.height; // 352
+  const cx = w / 2;
+  const cy = h / 2;
+  const R = cx - 4; // Outer radar radius in canvas px (~172px)
+
+  // Radar heading & sweep
+  gtaSweepAngle = (gtaSweepAngle + (dt || 0.016) * 2.0) % (Math.PI * 2);
+  const playerHeadingRad = ((o.angle || 0) * Math.PI) / 180;
+
+  // 1. Clear & clip circular radar area
+  ctx.save();
+  ctx.clearRect(0, 0, w, h);
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.clip();
+
+  // 2. Tactical Radar Background (Dark gradient)
+  const grad = ctx.createRadialGradient(cx, cy, 4, cx, cy, R);
+  grad.addColorStop(0, 'rgba(15, 23, 42, 0.94)');
+  grad.addColorStop(0.75, 'rgba(12, 19, 36, 0.97)');
+  grad.addColorStop(1, 'rgba(8, 12, 22, 1.0)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // 3. Rotating Radar Sweep Beam (GTA / Military radar effect)
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(gtaSweepAngle);
+  const sweepGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
+  sweepGrad.addColorStop(0, 'rgba(56, 189, 248, 0.40)');
+  sweepGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+  ctx.fillStyle = sweepGrad;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.arc(0, 0, R, -0.42, 0);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  // 4. Concentric Range Rings (15m, 30m, 50m)
+  const ringDistances = [15, 30, 50];
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.20)';
+  ctx.lineWidth = 1.2;
+  for (const d of ringDistances) {
+    const rPx = d * gtaRadarZoom;
+    if (rPx < R) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, rPx, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  // Crosshairs
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.12)';
+  ctx.beginPath();
+  ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy);
+  ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R);
+  ctx.stroke();
+
+  // 5. Transform into Player Local Coordinates (Heading-Up Mode)
+  // Forward faces UP on the radar screen!
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(playerHeadingRad);
+  ctx.scale(gtaRadarZoom, gtaRadarZoom);
+  ctx.translate(-o.x, -o.z);
+
+  // 5.1 Draw Roads (from geo.roads)
+  if (typeof geo !== 'undefined' && geo && geo.roads) {
+    for (const r of geo.roads) {
+      if (!r.points || r.points.length < 2) continue;
+      ctx.beginPath();
+      ctx.moveTo(r.points[0][0], r.points[0][1]);
+      for (let i = 1; i < r.points.length; i++) {
+        ctx.lineTo(r.points[i][0], r.points[i][1]);
+      }
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = r.width || 6;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // Centerline
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+
+  // 5.2 Draw Helipad Access Road (to Main Gate)
+  if (typeof geo !== 'undefined' && geo && geo.helipadProposal && geo.helipadProposal.gate) {
+    const hGate = geo.helipadProposal.gate;
+    ctx.beginPath();
+    ctx.moveTo(6.39, -308.2);
+    ctx.lineTo(hGate[0], hGate[1]);
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 5.5;
+    ctx.stroke();
+  }
+
+  // 5.3 Draw Building Footprints (from geo.footprints)
+  if (typeof geo !== 'undefined' && geo && geo.footprints) {
+    for (const fp of geo.footprints) {
+      if (!fp.points || fp.points.length < 3) continue;
+      ctx.beginPath();
+      ctx.moveTo(fp.points[0][0], fp.points[0][1]);
+      for (let i = 1; i < fp.points.length; i++) {
+        ctx.lineTo(fp.points[i][0], fp.points[i][1]);
+      }
+      ctx.closePath();
+      if (fp.id === 'hall') {
+        ctx.fillStyle = 'rgba(30, 58, 138, 0.55)'; // Auditorium
+        ctx.strokeStyle = 'rgba(96, 165, 250, 0.85)';
+      } else if (fp.id === 'pavilion') {
+        ctx.fillStyle = 'rgba(180, 83, 9, 0.50)'; // Lotus
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.85)';
+      } else if (fp.id === 'garden') {
+        ctx.fillStyle = 'rgba(22, 101, 52, 0.35)'; // Garden
+        ctx.strokeStyle = 'rgba(74, 222, 128, 0.65)';
+      } else {
+        ctx.fillStyle = 'rgba(51, 65, 85, 0.45)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.65)';
+      }
+      ctx.lineWidth = 0.9;
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+
+  // 5.4 Draw Helipads on Radar
+  // Campus Helipad:
+  ctx.beginPath();
+  ctx.arc(6.39, -308.2, 16.5, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(51, 65, 85, 0.65)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(250, 204, 21, 0.85)';
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 9px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('H', 6.39, -308.2);
+
+  // Deployed Helipads:
+  for (const it of depItems) {
+    if (it.kind === 'helipad' && it.id !== o.id) {
+      ctx.beginPath();
+      ctx.arc(it.x, it.z, 16.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(51, 65, 85, 0.65)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.85)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 9px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('H', it.x, it.z);
+    }
+  }
+
+  ctx.restore(); // Restore back to radar center (cx, cy)
+
+  // 6. Draw Radar Blips for Other Deployed Posts (with GTA Edge Clamping!)
+  for (const it of depItems) {
+    if (it.id === o.id) continue;
+
+    const dx = it.x - o.x;
+    const dz = it.z - o.z;
+    const dist = Math.hypot(dx, dz);
+
+    const worldAngle = Math.atan2(dx, -dz);
+    const radarAngle = worldAngle - playerHeadingRad;
+    const rDistPx = dist * gtaRadarZoom;
+
+    let bx, by;
+    const isClamped = (rDistPx > (R - 8));
+    if (isClamped) {
+      bx = cx + (R - 8) * Math.sin(radarAngle);
+      by = cy - (R - 8) * Math.cos(radarAngle);
+    } else {
+      bx = cx + rDistPx * Math.sin(radarAngle);
+      by = cy - rDistPx * Math.cos(radarAngle);
+    }
+
+    let blipColor = '#38bdf8';
+    let blipSize = 3.8;
+    if (it.kind === 'officer' || it.kind === 'hhmd' || it.kind === 'binocular' || it.kind === 'radio') {
+      blipColor = '#0284c7';
+      blipSize = 4.2;
+    } else if (it.kind === 'ambulance') {
+      blipColor = '#ef4444';
+      blipSize = 4.8;
+    } else if (it.kind === 'firebrigade') {
+      blipColor = '#f97316';
+      blipSize = 4.8;
+    } else if (it.kind === 'helipad' || it.kind === 'helicopter') {
+      blipColor = '#22c55e';
+      blipSize = 5.2;
+    } else if (it.kind === 'parking') {
+      blipColor = '#a855f7';
+      blipSize = 4.2;
+    } else {
+      blipColor = '#facc15';
+      blipSize = 3.5;
+    }
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(bx, by, blipSize, 0, Math.PI * 2);
+    ctx.fillStyle = blipColor;
+    ctx.shadowColor = blipColor;
+    ctx.shadowBlur = isClamped ? 7 : 4;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 7. Draw Controlled Player Blip (Center of Radar)
+  ctx.save();
+  ctx.translate(cx, cy);
+
+  // Field of vision cone pointing straight up
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-24, -58);
+  ctx.lineTo(24, -58);
+  ctx.closePath();
+  const fovGrad = ctx.createLinearGradient(0, 0, 0, -58);
+  fovGrad.addColorStop(0, 'rgba(56, 189, 248, 0.40)');
+  fovGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+  ctx.fillStyle = fovGrad;
+  ctx.fill();
+
+  // Directional Arrow (Facing UP)
+  ctx.beginPath();
+  ctx.moveTo(0, -10);
+  ctx.lineTo(8, 7);
+  ctx.lineTo(0, 3.5);
+  ctx.lineTo(-8, 7);
+  ctx.closePath();
+  ctx.fillStyle = '#ffffff';
+  ctx.shadowColor = '#38bdf8';
+  ctx.shadowBlur = 8;
+  ctx.fill();
+  ctx.strokeStyle = '#0284c7';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  ctx.restore();
+
+  // 8. Outer Compass Ring & North Indicator
+  ctx.restore(); // Restore unclipped context
+
+  // Draw Outer Border Ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // North (N) Indicator on Rim (Points to true world North)
+  const northAngle = -playerHeadingRad;
+  const nx = cx + (R - 2) * Math.sin(northAngle);
+  const ny = cy - (R - 2) * Math.cos(northAngle);
+
+  ctx.save();
+  ctx.translate(nx, ny);
+  ctx.rotate(northAngle);
+
+  // Red arrowhead pointing towards North
+  ctx.beginPath();
+  ctx.moveTo(0, -6);
+  ctx.lineTo(4, 3);
+  ctx.lineTo(-4, 3);
+  ctx.closePath();
+  ctx.fillStyle = '#ef4444';
+  ctx.shadowColor = '#ef4444';
+  ctx.shadowBlur = 6;
+  ctx.fill();
+
+  // Letter "N"
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 9px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('N', 0, 11);
+
+  ctx.restore();
+
+  // 9. Update Location & Coordinate Badges
+  const locBadge = root.querySelector('#dep-gta-loc-badge');
+  if (locBadge) {
+    const dutyText = (o.duty || 'CAMPUS PATROL').toUpperCase();
+    locBadge.textContent = `${depSymbols[o.kind] || '📍'} ${o.name || 'POST'} · ${dutyText}`;
+  }
+
+  const coordsEl = root.querySelector('#dep-gta-coords');
+  if (coordsEl) {
+    coordsEl.textContent = `X: ${Math.round(o.x * 10) / 10} | Z: ${Math.round(o.z * 10) / 10}`;
+  }
+
+  const headingEl = root.querySelector('#dep-gta-heading');
+  if (headingEl) {
+    headingEl.textContent = `${Math.round(o.angle || 0)}°`;
+  }
+}
+window.updateGtaMinimap = updateGtaMinimap;
+
+function initGtaMinimapEvents() {
+  const zoomIn = root.querySelector('#dep-gta-zoom-in');
+  const zoomOut = root.querySelector('#dep-gta-zoom-out');
+  if (zoomIn) {
+    zoomIn.addEventListener('pointerdown', e => e.stopPropagation());
+    zoomIn.addEventListener('click', e => {
+      e.stopPropagation();
+      gtaRadarZoom = Math.min(4.5, gtaRadarZoom * 1.35);
+      updateGtaMinimap(0);
+    });
+  }
+  if (zoomOut) {
+    zoomOut.addEventListener('pointerdown', e => e.stopPropagation());
+    zoomOut.addEventListener('click', e => {
+      e.stopPropagation();
+      gtaRadarZoom = Math.max(0.9, gtaRadarZoom / 1.35);
+      updateGtaMinimap(0);
+    });
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGtaMinimapEvents);
+} else {
+  setTimeout(initGtaMinimapEvents, 100);
+}
+
 window.__DEP_TICK = function(dt) {
+  if (typeof updateGtaMinimap === 'function') { updateGtaMinimap(dt); }
+
 
 
 
@@ -15094,21 +15586,9 @@ window.__DEP_TICK = function(dt) {
 
 
       if (o.kind === 'ambulance') turnSpeed = 75;
-
-
-
-
-
-
-
       else if (o.kind === 'firebrigade') turnSpeed = 65;
-
-
-
-
-
-
-
+      else if (o.kind === 'helipad') turnSpeed = 55;
+      else if (o.kind === 'parking') turnSpeed = 45;
       else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
 
 
@@ -15365,6 +15845,14 @@ window.__DEP_TICK = function(dt) {
 
 
 
+      } else if (o.kind === 'helipad') {
+        baseFwdSpeed = 7.0;
+        sprintFwdSpeed = 15.0;
+        baseBackSpeed = 5.0;
+      } else if (o.kind === 'parking') {
+        baseFwdSpeed = 6.0;
+        sprintFwdSpeed = 13.0;
+        baseBackSpeed = 4.5;
       } else if (o.kind === 'square_box' || o.kind === 'qbelt' || o.kind === 'barricade') {
 
 
@@ -15759,7 +16247,7 @@ window.__DEP_TICK = function(dt) {
 
         if (wallBlocked && (!depOfficerJump.isJumping || o.y < surfaceNext - 0.2)) {
           depUI('status').textContent = '⚠️ Blocked by obstacle / wall! Press SPACE to jump over.';
-        } else if (heightDiff <= 0.65) {
+        } else if (o.kind === 'helipad' || o.kind === 'parking' || heightDiff <= 0.65) {
 
 
 
@@ -16418,150 +16906,30 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
-
-
-
-
-
-
-
+        const isOfficerLike = o.kind === 'officer' || o.kind === '_dummy' || (o.kind && o.kind.startsWith('officer_')) || ['hhmd','binocular','radio'].includes(o.kind);
         const itemHeight = isOfficerLike ? 1.65
-
-
-
-
-
-
-
           : o.kind === 'firebrigade' ? 2.5
-
-
-
-
-
-
-
           : o.kind === 'ambulance' ? 1.85
-
-
-
-
-
-
-
           : o.kind === 'dfmd' ? 1.8
-
-
-
-
-
-
-
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
-
-
-
-
-
-
-
           : o.kind === 'barricade' ? 0.9
-
-
-
-
-
-
-
           : o.kind === 'square_box' ? 0.8
-
-
-
-
-
-
-
           : o.kind === 'qbelt' ? 0.8
-
-
-
-
-
-
-
+          : o.kind === 'parking' ? 1.0
+          : o.kind === 'helipad' ? 0.5
           : 0.6;
-
-
-
-
-
-
-
-        const distBehind = o.kind === 'parking' ? 18.0 : o.kind === 'firebrigade' ? 9.2
-
-
-
-
-
-
-
+        const distBehind = o.kind === 'helipad' ? 36.0
+          : o.kind === 'parking' ? 28.0
+          : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
-
-
-
-
-
-
-
           : isOfficerLike ? 3.8
-
-
-
-
-
-
-
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
-
-
-
-
-
-
-
           : 3.2;
-
-
-
-
-
-
-
-        const heightAbove = o.kind === 'firebrigade' ? 3.4
-
-
-
-
-
-
-
+        const heightAbove = o.kind === 'helipad' ? 24.0
+          : o.kind === 'parking' ? 18.0
+          : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
-
-
-
-
-
-
-
           : isOfficerLike ? 1.2
-
-
-
-
-
-
-
           : 1.5;
 
 
@@ -16594,7 +16962,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0);
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
 
 
 
@@ -30071,8 +30439,9 @@ function openOfficerDialog(itemId) {
   const titleTextEl = document.getElementById('dep-dlg-title-text');
   const badgeEl = document.getElementById('dep-dlg-badge');
   const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
+  const isHelipad = item.kind === 'helipad';
   if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
-  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : 'Equipment Details';
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : (isHelipad ? 'Helipad Details' : 'Equipment Details');
   if (badgeEl) badgeEl.textContent = item.name || '';
 
   // Fill input fields with current values
