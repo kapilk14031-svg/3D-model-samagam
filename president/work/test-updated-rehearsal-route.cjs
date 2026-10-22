@@ -1,0 +1,7 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');const c={Math,console};vm.createContext(c);vm.runInContext(fs.readFileSync('work/vvip-realism.js','utf8'),c);
+const geo=JSON.parse(fs.readFileSync('outputs/georeference.json','utf8')),data=JSON.parse(fs.readFileSync('outputs/model-data.json','utf8')),h=geo.helipadProposal,g=h.gate,steps=data.objects.filter(o=>o.name.startsWith('External black entry step')).sort((a,b)=>a.p[1]-b.p[1]);
+const p=c.vrRoundPath([...h.vehicleAccessPolyline.map(q=>[q[0],.312,q[1]]),[...h.roadConnectionCentre.slice(0,1),.31,h.roadConnectionCentre[1]],[h.campusRoadCentre[0],.31,h.campusRoadCentre[1]],[g[0],.39,g[1]+5],[g[0],.39,steps[0].p[2]]],2);
+let distance=0,speed=0,time=0,cleared=false;const dt=.02;let maxAcceleration=0;
+while(time<400&&distance<p.total-.001){const target=c.vrCruiseTarget(p,distance),before=speed;speed+=Math.max(-.85*dt,Math.min(.65*dt,target-speed));maxAcceleration=Math.max(maxAcceleration,Math.abs(speed-before)/dt);distance=Math.min(p.total,distance+Math.max(.015,speed)*dt);const q=c.vrSample(p,distance);if(Math.hypot(q.pos[0]-g[0],q.pos[2]-g[1])<20)cleared=true;assert(speed<=2.401);time+=dt;}
+assert(distance>=p.total-.001);assert(cleared);assert(maxAcceleration<=.851);const end=c.vrSample(p,p.total).pos;assert(Math.abs(end[2]-steps[0].p[2])<.01);
+console.log('PASS: latest helipad polyline reaches auditorium; gate clearance threshold crossed; bounded acceleration/deceleration; no stalled cruise. Drive time:',time.toFixed(1),'s');

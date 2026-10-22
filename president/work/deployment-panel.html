@@ -1,0 +1,206 @@
+<div id="gms-deployment" class="dep-card">
+  <div class="dep-header">
+    <div class="dep-title-wrap">
+      <span class="dep-badge">👮 Security Operations</span>
+      <h3 class="dep-title">Police Duty &amp; Equipment Deployment</h3>
+    </div>
+    <div class="dep-sync-status">
+      <span id="dep-sync" class="status-pill status-connecting">Backend: connecting…</span>
+      <button class="btn btn-sm btn-outline" type="button" id="dep-retry" hidden>Retry Save</button>
+      <button type="button" class="dep-peek-btn-icon" id="dep-panel-close-btn" title="Close Panel" style="margin-left:8px;font-size:15px;width:24px;height:24px;">✕</button>
+    </div>
+  </div>
+
+  <div class="dep-toolbar">
+    <div class="dep-tool-group">
+      <label class="field-label" for="dep-kind">Item Type</label>
+      <div class="select-btn-group">
+        <select id="dep-kind" class="form-select">
+          <option value="officer">👮 Police officer</option>
+          <option value="helipad">🚁 VIP Helipad (Circular Pad)</option>
+          <option value="ambulance">🚑 Emergency Ambulance</option>
+          <option value="firebrigade">🚒 Fire Brigade / Engine</option>
+          <option value="parking">🅿️ Vehicle Parking (3 Cars + Police Bus)</option>
+          <option value="qbelt">🎗️ Q-Belt / Barrier</option>
+          <option value="square_box">📦 Square Box / Placeholder</option>
+          <option value="barricade">🚧 Barricade</option>
+          <option value="binocular">🔭 Binoculars / Durbin</option>
+          <option value="dfmd">🚪 DFMD Gate</option>
+          <option value="hhmd">🔍 HHMD / Handheld</option>
+          <option value="radio">📻 Wireless Radio</option>
+          <option value="cone">⚠️ Traffic Cone</option>
+          <option value="cctv">📹 CCTV Camera</option>
+          <option value="light">💡 Search Light</option>
+        </select>
+        <button type="button" class="btn btn-primary" id="dep-add">➕ Add &amp; Place</button>
+      </div>
+    </div>
+
+    <div class="dep-tool-group dep-selector-group">
+      <label class="field-label" for="dep-list">Select Deployed Post</label>
+      <div class="select-btn-group">
+        <select id="dep-list" class="form-select select-accent"></select>
+        <button type="button" class="btn btn-secondary" id="dep-move" title="Click on the 3D map to reposition">📍 Reposition</button>
+        <button type="button" class="btn btn-danger" id="dep-delete" title="Remove selected deployment">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dep-info-banner">
+    <div class="dep-hint-icon">💡</div>
+    <div class="dep-hint-text">
+      <strong id="dep-status">13 draft duty posts. Select an icon or model to inspect &amp; edit.</strong>
+      <span class="dep-subhint">Keys: <b>W/A/S/D</b> nudge position (0.25m, Shift=1m) · Hover icon for quick popup · Add &amp; Place → click model → Place here</span>
+    </div>
+  </div>
+
+  <!-- Inspector Card for Selected Officer / Equipment -->
+  <div id="dep-editor" class="dep-inspector" hidden>
+    <div class="inspector-header">
+      <span class="inspector-tag">✏️ Post Inspector</span>
+      <span class="inspector-note">Changes auto-save immediately to database</span>
+    </div>
+
+    <form id="dep-form" class="inspector-form">
+      <div class="inspector-grid">
+        <div class="input-block">
+          <label class="input-label" for="dep-editkind">Assigned Type</label>
+          <select class="form-select" id="dep-editkind"></select>
+        </div>
+
+        <div class="input-block">
+          <label class="input-label" for="dep-name">Officer / Post Name</label>
+          <input class="form-control" id="dep-name" placeholder="e.g. HC Rakesh Kumar" maxlength="100">
+        </div>
+
+        <div class="input-block">
+          <label class="input-label" for="dep-duty">Duty Designation</label>
+          <input class="form-control" id="dep-duty" list="dep-duties" placeholder="e.g. Auditorium Stage Duty" maxlength="120">
+          <datalist id="dep-duties"></datalist>
+        </div>
+
+        <div class="input-block">
+          <label class="input-label" for="dep-belt">Belt Number</label>
+          <input class="form-control" id="dep-belt" placeholder="e.g. 1042 / PPT" maxlength="40">
+        </div>
+
+        <div class="input-block">
+          <label class="input-label" for="dep-mobile">Contact Mobile</label>
+          <input class="form-control" id="dep-mobile" type="tel" placeholder="e.g. +91 98765 43210" maxlength="30">
+        </div>
+      </div>
+
+      <!-- Quick Camera & Orientation Actions -->
+      <div class="inspector-actions-bar">
+        <div class="action-btn-cluster">
+          <button type="button" class="btn btn-camera" id="dep-first">🚶 First-Person View</button>
+          <button type="button" class="btn btn-camera" id="dep-third">🎥 Third-Person View</button>
+          <button type="button" class="btn btn-outline" id="dep-return">↩️ Reset Camera</button>
+        </div>
+        <div class="action-btn-cluster">
+          <button type="button" class="btn btn-sm btn-secondary" id="dep-left" title="Rotate left 30°">↺ −30°</button>
+          <button type="button" class="btn btn-sm btn-secondary" id="dep-right" title="Rotate right 30°">↻ +30°</button>
+          <button type="submit" class="btn btn-sm btn-success">Save Details</button>
+        </div>
+      </div>
+
+      <!-- Advanced Coordinates Dropdown -->
+      <details class="dep-coords-accordion">
+        <summary>📐 Fine Coordinate Adjustments (East, South, Height, Facing)</summary>
+        <div class="coords-grid">
+          <div class="input-block-sm">
+            <label class="input-label" for="dep-x">East X (m)</label>
+            <input class="form-control" id="dep-x" type="number" step="any" required>
+          </div>
+          <div class="input-block-sm">
+            <label class="input-label" for="dep-z">South Z (m)</label>
+            <input class="form-control" id="dep-z" type="number" step="any" required>
+          </div>
+          <div class="input-block-sm">
+            <label class="input-label" for="dep-y">Base Height (m)</label>
+            <input class="form-control" id="dep-y" type="number" min="0" max="100" step="any" required>
+          </div>
+          <div class="input-block-sm">
+            <label class="input-label" for="dep-angle">Facing Angle (°)</label>
+            <input class="form-control" id="dep-angle" type="number" step="5" required>
+          </div>
+        </div>
+      </details>
+    </form>
+  </div>
+
+  <!-- Backup & Export Section -->
+  <div class="dep-footer">
+    <div class="backup-actions">
+      <button type="button" class="btn btn-outline btn-sm" id="dep-export">💾 Export Deployment JSON</button>
+      <label class="btn btn-outline btn-sm file-btn-label">
+        📂 Import Saved Plan
+        <input id="dep-import" type="file" accept=".json,application/json" style="display:none">
+      </label>
+    </div>
+    <span class="dep-disclaimer">Draft operational plan for study purposes. Backend auto-persists to SQLite.</span>
+  </div>
+</div>
+<!-- Officer / Item Edit Dialog Modal (Minimalist UI) -->
+<div id="dep-officer-modal" class="dep-officer-modal" style="display:none;">
+  <div class="dep-officer-modal-backdrop" id="dep-officer-backdrop"></div>
+  <div class="dep-officer-modal-card" role="dialog" aria-modal="true" aria-labelledby="dep-dlg-title-text">
+    <div class="dep-officer-modal-header">
+      <div class="dep-officer-modal-title">
+        <span id="dep-dlg-symbol" class="dep-dlg-symbol">👮</span>
+        <span id="dep-dlg-title-text" class="dep-dlg-heading">Officer Details</span>
+        <span id="dep-dlg-badge" class="dep-dlg-badge"></span>
+      </div>
+      <button type="button" class="dep-officer-modal-close" id="dep-dlg-close-x" title="Close (ESC)">✕</button>
+    </div>
+    <form id="dep-officer-dialog-form">
+      <div class="dep-officer-modal-body">
+        <div class="dep-dlg-field">
+          <label class="dep-dlg-label" for="dep-dlg-name">Name</label>
+          <input type="text" id="dep-dlg-name" class="dep-dlg-input" placeholder="e.g. Officer 24" required autocomplete="off">
+        </div>
+
+        <div class="dep-dlg-row">
+          <div class="dep-dlg-field">
+            <label class="dep-dlg-label" for="dep-dlg-belt">Belt No.</label>
+            <input type="text" id="dep-dlg-belt" class="dep-dlg-input" placeholder="e.g. DL-4821" autocomplete="off">
+          </div>
+          <div class="dep-dlg-field">
+            <label class="dep-dlg-label" for="dep-dlg-mobile">Mobile</label>
+            <input type="tel" id="dep-dlg-mobile" class="dep-dlg-input" placeholder="e.g. 9876543210" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="dep-dlg-field">
+          <label class="dep-dlg-label" for="dep-dlg-duty">Duty / Location Zone</label>
+          <input type="text" id="dep-dlg-duty" class="dep-dlg-input" list="dep-dlg-duty-list" placeholder="Choose or type duty..." autocomplete="off">
+          <datalist id="dep-dlg-duty-list">
+            <option value="Main gate — DFMD / HHMD">Main gate — DFMD / HHMD</option>
+            <option value="Naka & barricade duty">Naka & barricade duty</option>
+            <option value="Helipad security & landing cordon">Helipad security & landing cordon</option>
+            <option value="Helipad approach road security">Helipad approach road security</option>
+            <option value="Auditorium main stage duty">Auditorium main stage duty</option>
+            <option value="Hall gate duty">Hall gate duty</option>
+            <option value="Auditorium seating duty">Auditorium seating duty</option>
+            <option value="VIP lounge duty">VIP lounge duty</option>
+            <option value="VIP toilet duty">VIP toilet duty</option>
+            <option value="VIP parking duty">VIP parking duty</option>
+            <option value="Binocular duty — rooftop">Binocular duty — rooftop</option>
+            <option value="Lotus duty">Lotus duty</option>
+            <option value="Central lawn duty">Central lawn duty</option>
+            <option value="Inner cordon duty">Inner cordon duty</option>
+            <option value="Outer perimeter duty">Outer perimeter duty</option>
+            <option value="Outer cordon duty">Outer cordon duty</option>
+          </datalist>
+        </div>
+      </div>
+      <div class="dep-officer-modal-footer">
+        <span class="dep-dlg-auto-hint">Auto-saves to SQLite & browser</span>
+        <div class="dep-dlg-footer-actions">
+          <button type="button" class="dep-dlg-btn-cancel" id="dep-dlg-cancel-btn">Cancel</button>
+          <button type="submit" class="dep-dlg-btn-save" id="dep-dlg-save-btn">Save Details</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

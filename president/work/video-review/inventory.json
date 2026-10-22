@@ -1,0 +1,65 @@
+[
+  {
+    "video": 1,
+    "file": "WhatsApp Video 2026-10-19 at 7.54.58 PM.mp4",
+    "durationSeconds": 25.408292,
+    "reviewFrames": 15,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 2,
+    "file": "WhatsApp Video 2026-10-19 at 7.57.49 PM.mp4",
+    "durationSeconds": 1.344,
+    "reviewFrames": 3,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 3,
+    "file": "WhatsApp Video 2026-10-19 at 7.57.55 PM.mp4",
+    "durationSeconds": 113.6,
+    "reviewFrames": 59,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 4,
+    "file": "WhatsApp Video 2026-10-19 at 7.57.56 PM.mp4",
+    "durationSeconds": 27.242667,
+    "reviewFrames": 16,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 5,
+    "file": "WhatsApp Video 2026-10-19 at 7.57.57 PM.mp4",
+    "durationSeconds": 14.634667,
+    "reviewFrames": 9,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 6,
+    "file": "WhatsApp Video 2026-10-19 at 7.57.58 PM.mp4",
+    "durationSeconds": 12.010667,
+    "reviewFrames": 8,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 7,
+    "file": "WhatsApp Video 2026-10-19 at 7.57.59 PM.mp4",
+    "durationSeconds": 22.144,
+    "reviewFrames": 13,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 8,
+    "file": "WhatsApp Video 2026-10-19 at 7.58.01 PM.mp4",
+    "durationSeconds": 11.948375,
+    "reviewFrames": 8,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  },
+  {
+    "video": 9,
+    "file": "WhatsApp Video 2026-10-19 at 7.58.02 PM.mp4",
+    "durationSeconds": 27.740938,
+    "reviewFrames": 16,
+    "coverage": "every 2 seconds plus start/end; visual review only"
+  }
+]

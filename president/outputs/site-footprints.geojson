@@ -1,0 +1,755 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "hall",
+      "properties": {
+        "id": "hall",
+        "name": "Main auditorium roof / envelope",
+        "group": "campus",
+        "status": "Estimated height; interior registration inferred",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84824108768358,
+              29.413582620590244
+            ],
+            [
+              76.84862617184504,
+              29.413582743495798
+            ],
+            [
+              76.84862672258245,
+              29.412955750796524
+            ],
+            [
+              76.84824163842099,
+              29.41295562789097
+            ],
+            [
+              76.84824108768358,
+              29.413582620590244
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "garden",
+      "properties": {
+        "id": "garden",
+        "name": "Central garden enclosure",
+        "group": "campus",
+        "status": "Visible paths and lawns; not a legal boundary",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84878045559351,
+              29.413390729511384
+            ],
+            [
+              76.84931525899871,
+              29.41339012458084
+            ],
+            [
+              76.84931701319091,
+              29.412963533421184
+            ],
+            [
+              76.84878220978572,
+              29.41296413835173
+            ],
+            [
+              76.84878045559351,
+              29.413390729511384
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "south",
+      "properties": {
+        "id": "south",
+        "name": "Southern building footprint union",
+        "group": "campus",
+        "status": "Roof massing visible; internal room use not established",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84823682621193,
+              29.41290918602925
+            ],
+            [
+              76.84944291072954,
+              29.412910055733057
+            ],
+            [
+              76.84944532439314,
+              29.412613963068996
+            ],
+            [
+              76.84823923987554,
+              29.412613093365184
+            ],
+            [
+              76.84823682621193,
+              29.41290918602925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "rear",
+      "properties": {
+        "id": "rear",
+        "name": "South rear roof wing",
+        "group": "campus",
+        "status": "Roof outline manually digitised",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84861376059672,
+              29.412674196124616
+            ],
+            [
+              76.84944810961322,
+              29.412674462419986
+            ],
+            [
+              76.8494495926188,
+              29.41259050188669
+            ],
+            [
+              76.8486152436023,
+              29.412590235591324
+            ],
+            [
+              76.84861376059672,
+              29.412674196124616
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "construction",
+      "properties": {
+        "id": "construction",
+        "name": "Southwest annex / construction block",
+        "group": "campus",
+        "status": "Registration of construction status inferred from photos",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84822326330388,
+              29.412905012735905
+            ],
+            [
+              76.84855751543212,
+              29.412904634654314
+            ],
+            [
+              76.84855726772781,
+              29.41266690664428
+            ],
+            [
+              76.84822301559957,
+              29.41266728472587
+            ],
+            [
+              76.84822326330388,
+              29.412905012735905
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "west-a",
+      "properties": {
+        "id": "west-a",
+        "name": "West adjacent covered block A",
+        "group": "context",
+        "status": "Ownership and height unverified",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84772240979467,
+              29.41358497581544
+            ],
+            [
+              76.84796044444447,
+              29.413585730456518
+            ],
+            [
+              76.84796258531131,
+              29.412877104122067
+            ],
+            [
+              76.8477245506615,
+              29.41287634948099
+            ],
+            [
+              76.84772240979467,
+              29.41358497581544
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "west-b",
+      "properties": {
+        "id": "west-b",
+        "name": "West adjacent covered block B",
+        "group": "context",
+        "status": "Ownership and height unverified",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84743897297133,
+              29.413469317777274
+            ],
+            [
+              76.847709044406,
+              29.413468919211425
+            ],
+            [
+              76.84771001527466,
+              29.41279296555116
+            ],
+            [
+              76.84743983671613,
+              29.412791037218895
+            ],
+            [
+              76.84743897297133,
+              29.413469317777274
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "west-c",
+      "properties": {
+        "id": "west-c",
+        "name": "West adjacent covered block C",
+        "group": "context",
+        "status": "Partly obscured in screenshot; outline approximate",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84714978491677,
+              29.413461081454706
+            ],
+            [
+              76.84741985635144,
+              29.413460682888854
+            ],
+            [
+              76.84742285420906,
+              29.412770671739324
+            ],
+            [
+              76.84715278277439,
+              29.412771070305173
+            ],
+            [
+              76.84714978491677,
+              29.413461081454706
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "east-blue",
+      "properties": {
+        "id": "east-blue",
+        "name": "Blue-roof building beside Luft india map listing",
+        "group": "context",
+        "status": "Nearby Luft india listing checked; ownership and exact roof association not established.",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84958943459625,
+              29.41371122235716
+            ],
+            [
+              76.84987830127928,
+              29.41371247798539
+            ],
+            [
+              76.84988016259533,
+              29.413288213723845
+            ],
+            [
+              76.8495912959123,
+              29.41328695809562
+            ],
+            [
+              76.84958943459625,
+              29.41371122235716
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "red",
+      "properties": {
+        "id": "red",
+        "name": "Small red-roof structure",
+        "group": "campus",
+        "status": "Function/date unverified",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84935538701117,
+              29.41321620430994
+            ],
+            [
+              76.84943291636512,
+              29.413215744291314
+            ],
+            [
+              76.84943215813402,
+              29.413141187451057
+            ],
+            [
+              76.84935462878008,
+              29.413141647469686
+            ],
+            [
+              76.84935538701117,
+              29.41321620430994
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "industrial-east",
+      "properties": {
+        "id": "industrial-east",
+        "name": "BAMC Medical \u2022 partial industrial roof beside verified map pin",
+        "group": "context",
+        "status": "Map listing and BAMC roof lettering corroborate industrial context; legal boundary/height unverified.",
+        "source": "Google Earth user screenshot with visible one-arcsecond graticule"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.8502142673891,
+              29.413749330273635
+            ],
+            [
+              76.85053517085699,
+              29.41374943269493
+            ],
+            [
+              76.8505438295503,
+              29.41306621003859
+            ],
+            [
+              76.85022292608242,
+              29.413066107617293
+            ],
+            [
+              76.8502142673891,
+              29.413749330273635
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "pavilion",
+      "properties": {
+        "id": "pavilion",
+        "name": "Lotus meditation pavilion circular plinth",
+        "group": "campus",
+        "status": "Circular plinth read from image; height/detail based on photos",
+        "source": "Graticule screenshot and ground photos"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.84923261375822,
+              29.413556041698843
+            ],
+            [
+              76.8492302378792,
+              29.413534920905626
+            ],
+            [
+              76.84922320154587,
+              29.413514611772648
+            ],
+            [
+              76.84921177516057,
+              29.413495894768495
+            ],
+            [
+              76.84919639783286,
+              29.41347948917715
+            ],
+            [
+              76.84917766050484,
+              29.41346602545628
+            ],
+            [
+              76.8491562832415,
+              29.41345602100913
+            ],
+            [
+              76.84913308755908,
+              29.413449860300993
+            ],
+            [
+              76.84910896485468,
+              29.41344778008443
+            ],
+            [
+              76.84908484215028,
+              29.413449860300993
+            ],
+            [
+              76.84906164646786,
+              29.41345602100913
+            ],
+            [
+              76.84904026920452,
+              29.41346602545628
+            ],
+            [
+              76.8490215318765,
+              29.41347948917715
+            ],
+            [
+              76.84900615454879,
+              29.413495894768495
+            ],
+            [
+              76.84899472816349,
+              29.413514611772648
+            ],
+            [
+              76.84898769183016,
+              29.413534920905626
+            ],
+            [
+              76.84898531595114,
+              29.413556041698843
+            ],
+            [
+              76.84898769183016,
+              29.41357716249206
+            ],
+            [
+              76.84899472816349,
+              29.41359747162504
+            ],
+            [
+              76.84900615454879,
+              29.41361618862919
+            ],
+            [
+              76.8490215318765,
+              29.413632594220537
+            ],
+            [
+              76.84904026920452,
+              29.413646057941406
+            ],
+            [
+              76.84906164646786,
+              29.413656062388558
+            ],
+            [
+              76.84908484215028,
+              29.413662223096694
+            ],
+            [
+              76.84910896485468,
+              29.413664303313258
+            ],
+            [
+              76.84913308755908,
+              29.413662223096694
+            ],
+            [
+              76.8491562832415,
+              29.413656062388558
+            ],
+            [
+              76.84917766050484,
+              29.413646057941406
+            ],
+            [
+              76.84919639783286,
+              29.413632594220537
+            ],
+            [
+              76.84921177516057,
+              29.41361618862919
+            ],
+            [
+              76.84922320154587,
+              29.41359747162504
+            ],
+            [
+              76.8492302378792,
+              29.41357716249206
+            ],
+            [
+              76.84923261375822,
+              29.413556041698843
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "main-road",
+      "properties": {
+        "id": "main-road",
+        "name": "Assan\u2013Thirana Road",
+        "width": 9,
+        "status": "Centreline manually digitised from displayed image; width estimated"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.84726513574341,
+            29.413585120727358
+          ],
+          [
+            76.84820725488574,
+            29.41371902218957
+          ],
+          [
+            76.84888047259159,
+            29.413820649543446
+          ],
+          [
+            76.84955369029744,
+            29.413922276897324
+          ],
+          [
+            76.85022669375559,
+            29.41401925045497
+          ],
+          [
+            76.85054973970045,
+            29.414065890838565
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "approach",
+      "properties": {
+        "id": "approach",
+        "name": "Internal concrete approach",
+        "width": 10,
+        "status": "Centreline manually digitised from displayed image; width estimated"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.84869944133747,
+            29.413664013212927
+          ],
+          [
+            76.84870003389565,
+            29.413328363280907
+          ],
+          [
+            76.84870147508046,
+            29.41295305998036
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "south-court",
+      "properties": {
+        "id": "south-court",
+        "name": "South building circulation court",
+        "width": 6,
+        "status": "Centreline manually digitised from displayed image; width estimated"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.84870147508046,
+            29.41295305998036
+          ],
+          [
+            76.84902451266117,
+            29.412941431810502
+          ],
+          [
+            76.8494235882261,
+            29.41295503560186
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "east-lane",
+      "properties": {
+        "id": "east-lane",
+        "name": "East perimeter lane",
+        "width": 4.5,
+        "status": "Centreline manually digitised from displayed image; width estimated"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8494940741086,
+            29.41373097026475
+          ],
+          [
+            76.84948589923947,
+            29.41332105179421
+          ],
+          [
+            76.84947906679544,
+            29.412591771678457
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "origin-pin",
+      "properties": {
+        "name": "Supplied Google Maps pin / model origin"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.848831,
+          29.413077
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "verified-listing-1",
+      "properties": {
+        "name": "Luft india",
+        "source": "Google Maps place listing selected directly, 2026-10-20",
+        "status": "Listing pin only; cadastral ownership and facade text unverified"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8499721,
+          29.4133618
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "verified-listing-2",
+      "properties": {
+        "name": "BAMC Medical",
+        "source": "Google Maps place listing selected directly, 2026-10-20",
+        "status": "Listing pin only; cadastral ownership and facade text unverified"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8502209,
+          29.4134342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "verified-listing-3",
+      "properties": {
+        "name": "Birmi Industries Private Limited",
+        "source": "Google Maps place listing selected directly, 2026-10-20",
+        "status": "Listing pin only; cadastral ownership and facade text unverified"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.8512636,
+          29.4138875
+        ]
+      }
+    }
+  ]
+}

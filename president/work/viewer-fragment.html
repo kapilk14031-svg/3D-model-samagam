@@ -1,0 +1,2189 @@
+<div id="gms-model">
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge">📍 3D Spatial Atlas</div>
+      <h1 class="brand-title">Gyan Mansarovar — Compound &amp; Auditorium</h1>
+      <span class="brand-sub">Bhodwal Majri, Panipat · 29.4131° N, 76.8488° E · Study Revision 15</span>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="action-pill" id="gms-reset-btn" title="Reset camera to whole compound">↺ Reset View</button>
+      <button type="button" class="action-pill" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas">⛶ Fullscreen</button>
+    </div>
+  </header>
+
+  <!-- Primary View Bar with Dual Top Dropdowns -->
+  <div class="view-bar-container">
+    <div class="top-dropdowns-group">
+      <!-- Camera Perspectives Dropdown -->
+      <div class="dropdown-wrapper">
+        <label for="gms-view" class="dropdown-header-label">📷 Camera Perspectives</label>
+        <select class="form-select select-views" id="gms-view">
+          <optgroup label="🏛️ Compound &amp; Master Layout">
+            <option value="campus" selected>Entire Campus (Isometric Overview)</option>
+            <option value="plan">Master Site Plan (Top-down 2D)</option>
+            <option value="neighborhood">Surroundings &amp; Neighborhood</option>
+                      </optgroup>
+          <optgroup label="🎭 Auditorium &amp; Main Stage">
+            <option value="hall">Main Hall (Auditorium Seating View)</option>
+            <option value="stage">Main Stage (Speaker Perspective)</option>
+            <option value="stageplan">Stage &amp; Side Access Stairs</option>
+            <option value="cutaway">Auditorium Cutaway (Roof Removed)</option>
+            <option value="entry">Main Hall Entrance &amp; Signboard</option>
+            <option value="classroom">Training &amp; Classrooms</option>
+          </optgroup>
+          <optgroup label="🪷 Meditation &amp; Landscaping">
+            <option value="garden">Garden &amp; Lotus Pavilion</option>
+            <option value="lotusinside">Lotus Meditation Chamber (Interior)</option>
+          </optgroup>
+          <optgroup label="🏢 Gates, Roads &amp; VIP Areas">
+            <option value="gate">Main Campus Entry Gate</option>
+            <option value="helicopter">Helicopter — detailed close view</option>
+            <option value="helipad">Helipad, helicopter &amp; vehicle access — proposed</option>
+            <option value="mainroad">Main Road &amp; Boundary Perimeter</option>
+            <option value="roads">Internal Circulation Roads</option>
+            <option value="residential">Residential Complex &amp; Guest Blocks</option>
+            <option value="lounge">VVIP Suite &amp; Executive Lounge</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Police Duty & Equipment Dropdown (Interactive Custom Menu with +, ✏️, 🗑️) -->
+      <div class="dropdown-wrapper" id="dep-top-dropdown-container" style="position:relative;">
+        <label for="dep-top-custom-btn" class="dropdown-header-label">👮 Deployment by Duty Place (<span id="dep-count-badge">38</span>)</label>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <div class="dep-custom-select-wrapper" style="position:relative;flex:1;min-width:0;">
+            <button type="button" class="form-select select-dep dep-custom-dropdown-btn" id="dep-top-custom-btn" aria-haspopup="listbox" aria-expanded="false" title="Click to view all deployed posts and manage items">
+              <span id="dep-top-btn-label" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">👮 All Deployed Posts (38)</span>
+              <span class="dep-dd-arrow" style="font-size:10px;color:#0369a1;margin-left:6px;flex-shrink:0;">▼</span>
+            </button>
+            <!-- Custom Dropdown Menu with Action Buttons (+, ✏️, 🗑️) -->
+            <div id="dep-top-menu" class="dep-custom-menu" style="display:none;" role="listbox"></div>
+            <!-- Hidden native select for backwards compatibility -->
+            <select class="form-select select-dep" id="dep-top-list" style="display:none;">
+              <option value="">Select post by duty place...</option>
+            </select>
+          </div>
+          <button type="button" id="dep-top-quick-deploy" class="btn btn-sm btn-primary" style="padding:4px 9px;font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;" title="Deploy item anywhere on model">➕ Deploy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D Stage Viewport -->
+  <div id="gms-stage" role="img" aria-label="Interactive 3D model of Gyan Mansarovar campus">
+    <div id="gms-labels"></div>
+
+    <!-- Minimalist Hover Tooltip (Name & Duty only) -->
+    <div id="dep-hover-tooltip" class="dep-hover-tooltip" style="display:none"></div>
+
+    <!-- GTA-Style Radar Navigation Minimap (Active when controlling an item) -->
+    <div id="dep-gta-minimap-container" class="gta-minimap-container" style="display:none;">
+      <div id="dep-gta-loc-badge" class="gta-loc-badge">📍 SECTOR: CAMPUS</div>
+      <div id="dep-gta-card" class="gta-radar-card">
+        <canvas id="dep-gta-canvas" width="352" height="352"></canvas>
+        <div class="gta-radar-controls">
+          <button type="button" class="gta-zoom-btn" id="dep-gta-zoom-in" title="Zoom In (+)">+</button>
+          <button type="button" class="gta-zoom-btn" id="dep-gta-zoom-out" title="Zoom Out (−)">−</button>
+        </div>
+        <div id="dep-gta-stats-badge" class="gta-stats-badge">
+          <span id="dep-gta-coords">X: 0 | Z: 0</span>
+          <span id="dep-gta-heading">0°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contextual Deploy-Here Radial Menu on Canvas -->
+    <div id="dep-radial-deploy" class="deploy-popup-card" style="display:none">
+      <div class="deploy-popup-header">
+        <span>📍 Choose Item to Deploy</span>
+        <button type="button" class="deploy-popup-close" id="dep-radial-close" title="Close">✕</button>
+      </div>
+      <div class="deploy-popup-sub">Click item to deploy immediately here:</div>
+      <div class="deploy-popup-grid">
+        <button type="button" class="deploy-item-btn" data-kind="officer">👮 Officer</button>
+        <button type="button" class="deploy-item-btn" data-kind="helipad">🚁 Helipad</button>
+        <button type="button" class="deploy-item-btn" data-kind="ambulance">🚑 Ambulance</button>
+        <button type="button" class="deploy-item-btn" data-kind="firebrigade">🚒 Fire Brigade</button>
+        <button type="button" class="deploy-item-btn" data-kind="parking">🅿️ Parking</button>
+        <button type="button" class="deploy-item-btn" data-kind="qbelt">🎗️ Q-Belt</button>
+        <button type="button" class="deploy-item-btn" data-kind="square_box">📦 Square Box</button>
+        <button type="button" class="deploy-item-btn" data-kind="barricade">🚧 Barricade</button>
+        <button type="button" class="deploy-item-btn" data-kind="dfmd">🚪 DFMD Gate</button>
+        <button type="button" class="deploy-item-btn" data-kind="binocular">🔭 Binoculars</button>
+        <button type="button" class="deploy-item-btn" data-kind="hhmd">🔍 HHMD</button>
+        <button type="button" class="deploy-item-btn" data-kind="radio">📻 Radio</button>
+        <button type="button" class="deploy-item-btn" data-kind="cone">⚠️ Cone</button>
+        <button type="button" class="deploy-item-btn" data-kind="cctv">📹 CCTV</button>
+        <button type="button" class="deploy-item-btn" data-kind="light">💡 Light</button>
+      </div>
+    </div>
+
+    <!-- Canvas Floating Top-Left: Navigation Mode Pills -->
+    <div class="canvas-overlay top-left">
+      <div class="mode-segmented-control" id="gms-mode-pills">
+        <button type="button" class="mode-pill active" data-mode="orbit" title="Left drag: Rotate 3D · Right drag: Pan">🔄 Orbit 3D</button>
+        <button type="button" class="mode-pill" data-mode="pan" title="Left drag: Pan">🖐️ Pan</button>
+        <button type="button" class="mode-pill" data-mode="box" title="Shift-drag or box zoom">🔍 Box Zoom</button>
+      </div>
+      <!-- Hidden legacy select kept for backward compatibility -->
+      <select id="gms-navigation" style="display:none">
+        <option value="orbit" selected>Rotate 3D</option>
+        <option value="pan">Drag / pan</option>
+        <option value="box">Rectangle zoom</option>
+      </select>
+    </div>
+
+    <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
+    <div class="canvas-overlay top-right">
+      <button type="button" class="overlay-btn vvip-btn" id="gms-vvip-btn" title="Simulate VVIP Helicopter Arrival, Motorcade & Stage Entry">
+        <span class="vvip-badge-icon">🎖️</span>
+        <span class="vvip-btn-text">VVIP</span>
+      </button>
+      <div class="layers-dropdown">
+        <button type="button" class="overlay-btn" id="gms-layers-toggle">
+          <span>⚙️ Layers &amp; Lights</span> ▾
+        </button>
+          <div class="layers-menu" id="gms-layers-menu">
+            <div class="layer-item">
+              <span class="layer-item-title">Lighting</span>
+              <select class="form-select form-select-sm" id="gms-light">
+                <option value="day" selected>☀️ Day</option>
+                <option value="evening">🌙 Night</option>
+              </select>
+            </div>
+            <div class="layer-divider"></div>
+            <label class="layer-check-label">
+              <input type="checkbox" id="gms-event" class="form-check-input">
+              <span>🛡️ VVIP Proposals</span>
+            </label>
+            <label class="layer-check-label">
+              <input type="checkbox" id="gms-context" class="form-check-input" checked>
+              <span>🏘️ Nearby Blocks*</span>
+            </label>
+            <label class="layer-check-label">
+              <input type="checkbox" id="gms-snapshot" class="form-check-input" checked>
+              <span>🛰️ Satellite Objects*</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+    <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD (Hidden per user request) -->
+    <div class="canvas-overlay bottom-left" style="display:none !important;">
+      <div class="hud-pill" id="gms-detail" aria-live="polite" style="display:none !important;">
+      </div>
+    </div>
+
+    <!-- Canvas Floating Bottom-Right: Mouse Hint (Hidden) -->
+    <div class="canvas-overlay bottom-right" style="display:none !important;">
+      <div class="hint-pill" style="display:none !important;">
+        <span>🖱️ <b>Left-click:</b> Select · <b>Right-click:</b> Deploy · <b>W/S/A/D:</b> Move / Pan · <b>Q/E:</b> Rotate · <b>Z/X:</b> Angle · <b>K/L:</b> Zoom In/Out</span>
+      </div>
+    </div>
+
+    <!-- Adaptive Mobile / Tablet Virtual Touch Controller -->
+    <div id="dep-touch-controls" class="dep-touch-controls" style="display:none">
+      <div class="dep-touch-dpad">
+        <button type="button" class="touch-btn touch-up" data-key="w" aria-label="Forward">▲</button>
+        <div class="touch-dpad-row">
+          <button type="button" class="touch-btn touch-left" data-key="a" aria-label="Turn Left">◀</button>
+          <button type="button" class="touch-btn touch-down" data-key="s" aria-label="Backward">▼</button>
+          <button type="button" class="touch-btn touch-right" data-key="d" aria-label="Turn Right">▶</button>
+        </div>
+      </div>
+      <div class="dep-touch-actions">
+        <button type="button" class="touch-btn touch-jump" data-action="jump" aria-label="Jump">🦘</button>
+        <button type="button" class="touch-btn touch-shift" data-key="shift" aria-label="Sprint">⚡</button>
+      </div>
+    </div>
+
+    <!-- VVIP Real-Time Simulation HUD -->
+    <div id="vvip-hud" class="vvip-hud-container" style="display:none">
+      <div class="vvip-hud-header">
+        <div class="vvip-hud-title-box">
+          <span class="vvip-live-dot"></span>
+          <span class="vvip-hud-title">🎖️ VVIP VISUAL REHEARSAL</span>
+          <span class="vvip-hud-stage-name" id="vvip-stage-pill">Phase 1/5</span>
+        </div>
+        <div class="vvip-hud-actions">
+          <button type="button" class="vvip-btn-action" id="vvip-pause-btn">Pause</button>
+          <button type="button" class="vvip-btn-action" id="vvip-skip-btn" title="Skip to next phase">⏭️ Next Phase</button>
+          <button type="button" class="vvip-btn-action vvip-btn-danger" id="vvip-exit-btn" title="Exit simulation">✕ Exit</button>
+        </div>
+      </div>
+      <div class="vvip-hud-body">
+        <div class="vvip-hud-msg" id="vvip-status-msg">🚁 Helicopter approaching Bhodwal Majri Helipad from sky...</div>
+        <div class="vvip-timeline-bar">
+          <div class="vvip-step active" id="vvip-step-1"><span class="step-num">1</span> 🚁 Air Arrival</div>
+          <div class="vvip-step" id="vvip-step-2"><span class="step-num">2</span> 🚶‍♀️ Disembark</div>
+          <div class="vvip-step" id="vvip-step-3"><span class="step-num">3</span> 🚘 Motorcade</div>
+          <div class="vvip-step" id="vvip-step-4"><span class="step-num">4</span> 🚧 Gate Block</div>
+          <div class="vvip-step" id="vvip-step-5"><span class="step-num">5</span> 🎭 Stage Arrival</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VVIP Protocol Completion Modal -->
+    <div id="vvip-finish-modal" class="vvip-finish-modal" style="display:none">
+      <div class="vvip-finish-card">
+        <div class="vvip-finish-icon">👑</div>
+        <h3>VVIP Protocol Completed</h3>
+        <p>Honorable Female VVIP has safely arrived via Helipad &amp; Motorcade, escorted through the Main Gate into the Auditorium, and has reached the existing Main Stage with two PSO escorts.</p>
+        <div class="vvip-finish-details">
+          <div class="vvip-detail-item"><span>📍 Final Location:</span> <b>Auditorium Main Stage — with PSO escorts</b></div>
+          <div class="vvip-detail-item"><span>🛡️ Security Corridor:</span> <b>Main Road Blocked &amp; Full Route Escorted</b></div>
+          <div class="vvip-detail-item"><span>🚁 Air Transit:</span> <b>Helicopter Touchdown Verified (Helipad H-1)</b></div>
+        </div>
+        <div class="vvip-finish-buttons">
+          <button type="button" class="btn btn-primary" id="vvip-replay-btn">↺ Replay Protocol</button>
+          <button type="button" class="btn btn-secondary" id="vvip-done-btn">✕ Return to Standard 3D Map</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deployment Floating Panel / Tab -->
+    __DEPLOYMENT_PANEL__
+  </div>
+</div>
+
+<style>
+/* Modern Resilient 3D Viewer Styles */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --border-focus: #0284c7;
+  --primary-accent: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-subtle: #e0f2fe;
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.12);
+  --transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#gms-model {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-main);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  margin: 0 auto;
+}
+
+#gms-model:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+#gms-model:fullscreen #gms-stage {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+#gms-stage:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.header-brand { display: flex; flex-direction: column; gap: 4px; }
+.brand-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  background: var(--primary-subtle);
+  color: var(--primary-hover);
+  border-radius: 9999px;
+}
+.brand-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+.brand-sub { font-size: 13px; color: var(--text-muted); }
+
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.action-pill {
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.action-pill:hover { background: var(--primary-subtle); border-color: var(--primary-accent); color: var(--primary-hover); }
+
+/* Top Dual Dropdown View Bar */
+.view-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.top-dropdowns-group {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 260px;
+}
+.dropdown-header-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.select-views, .select-dep {
+  width: 100%;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.select-dep {
+  border-color: #bae6fd;
+  background-color: #f0f9ff;
+  color: #0369a1;
+  font-weight: 600;
+}
+.select-views:focus, .select-dep:focus { outline: none; border-color: var(--border-focus); ring: 2px var(--primary-subtle); }
+
+/* 3D Stage Viewport */
+#gms-stage {
+  height: 640px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #4fa3e3 0%, #82bef6 32%, #b9dcf8 65%, #ddedf9 100%);
+  border: 1px solid var(--border-light);
+  touch-action: none;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);
+}
+#gms-stage canvas { display: block; width: 100%; height: 100%; }
+#gms-labels { position: absolute; inset: 0; pointer-events: none; }
+#gms-labels span {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  color: var(--text-main);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Clean Icon Only — No circles around icon, compact size, instantaneous 60fps tracking */
+#gms-labels .dep-marker {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -100%);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+  user-select: none;
+  transition: none !important;
+  animation: none !important;
+  will-change: left, top, transform;
+}
+#gms-labels .dep-marker[aria-pressed="true"] {
+  background: transparent !important;
+  filter: drop-shadow(0 0 6px rgba(2, 132, 199, 1)) drop-shadow(0 1px 4px rgba(0,0,0,0.8)) !important;
+  z-index: 10;
+}
+
+/* Minimalist Hover Tooltip — Just Name & Duty */
+.dep-hover-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 35;
+  border: 1px solid rgba(255,255,255,0.18);
+  animation: fadeIn 0.1s ease;
+}
+
+/* Floating Information Tab Card on Click */
+#gms-stage .dep-peek {
+  position: absolute;
+  pointer-events: auto !important;
+  cursor: default;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  color: var(--text-main);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+  border: 1px solid #bae6fd;
+  z-index: 100 !important;
+  width: 290px;
+  animation: popIn 0.14s ease-out;
+  transition: width 0.15s ease, padding 0.15s ease;
+}
+
+#gms-stage .dep-peek.minimized {
+  width: auto;
+  min-width: 200px;
+  max-width: 330px;
+  padding: 5px 9px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  border: 1.5px solid #38bdf8;
+  background: rgba(255, 255, 255, 0.96);
+}
+#dep-peek-min {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0284c7;
+}
+#dep-peek-min:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+#dep-peek-del {
+  font-size: 13px;
+  color: #dc2626;
+  margin-right: 2px;
+}
+#dep-peek-del:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.dep-peek-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+#gms-stage .dep-peek:not(.minimized) .dep-peek-head {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e0f2fe;
+}
+.dep-peek-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.dep-peek-title {
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #0369a1;
+  white-space: nowrap;
+}
+.dep-peek-duty-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  background: #f0f9ff;
+  color: #0284c7;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #bae6fd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+}
+.dep-peek-controls {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.dep-peek-btn-icon {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  color: #64748b;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.1s ease;
+}
+.dep-peek-btn-icon:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+#dep-peek-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Minimized quick action bar */
+.dep-peek-min-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px dashed #e2e8f0;
+  gap: 4px;
+}
+.dep-peek-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.dep-peek-min-bar .btn-xs {
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.dep-peek-min-bar .btn-xs:hover {
+  background: #0284c7;
+  color: #fff;
+  border-color: #0284c7;
+}
+.btn-danger-soft {
+  color: #dc2626 !important;
+}
+.btn-danger-soft:hover {
+  background: #dc2626 !important;
+  color: #fff !important;
+  border-color: #dc2626 !important;
+}
+.dep-peek-keys-hint {
+  font-size: 10.5px;
+  color: #0284c7;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Adaptive Touch Virtual Controls for Mobile / Tablets */
+.dep-touch-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 16px;
+  pointer-events: none;
+  z-index: 95;
+}
+.dep-touch-dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  user-select: none;
+}
+.touch-dpad-row {
+  display: flex;
+  gap: 6px;
+}
+.dep-touch-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto;
+  user-select: none;
+}
+.touch-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  touch-action: none;
+  transition: transform 0.08s ease, background 0.08s ease;
+}
+.touch-btn:active, .touch-btn.active {
+  background: #0284c7;
+  border-color: #38bdf8;
+  transform: scale(0.92);
+}
+.touch-btn.touch-jump {
+  width: 54px;
+  height: 54px;
+  background: rgba(2, 132, 199, 0.85);
+  border-color: #38bdf8;
+  font-size: 22px;
+}
+.touch-btn.touch-shift {
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+#gms-stage .dep-peek .form-label {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+#gms-stage .dep-peek input {
+  font-size: 12.5px;
+  padding: 4px 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+#gms-stage .dep-peek .viz-controls {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+#gms-stage .dep-peek .btn {
+  padding: 5px 9px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Floating Canvas HUD Overlays */
+.canvas-overlay {
+  position: absolute;
+  z-index: 5;
+  pointer-events: auto;
+}
+.canvas-overlay.top-left { top: 12px; left: 12px; }
+.canvas-overlay.top-right { top: 12px; right: 12px; display: flex; gap: 8px; align-items: center; }
+
+/* VVIP Button & Cinematic Simulation Styles */
+.vvip-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: linear-gradient(135deg, #78350f 0%, #b45309 40%, #d97706 100%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 215, 170, 0.6) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+}
+.vvip-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(180, 83, 9, 0.5) !important;
+  background: linear-gradient(135deg, #92400e 0%, #d97706 50%, #f59e0b 100%) !important;
+}
+.vvip-btn.active {
+  background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%) !important;
+  border-color: #fca5a5 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 6px 20px rgba(220, 38, 38, 0.6) !important;
+}
+#gms-model[data-simulation] #gms-gate-hud {display:none;}
+#gms-model[data-simulation="complete"] .vvip-timeline-bar{display:none;}
+.vvip-hud-container {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(840px, calc(100% - 24px));
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(245, 158, 11, 0.2);
+  color: #fff;
+  animation: vvipFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+@keyframes vvipFadeIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.vvip-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+.vvip-hud-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vvip-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px #ef4444;
+  animation: vvipBlink 1s infinite alternate;
+}
+@keyframes vvipBlink {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+.vvip-hud-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fef08a;
+  text-transform: uppercase;
+}
+.vvip-hud-stage-name {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fde68a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.vvip-hud-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.vvip-btn-action {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.vvip-btn-action:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.vvip-btn-action.vvip-btn-danger {
+  background: rgba(220, 38, 38, 0.3);
+  border-color: rgba(220, 38, 38, 0.6);
+  color: #fca5a5;
+}
+.vvip-btn-action.vvip-btn-danger:hover {
+  background: #dc2626;
+  color: #fff;
+}
+.vvip-hud-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vvip-timeline-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.vvip-step {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 5px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.25s ease;
+}
+.vvip-step.active {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.3) 0%, rgba(180, 83, 9, 0.5) 100%);
+  border-color: #f59e0b;
+  color: #fef08a;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+.vvip-step.done {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #a7f3d0;
+}
+.step-num {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.15);
+  margin-right: 3px;
+}
+.vvip-step.active .step-num { background: #f59e0b; color: #000; }
+.vvip-step.done .step-num { background: #10b981; color: #000; }
+
+.vvip-finish-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: vvipFadeIn 0.3s ease;
+}
+.vvip-finish-card {
+  background: #0f172a;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  border-radius: 18px;
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 24px;
+  text-align: center;
+  color: #f8fafc;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.25);
+}
+.vvip-finish-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+.vvip-finish-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fef08a;
+  margin: 0 0 8px 0;
+}
+.vvip-finish-card p {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+.vvip-finish-details {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+.vvip-detail-item {
+  display: flex;
+  justify-content: space-between;
+}
+.vvip-finish-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.vvip-finish-buttons .btn {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.vvip-finish-buttons .btn-primary {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  color: #fff;
+  border: 1px solid rgba(255, 235, 180, 0.5);
+}
+.vvip-finish-buttons .btn-primary:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.vvip-finish-buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.vvip-finish-buttons .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.canvas-overlay.bottom-left { bottom: 12px; left: 12px; max-width: calc(100% - 320px); }
+.canvas-overlay.bottom-right { bottom: 12px; right: 12px; }
+
+/* Segmented Control for Modes */
+.mode-segmented-control {
+  display: flex;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  padding: 3px;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+.mode-pill {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.mode-pill:hover { background: rgba(0,0,0,0.05); }
+.mode-pill.active {
+  background: #0f172a;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Layers Popover */
+.layers-dropdown { position: relative; }
+.overlay-btn {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.overlay-btn:hover { background: #fff; }
+.overlay-btn.active {
+  background: #0f172a !important;
+  color: #fff !important;
+  border-color: #0f172a !important;
+}
+.layers-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 210px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  flex-direction: column;
+  gap: 8px;
+}
+.layers-menu.show { display: flex; }
+.layer-item-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2px; }
+.layer-divider { height: 1px; background: var(--border-light); margin: 4px 0; }
+.layer-check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* Contextual Click-to-Deploy Menu on 3D Model */
+.deploy-popup-card {
+  position: absolute;
+  z-index: 105 !important;
+  pointer-events: auto !important;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  border: 1px solid #bae6fd;
+  width: 275px;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: popIn 0.16s ease-out;
+}
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.deploy-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #0369a1;
+  margin-bottom: 2px;
+}
+.deploy-popup-close {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  color: #64748b;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+.deploy-popup-close:hover { color: #0f172a; background: #e2e8f0; }
+.deploy-popup-sub {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 7px;
+}
+.deploy-popup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+.deploy-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1e293b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: all 0.12s ease;
+  text-align: left;
+  white-space: nowrap;
+}
+.deploy-item-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+/* HUD Readouts */
+.hud-pill {
+  display: none !important;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(8px);
+  color: #f8fafc;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.hint-pill {
+  display: none !important;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Deployment Card Styles - Floating Tab on 3D Stage */
+#gms-stage #gms-deployment {
+  display: none;
+  position: absolute;
+  top: 48px;
+  right: 12px;
+  width: min(680px, calc(100% - 24px));
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+  z-index: 95;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid #38bdf8;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  padding: 16px 18px;
+  margin-top: 0;
+  animation: popIn 0.16s ease-out;
+}
+#gms-stage #gms-deployment.show {
+  display: flex !important;
+  flex-direction: column;
+}
+.dep-card {
+  margin-top: 18px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.dep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.dep-title-wrap { display: flex; align-items: center; gap: 10px; }
+.dep-badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 9999px;
+}
+.dep-title { margin: 0; font-size: 17px; font-weight: 700; color: var(--text-main); }
+.status-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.dep-toolbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid #edf2f7;
+}
+.dep-tool-group { display: flex; flex-direction: column; gap: 4px; }
+.field-label { font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+.select-btn-group { display: flex; gap: 6px; align-items: center; }
+.select-btn-group .form-select { flex: 1; }
+
+.dep-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+.dep-hint-icon { font-size: 18px; line-height: 1.2; }
+.dep-hint-text { display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; color: #166534; }
+.dep-subhint { font-size: 11.5px; color: #15803d; opacity: 0.9; }
+
+/* Inspector */
+.dep-inspector {
+  background: #ffffff;
+  border: 1px solid #bae6fd;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.inspector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0f2fe;
+}
+.inspector-tag { font-size: 13px; font-weight: 700; color: #0369a1; }
+.inspector-note { font-size: 11.5px; color: var(--text-muted); }
+
+.inspector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+.input-block { display: flex; flex-direction: column; gap: 4px; }
+.input-label { font-size: 11.5px; font-weight: 600; color: var(--text-muted); }
+.form-control {
+  padding: 7px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+.form-control:focus { outline: none; border-color: var(--primary-accent); ring: 2px var(--primary-subtle); }
+
+.inspector-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+.action-btn-cluster { display: flex; gap: 6px; align-items: center; }
+
+.dep-coords-accordion {
+  margin-top: 6px;
+  border-top: 1px dashed var(--border-light);
+  padding-top: 8px;
+}
+.dep-coords-accordion summary {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+.coords-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.input-block-sm { display: flex; flex-direction: column; gap: 2px; }
+
+/* Buttons */
+.btn {
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-primary { background: #0284c7; color: #fff; }
+.btn-primary:hover { background: #0369a1; }
+.btn-secondary { background: #e2e8f0; color: #1e293b; }
+.btn-secondary:hover { background: #cbd5e1; }
+.btn-danger { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
+.btn-danger:hover { background: #fca5a5; }
+.btn-success { background: #16a34a; color: #fff; }
+.btn-success:hover { background: #15803d; }
+.btn-camera { background: #f0f9ff; color: #0284c7; border-color: #bae6fd; }
+.btn-camera:hover { background: #0284c7; color: #fff; }
+.btn-outline { background: #fff; border: 1px solid var(--border-light); color: var(--text-main); }
+.btn-outline:hover { background: #f8fafc; border-color: #cbd5e1; }
+
+.dep-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+.backup-actions { display: flex; gap: 8px; align-items: center; }
+.file-btn-label { cursor: pointer; }
+.dep-disclaimer { font-size: 11.5px; color: var(--text-muted); }
+
+#gms-stage .dep-confirm {
+  position: absolute;
+  z-index: 16;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  gap: 6px;
+  border: 1px solid var(--primary-accent);
+}
+
+@media (max-width: 768px) {
+  #gms-stage { height: 460px; }
+  .canvas-overlay.bottom-left { max-width: calc(100% - 24px); }
+  .canvas-overlay.bottom-right { display: none; }
+  .top-dropdowns-group { width: 100%; }
+  .dropdown-wrapper { flex: 1; }
+}
+
+
+.dep-peek-title-row {
+  cursor: pointer;
+  transition: opacity 0.12s ease;
+}
+.dep-peek-title-row:hover .dep-peek-title {
+  text-decoration: underline;
+  color: #0284c7;
+}
+.dep-peek-title-row:hover .dep-peek-duty-badge {
+  border-color: #0284c7;
+  background: #e0f2fe;
+}
+
+
+/* Officer / Item Quick Edit Modal (Minimalist UI) */
+/* =========================================================================
+   GTA-Style Tactical Radar Navigation Minimap HUD
+   ========================================================================= */
+.gta-minimap-container {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  width: 176px;
+  z-index: 850;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: popIn 0.2s ease-out;
+}
+.gta-loc-badge {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(56, 189, 248, 0.5);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  margin-bottom: 6px;
+  text-align: center;
+  pointer-events: none;
+}
+.gta-radar-card {
+  position: relative;
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.94) 0%, rgba(10, 15, 26, 0.98) 100%);
+  border: 2.5px solid rgba(56, 189, 248, 0.65);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 16px rgba(2, 132, 199, 0.3), inset 0 0 20px rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  pointer-events: auto;
+}
+#dep-gta-canvas {
+  width: 176px;
+  height: 176px;
+  display: block;
+  border-radius: 50%;
+}
+.gta-radar-controls {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 12;
+}
+.gta-zoom-btn {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  width: 19px;
+  height: 19px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  padding: 0;
+  transition: all 0.12s ease;
+}
+.gta-zoom-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
+.gta-stats-badge {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 15, 26, 0.90);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 8px;
+  font-weight: 600;
+  color: #94a3b8;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  gap: 6px;
+}
+.gta-stats-badge #dep-gta-heading {
+  color: #38bdf8;
+}
+
+
+.dep-officer-modal {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+.dep-officer-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.dep-officer-modal-card {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  animation: depModalPopIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+@keyframes depModalPopIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.dep-officer-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+.dep-officer-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dep-dlg-symbol {
+  font-size: 16px;
+  line-height: 1;
+}
+.dep-dlg-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+.dep-dlg-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0;
+}
+.dep-officer-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dep-officer-modal-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.dep-officer-modal-body {
+  padding: 16px 18px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.dep-dlg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+.dep-dlg-row {
+  display: flex;
+  gap: 10px;
+}
+.dep-dlg-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  letter-spacing: -0.01em;
+}
+.dep-dlg-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8.5px 11px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  transition: all 0.15s ease;
+}
+.dep-dlg-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+.dep-dlg-input:hover {
+  border-color: #cbd5e1;
+  background: #ffffff;
+}
+.dep-dlg-input:focus {
+  border-color: #0284c7;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+.dep-officer-modal-footer {
+  padding: 12px 18px 14px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.dep-dlg-auto-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: -0.01em;
+}
+.dep-dlg-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dep-dlg-btn-cancel {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12.5px;
+  padding: 6.5px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dep-dlg-btn-cancel:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+.dep-dlg-btn-save {
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12.5px;
+  padding: 6.5px 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.dep-dlg-btn-save:hover {
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+.dep-dlg-btn-save:active {
+  transform: translateY(1px);
+}
+.dep-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #0f172a;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  z-index: 100001;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dep-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* Custom Dropdown Menu with +, ✏️, 🗑️ Actions */
+.dep-custom-select-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.dep-custom-dropdown-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  user-select: none;
+  overflow: hidden;
+  gap: 6px;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+.dep-custom-dropdown-btn:hover {
+  border-color: #0284c7;
+}
+.dep-custom-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  min-width: 340px;
+  max-width: 460px;
+  max-height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px -4px rgba(15, 23, 42, 0.24), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  animation: depMenuPopIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes depMenuPopIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.dep-menu-all-header {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #f0f9ff;
+  border-bottom: 1px solid #e0f2fe;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.12s ease;
+}
+.dep-menu-all-header:hover {
+  background: #e0f2fe;
+}
+.dep-menu-group-header {
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0284c7;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: -0.01em;
+}
+.dep-menu-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-bottom: 1px solid #f8fafc;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  gap: 8px;
+}
+.dep-menu-item-row:hover {
+  background: #f1f5f9;
+}
+.dep-menu-item-row.selected {
+  background: #e0f2fe;
+  border-left: 3px solid #0284c7;
+}
+.dep-menu-item-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.dep-menu-item-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dep-menu-item-belt {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+.dep-menu-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.dep-row-action-btn {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  transition: all 0.12s ease;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 0;
+}
+.dep-row-action-btn:hover {
+  transform: scale(1.08);
+}
+.dep-row-action-btn.btn-add:hover {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+.dep-row-action-btn.btn-edit:hover {
+  background: #e0f2fe;
+  color: #0284c7;
+  border-color: #7dd3fc;
+}
+.dep-row-action-btn.btn-del:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(()=>{
+const data=__SCENE_DATA__;
+data.objects=data.rows.map(r=>({name:data.names[r[0]],p:r.slice(1,4),s:r.slice(4,7),mat:data.mats[r[7]],shape:data.shapes[r[8]],group:data.groups[r[9]],rot:r[10]||0,tilt:r[11]||0,rz:r[12]||0}));
+const root=document.getElementById('gms-model'), host=root.querySelector('#gms-stage'), labelRoot=root.querySelector('#gms-labels'), info=root.querySelector('#gms-detail');
+if(!window.THREE){ info.textContent='3D library load nahi hui. Internet connection ke saath dobara kholein; GLB file offline 3D software mein khul sakti hai.';return; }
+let renderer;
+try{ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true}); }catch(e){info.textContent='WebGL available nahi hai. GLB file 3D viewer mein kholein.';return;}
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;host.appendChild(renderer.domElement);
+renderer.domElement.tabIndex = 0;
+renderer.domElement.style.outline = 'none';
+const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(44,1,.1,3000);
+const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.maxDistance=1800;controls.minDistance=1;controls.maxPolarAngle=Math.PI*.495;controls.target.set(-10,0,0);
+const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;controls.enableDamping=!reducedMotion;controls.dampingFactor=.16;controls.screenSpacePanning=true;controls.panSpeed=1.8;controls.rotateSpeed=.75;
+// Natural Controls: Left-drag Orbit 3D, Right-drag Pan, Wheel Zoom
+controls.mouseButtons.LEFT=THREE.MOUSE.ROTATE;controls.mouseButtons.RIGHT=THREE.MOUSE.PAN;controls.touches.ONE=THREE.TOUCH.ROTATE;controls.touches.TWO=THREE.TOUCH.DOLLY_PAN;
+const hemi=new THREE.HemisphereLight(0xcfe6fc,0x5d7f4c,0.68);scene.add(hemi);const light=new THREE.DirectionalLight(0xfff8ed,1.40);light.position.set(-70,140,-70);light.castShadow=true;light.shadow.mapSize.set(2048,2048);Object.assign(light.shadow.camera,{left:-150,right:150,top:120,bottom:-120,near:1,far:380});light.shadow.bias=-.0001;light.shadow.normalBias=.04;scene.add(light);
+const ambient=new THREE.AmbientLight(0xffffff,0.26);scene.add(ambient);
+const interiorLights=new THREE.Group();scene.add(interiorLights);for(const z of [-28,-7,15]){const l=new THREE.PointLight(0xfff6e7,.75,85,1.2);l.position.set(-40,8.2,z);interiorLights.add(l);}
+const hallKey=new THREE.DirectionalLight(0xfff5e3,1.1);hallKey.position.set(-35,8.7,5);hallKey.target.position.set(-40,0,-12);hallKey.castShadow=true;hallKey.shadow.mapSize.set(2048,2048);Object.assign(hallKey.shadow.camera,{left:-26,right:26,top:38,bottom:-38,near:.1,far:90});hallKey.shadow.bias=-.0002;hallKey.shadow.normalBias=.015;scene.add(hallKey,hallKey.target);
+const eveningLights=new THREE.Group();scene.add(eveningLights);for(const [x,z] of [[3,-22],[49,-22],[3,17],[49,17],[28,-45],[-16,-28],[0,25]]){const l=new THREE.PointLight(0xffc77d,1.5,30,1.5);l.position.set(x,2,z);eveningLights.add(l);}
+const archShape=new THREE.Shape();archShape.absarc(0,0,1,0,Math.PI,false);archShape.lineTo(-.82,0);archShape.absarc(0,0,.82,Math.PI,0,true);archShape.lineTo(1,0);
+const ag=new THREE.ExtrudeGeometry(archShape,{depth:1,bevelEnabled:false,curveSegments:16});ag.translate(0,0,-.5);
+const roundedShape=new THREE.Shape();const rr=.16;roundedShape.moveTo(-.34,-.5);roundedShape.lineTo(.34,-.5);roundedShape.quadraticCurveTo(.5,-.5,.5,-.34);roundedShape.lineTo(.5,.34);roundedShape.quadraticCurveTo(.5,.5,.34,.5);roundedShape.lineTo(-.34,.5);roundedShape.quadraticCurveTo(-.5,.5,-.5,.34);roundedShape.lineTo(-.5,-.34);roundedShape.quadraticCurveTo(-.5,-.5,-.34,-.5);const roundedGeo=new THREE.ExtrudeGeometry(roundedShape,{depth:1,bevelEnabled:false,curveSegments:5});roundedGeo.translate(0,0,-.5);
+const petalShape=new THREE.Shape();petalShape.moveTo(-.5,-.5);petalShape.lineTo(-.5,-.1);petalShape.lineTo(-.3,.4);petalShape.lineTo(0,1);petalShape.lineTo(.3,.4);petalShape.lineTo(.5,-.1);petalShape.lineTo(.5,-.5);petalShape.closePath();const petalGeo=new THREE.ExtrudeGeometry(petalShape,{depth:1,bevelEnabled:false});petalGeo.translate(0,0,-.5);
+const geos={box:new THREE.BoxGeometry(1,1,1),sphere:new THREE.IcosahedronGeometry(1,1),sphereSmooth:new THREE.SphereGeometry(1,32,24),cylinder:new THREE.CylinderGeometry(1,1,1,32),arch:ag,rounded:roundedGeo,petal:petalGeo,torus:new THREE.TorusGeometry(1,.09,8,24),sign:new THREE.PlaneGeometry(1,1)};
+const sp=new THREE.Shape();data.profiles.scallopedSpandrel.forEach((p,i)=>i?sp.lineTo(...p):sp.moveTo(...p));sp.closePath();geos.spandrel=new THREE.ExtrudeGeometry(sp,{depth:1,bevelEnabled:false});geos.spandrel.translate(0,0,-.5);
+geos.lotusDome=new THREE.LatheGeometry(data.profiles.lotusDome.map(p=>new THREE.Vector2(...p)),64);
+for(const [key,m] of Object.entries(data.profiles.lotusMeshes||{})){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(m.vertices.flat(),3));g.setIndex(m.faces.flat());g.computeVertexNormals();geos[key]=g;}
+const mats=Object.fromEntries(Object.entries(data.colors).map(([k,v])=>[k,new THREE.MeshStandardMaterial({color:new THREE.Color(v).convertSRGBToLinear(),roughness:.85,metalness:k==='gold'?.25:0})]));mats.light.emissive=new THREE.Color(data.colors.light).convertSRGBToLinear();mats.light.emissiveIntensity=.35;
+function texture(kind){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');let seed=98765;const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};if(kind==='wood'){for(let y=0;y<512;y+=32){const baseR=175+Math.floor(rand()*25),baseG=130+Math.floor(rand()*20),baseB=85+Math.floor(rand()*18);ctx.fillStyle=`rgb(${baseR},${baseG},${baseB})`;ctx.fillRect(0,y,512,31);ctx.fillStyle='rgba(45,30,15,0.55)';ctx.fillRect(0,y+31,512,1);for(let x=0;x<512;x+=128){const xx=x+(y%64?64:0);ctx.fillRect(xx,y,1.5,31);}ctx.strokeStyle='rgba(60,40,20,0.12)';for(let k=0;k<60;k++){const yy=y+rand()*30;ctx.beginPath();ctx.moveTo(rand()*512,yy);ctx.lineTo(rand()*512,yy+0.5);ctx.stroke();}}}else if(kind==='grass'){ctx.fillStyle='#449826';ctx.fillRect(0,0,512,512);for(let i=0;i<4000;i++){ctx.fillStyle=`rgba(35,78,22,${0.15+rand()*0.25})`;ctx.fillRect(rand()*512,rand()*512,4+rand()*8,4+rand()*8);}for(let i=0;i<26000;i++){const tone=rand();ctx.fillStyle=tone>0.65?`rgba(110,198,52,${0.35+rand()*0.45})`:(tone>0.3?`rgba(82,165,40,${0.3+rand()*0.4})`:`rgba(55,120,30,${0.25+rand()*0.35})`);ctx.fillRect(rand()*512,rand()*512,1+rand()*1.6,2+rand()*4.5);}for(let i=0;i<5000;i++){ctx.fillStyle=`rgba(195,225,85,${0.2+rand()*0.3})`;ctx.fillRect(rand()*512,rand()*512,1,2);}}else if(kind==='paving'){ctx.fillStyle='#ede5d5';ctx.fillRect(0,0,512,512);for(let ty=0;ty<512;ty+=64){for(let tx=0;tx<512;tx+=64){const v=Math.floor((rand()-0.5)*18);ctx.fillStyle=`rgba(${v>0?255:40},${v>0?250:35},${v>0?235:30},${Math.abs(v)/255*0.35})`;ctx.fillRect(tx,ty,64,64);}}for(let i=0;i<12000;i++){const cval=Math.floor(rand()*70);ctx.fillStyle=`rgba(${cval},${cval},${cval},${0.04+rand()*0.1})`;ctx.fillRect(rand()*512,rand()*512,1+rand()*2,1+rand()*2);}ctx.strokeStyle='rgba(110,100,85,0.4)';ctx.lineWidth=2;for(let i=0;i<=512;i+=64){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}else if(kind==='asphalt'){ctx.fillStyle='#2c323c';ctx.fillRect(0,0,512,512);for(let i=0;i<32000;i++){const g=55+Math.floor(rand()*55);ctx.fillStyle=`rgba(${g},${g+4},${g+8},${0.15+rand()*0.3})`;ctx.fillRect(rand()*512,rand()*512,1+rand()*2,1+rand()*2);}for(let i=0;i<6000;i++){ctx.fillStyle=`rgba(210,220,230,${0.1+rand()*0.15})`;ctx.fillRect(rand()*512,rand()*512,1,1);}}else if(kind==='fabric'){ctx.fillStyle='#b8b19c';ctx.fillRect(0,0,512,512);ctx.strokeStyle='rgba(40,35,25,0.15)';for(let i=0;i<512;i+=4){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(kind==='wood'?4:kind==='grass'?8:6,kind==='wood'?5:kind==='grass'?8:6);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t;}
+mats.wood.map=texture('wood');mats.wood.roughness=0.52;
+mats.paving.map=texture('paving');mats.paving.bumpMap=mats.paving.map;mats.paving.bumpScale=0.018;mats.paving.roughness=0.68;
+mats.road.map=texture('asphalt');mats.road.bumpMap=mats.road.map;mats.road.bumpScale=0.015;mats.road.roughness=0.82;
+mats.grass.map=texture('grass');mats.grass.bumpMap=mats.grass.map;mats.grass.bumpScale=0.025;mats.grass.roughness=0.76;
+mats.seat.map=texture('fabric');mats.seat.bumpMap=mats.seat.map;mats.seat.bumpScale=0.012;mats.seat.roughness=0.88;
+mats.acoustic.map=texture('fabric');mats.acoustic.bumpMap=mats.acoustic.map;mats.acoustic.bumpScale=0.01;
+mats.metal.metalness=0.92;mats.metal.roughness=0.15;
+mats.gold.metalness=0.92;mats.gold.roughness=0.15;
+mats.white.roughness=0.62;
+mats.roof.roughness=0.38;mats.roof.metalness=0.35;
+mats.stone.roughness=0.65;
+mats.lotusFinial.emissive=new THREE.Color('#fbbf24').convertSRGBToLinear();mats.lotusFinial.emissiveIntensity=1.1;mats.lotusGlass.emissive=new THREE.Color('#e0f2fe').convertSRGBToLinear();
+mats.glass.color=new THREE.Color('#60a5fa').convertSRGBToLinear();mats.glass.transparent=true;mats.glass.opacity=0.45;mats.glass.roughness=0.04;mats.glass.metalness=0.35;mats.glass.depthWrite=false;
+if(mats.heliGlass){mats.heliGlass.roughness=.08;mats.heliGlass.metalness=.75;mats.heliGlass.transparent=true;mats.heliGlass.opacity=.58;mats.heliGlass.depthWrite=false;}
+if(mats.heliWhite){mats.heliWhite.roughness=.18;mats.heliWhite.metalness=.12;}
+if(mats.heliBlue){mats.heliBlue.roughness=.22;mats.heliBlue.metalness=.18;}
+if(mats.heliGold){mats.heliGold.roughness=.18;mats.heliGold.metalness=.85;}
+if(mats.heliMetal){mats.heliMetal.roughness=.22;mats.heliMetal.metalness=.78;}
+if(mats.padLightGreen){mats.padLightGreen.emissive=new THREE.Color('#10b981').convertSRGBToLinear();mats.padLightGreen.emissiveIntensity=2.4;}
+if(mats.padLightRed){mats.padLightRed.emissive=new THREE.Color('#ef4444').convertSRGBToLinear();mats.padLightRed.emissiveIntensity=2.4;}
+if(mats.heliNavRed){mats.heliNavRed.emissive=new THREE.Color('#ef4444').convertSRGBToLinear();mats.heliNavRed.emissiveIntensity=1.8;}
+if(mats.heliNavGreen){mats.heliNavGreen.emissive=new THREE.Color('#10b981').convertSRGBToLinear();mats.heliNavGreen.emissiveIntensity=1.8;}
+for(const s of data.signs||[]){const im=new Image(),tex=new THREE.Texture(im);tex.encoding=THREE.sRGBEncoding;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());mats[s.key]=new THREE.MeshStandardMaterial({map:tex,roughness:.95,side:THREE.DoubleSide});im.onload=()=>{tex.needsUpdate=true;draw();};im.src=s.image;}
+const batches={}; data.objects.forEach(o=>{const key=[o.shape,o.mat,o.group].join('|');(batches[key]??=[]).push(o)});
+const groups={};const clickable=[];const tmp=new THREE.Object3D();
+for(const [key,items] of Object.entries(batches)){
+ const [shape,mat,group]=key.split('|');const mesh=new THREE.InstancedMesh(geos[shape],mats[mat],items.length);mesh.userData.items=items;mesh.castShadow=mat!=='glass'&&group!=='ceiling';mesh.receiveShadow=true;
+ items.forEach((o,i)=>{tmp.position.fromArray(o.p);tmp.scale.fromArray(o.s);tmp.rotation.set(o.tilt||0,o.rot,o.rz||0);tmp.updateMatrix();mesh.setMatrixAt(i,tmp.matrix)});mesh.instanceMatrix.needsUpdate=true;
+ if(!groups[group]){groups[group]=new THREE.Group();scene.add(groups[group]);}groups[group].add(mesh);clickable.push(mesh);
+}
+const geo=data.georeference,referenceGroup=new THREE.Group();referenceGroup.visible=false;const rc=geo.raster.corners;
+const referenceMesh=new THREE.Mesh();
+function transformPoint(p,m){return [p[0]*m[0][0]+p[2]*m[1][0]+m[2][0],p[1],p[0]*m[0][1]+p[2]*m[1][1]+m[2][1]];}
+function mapPreset(p,v){const hall=['hall','stage','stageplan','entry','classroom'].includes(v),q=transformPoint(p,hall?geo.hallPlanTransform:geo.globalPlanTransform);if(v==='gate'){q[0]+=geo.gateDelta[0];q[2]+=geo.gateDelta[1]}return q;}
+for(const l of interiorLights.children)l.position.fromArray(mapPreset(l.position.toArray(),'hall'));hallKey.position.fromArray(mapPreset(hallKey.position.toArray(),'hall'));hallKey.target.position.fromArray(mapPreset(hallKey.target.position.toArray(),'hall'));for(const l of eveningLights.children)l.position.fromArray(mapPreset(l.position.toArray(),'campus'));
+const lotusRoomLight=new THREE.PointLight(0xfff6e7,.8,17,1);lotusRoomLight.position.set(geo.pavilionCentre[0],6.8,geo.pavilionCentre[1]);scene.add(lotusRoomLight);
+function coord(p){return 'WGS84 reference (estimated): '+(geo.originLatitude-p.z/geo.northMetresPerDegree).toFixed(6)+'° N, '+(geo.originLongitude+p.x/geo.eastMetresPerDegree).toFixed(6)+'° E';}
+const labels=data.labels.map((d,i)=>{const e=document.createElement('span');e.className='text-small';e.textContent=d[0];labelRoot.appendChild(e);return {e,p:new THREE.Vector3(...d[1]),context:i>=6}});
+const select=root.querySelector('#gms-view'), eventInput=root.querySelector('#gms-event'), contextInput=root.querySelector('#gms-context'),lightSelect=root.querySelector('#gms-light'),snapshotInput=root.querySelector('#gms-snapshot');
+let current='campus';
+function draw(){renderer.render(scene,camera);if(typeof depUpdate==='function')depUpdate();const rect=host.getBoundingClientRect();for(const l of labels){const v=l.p.clone().project(camera);l.e.style.display=(['hall','stage','lounge','entry','garden','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(current)||(l.context&&current!=='neighborhood')||(!l.context&&current==='neighborhood')||v.z>1||Math.abs(v.x)>.85||Math.abs(v.y)>.9)?'none':'block';l.e.style.left=((v.x+1)*rect.width/2)+'px';l.e.style.top=((-v.y+1)*rect.height/2)+'px';}}
+function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:current,lighting:lightSelect.value,eventProposal:eventInput.checked,nearbyBlocks:contextInput.checked,satelliteDateObjects:snapshotInput.checked},privateContent:null}).catch(()=>{});}
+function setLighting(){lotusRoomLight.visible=current==='lotusinside';const internal=['hall','stage'].includes(current),evening=lightSelect.value==='evening';light.intensity=internal?0.35:evening?0.2:1.40;hemi.intensity=internal?0.42:evening?0.32:0.68;ambient.intensity=current==='lotusinside'?0.55:internal?0.32:0.26;interiorLights.visible=internal;interiorLights.children.forEach(l=>l.intensity=0.75);hallKey.visible=internal;eveningLights.visible=evening&&!internal;renderer.toneMappingExposure=internal?1.0:evening?1.05:1.08;scene.background=evening&&!internal?new THREE.Color('#152735'):null;mats.light.emissiveIntensity=evening?2.0:0.7;mats.lotusGlass.emissiveIntensity=evening?0.65:0.1;mats.lotusFinial.emissiveIntensity=evening?2.0:1.0;}
+
+function applyView(){
+ motion=null;
+ current=select.value;const internal=['hall','stage'].includes(current), cut=['cutaway','plan','lounge','stageplan'].includes(current);
+ root.dataset.view=current;
+ for(const g of Object.values(groups))g.visible=current!=='alignment';referenceGroup.visible=false;
+ groups.roof.visible=!cut;groups.ceiling.visible=internal;groups.shell.visible=!cut;groups.event.visible=eventInput.checked;groups.context.visible=contextInput.checked;
+ groups.lotusInterior.visible=current==='lotusinside';groups.snapshot.visible=snapshotInput.checked;if(current==='alignment')for(const g of Object.values(groups))g.visible=false;
+ const views={campus:[[135,135,157],[-20,0,0]],neighborhood:[[640,630,730],[60,0,10]],mainroad:[[5,145,-235],[-10,0,-61]],gate:[[-13,4.5,-108],[-13,3.2,-61]],roads:[[-9,3.3,-53],[-9,2.8,23]],residential:[[-9,4,1],[0,5.8,28]],classroom:[[-6,2.2,-34],[-18,1.5,-34]],cutaway:[[112,133,145],[-10,0,0]],plan:[[-15,270,1],[-15,0,0]],hall:[[-40,2.7,-37],[-40,3.3,10]],stage:[[-40,3.8,13],[-40,2.3,-35]],stageplan:[[-40,23,-23],[-40,1.4,12]],entry:[[3,3.8,12],[-19,3,12]],garden:[[28,7,-7],[28,6,-45]],lotusinside:[[24.2,5.1,-45],[32.5,5.1,-45]],lounge:[[2,58,82],[0,1,39]]};
+ let pos,target;if(current==='helicopter'){const h=geo.helipadProposal,c=h.helicopterCentre,a=h.alignmentAxis;pos=[c[0]-a[0]*16-a[1]*15,5.2,c[1]-a[1]*16+a[0]*15];target=[c[0],2.4,c[1]];}else if(current==='helipad'){const h=geo.helipadProposal;pos=[h.centre[0]+55,75,h.centre[1]-65];target=[(h.centre[0]+h.gate[0])/2,0,(h.centre[1]+h.gate[1])/2];}else if(current==='alignment'){const cx=rc.reduce((a,p)=>a+p[0],0)/4,cz=rc.reduce((a,p)=>a+p[1],0)/4;pos=[cx,490,cz+.01];target=[cx,0,cz];}else{[pos,target]=views[current];pos=mapPreset(pos,current);target=mapPreset(target,current);}camera.position.fromArray(pos);controls.target.fromArray(target);controls.update();
+ info.textContent=current==='helipad'?'Proposed helipad: 100 m from gate; area matches central garden footprint. Helicopter and vehicle access are illustrative. Red carpet: helicopter to access-road edge, and separately main gate to auditorium.':current==='lotusinside'?'Video-supported partial meditation interior. Curtains, furniture and fittings approximate; portrait/artwork and small donation-box lettering not replicated.':current==='alignment'?'Google Earth graticule registered reference. Blue: core footprint traces; orange: adjacent blocks. Click the map for estimated latitude / longitude.':internal?'Video-informed interior; registered footprint. Heights, exact details and chair count estimated.':current==='lounge'?'South building cutaway: room allocations proposed; existing room use unverified.':'WGS84 graticule registered plan · Heights/details estimated · *Satellite objects and nearby ownership/use unverified';setLighting();draw();
+}
+
+select.addEventListener('change',()=>{if(select.value==='lounge')eventInput.checked=true;if(select.value==='neighborhood')contextInput.checked=true;applyView();save()});
+
+root.querySelector('#gms-reset-btn').addEventListener('click',()=>{
+  select.value='campus';
+  select.dispatchEvent(new Event('change'));
+});
+
+function toggleFullscreen(){
+  if(!document.fullscreenElement){
+    host.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+const fsBtn = root.querySelector('#gms-fullscreen-btn');
+fsBtn.addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    fsBtn.textContent = '✕ Exit Fullscreen';
+    fsBtn.title = 'Exit Fullscreen (F or Esc)';
+  } else {
+    fsBtn.textContent = '⛶ Fullscreen';
+    fsBtn.title = 'Toggle Fullscreen Canvas (F)';
+  }
+});
+
+window.addEventListener('keydown', e => {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName) || e.target.isContentEditable) return;
+  if (e.key === 'f' || e.key === 'F') {
+    e.preventDefault();
+    toggleFullscreen();
+  } else if (e.key === 'CapsLock' || e.code === 'CapsLock') {
+    if (typeof depDeselect === 'function' && (typeof depSelected !== 'undefined' && depSelected || typeof depCamera !== 'undefined' && depCamera)) {
+      e.preventDefault();
+      depDeselect(true);
+      return;
+    }
+  } else if (e.key === 'Escape') {
+    if (typeof depDeselect === 'function' && (typeof depSelected !== 'undefined' && depSelected || typeof depCamera !== 'undefined' && depCamera)) {
+      depDeselect(true);
+      return;
+    } else if (typeof depReturnView === 'function' && typeof depCamera !== 'undefined' && depCamera) {
+      depReturnView();
+      return;
+    }
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(()=>{});
+    }
+  }
+});
+
+// Layers Toggle Popover
+const layersToggle=root.querySelector('#gms-layers-toggle'), layersMenu=root.querySelector('#gms-layers-menu');
+layersToggle.addEventListener('click',e=>{
+  e.stopPropagation();
+  layersMenu.classList.toggle('show');
+});
+document.addEventListener('click',e=>{
+  if(!layersMenu.contains(e.target)&&!layersToggle.contains(e.target)) layersMenu.classList.remove('show');
+});
+
+eventInput.addEventListener('change',()=>{groups.event.visible=current!=='alignment'&&eventInput.checked;draw();save()});contextInput.addEventListener('change',()=>{groups.context.visible=current!=='alignment'&&contextInput.checked;draw();save()});
+lightSelect.addEventListener('change',()=>{setLighting();draw();save()});
+snapshotInput.addEventListener('change',()=>{groups.snapshot.visible=current!=='alignment'&&snapshotInput.checked;draw();save()});
+let renderRequested=false;
+controls.addEventListener('change',()=>{renderRequested=true;});
+const navigation=root.querySelector('#gms-navigation'),canvas=renderer.domElement;
+let motion=null,selection=null,suppressClick=false;
+const zoomBox=document.createElement('div');zoomBox.style.cssText='position:absolute;pointer-events:none;display:none;border:2px solid var(--primary-accent);background:rgba(2,132,199,0.18);border-radius:4px';host.appendChild(zoomBox);
+
+function navigationMode(){
+  if(navigation.value==='orbit'){
+    controls.mouseButtons.LEFT=THREE.MOUSE.ROTATE;
+    controls.mouseButtons.RIGHT=THREE.MOUSE.PAN;
+  } else if(navigation.value==='pan') {
+    controls.mouseButtons.LEFT=THREE.MOUSE.PAN;
+    controls.mouseButtons.RIGHT=THREE.MOUSE.ROTATE;
+  }
+  root.querySelectorAll('#gms-mode-pills .mode-pill').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.mode===navigation.value);
+  });
+}
+navigation.addEventListener('change',()=>{cancelBox();navigationMode();});
+root.querySelectorAll('#gms-mode-pills .mode-pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    navigation.value=btn.dataset.mode;
+    navigation.dispatchEvent(new Event('change'));
+  });
+});
+
+function planePoint(x,y){const r=canvas.getBoundingClientRect(),p=new THREE.Vector2((x-r.left)/r.width*2-1,1-(y-r.top)/r.height*2),raycaster=new THREE.Raycaster();camera.updateMatrixWorld();raycaster.setFromCamera(p,camera);const hit=raycaster.intersectObjects(current==='alignment'?[referenceMesh]:clickable.filter(o=>o.visible&&o.parent.visible),false)[0];if(hit)return hit.point;const plane=new THREE.Plane().setFromNormalAndCoplanarPoint(camera.getWorldDirection(new THREE.Vector3()),controls.target);return raycaster.ray.intersectPlane(plane,new THREE.Vector3());}
+function moveTo(p,t){if(reducedMotion){camera.position.copy(p);controls.target.copy(t);controls.update();draw();motion=null;}else motion={p,t};}
+canvas.addEventListener('wheel',e=>{e.preventDefault();e.stopImmediatePropagation();const anchor=planePoint(e.clientX,e.clientY);if(!anchor)return;const p=motion?motion.p:camera.position,t=motion?motion.t:controls.target,unit=e.deltaMode===1?16:e.deltaMode===2?host.clientHeight:1,factor=Math.exp(THREE.MathUtils.clamp(e.deltaY*unit,-240,240)*.0018),distance=p.distanceTo(t),scale=THREE.MathUtils.clamp(distance*factor,controls.minDistance,controls.maxDistance)/distance;moveTo(p.clone().sub(anchor).multiplyScalar(scale).add(anchor),t.clone().sub(anchor).multiplyScalar(scale).add(anchor));},{capture:true,passive:false});
+function cancelBox(){if(selection){const id=selection.id;selection=null;if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}zoomBox.style.display='none';controls.enabled=true;}
+function localPoint(e){const r=canvas.getBoundingClientRect();return [THREE.MathUtils.clamp(e.clientX-r.left,0,r.width),THREE.MathUtils.clamp(e.clientY-r.top,0,r.height)];}
+canvas.addEventListener('pointerdown',e=>{motion=null;if(e.button!==0||!(e.shiftKey||navigation.value==='box'))return;e.preventDefault();e.stopImmediatePropagation();controls.enabled=false;suppressClick=true;selection={id:e.pointerId,start:localPoint(e)};canvas.setPointerCapture(e.pointerId);zoomBox.style.display='block';zoomBox.style.left=selection.start[0]+'px';zoomBox.style.top=selection.start[1]+'px';zoomBox.style.width=zoomBox.style.height='0px';},{capture:true});
+canvas.addEventListener('pointermove',e=>{if(!selection||selection.id!==e.pointerId)return;e.preventDefault();e.stopImmediatePropagation();const a=selection.start,b=localPoint(e);zoomBox.style.left=Math.min(a[0],b[0])+'px';zoomBox.style.top=Math.min(a[1],b[1])+'px';zoomBox.style.width=Math.abs(a[0]-b[0])+'px';zoomBox.style.height=Math.abs(a[1]-b[1])+'px';},{capture:true});
+canvas.addEventListener('pointerup',e=>{if(!selection||selection.id!==e.pointerId){suppressClick=false;return;}e.preventDefault();e.stopImmediatePropagation();const a=selection.start,b=localPoint(e),w=Math.abs(a[0]-b[0]),h=Math.abs(a[1]-b[1]),r=canvas.getBoundingClientRect();if(w>8&&h>8){const centre=planePoint(r.left+(a[0]+b[0])/2,r.top+(a[1]+b[1])/2),offset=camera.position.clone().sub(controls.target),scale=Math.max(w/r.width,h/r.height)*1.08;if(centre){offset.multiplyScalar(THREE.MathUtils.clamp(offset.length()*scale,controls.minDistance,controls.maxDistance)/offset.length());moveTo(centre.clone().add(offset),centre);}}cancelBox();},{capture:true});
+canvas.addEventListener('pointercancel',()=>{cancelBox();suppressClick=false;});canvas.addEventListener('lostpointercapture',()=>{if(selection)cancelBox();suppressClick=false;});
+root.addEventListener('keydown',e=>{if(e.key==='Escape')cancelBox();});
+let lastFrame=0;
+const camVelocity = { theta: 0, phi: 0, zoom: 0, panRight: 0, panForward: 0 };
+window.__CAM_VELOCITY = camVelocity;
+
+function animate(time){
+  const dt=Math.min((time-lastFrame)/1000,.05);
+  lastFrame=time;
+  let needsDraw=false;
+  if(motion){
+    const a=1-Math.exp(-14*dt);
+    camera.position.lerp(motion.p,a);
+    controls.target.lerp(motion.t,a);
+    if(camera.position.distanceTo(motion.p)<.0005&&controls.target.distanceTo(motion.t)<.0005){
+      camera.position.copy(motion.p);
+      controls.target.copy(motion.t);
+      motion=null;
+    }
+    needsDraw=true;
+  }
+  if(Math.abs(camVelocity.theta) > 0.00005 || Math.abs(camVelocity.phi) > 0.00005 || Math.abs(camVelocity.zoom) > 0.00005){
+    const offset = camera.position.clone().sub(controls.target);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+    spherical.theta += camVelocity.theta;
+    spherical.phi = THREE.MathUtils.clamp(spherical.phi + camVelocity.phi, 0.06, Math.PI / 2 - 0.02);
+    spherical.radius = THREE.MathUtils.clamp(spherical.radius * (1 + camVelocity.zoom), controls.minDistance, controls.maxDistance);
+    offset.setFromSpherical(spherical);
+    camera.position.copy(controls.target).add(offset);
+    camera.lookAt(controls.target);
+    
+    // Smooth frame-rate independent deceleration / inertia
+    const camDamp = Math.exp(-11 * dt);
+    camVelocity.theta *= camDamp;
+    camVelocity.phi *= camDamp;
+    camVelocity.zoom *= camDamp;
+    needsDraw = true;
+  }
+  if(Math.abs(camVelocity.panRight) > 0.0005 || Math.abs(camVelocity.panForward) > 0.0005){
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    forward.y = 0;
+    forward.normalize();
+    const right = new THREE.Vector3();
+    right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+    
+    const moveVec = new THREE.Vector3();
+    moveVec.addScaledVector(right, camVelocity.panRight);
+    moveVec.addScaledVector(forward, camVelocity.panForward);
+    
+    camera.position.add(moveVec);
+    controls.target.add(moveVec);
+    
+    const panDamp = Math.exp(-11 * dt);
+    camVelocity.panRight *= panDamp;
+    camVelocity.panForward *= panDamp;
+    needsDraw = true;
+  }
+  if(window.__DEP_TICK){
+    try{
+      if(window.__DEP_TICK(dt)) needsDraw = true;
+    }catch(err){console.error('dep tick error',err);}
+  }
+  const changed=controls.update();
+  if(changed||needsDraw||renderRequested){renderRequested=false;draw();}
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+
+const ray=new THREE.Raycaster(), pointer=new THREE.Vector2();let down;
+renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
+renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;if(window.__DEP_IS_TAB_OPEN&&window.__DEP_IS_TAB_OPEN())return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
+function handleFreeCameraFlight(e){
+  if(['SELECT','INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;
+  if(window.__DEP_IS_OFFICER_SELECTED&&window.__DEP_IS_OFFICER_SELECTED())return;
+  const dist=camera.position.distanceTo(controls.target),panSpeed=(e.shiftKey?2.4:1.2)*Math.max(0.4,dist*0.018);
+  const k=(e.key||'').toLowerCase();
+  if(k==='arrowleft'||k==='a'){camVelocity.panRight-=panSpeed;e.preventDefault();}
+  else if(k==='arrowright'||k==='d'){camVelocity.panRight+=panSpeed;e.preventDefault();}
+  else if(k==='arrowup'||k==='w'){camVelocity.panForward+=panSpeed;e.preventDefault();}
+  else if(k==='arrowdown'||k==='s'){camVelocity.panForward-=panSpeed;e.preventDefault();}
+  else if(k==='+'||k==='='){camVelocity.zoom-=0.045;e.preventDefault();}
+  else if(k==='-'){camVelocity.zoom+=0.045;e.preventDefault();}
+}
+window.addEventListener('keydown',handleFreeCameraFlight);
+root.addEventListener('keydown',handleFreeCameraFlight);
+function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);if(current==='alignment'){const xs=rc.map(p=>p[0]),zs=rc.map(p=>p[1]),ww=Math.max(...xs)-Math.min(...xs),dd=Math.max(...zs)-Math.min(...zs),height=Math.max(dd,ww/camera.aspect)/(2*Math.tan(camera.fov*Math.PI/360))*1.1;camera.position.set((Math.max(...xs)+Math.min(...xs))/2,height,(Math.max(...zs)+Math.min(...zs))/2+.01);controls.target.set(camera.position.x,0,camera.position.z-.01);controls.update();}draw();}new ResizeObserver(resize).observe(host);
+function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
+window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
+__DEPLOYMENT_JS__
+try{const _uv=(new URLSearchParams(window.location.search)).get('view');if(_uv&&['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(_uv)){select.value=_uv;}}catch(e){}
+applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();
+})();
+</script>

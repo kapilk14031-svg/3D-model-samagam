@@ -1,10 +1,6 @@
 # Ignore root outputs delivery mirror folder
 /outputs/
 
-# Ignore president folder (Gyan Mansarovar)
-president/
-**/president/
-
 # Ignore videos and photos
 photos/
 videos/
