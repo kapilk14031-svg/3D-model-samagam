@@ -865,75 +865,65 @@ body {
     <span class="dep-disclaimer">Draft operational plan for study purposes. Backend auto-persists to SQLite.</span>
   </div>
 </div>
-
-<!-- Officer / Item Edit Dialog Modal -->
+<!-- Officer / Item Edit Dialog Modal (Minimalist UI) -->
 <div id="dep-officer-modal" class="dep-officer-modal" style="display:none;">
   <div class="dep-officer-modal-backdrop" id="dep-officer-backdrop"></div>
   <div class="dep-officer-modal-card" role="dialog" aria-modal="true" aria-labelledby="dep-dlg-title-text">
     <div class="dep-officer-modal-header">
       <div class="dep-officer-modal-title">
-        <span id="dep-dlg-symbol" style="font-size:20px;">👮</span>
-        <span id="dep-dlg-title-text" style="font-size:15px;font-weight:700;color:#0f172a;">Officer Details / अधिकारी विवरण</span>
+        <span id="dep-dlg-symbol" class="dep-dlg-symbol">👮</span>
+        <span id="dep-dlg-title-text" class="dep-dlg-heading">Officer Details</span>
+        <span id="dep-dlg-badge" class="dep-dlg-badge"></span>
       </div>
       <button type="button" class="dep-officer-modal-close" id="dep-dlg-close-x" title="Close (ESC)">✕</button>
     </div>
     <form id="dep-officer-dialog-form">
       <div class="dep-officer-modal-body">
-        <div class="dep-dlg-form-group">
-          <label for="dep-dlg-name">
-            <span style="font-weight:700;color:#0f172a;">👤 Officer Name / नाम</span>
-            <small style="color:#64748b;font-weight:normal;">(उदा. Officer 12 / SI Ramesh Sharma)</small>
-          </label>
-          <input type="text" id="dep-dlg-name" class="dep-dlg-input" placeholder="e.g. Officer 12" required autocomplete="off">
+        <div class="dep-dlg-field">
+          <label class="dep-dlg-label" for="dep-dlg-name">Name</label>
+          <input type="text" id="dep-dlg-name" class="dep-dlg-input" placeholder="e.g. Officer 24" required autocomplete="off">
         </div>
 
-        <div class="dep-dlg-form-row">
-          <div class="dep-dlg-form-group" style="flex:1;">
-            <label for="dep-dlg-belt">
-              <span style="font-weight:700;color:#0f172a;">🏷️ Belt No. / बेल्ट नं.</span>
-            </label>
-            <input type="text" id="dep-dlg-belt" class="dep-dlg-input" placeholder="e.g. DL-4821 / 1042" autocomplete="off">
+        <div class="dep-dlg-row">
+          <div class="dep-dlg-field">
+            <label class="dep-dlg-label" for="dep-dlg-belt">Belt No.</label>
+            <input type="text" id="dep-dlg-belt" class="dep-dlg-input" placeholder="e.g. DL-4821" autocomplete="off">
           </div>
-          <div class="dep-dlg-form-group" style="flex:1;">
-            <label for="dep-dlg-mobile">
-              <span style="font-weight:700;color:#0f172a;">📞 Mobile No. / मोबाइल नं.</span>
-            </label>
+          <div class="dep-dlg-field">
+            <label class="dep-dlg-label" for="dep-dlg-mobile">Mobile</label>
             <input type="tel" id="dep-dlg-mobile" class="dep-dlg-input" placeholder="e.g. 9876543210" autocomplete="off">
           </div>
         </div>
 
-        <div class="dep-dlg-form-group">
-          <label for="dep-dlg-duty">
-            <span style="font-weight:700;color:#0f172a;">📍 Posting / Duty (तैनाती स्थान)</span>
-            <small style="color:#64748b;font-weight:normal;">(ड्रॉपडाउन से चुनें या नया लिखें)</small>
-          </label>
-          <input type="text" id="dep-dlg-duty" class="dep-dlg-input" list="dep-dlg-duty-list" placeholder="e.g. VIP lounge duty / Main gate" autocomplete="off">
+        <div class="dep-dlg-field">
+          <label class="dep-dlg-label" for="dep-dlg-duty">Duty / Location Zone</label>
+          <input type="text" id="dep-dlg-duty" class="dep-dlg-input" list="dep-dlg-duty-list" placeholder="Choose or type duty..." autocomplete="off">
           <datalist id="dep-dlg-duty-list">
-            <option value="Outer perimeter duty">Outer perimeter duty</option>
-            <option value="Binocular duty — rooftop">Binocular duty — rooftop</option>
-            <option value="Lotus duty">Lotus duty</option>
-            <option value="Inner cordon duty">Inner cordon duty</option>
-            <option value="Outer cordon duty">Outer cordon duty</option>
             <option value="Main gate — DFMD / HHMD">Main gate — DFMD / HHMD</option>
             <option value="Naka & barricade duty">Naka & barricade duty</option>
+            <option value="Helipad security & landing cordon">Helipad security & landing cordon</option>
+            <option value="Helipad approach road security">Helipad approach road security</option>
             <option value="Auditorium main stage duty">Auditorium main stage duty</option>
-            <option value="Auditorium seating duty">Auditorium seating duty</option>
-            <option value="VIP parking duty">VIP parking duty</option>
-            <option value="VIP toilet duty">VIP toilet duty</option>
-            <option value="VIP lounge duty">VIP lounge duty</option>
             <option value="Hall gate duty">Hall gate duty</option>
+            <option value="Auditorium seating duty">Auditorium seating duty</option>
+            <option value="VIP lounge duty">VIP lounge duty</option>
+            <option value="VIP toilet duty">VIP toilet duty</option>
+            <option value="VIP parking duty">VIP parking duty</option>
+            <option value="Binocular duty — rooftop">Binocular duty — rooftop</option>
+            <option value="Lotus duty">Lotus duty</option>
+            <option value="Central lawn duty">Central lawn duty</option>
+            <option value="Inner cordon duty">Inner cordon duty</option>
+            <option value="Outer perimeter duty">Outer perimeter duty</option>
+            <option value="Outer cordon duty">Outer cordon duty</option>
           </datalist>
-        </div>
-
-        <div class="dep-dlg-hint">
-          💾 <b>Auto-Save:</b> सेव करते ही यह विवरण ब्राउज़र और बैकएंड डेटाबेस में हमेशा के लिए सुरक्षित (Save) रहेगा। हार्ड रिफ्रेश के बाद भी नहीं हटेगा।
         </div>
       </div>
       <div class="dep-officer-modal-footer">
-        <button type="button" class="btn btn-outline" id="dep-dlg-cancel-btn" style="padding:7px 14px;font-size:12.5px;border-radius:6px;">✕ Cancel</button>
-        <button type="submit" class="btn btn-primary" id="dep-dlg-save-btn" style="padding:7px 18px;font-size:12.5px;font-weight:700;border-radius:6px;background:#0284c7;color:#fff;display:inline-flex;align-items:center;gap:6px;">
-          💾 Save Details (सुरक्षित करें)
-        </button>
+        <span class="dep-dlg-auto-hint">Auto-saves to SQLite & browser</span>
+        <div class="dep-dlg-footer-actions">
+          <button type="button" class="dep-dlg-btn-cancel" id="dep-dlg-cancel-btn">Cancel</button>
+          <button type="submit" class="dep-dlg-btn-save" id="dep-dlg-save-btn">Save Details</button>
+        </div>
       </div>
     </form>
   </div>
@@ -2108,11 +2098,10 @@ body {
 }
 
 
-/* Officer / Item Quick Edit Modal */
+/* Officer / Item Quick Edit Modal (Minimalist UI) */
 .dep-officer-modal {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: 100000;
@@ -2123,113 +2112,183 @@ body {
 }
 .dep-officer-modal-backdrop {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 .dep-officer-modal-card {
   position: relative;
-  width: 92%;
-  max-width: 440px;
+  width: 90%;
+  max-width: 400px;
   background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(15, 23, 42, 0.04);
   overflow: hidden;
-  animation: depModalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: depModalPopIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   z-index: 1;
 }
 @keyframes depModalPopIn {
-  from { opacity: 0; transform: scale(0.93) translateY(10px); }
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 .dep-officer-modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
 }
 .dep-officer-modal-title {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.dep-officer-modal-close {
-  background: none;
-  border: none;
-  font-size: 18px;
+.dep-dlg-symbol {
+  font-size: 16px;
   line-height: 1;
-  color: #64748b;
+}
+.dep-dlg-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+.dep-dlg-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0;
+}
+.dep-officer-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  color: #94a3b8;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 6px;
   border-radius: 6px;
-  transition: all 0.12s ease;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .dep-officer-modal-close:hover {
-  background: #fee2e2;
-  color: #dc2626;
+  background: #f1f5f9;
+  color: #0f172a;
 }
 .dep-officer-modal-body {
-  padding: 16px 18px;
+  padding: 16px 18px 6px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 13px;
 }
-.dep-dlg-form-group {
+.dep-dlg-field {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex: 1;
 }
-.dep-dlg-form-group label {
-  font-size: 12.5px;
+.dep-dlg-row {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  gap: 10px;
 }
-.dep-dlg-form-row {
-  display: flex;
-  gap: 12px;
+.dep-dlg-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  letter-spacing: -0.01em;
 }
 .dep-dlg-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 12px;
-  font-size: 13.5px;
-  border: 1.5px solid #cbd5e1;
+  padding: 8.5px 11px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   color: #0f172a;
-  background: #ffffff;
+  background: #f8fafc;
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: all 0.15s ease;
+}
+.dep-dlg-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+.dep-dlg-input:hover {
+  border-color: #cbd5e1;
+  background: #ffffff;
 }
 .dep-dlg-input:focus {
   border-color: #0284c7;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
-}
-.dep-dlg-hint {
-  font-size: 11.5px;
-  color: #0369a1;
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
-  border-radius: 8px;
-  padding: 8px 11px;
-  line-height: 1.45;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
 }
 .dep-officer-modal-footer {
-  padding: 12px 18px;
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
+  padding: 12px 18px 14px;
+  background: #ffffff;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   gap: 10px;
+}
+.dep-dlg-auto-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: -0.01em;
+}
+.dep-dlg-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dep-dlg-btn-cancel {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12.5px;
+  padding: 6.5px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dep-dlg-btn-cancel:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+.dep-dlg-btn-save {
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12.5px;
+  padding: 6.5px 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.dep-dlg-btn-save:hover {
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+.dep-dlg-btn-save:active {
+  transform: translateY(1px);
 }
 .dep-toast {
   position: fixed;
@@ -2238,18 +2297,18 @@ body {
   transform: translateX(-50%) translateY(20px);
   background: #0f172a;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 9999px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  font-size: 12.5px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
   z-index: 100001;
   opacity: 0;
   pointer-events: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 .dep-toast.show {
   opacity: 1;
@@ -2269,6 +2328,8 @@ if(!window.THREE){ info.textContent='3D library load nahi hui. Internet connecti
 let renderer;
 try{ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true}); }catch(e){info.textContent='WebGL available nahi hai. GLB file 3D viewer mein kholein.';return;}
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;host.appendChild(renderer.domElement);
+renderer.domElement.tabIndex = 0;
+renderer.domElement.style.outline = 'none';
 const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(44,1,.1,3000);
 const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.maxDistance=1800;controls.minDistance=1;controls.maxPolarAngle=Math.PI*.495;controls.target.set(-10,0,0);
 const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;controls.enableDamping=!reducedMotion;controls.dampingFactor=.16;controls.screenSpacePanning=true;controls.panSpeed=1.8;controls.rotateSpeed=.75;
@@ -2505,7 +2566,20 @@ requestAnimationFrame(animate);
 const ray=new THREE.Raycaster(), pointer=new THREE.Vector2();let down;
 renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
 renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;if(window.__DEP_IS_TAB_OPEN&&window.__DEP_IS_TAB_OPEN())return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
-root.addEventListener('keydown',e=>{if(['SELECT','INPUT','TEXTAREA'].includes(e.target.tagName))return;if(window.__DEP_IS_OFFICER_SELECTED&&window.__DEP_IS_OFFICER_SELECTED())return;const dist=camera.position.distanceTo(controls.target),panSpeed=(e.shiftKey?1.8:0.9)*Math.max(0.4,dist*0.018);if(e.key==='ArrowLeft'){camVelocity.panRight-=panSpeed;e.preventDefault();}else if(e.key==='ArrowRight'){camVelocity.panRight+=panSpeed;e.preventDefault();}else if(e.key==='ArrowUp'){camVelocity.panForward+=panSpeed;e.preventDefault();}else if(e.key==='ArrowDown'){camVelocity.panForward-=panSpeed;e.preventDefault();}else if(e.key==='+'||e.key==='='){camVelocity.zoom-=0.045;e.preventDefault();}else if(e.key==='-'){camVelocity.zoom+=0.045;e.preventDefault();}});
+function handleFreeCameraFlight(e){
+  if(['SELECT','INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;
+  if(window.__DEP_IS_OFFICER_SELECTED&&window.__DEP_IS_OFFICER_SELECTED())return;
+  const dist=camera.position.distanceTo(controls.target),panSpeed=(e.shiftKey?2.4:1.2)*Math.max(0.4,dist*0.018);
+  const k=(e.key||'').toLowerCase();
+  if(k==='arrowleft'||k==='a'){camVelocity.panRight-=panSpeed;e.preventDefault();}
+  else if(k==='arrowright'||k==='d'){camVelocity.panRight+=panSpeed;e.preventDefault();}
+  else if(k==='arrowup'||k==='w'){camVelocity.panForward+=panSpeed;e.preventDefault();}
+  else if(k==='arrowdown'||k==='s'){camVelocity.panForward-=panSpeed;e.preventDefault();}
+  else if(k==='+'||k==='='){camVelocity.zoom-=0.045;e.preventDefault();}
+  else if(k==='-'){camVelocity.zoom+=0.045;e.preventDefault();}
+}
+window.addEventListener('keydown',handleFreeCameraFlight);
+root.addEventListener('keydown',handleFreeCameraFlight);
 function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);if(current==='alignment'){const xs=rc.map(p=>p[0]),zs=rc.map(p=>p[1]),ww=Math.max(...xs)-Math.min(...xs),dd=Math.max(...zs)-Math.min(...zs),height=Math.max(dd,ww/camera.aspect)/(2*Math.tan(camera.fov*Math.PI/360))*1.1;camera.position.set((Math.max(...xs)+Math.min(...xs))/2,height,(Math.max(...zs)+Math.min(...zs))/2+.01);controls.target.set(camera.position.x,0,camera.position.z-.01);controls.update();}draw();}new ResizeObserver(resize).observe(host);
 function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
 window.__DEP_INITIAL_PLAN__ = {
@@ -2854,18 +2928,6 @@ window.__DEP_INITIAL_PLAN__ = {
       "angle": 356.22
     },
     {
-      "id": "post-mvidukia-x8r",
-      "kind": "parking",
-      "name": "Event Parking Lot 1",
-      "duty": "Vehicle parking & police bus depot",
-      "belt": "",
-      "mobile": "",
-      "x": 100.46,
-      "y": 0,
-      "z": -113.46,
-      "angle": 167.02
-    },
-    {
       "id": "post-mvj29k60-jps",
       "kind": "firebrigade",
       "name": "Fire Tender 1",
@@ -2905,23 +2967,88 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvj3lsoa-r9g",
       "kind": "officer",
       "name": "Officer 21",
-      "duty": "Helipad approach road security",
+      "duty": "Naka & barricade duty",
       "belt": "",
       "mobile": "",
-      "x": 1.36,
+      "x": -14.68,
       "y": 0,
-      "z": -169.51,
-      "angle": 167.78
+      "z": -131.7,
+      "angle": 85.68
     },
     {
       "id": "post-mvj4vdss-t5vh",
       "kind": "officer",
-      "name": "Officer 24",
-      "x": 4.13,
+      "name": "si ram karan",
+      "x": -41.32,
       "y": 0,
-      "z": -195.07,
-      "angle": 226.97,
+      "z": -169.8,
+      "angle": 260.82,
+      "duty": "Helipad Duty",
+      "belt": "",
+      "mobile": "",
+      "status": "Active"
+    },
+    {
+      "id": "post-mvj5k4c7-66u1",
+      "kind": "officer",
+      "name": "Officer 23",
+      "x": -16.18,
+      "y": 0.46,
+      "z": -131.59,
+      "angle": 85.68,
+      "duty": "Naka & barricade duty",
+      "belt": "",
+      "mobile": "",
+      "status": "Active"
+    },
+    {
+      "id": "post-mvj5k4e0-w1n6",
+      "kind": "officer",
+      "name": "Officer 24",
+      "x": -22.34,
+      "y": 0,
+      "z": -131.13,
+      "angle": 265.87,
       "duty": "Helipad approach road security",
+      "belt": "",
+      "mobile": "",
+      "status": "Active"
+    },
+    {
+      "id": "post-mvj5l1ph-d1wn",
+      "kind": "officer",
+      "name": "Officer 25",
+      "x": -4.35,
+      "y": 0,
+      "z": -166.98,
+      "angle": 83.37,
+      "duty": "Helipad security & landing cordon",
+      "belt": "",
+      "mobile": "",
+      "status": "Active"
+    },
+    {
+      "id": "post-mvj5m4k9-t7i",
+      "kind": "officer",
+      "name": "Officer 26",
+      "duty": "VIP parking duty",
+      "belt": "",
+      "mobile": "",
+      "x": 103.61,
+      "y": 0,
+      "z": -105.68,
+      "angle": 163.27
+    },
+    {
+      "id": "post-mvj679uy-gcwt",
+      "kind": "parking",
+      "name": "Vehicle Parking #2",
+      "x": 100.12,
+      "y": 0,
+      "z": -114.92,
+      "angle": 167.02,
+      "duty": "Vehicle parking & police bus depot",
+      "customDuty": false,
       "belt": "",
       "mobile": "",
       "status": "Active"
@@ -2946,15 +3073,91 @@ const depUI=id=>root.querySelector('#dep-'+id),depGroup=new THREE.Group();scene.
 
 
 
-const dutyNames=['Outer perimeter duty','Binocular duty — rooftop','Lotus duty','Inner cordon duty','Outer cordon duty','Main gate — DFMD / HHMD','Naka & barricade duty','Auditorium main stage duty','Auditorium seating duty','VIP parking duty','VIP toilet duty','VIP lounge duty','Hall gate duty'];
+const depDefaultDuties = [
+  'Main gate — DFMD / HHMD',
+  'Naka & barricade duty',
+  'Helipad security & landing cordon',
+  'Helipad approach road security',
+  'Auditorium main stage duty',
+  'Hall gate duty',
+  'Auditorium seating duty',
+  'VIP lounge duty',
+  'VIP toilet duty',
+  'VIP parking duty',
+  'Binocular duty — rooftop',
+  'Lotus duty',
+  'Central lawn duty',
+  'Inner cordon duty',
+  'Outer perimeter duty',
+  'Outer cordon duty',
+  'Control & wireless duty',
+  'Emergency Medical Response',
+  'Fire & Safety Standby',
+  'Queue & Crowd Management'
+];
+const dutyNames = depDefaultDuties;
 
+let depCustomDuties = [];
+try {
+  const _savedCustom = localStorage.getItem('gyan-mansarovar-custom-duties');
+  if (_savedCustom) depCustomDuties = JSON.parse(_savedCustom) || [];
+} catch (e) { depCustomDuties = []; }
 
+function depGetAllDuties() {
+  const set = new Set(depDefaultDuties);
+  if (Array.isArray(depCustomDuties)) {
+    depCustomDuties.forEach(d => { if (d && typeof d === 'string' && d.trim()) set.add(d.trim()); });
+  }
+  if (typeof depItems !== 'undefined' && Array.isArray(depItems)) {
+    depItems.forEach(item => {
+      if (item && item.duty && typeof item.duty === 'string' && item.duty.trim()) {
+        set.add(item.duty.trim());
+      }
+    });
+  }
+  return Array.from(set).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true }));
+}
+window.depGetAllDuties = depGetAllDuties;
 
+function depRegisterCustomDuty(duty) {
+  if (!duty || typeof duty !== 'string') return;
+  const trimmed = duty.trim();
+  if (!trimmed) return;
+  if (!depCustomDuties.includes(trimmed)) {
+    depCustomDuties.push(trimmed);
+    try {
+      localStorage.setItem('gyan-mansarovar-custom-duties', JSON.stringify(depCustomDuties));
+    } catch (e) {}
+  }
+  depSyncDutyLists();
+}
+window.depRegisterCustomDuty = depRegisterCustomDuty;
 
+function depSyncDutyLists() {
+  const allDuties = depGetAllDuties();
+  const datalist1 = typeof depUI === 'function' ? depUI('duties') : null;
+  if (datalist1) {
+    datalist1.replaceChildren();
+    allDuties.forEach(text => {
+      const opt = document.createElement('option');
+      opt.value = text;
+      datalist1.appendChild(opt);
+    });
+  }
+  const datalist2 = document.getElementById('dep-dlg-duty-list');
+  if (datalist2) {
+    datalist2.replaceChildren();
+    allDuties.forEach(text => {
+      const opt = document.createElement('option');
+      opt.value = text;
+      datalist2.appendChild(opt);
+    });
+  }
+}
+window.depSyncDutyLists = depSyncDutyLists;
 
-
-
-for(const text of dutyNames){const o=document.createElement('option');o.value=text;depUI('duties').appendChild(o);}
+// Initial sync
+setTimeout(depSyncDutyLists, 60);
 
 
 
@@ -4532,7 +4735,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit officer details (अधिकारी विवरण बदलें)" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Add another / Duplicate post (एक और जोड़ें)">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit details" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title" title="Click to edit officer details" style="cursor:pointer;">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge" title="Click to edit duty & details" style="cursor:pointer;"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit details" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Duplicate post">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -5052,6 +5255,58 @@ if(depPeekMinBtn){
 
 
 
+function depFreeCamera() {
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur();
+  }
+  // Free camera right where it is without returning to campus overview
+  depCamera = null;
+  depSelected = null;
+  depHover = null;
+  depPlace = false;
+  if (depNew) {
+    depItems = depItems.filter(x => x.id !== depNew);
+    depNew = null;
+    depStore();
+    depBuild();
+  }
+  if (depCandidate) {
+    depCandidate = null;
+    if (depConfirm) depConfirm.hidden = true;
+  }
+  if (depRadial) depRadial.style.display = 'none';
+  if (depPeek) depPeek.hidden = true;
+  const editor = depUI('editor');
+  if (editor) editor.hidden = true;
+  const list = depUI('list');
+  if (list) list.value = '';
+  const topList = root.querySelector('#dep-top-list');
+  if (topList) topList.value = '';
+  if (depTooltip) depTooltip.style.display = 'none';
+  updateOfficerHud(null);
+  updateTabLock();
+  depTabChain = [];
+  depTabChainIndex = -1;
+  for (const k in depKeysDown) {
+    depKeysDown[k] = false;
+  }
+  if (typeof controls !== 'undefined' && controls) {
+    controls.enabled = true;
+    controls.update();
+  }
+  if (typeof renderer !== 'undefined' && renderer && renderer.domElement) {
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.focus();
+  }
+  window.focus();
+  depUpdate();
+  draw();
+  if (depUI('status')) {
+    depUI('status').textContent = '🎮 Free camera mode: Use W/A/S/D or Arrow keys to fly · Press CAPSLOCK to reset view.';
+  }
+}
+window.depFreeCamera = depFreeCamera;
+
 if(depPeekCloseBtn){
 
 
@@ -5069,77 +5324,9 @@ if(depPeekCloseBtn){
 
 
   depPeekCloseBtn.addEventListener('click', e => {
-
-
-
-
-
-
-
     e.preventDefault();
-
-
-
-
-
-
-
     e.stopPropagation();
-
-
-
-
-
-
-
-    depSelected = null;
-
-
-
-
-
-
-
-    depPeek.hidden = true;
-
-
-
-
-
-
-
-    if(depUI('editor')) depUI('editor').hidden = true;
-
-
-
-
-
-
-
-    updateTabLock();
-
-
-
-
-
-
-
-    depUpdate();
-
-
-
-
-
-
-
-    draw();
-
-
-
-
-
-
-
+    depFreeCamera();
   });
 
 
@@ -5380,7 +5567,7 @@ for(const [text,fn] of [
 
 
 
-  ['Close',()=>depDeselect(true)]
+  ['Close',()=>depFreeCamera()]
 
 
 
@@ -11381,6 +11568,7 @@ function depBuild(){
 
 
   depGroup.clear();depButtons.forEach(o=>o.e.remove());depButtons=[];depNodes=[];
+  if (typeof depSyncDutyLists === 'function') depSyncDutyLists();
   if (typeof restoreStaticHelicopter === 'function') {
     try { restoreStaticHelicopter(); } catch(e){}
   }
@@ -13984,7 +14172,12 @@ depUI('form').addEventListener('submit',e=>{
 
 
 
-  Object.assign(o,next);depStore();depBuild();depChoose(o.id);
+  Object.assign(o,next);
+  if (next.duty && next.duty.trim()) {
+    o.customDuty = true;
+    if (typeof depRegisterCustomDuty === 'function') depRegisterCustomDuty(next.duty);
+  }
+  depStore();depBuild();depChoose(o.id);
 
 
 
@@ -14049,22 +14242,16 @@ if(depUI('name')) depUI('name').addEventListener('input', () => {
 
 
 if(depUI('duty')) depUI('duty').addEventListener('input', () => {
-
-
-
-
-
-
-
   const o = depItems.find(x => x.id === depSelected);
-
-
-
-
-
-
-
-  if (o) { o.duty = depUI('duty').value; depSyncDropdownLabels(o); depStore(); }
+  if (o) {
+    o.duty = depUI('duty').value;
+    o.customDuty = true;
+    if (typeof depRegisterCustomDuty === 'function' && o.duty.trim()) {
+      depRegisterCustomDuty(o.duty);
+    }
+    depSyncDropdownLabels(o);
+    depStore();
+  }
 
 
 
@@ -15685,13 +15872,14 @@ function depDeselect(smooth = true){
 
 
   depReturnView(smooth);
-
-
-
-
-
-
-
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur();
+  }
+  if (typeof renderer !== 'undefined' && renderer && renderer.domElement) {
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.focus();
+  }
+  window.focus();
 }
 
 
@@ -18874,12 +19062,14 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        // Auto-update duty when officer walks into a new duty zone
+        // Auto-update duty when officer walks into a new duty zone (unless user set custom duty)
         if (['officer', 'hhmd', 'binocular', 'radio'].includes(o.kind)) {
-          const autoDuty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
-          if (autoDuty && autoDuty !== o.duty) {
-            o.duty = autoDuty;
-            depSyncDropdownLabels(o);
+          if (!o.customDuty) {
+            const autoDuty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+            if (autoDuty && autoDuty !== o.duty) {
+              o.duty = autoDuty;
+              depSyncDropdownLabels(o);
+            }
           }
         }
         // Throttle auto-save position when walking
@@ -19954,7 +20144,9 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
         o.x=depCandidate.point.x;
         o.y=getSurfaceHeight(depCandidate.point.x, depCandidate.point.z, depCandidate.point.y);
         o.z=depCandidate.point.z;
-        o.duty=depGetAutoDuty(o.x, o.y, o.z, o.kind);
+        if (!o.customDuty) {
+          o.duty=depGetAutoDuty(o.x, o.y, o.z, o.kind);
+        }
         depPlace=false;depNew=null;depStore();depBuild();depChoose(o.id);
 
 
@@ -32949,7 +33141,7 @@ function depDuplicateSelectedItem() {
   const newX = Math.round((cur.x + Math.cos(angleRad) * offsetDist) * 100) / 100;
   const newZ = Math.round((cur.z + Math.sin(angleRad) * offsetDist) * 100) / 100;
   const newY = typeof getSurfaceHeight === 'function' ? getSurfaceHeight(newX, newZ, cur.y) : cur.y;
-  const newDuty = typeof depGetAutoDuty === 'function' ? depGetAutoDuty(newX, newY, newZ, cur.kind) : (cur.duty || 'Security post');
+  const newDuty = cur.duty || (typeof depGetAutoDuty === 'function' ? depGetAutoDuty(newX, newY, newZ, cur.kind) : 'Security post');
 
   const newId = 'post-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6);
 
@@ -32962,10 +33154,14 @@ function depDuplicateSelectedItem() {
     z: newZ,
     angle: cur.angle || 0,
     duty: newDuty,
+    customDuty: !!cur.customDuty,
     belt: '',
     mobile: '',
     status: cur.status || 'Active'
   };
+  if (newItem.duty && typeof depRegisterCustomDuty === 'function') {
+    depRegisterCustomDuty(newItem.duty);
+  }
 
   depItems.push(newItem);
   depStore();
@@ -33009,12 +33205,14 @@ function openOfficerDialog(itemId) {
   if (!item) return;
   currentDialogItemId = targetId;
 
-  // Set title & symbol
+  // Set title & symbol (Minimalist UI)
   const symEl = document.getElementById('dep-dlg-symbol');
   const titleTextEl = document.getElementById('dep-dlg-title-text');
+  const badgeEl = document.getElementById('dep-dlg-badge');
   const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
   if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
-  if (titleTextEl) titleTextEl.textContent = isOfficer ? `Officer Details / अधिकारी विवरण (${item.name})` : `Equipment Details / उपकरण विवरण (${item.name})`;
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : 'Equipment Details';
+  if (badgeEl) badgeEl.textContent = item.name || '';
 
   // Fill input fields with current values
   const nameInput = document.getElementById('dep-dlg-name');
@@ -33045,6 +33243,19 @@ function closeOfficerDialog() {
   const modal = document.getElementById('dep-officer-modal');
   if (modal) modal.style.display = 'none';
   currentDialogItemId = null;
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur();
+  }
+  if (typeof depKeysDown !== 'undefined') {
+    for (const k in depKeysDown) {
+      depKeysDown[k] = false;
+    }
+  }
+  if (typeof renderer !== 'undefined' && renderer && renderer.domElement) {
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.focus();
+  }
+  window.focus();
 }
 window.closeOfficerDialog = closeOfficerDialog;
 
@@ -33068,6 +33279,12 @@ function saveOfficerDialog() {
   item.belt = newBelt;
   item.mobile = newMobile;
   item.duty = newDuty;
+  if (newDuty) {
+    item.customDuty = true;
+    if (typeof depRegisterCustomDuty === 'function') {
+      depRegisterCustomDuty(newDuty);
+    }
+  }
 
   // Sync to left/right inspector inputs if active
   if (depUI('name')) depUI('name').value = item.name;
@@ -33084,7 +33301,7 @@ function saveOfficerDialog() {
   depChoose(item.id, false);
 
   closeOfficerDialog();
-  depShowToast(`✅ ${item.name} विवरण सुरक्षित (Saved) हो गया!`);
+  depShowToast(`Saved ${item.name}`);
 }
 window.saveOfficerDialog = saveOfficerDialog;
 
@@ -33106,15 +33323,33 @@ function setupOfficerDialogEvents() {
     });
   }
 
-  // ONLY ✏️ button on depPeek opens the dialog
+  // Open Edit Details dialog on ✏️ button, Officer Name click, or Duty click
+  const triggerEditDialog = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    openOfficerDialog(depSelected);
+  };
+
+  const titleRow = depPeekHead.querySelector('.dep-peek-title-row');
+  const titleEl = depPeekHead.querySelector('#dep-peek-title');
+  const badgeEl = depPeekHead.querySelector('#dep-peek-duty-badge');
   const editBtn = depPeekHead.querySelector('#dep-peek-edit');
+
+  if (titleRow) {
+    titleRow.addEventListener('pointerdown', e => e.stopPropagation());
+    titleRow.addEventListener('click', triggerEditDialog);
+  }
+  if (titleEl) {
+    titleEl.addEventListener('pointerdown', e => e.stopPropagation());
+    titleEl.addEventListener('click', triggerEditDialog);
+  }
+  if (badgeEl) {
+    badgeEl.addEventListener('pointerdown', e => e.stopPropagation());
+    badgeEl.addEventListener('click', triggerEditDialog);
+  }
   if (editBtn) {
     editBtn.addEventListener('pointerdown', e => e.stopPropagation());
-    editBtn.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      openOfficerDialog(depSelected);
-    });
+    editBtn.addEventListener('click', triggerEditDialog);
   }
 
   // Bind + button to duplicate selected item

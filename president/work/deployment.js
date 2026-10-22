@@ -16,15 +16,91 @@ const depUI=id=>root.querySelector('#dep-'+id),depGroup=new THREE.Group();scene.
 
 
 
-const dutyNames=['Outer perimeter duty','Binocular duty — rooftop','Lotus duty','Inner cordon duty','Outer cordon duty','Main gate — DFMD / HHMD','Naka & barricade duty','Auditorium main stage duty','Auditorium seating duty','VIP parking duty','VIP toilet duty','VIP lounge duty','Hall gate duty'];
+const depDefaultDuties = [
+  'Main gate — DFMD / HHMD',
+  'Naka & barricade duty',
+  'Helipad security & landing cordon',
+  'Helipad approach road security',
+  'Auditorium main stage duty',
+  'Hall gate duty',
+  'Auditorium seating duty',
+  'VIP lounge duty',
+  'VIP toilet duty',
+  'VIP parking duty',
+  'Binocular duty — rooftop',
+  'Lotus duty',
+  'Central lawn duty',
+  'Inner cordon duty',
+  'Outer perimeter duty',
+  'Outer cordon duty',
+  'Control & wireless duty',
+  'Emergency Medical Response',
+  'Fire & Safety Standby',
+  'Queue & Crowd Management'
+];
+const dutyNames = depDefaultDuties;
 
+let depCustomDuties = [];
+try {
+  const _savedCustom = localStorage.getItem('gyan-mansarovar-custom-duties');
+  if (_savedCustom) depCustomDuties = JSON.parse(_savedCustom) || [];
+} catch (e) { depCustomDuties = []; }
 
+function depGetAllDuties() {
+  const set = new Set(depDefaultDuties);
+  if (Array.isArray(depCustomDuties)) {
+    depCustomDuties.forEach(d => { if (d && typeof d === 'string' && d.trim()) set.add(d.trim()); });
+  }
+  if (typeof depItems !== 'undefined' && Array.isArray(depItems)) {
+    depItems.forEach(item => {
+      if (item && item.duty && typeof item.duty === 'string' && item.duty.trim()) {
+        set.add(item.duty.trim());
+      }
+    });
+  }
+  return Array.from(set).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true }));
+}
+window.depGetAllDuties = depGetAllDuties;
 
+function depRegisterCustomDuty(duty) {
+  if (!duty || typeof duty !== 'string') return;
+  const trimmed = duty.trim();
+  if (!trimmed) return;
+  if (!depCustomDuties.includes(trimmed)) {
+    depCustomDuties.push(trimmed);
+    try {
+      localStorage.setItem('gyan-mansarovar-custom-duties', JSON.stringify(depCustomDuties));
+    } catch (e) {}
+  }
+  depSyncDutyLists();
+}
+window.depRegisterCustomDuty = depRegisterCustomDuty;
 
+function depSyncDutyLists() {
+  const allDuties = depGetAllDuties();
+  const datalist1 = typeof depUI === 'function' ? depUI('duties') : null;
+  if (datalist1) {
+    datalist1.replaceChildren();
+    allDuties.forEach(text => {
+      const opt = document.createElement('option');
+      opt.value = text;
+      datalist1.appendChild(opt);
+    });
+  }
+  const datalist2 = document.getElementById('dep-dlg-duty-list');
+  if (datalist2) {
+    datalist2.replaceChildren();
+    allDuties.forEach(text => {
+      const opt = document.createElement('option');
+      opt.value = text;
+      datalist2.appendChild(opt);
+    });
+  }
+}
+window.depSyncDutyLists = depSyncDutyLists;
 
-
-
-for(const text of dutyNames){const o=document.createElement('option');o.value=text;depUI('duties').appendChild(o);}
+// Initial sync
+setTimeout(depSyncDutyLists, 60);
 
 
 
@@ -1602,7 +1678,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit officer details (अधिकारी विवरण बदलें)" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Add another / Duplicate post (एक और जोड़ें)">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit details" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title" title="Click to edit officer details" style="cursor:pointer;">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge" title="Click to edit duty & details" style="cursor:pointer;"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit details" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Duplicate post">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -2122,6 +2198,58 @@ if(depPeekMinBtn){
 
 
 
+function depFreeCamera() {
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur();
+  }
+  // Free camera right where it is without returning to campus overview
+  depCamera = null;
+  depSelected = null;
+  depHover = null;
+  depPlace = false;
+  if (depNew) {
+    depItems = depItems.filter(x => x.id !== depNew);
+    depNew = null;
+    depStore();
+    depBuild();
+  }
+  if (depCandidate) {
+    depCandidate = null;
+    if (depConfirm) depConfirm.hidden = true;
+  }
+  if (depRadial) depRadial.style.display = 'none';
+  if (depPeek) depPeek.hidden = true;
+  const editor = depUI('editor');
+  if (editor) editor.hidden = true;
+  const list = depUI('list');
+  if (list) list.value = '';
+  const topList = root.querySelector('#dep-top-list');
+  if (topList) topList.value = '';
+  if (depTooltip) depTooltip.style.display = 'none';
+  updateOfficerHud(null);
+  updateTabLock();
+  depTabChain = [];
+  depTabChainIndex = -1;
+  for (const k in depKeysDown) {
+    depKeysDown[k] = false;
+  }
+  if (typeof controls !== 'undefined' && controls) {
+    controls.enabled = true;
+    controls.update();
+  }
+  if (typeof renderer !== 'undefined' && renderer && renderer.domElement) {
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.focus();
+  }
+  window.focus();
+  depUpdate();
+  draw();
+  if (depUI('status')) {
+    depUI('status').textContent = '🎮 Free camera mode: Use W/A/S/D or Arrow keys to fly · Press CAPSLOCK to reset view.';
+  }
+}
+window.depFreeCamera = depFreeCamera;
+
 if(depPeekCloseBtn){
 
 
@@ -2139,77 +2267,9 @@ if(depPeekCloseBtn){
 
 
   depPeekCloseBtn.addEventListener('click', e => {
-
-
-
-
-
-
-
     e.preventDefault();
-
-
-
-
-
-
-
     e.stopPropagation();
-
-
-
-
-
-
-
-    depSelected = null;
-
-
-
-
-
-
-
-    depPeek.hidden = true;
-
-
-
-
-
-
-
-    if(depUI('editor')) depUI('editor').hidden = true;
-
-
-
-
-
-
-
-    updateTabLock();
-
-
-
-
-
-
-
-    depUpdate();
-
-
-
-
-
-
-
-    draw();
-
-
-
-
-
-
-
+    depFreeCamera();
   });
 
 
@@ -2450,7 +2510,7 @@ for(const [text,fn] of [
 
 
 
-  ['Close',()=>depDeselect(true)]
+  ['Close',()=>depFreeCamera()]
 
 
 
@@ -8451,6 +8511,7 @@ function depBuild(){
 
 
   depGroup.clear();depButtons.forEach(o=>o.e.remove());depButtons=[];depNodes=[];
+  if (typeof depSyncDutyLists === 'function') depSyncDutyLists();
   if (typeof restoreStaticHelicopter === 'function') {
     try { restoreStaticHelicopter(); } catch(e){}
   }
@@ -11054,7 +11115,12 @@ depUI('form').addEventListener('submit',e=>{
 
 
 
-  Object.assign(o,next);depStore();depBuild();depChoose(o.id);
+  Object.assign(o,next);
+  if (next.duty && next.duty.trim()) {
+    o.customDuty = true;
+    if (typeof depRegisterCustomDuty === 'function') depRegisterCustomDuty(next.duty);
+  }
+  depStore();depBuild();depChoose(o.id);
 
 
 
@@ -11119,22 +11185,16 @@ if(depUI('name')) depUI('name').addEventListener('input', () => {
 
 
 if(depUI('duty')) depUI('duty').addEventListener('input', () => {
-
-
-
-
-
-
-
   const o = depItems.find(x => x.id === depSelected);
-
-
-
-
-
-
-
-  if (o) { o.duty = depUI('duty').value; depSyncDropdownLabels(o); depStore(); }
+  if (o) {
+    o.duty = depUI('duty').value;
+    o.customDuty = true;
+    if (typeof depRegisterCustomDuty === 'function' && o.duty.trim()) {
+      depRegisterCustomDuty(o.duty);
+    }
+    depSyncDropdownLabels(o);
+    depStore();
+  }
 
 
 
@@ -12755,13 +12815,14 @@ function depDeselect(smooth = true){
 
 
   depReturnView(smooth);
-
-
-
-
-
-
-
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur();
+  }
+  if (typeof renderer !== 'undefined' && renderer && renderer.domElement) {
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.focus();
+  }
+  window.focus();
 }
 
 
@@ -15944,12 +16005,14 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        // Auto-update duty when officer walks into a new duty zone
+        // Auto-update duty when officer walks into a new duty zone (unless user set custom duty)
         if (['officer', 'hhmd', 'binocular', 'radio'].includes(o.kind)) {
-          const autoDuty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
-          if (autoDuty && autoDuty !== o.duty) {
-            o.duty = autoDuty;
-            depSyncDropdownLabels(o);
+          if (!o.customDuty) {
+            const autoDuty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
+            if (autoDuty && autoDuty !== o.duty) {
+              o.duty = autoDuty;
+              depSyncDropdownLabels(o);
+            }
           }
         }
         // Throttle auto-save position when walking
@@ -17024,7 +17087,9 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
         o.x=depCandidate.point.x;
         o.y=getSurfaceHeight(depCandidate.point.x, depCandidate.point.z, depCandidate.point.y);
         o.z=depCandidate.point.z;
-        o.duty=depGetAutoDuty(o.x, o.y, o.z, o.kind);
+        if (!o.customDuty) {
+          o.duty=depGetAutoDuty(o.x, o.y, o.z, o.kind);
+        }
         depPlace=false;depNew=null;depStore();depBuild();depChoose(o.id);
 
 
@@ -30019,7 +30084,7 @@ function depDuplicateSelectedItem() {
   const newX = Math.round((cur.x + Math.cos(angleRad) * offsetDist) * 100) / 100;
   const newZ = Math.round((cur.z + Math.sin(angleRad) * offsetDist) * 100) / 100;
   const newY = typeof getSurfaceHeight === 'function' ? getSurfaceHeight(newX, newZ, cur.y) : cur.y;
-  const newDuty = typeof depGetAutoDuty === 'function' ? depGetAutoDuty(newX, newY, newZ, cur.kind) : (cur.duty || 'Security post');
+  const newDuty = cur.duty || (typeof depGetAutoDuty === 'function' ? depGetAutoDuty(newX, newY, newZ, cur.kind) : 'Security post');
 
   const newId = 'post-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6);
 
@@ -30032,10 +30097,14 @@ function depDuplicateSelectedItem() {
     z: newZ,
     angle: cur.angle || 0,
     duty: newDuty,
+    customDuty: !!cur.customDuty,
     belt: '',
     mobile: '',
     status: cur.status || 'Active'
   };
+  if (newItem.duty && typeof depRegisterCustomDuty === 'function') {
+    depRegisterCustomDuty(newItem.duty);
+  }
 
   depItems.push(newItem);
   depStore();
@@ -30079,12 +30148,14 @@ function openOfficerDialog(itemId) {
   if (!item) return;
   currentDialogItemId = targetId;
 
-  // Set title & symbol
+  // Set title & symbol (Minimalist UI)
   const symEl = document.getElementById('dep-dlg-symbol');
   const titleTextEl = document.getElementById('dep-dlg-title-text');
+  const badgeEl = document.getElementById('dep-dlg-badge');
   const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
   if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
-  if (titleTextEl) titleTextEl.textContent = isOfficer ? `Officer Details / अधिकारी विवरण (${item.name})` : `Equipment Details / उपकरण विवरण (${item.name})`;
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : 'Equipment Details';
+  if (badgeEl) badgeEl.textContent = item.name || '';
 
   // Fill input fields with current values
   const nameInput = document.getElementById('dep-dlg-name');
@@ -30115,6 +30186,19 @@ function closeOfficerDialog() {
   const modal = document.getElementById('dep-officer-modal');
   if (modal) modal.style.display = 'none';
   currentDialogItemId = null;
+  if (document.activeElement && typeof document.activeElement.blur === 'function') {
+    document.activeElement.blur();
+  }
+  if (typeof depKeysDown !== 'undefined') {
+    for (const k in depKeysDown) {
+      depKeysDown[k] = false;
+    }
+  }
+  if (typeof renderer !== 'undefined' && renderer && renderer.domElement) {
+    renderer.domElement.tabIndex = 0;
+    renderer.domElement.focus();
+  }
+  window.focus();
 }
 window.closeOfficerDialog = closeOfficerDialog;
 
@@ -30138,6 +30222,12 @@ function saveOfficerDialog() {
   item.belt = newBelt;
   item.mobile = newMobile;
   item.duty = newDuty;
+  if (newDuty) {
+    item.customDuty = true;
+    if (typeof depRegisterCustomDuty === 'function') {
+      depRegisterCustomDuty(newDuty);
+    }
+  }
 
   // Sync to left/right inspector inputs if active
   if (depUI('name')) depUI('name').value = item.name;
@@ -30154,7 +30244,7 @@ function saveOfficerDialog() {
   depChoose(item.id, false);
 
   closeOfficerDialog();
-  depShowToast(`✅ ${item.name} विवरण सुरक्षित (Saved) हो गया!`);
+  depShowToast(`Saved ${item.name}`);
 }
 window.saveOfficerDialog = saveOfficerDialog;
 
@@ -30176,15 +30266,33 @@ function setupOfficerDialogEvents() {
     });
   }
 
-  // ONLY ✏️ button on depPeek opens the dialog
+  // Open Edit Details dialog on ✏️ button, Officer Name click, or Duty click
+  const triggerEditDialog = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    openOfficerDialog(depSelected);
+  };
+
+  const titleRow = depPeekHead.querySelector('.dep-peek-title-row');
+  const titleEl = depPeekHead.querySelector('#dep-peek-title');
+  const badgeEl = depPeekHead.querySelector('#dep-peek-duty-badge');
   const editBtn = depPeekHead.querySelector('#dep-peek-edit');
+
+  if (titleRow) {
+    titleRow.addEventListener('pointerdown', e => e.stopPropagation());
+    titleRow.addEventListener('click', triggerEditDialog);
+  }
+  if (titleEl) {
+    titleEl.addEventListener('pointerdown', e => e.stopPropagation());
+    titleEl.addEventListener('click', triggerEditDialog);
+  }
+  if (badgeEl) {
+    badgeEl.addEventListener('pointerdown', e => e.stopPropagation());
+    badgeEl.addEventListener('click', triggerEditDialog);
+  }
   if (editBtn) {
     editBtn.addEventListener('pointerdown', e => e.stopPropagation());
-    editBtn.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      openOfficerDialog(depSelected);
-    });
+    editBtn.addEventListener('click', triggerEditDialog);
   }
 
   // Bind + button to duplicate selected item
