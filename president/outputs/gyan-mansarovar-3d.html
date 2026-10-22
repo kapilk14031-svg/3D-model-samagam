@@ -866,80 +866,6 @@ body {
   </div>
 </div>
 
-<!-- Officer / Item Edit Dialog Modal -->
-<div id="dep-officer-modal" class="dep-officer-modal" style="display:none;">
-  <div class="dep-officer-modal-backdrop" id="dep-officer-backdrop"></div>
-  <div class="dep-officer-modal-card" role="dialog" aria-modal="true" aria-labelledby="dep-dlg-title-text">
-    <div class="dep-officer-modal-header">
-      <div class="dep-officer-modal-title">
-        <span id="dep-dlg-symbol" style="font-size:20px;">👮</span>
-        <span id="dep-dlg-title-text" style="font-size:15px;font-weight:700;color:#0f172a;">Officer Details / अधिकारी विवरण</span>
-      </div>
-      <button type="button" class="dep-officer-modal-close" id="dep-dlg-close-x" title="Close (ESC)">✕</button>
-    </div>
-    <form id="dep-officer-dialog-form">
-      <div class="dep-officer-modal-body">
-        <div class="dep-dlg-form-group">
-          <label for="dep-dlg-name">
-            <span style="font-weight:700;color:#0f172a;">👤 Officer Name / नाम</span>
-            <small style="color:#64748b;font-weight:normal;">(उदा. Officer 12 / SI Ramesh Sharma)</small>
-          </label>
-          <input type="text" id="dep-dlg-name" class="dep-dlg-input" placeholder="e.g. Officer 12" required autocomplete="off">
-        </div>
-
-        <div class="dep-dlg-form-row">
-          <div class="dep-dlg-form-group" style="flex:1;">
-            <label for="dep-dlg-belt">
-              <span style="font-weight:700;color:#0f172a;">🏷️ Belt No. / बेल्ट नं.</span>
-            </label>
-            <input type="text" id="dep-dlg-belt" class="dep-dlg-input" placeholder="e.g. DL-4821 / 1042" autocomplete="off">
-          </div>
-          <div class="dep-dlg-form-group" style="flex:1;">
-            <label for="dep-dlg-mobile">
-              <span style="font-weight:700;color:#0f172a;">📞 Mobile No. / मोबाइल नं.</span>
-            </label>
-            <input type="tel" id="dep-dlg-mobile" class="dep-dlg-input" placeholder="e.g. 9876543210" autocomplete="off">
-          </div>
-        </div>
-
-        <div class="dep-dlg-form-group">
-          <label for="dep-dlg-duty">
-            <span style="font-weight:700;color:#0f172a;">📍 Posting / Duty (तैनाती स्थान)</span>
-            <small style="color:#64748b;font-weight:normal;">(ड्रॉपडाउन से चुनें या नया लिखें)</small>
-          </label>
-          <input type="text" id="dep-dlg-duty" class="dep-dlg-input" list="dep-dlg-duty-list" placeholder="e.g. VIP lounge duty / Main gate" autocomplete="off">
-          <datalist id="dep-dlg-duty-list">
-            <option value="Outer perimeter duty">Outer perimeter duty</option>
-            <option value="Binocular duty - rooftop">Binocular duty - rooftop</option>
-            <option value="Lotus duty">Lotus duty</option>
-            <option value="Inner cordon duty">Inner cordon duty</option>
-            <option value="Outer cordon duty">Outer cordon duty</option>
-            <option value="Main gate - DFMD / HHMD">Main gate - DFMD / HHMD</option>
-            <option value="Naka & barricade duty">Naka & barricade duty</option>
-            <option value="Auditorium main stage duty">Auditorium main stage duty</option>
-            <option value="Auditorium seating duty">Auditorium seating duty</option>
-            <option value="VIP parking duty">VIP parking duty</option>
-            <option value="VIP toilet duty">VIP toilet duty</option>
-            <option value="VIP lounge duty">VIP lounge duty</option>
-            <option value="Hall gate duty">Hall gate duty</option>
-          </datalist>
-        </div>
-
-        <div class="dep-dlg-hint">
-          💾 <b>Auto-Save:</b> सेव करते ही यह विवरण ब्राउज़र और बैकएंड डेटाबेस में हमेशा के लिए सुरक्षित (Save) रहेगा। हार्ड रिफ्रेश के बाद भी नहीं हटेगा।
-        </div>
-      </div>
-      <div class="dep-officer-modal-footer">
-        <button type="button" class="btn btn-outline" id="dep-dlg-cancel-btn" style="padding:7px 14px;font-size:12.5px;border-radius:6px;">✕ Cancel</button>
-        <button type="submit" class="btn btn-primary" id="dep-dlg-save-btn" style="padding:7px 18px;font-size:12.5px;font-weight:700;border-radius:6px;background:#0284c7;color:#fff;display:inline-flex;align-items:center;gap:6px;">
-          💾 Save Details (सुरक्षित करें)
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
   </div>
 </div>
 
@@ -2094,153 +2020,7 @@ body {
   .dropdown-wrapper { flex: 1; }
 }
 
-/* Officer / Item Quick Edit Modal */
-.dep-officer-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: auto;
-}
-.dep-officer-modal-backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  cursor: pointer;
-}
-.dep-officer-modal-card {
-  position: relative;
-  width: 92%;
-  max-width: 440px;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  animation: depModalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
-}
-@keyframes depModalPopIn {
-  from { opacity: 0; transform: scale(0.93) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-.dep-officer-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-}
-.dep-officer-modal-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.dep-officer-modal-close {
-  background: none;
-  border: none;
-  font-size: 18px;
-  line-height: 1;
-  color: #64748b;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: all 0.12s ease;
-}
-.dep-officer-modal-close:hover {
-  background: #fee2e2;
-  color: #dc2626;
-}
-.dep-officer-modal-body {
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.dep-dlg-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.dep-dlg-form-group label {
-  font-size: 12.5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-.dep-dlg-form-row {
-  display: flex;
-  gap: 12px;
-}
-.dep-dlg-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 12px;
-  font-size: 13.5px;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 8px;
-  color: #0f172a;
-  background: #ffffff;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.dep-dlg-input:focus {
-  border-color: #0284c7;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
-}
-.dep-dlg-hint {
-  font-size: 11.5px;
-  color: #0369a1;
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
-  border-radius: 8px;
-  padding: 8px 11px;
-  line-height: 1.45;
-}
-.dep-officer-modal-footer {
-  padding: 12px 18px;
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-.dep-toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: #0f172a;
-  color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 9999px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  z-index: 100001;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.dep-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+
 .dep-peek-title-row {
   cursor: pointer;
   transition: opacity 0.12s ease;
@@ -2639,7 +2419,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhpefek-wu7",
       "kind": "officer",
       "name": "Officer 14",
-      "duty": "Lotus duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": 14.94,
@@ -2651,7 +2431,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhquwbr-4bo",
       "kind": "officer",
       "name": "Officer 15",
-      "duty": "Central lawn duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": 32.72,
@@ -2723,7 +2503,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwprze-ydp",
       "kind": "officer",
       "name": "Officer 17",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -57.7,
@@ -2735,7 +2515,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwq9lo-20n",
       "kind": "officer",
       "name": "Officer 18",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -1.35,
@@ -2747,7 +2527,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwqhd2-cp3",
       "kind": "officer",
       "name": "Officer 19",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": 53.06,
@@ -2759,7 +2539,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwqoyz-dav",
       "kind": "officer",
       "name": "Officer 20",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": 68.95,
@@ -2771,7 +2551,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwrjom-4no",
       "kind": "officer",
       "name": "Officer 21",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": 67.58,
@@ -2783,7 +2563,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwruyr-ylk",
       "kind": "officer",
       "name": "Officer 22",
-      "duty": "VIP parking duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": 61.51,
@@ -2795,7 +2575,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhws9hy-lx2",
       "kind": "officer",
       "name": "Officer 23",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -64.48,
@@ -2807,7 +2587,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwsq81-dz2",
       "kind": "officer",
       "name": "Officer 24",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -64.6,
@@ -2819,7 +2599,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwsxyj-202",
       "kind": "officer",
       "name": "Officer 25",
-      "duty": "Outer perimeter duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -69.33,
@@ -2831,7 +2611,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvhwuceb-zti",
       "kind": "officer",
       "name": "Officer 26",
-      "duty": "Naka & barricade duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -59.31,
@@ -2879,7 +2659,7 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvj37x89-gq9",
       "kind": "officer",
       "name": "Officer 19",
-      "duty": "Hall gate duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -22.61,
@@ -2891,13 +2671,25 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-mvj399r0-kzi",
       "kind": "officer",
       "name": "Officer 20",
-      "duty": "Auditorium seating duty",
+      "duty": "Security post",
       "belt": "",
       "mobile": "",
       "x": -38.79,
       "y": 1.04,
       "z": -25.96,
       "angle": 171.42
+    },
+    {
+      "id": "post-mvj3lsoa-r9g",
+      "kind": "officer",
+      "name": "Officer 21",
+      "duty": "Helipad approach road security",
+      "belt": "",
+      "mobile": "",
+      "x": 1.36,
+      "y": 0,
+      "z": -169.51,
+      "angle": 167.78
     }
   ]
 };
@@ -4505,7 +4297,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit Name, Belt No., Mobile & Posting / विवरण बदलने के लिए क्लिक करें" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit officer details (नाम, बेल्ट नं, मोबाइल, ड्यूटी बदलें)" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Edit / view details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Maximize / minimize details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -32882,185 +32674,9 @@ if (document.readyState === 'loading') {
 
 
 
-// =========================================================================
-// OFFICER & EQUIPMENT QUICK EDIT DIALOG ENGINE
-// =========================================================================
-let currentDialogItemId = null;
-
-function depShowToast(msg) {
-  let toast = document.getElementById('dep-live-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'dep-live-toast';
-    toast.className = 'dep-toast';
-    document.body.appendChild(toast);
-  }
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toast._hideTimer);
-  toast._hideTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 3200);
-}
-window.depShowToast = depShowToast;
-
-function openOfficerDialog(itemId) {
-  const targetId = itemId || depSelected;
-  if (!targetId) return;
-  const item = depItems.find(o => o.id === targetId);
-  if (!item) return;
-  currentDialogItemId = targetId;
-
-  // Set title & symbol
-  const symEl = document.getElementById('dep-dlg-symbol');
-  const titleTextEl = document.getElementById('dep-dlg-title-text');
-  const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
-  if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
-  if (titleTextEl) titleTextEl.textContent = isOfficer ? `Officer Details / अधिकारी विवरण (${item.name})` : `Equipment Details / उपकरण विवरण (${item.name})`;
-
-  // Fill input fields with current values
-  const nameInput = document.getElementById('dep-dlg-name');
-  const beltInput = document.getElementById('dep-dlg-belt');
-  const mobileInput = document.getElementById('dep-dlg-mobile');
-  const dutyInput = document.getElementById('dep-dlg-duty');
-
-  if (nameInput) nameInput.value = item.name || '';
-  if (beltInput) beltInput.value = item.belt || '';
-  if (mobileInput) mobileInput.value = item.mobile || '';
-  if (dutyInput) dutyInput.value = item.duty || '';
-
-  // Show modal
-  const modal = document.getElementById('dep-officer-modal');
-  if (modal) {
-    modal.style.display = 'flex';
-    setTimeout(() => {
-      if (nameInput) {
-        nameInput.focus();
-        nameInput.select();
-      }
-    }, 60);
-  }
-}
-window.openOfficerDialog = openOfficerDialog;
-
-function closeOfficerDialog() {
-  const modal = document.getElementById('dep-officer-modal');
-  if (modal) modal.style.display = 'none';
-  currentDialogItemId = null;
-}
-window.closeOfficerDialog = closeOfficerDialog;
-
-function saveOfficerDialog() {
-  if (!currentDialogItemId) return;
-  const item = depItems.find(o => o.id === currentDialogItemId);
-  if (!item) return;
-
-  const nameInput = document.getElementById('dep-dlg-name');
-  const beltInput = document.getElementById('dep-dlg-belt');
-  const mobileInput = document.getElementById('dep-dlg-mobile');
-  const dutyInput = document.getElementById('dep-dlg-duty');
-
-  const oldName = item.name;
-  const newName = nameInput ? nameInput.value.trim() : item.name;
-  const newBelt = beltInput ? beltInput.value.trim() : (item.belt || '');
-  const newMobile = mobileInput ? mobileInput.value.trim() : (item.mobile || '');
-  const newDuty = dutyInput ? dutyInput.value.trim() : (item.duty || '');
-
-  item.name = newName || oldName;
-  item.belt = newBelt;
-  item.mobile = newMobile;
-  item.duty = newDuty;
-
-  // Sync to left inspector inputs if active
-  if (depUI('name')) depUI('name').value = item.name;
-  if (depUI('belt')) depUI('belt').value = item.belt;
-  if (depUI('mobile')) depUI('mobile').value = item.mobile;
-  if (depUI('duty')) depUI('duty').value = item.duty;
-
-  // Persist to localStorage & backend SQLite immediately
-  depStore();
-  depBuild();
-  depChoose(item.id, false);
-
-  closeOfficerDialog();
-  depShowToast(`✅ ${item.name} विवरण हमेशा के लिए सुरक्षित (Saved) हो गया!`);
-}
-window.saveOfficerDialog = saveOfficerDialog;
-
-// Bind Dialog events when DOM is ready
-function setupOfficerDialogEvents() {
-  const modal = document.getElementById('dep-officer-modal');
-  const backdrop = document.getElementById('dep-officer-backdrop');
-  const closeX = document.getElementById('dep-dlg-close-x');
-  const cancelBtn = document.getElementById('dep-dlg-cancel-btn');
-  const form = document.getElementById('dep-officer-dialog-form');
-
-  if (backdrop) backdrop.addEventListener('click', closeOfficerDialog);
-  if (closeX) closeX.addEventListener('click', closeOfficerDialog);
-  if (cancelBtn) cancelBtn.addEventListener('click', closeOfficerDialog);
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      saveOfficerDialog();
-    });
-  }
-
-  // Floating pill (depPeek) click triggers
-  const titleRow = depPeekHead.querySelector('.dep-peek-title-row');
-  const titleEl = depPeekHead.querySelector('#dep-peek-title');
-  const badgeEl = depPeekHead.querySelector('#dep-peek-duty-badge');
-  const editBtn = depPeekHead.querySelector('#dep-peek-edit');
-
-  const triggerOpen = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    openOfficerDialog(depSelected);
-  };
-
-  if (titleRow) {
-    titleRow.addEventListener('pointerdown', e => e.stopPropagation());
-    titleRow.addEventListener('click', triggerOpen);
-  }
-  if (titleEl) {
-    titleEl.addEventListener('pointerdown', e => e.stopPropagation());
-    titleEl.addEventListener('click', triggerOpen);
-  }
-  if (badgeEl) {
-    badgeEl.addEventListener('pointerdown', e => e.stopPropagation());
-    badgeEl.addEventListener('click', triggerOpen);
-  }
-  if (editBtn) {
-    editBtn.addEventListener('pointerdown', e => e.stopPropagation());
-    editBtn.addEventListener('click', triggerOpen);
-  }
-
-  // Also bind '+' button on pill to open the dialog box directly
-  const minBtn = depPeekHead.querySelector('#dep-peek-min');
-  if (minBtn) {
-    minBtn.addEventListener('pointerdown', e => e.stopPropagation());
-    minBtn.addEventListener('click', triggerOpen);
-  }
-
-  // Keyboard shortcuts (ESC closes dialog, Enter submits)
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      const m = document.getElementById('dep-officer-modal');
-      if (m && m.style.display !== 'none') {
-        e.preventDefault();
-        e.stopPropagation();
-        closeOfficerDialog();
-      }
-    }
-  });
-}
-
-// Call setup immediately or on ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setupOfficerDialogEvents);
-} else {
-  setTimeout(setupOfficerDialogEvents, 100);
-}
-
+// Dialog modal removed as requested
+window.openOfficerDialog = function(){};
+window.closeOfficerDialog = function(){};
 
 try{const _uv=(new URLSearchParams(window.location.search)).get('view');if(_uv&&['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(_uv)){select.value=_uv;}}catch(e){}
 applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();
