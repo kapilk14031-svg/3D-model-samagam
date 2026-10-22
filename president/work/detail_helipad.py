@@ -273,7 +273,7 @@ def add_helipad(objects, colors, geo):
         t = np.clip(np.dot(p - road_start, drive) / np.dot(drive, drive), 0, 1)
         return np.linalg.norm(p - road_start - t * drive)
 
-    objects[:] = [o for o in objects if not (o['name'].startswith('Northern enclosure wall') and approach_distance(o) < 3.4)]
+    # Current user layout performs its own road/wall clearance after registration.
 
     # =========================================================================
     # 4. PERIMETER FLOODLIGHT POLES & WINDSOCK
@@ -470,6 +470,9 @@ def add_helipad(objects, colors, geo):
         vehicleAccessWidthMetres=5.5
     )
     geo['helipadProposal'] = proposal
+    from helipad_user_layout import apply_layout
+    objects,colors,geo=apply_layout(objects,colors,geo)
+    proposal=geo['helipadProposal']
     root = Path(__file__).resolve().parents[1]
     (root / 'outputs/helipad-proposal.json').write_text(json.dumps(proposal, indent=2), encoding='utf-8')
     (root / 'outputs/georeference.json').write_text(json.dumps(geo, indent=2), encoding='utf-8')

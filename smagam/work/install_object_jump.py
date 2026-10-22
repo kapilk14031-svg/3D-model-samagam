@@ -1,0 +1,10 @@
+from pathlib import Path
+p=Path(__file__).with_name('viewer-pdf.html');s=p.read_text(encoding='utf-8')
+s=s.replace("if(k==='capslock'&&depFollowState)","if(k===' '&&depFollowState?.manual){e.preventDefault();if(!e.repeat)depManualJump();return}\n if(k==='capslock'&&depFollowState)")
+s=s.replace("return{p:[...depFollowState.manual.p],angle:depFollowState.manual.angle};", "return{p:depFollowState.manual.p.map((v,i)=>v+(i===1?(depFollowState.manual.jump?.height||0):0)),angle:depFollowState.manual.angle};")
+s=s.replace("changed:false,undo:false,idle:0};", "changed:false,undo:false,idle:0,jump:{height:0,velocity:0}};")
+s=s.replace("function depManualTick(dt,v){", "function depManualJump(){const m=depFollowState?.manual;if(!m)return;if(!m.jump)m.jump={height:0,velocity:0};if(m.jump.height<.001&&m.jump.velocity===0){m.jump.velocity=11;dirty=true}}\nfunction depManualTick(dt,v){")
+s=s.replace("if(!m||!u)return;\n const moving=", "if(!m||!u)return;\n if(m.jump&&(m.jump.velocity||m.jump.height)){const j=m.jump;j.height+=j.velocity*dt-10*dt*dt;j.velocity-=20*dt;if(j.height<=0){j.height=0;j.velocity=0}dirty=true;canvas.dataset.objectJump=String(j.height)}\n const moving=")
+s=s.replace('Z/X tilt · Caps Lock exits', 'Z/X tilt · Space jump · Caps Lock exits')
+s=s.replace('Q/E rotate. Caps Lock exits.', 'Q/E rotate. Space jumps. Caps Lock exits.')
+p.write_text(s,encoding='utf-8');print('Added selected-object jump with gravity and ground landing')

@@ -19,16 +19,40 @@ def project(point):
         q=[a[0]+t*dx,0,a[2]+t*dz];distance=math.dist([point[0],0,point[2]],q)
         if best is None or distance<best[0]:best=(distance,stations[j]+t*ll,[dx/ll,dz/ll])
     return best
+# Align the photo gates to the actual frontage polyline before cutting its openings.
+# Keep the printed PDF coordinates as source data; move the rendered gate assembly,
+# leaf pivots, label and feature world anchor together.
+for gate in [f for f in features if f['id'] in ['G01','G02','G03']]:
+    old=list(gate['world']);_,station,tangent=project(old)
+    for j,(lo,hi) in enumerate(zip(stations,stations[1:])):
+        if lo-1e-6<=station<=hi+1e-6:
+            t=(station-lo)/(hi-lo);centre=[frontage[j][i]+t*(frontage[j+1][i]-frontage[j][i]) for i in range(3)];break
+    angle=math.atan2(-tangent[1],tangent[0])
+    if math.cos(angle+math.pi/2)<0:angle+=math.pi
+    delta=angle+math.pi/2;ca=math.cos(delta);sa=math.sin(delta)
+    def align_point(p):
+        dx=p[0]-old[0];dz=p[2]-old[2]
+        return [centre[0]+dx*ca+dz*sa,p[1],centre[2]-dx*sa+dz*ca]
+    for o in objects:
+        if o['featureId']!=gate['id']:continue
+        o['p']=align_point(o['p']);o['rotY']=o.get('rotY',0)+delta
+        if 'photoLeaf' in o:o['photoLeaf']['pivot']=align_point(o['photoLeaf']['pivot'])
+        o['status']+='; gate plane aligned to highway boundary wall'
+    for label in labels:
+        if label.get('featureId')==gate['id']:label['p']=align_point(label['p'])
+    gate['world']=[centre[0],old[1],centre[2]]
+    gate['gateAlignment']={'sourceWorld':old,'angle':angle,'station':station,'boundaryCentre':centre,'tangent':tangent}
 openings=[]
 for f in [f for f in features if f['id'] in ['G01','G02','G03','G04']]:
-    u,v=loc(f);centre=planpoint(u,v);dist,station,tangent=project(centre);radius=0
+    u,v=loc(f);centre=f['world'] if f.get('gateAlignment') else planpoint(u,v);dist,station,tangent=project(centre);radius=0
     for o in objects:
         if o['featureId']!=f['id']:continue
         ca=math.cos(o.get('rotY',0));sa=math.sin(o.get('rotY',0))
         for sx,sz in [[-.5,-.5],[.5,-.5],[.5,.5],[-.5,.5]]:
             xx=sx*o['s'][0];zz=sz*o['s'][2];px=o['p'][0]+xx*ca+zz*sa-centre[0];pz=o['p'][2]-xx*sa+zz*ca-centre[2]
             radius=max(radius,abs(px*tangent[0]+pz*tangent[1]))
-    openings.append([station-radius-3.5,station+radius+3.5,f['id']])
+    gap=0 if f.get('gateAlignment') else 3.5
+    openings.append([station-radius-gap,station+radius+gap,f['id']])
 for title,u,v in [('P1 access',303,1126),('P4 outer access',1313,878)]:
     _,station,_=project(planpoint(u,v));openings.append([station-17,station+17,title])
 for f in [f for f in features if f['id'] in ['H03','H04']]:

@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 s=Path('work/viewer-pdf.html').read_text(encoding='utf-8');lines=s.splitlines();names=['depValidate','depTotals','depPose','depMoveUnit'];fns='\n'.join(next(l for l in lines if l.startswith('function '+n+'(')) for n in names)
 types=next(l for l in lines if l.startswith('const DEP_TYPES='));shifts=next(l for l in lines if l.startswith('const DEP_SHIFT='))
-pre="const assert=require('assert'),fs=require('fs');const seed=JSON.parse(fs.readFileSync('work/deployment-seed.json','utf8'));const depClone=o=>JSON.parse(JSON.stringify(o));let depTime=0,depDragPause=null;const depRouteEpoch=new Map(),depPausedRoutes=new Map();\n"+types+'\n'+shifts+'\n'
+pre="const assert=require('assert'),fs=require('fs');const seed=JSON.parse(fs.readFileSync('work/deployment-seed.json','utf8'));const depClone=o=>JSON.parse(JSON.stringify(o));let depTime=0,depDragPause=null,depFollowState=null;const depRouteEpoch=new Map(),depPausedRoutes=new Map();\n"+types+'\n'+shifts+'\n'
 test=r'''
 const units=depValidate(seed);assert.equal(units.length,162);const find=id=>units.find(u=>u.id===id);
 assert.equal(find('PP-GT').shifts.day.force,null);assert.equal(find('PP-GT').shifts.night.extra,1);

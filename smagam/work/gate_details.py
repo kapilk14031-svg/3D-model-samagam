@@ -1,5 +1,9 @@
 """Decorative gate treatment at source gate positions; architectural styling illustrative."""
+exec((ROOT/'work/photo_gate_geometry.py').read_text(encoding='utf-8'))
+exec((ROOT/'work/gate3_photo_geometry.py').read_text(encoding='utf-8'))
 def premium_gate(f,x,z,w,d):
+    if f['id']=='G03':return gate3_photo(f,x,z,w,d)
+    if f['id'] in ['G01','G02']:return photo_gate(f,x,z,w,d)
     layer='gates';name=f['name'];span=max(20,min(32,d));angle={'G01':-math.pi/2,'G02':-math.pi/2,'G03':-1.45,'G04':-.89,'G05':-math.pi/2,'G06':.98}.get(f['id'],0)
     start=len(objects)
     def gb(part,xx,zz,ww,dd,hh,color,y=0):box(name+' / '+part,xx,zz,ww,dd,hh,color,y,layer)

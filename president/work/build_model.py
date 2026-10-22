@@ -167,12 +167,14 @@ from detail_youtube import improve as youtube_details
 objects,colors=youtube_details(objects,colors)
 from correct_stage_stairs import correct as correct_stage_stairs
 objects=correct_stage_stairs(objects)
+from detail_stage_photo import improve as stage_photo_details
+objects,colors,signs=stage_photo_details(objects,colors,signs)
 from register_scene import register
 objects,colors,signs,labels,georeference=register(objects,colors,signs,labels)
 from detail_helipad import add_helipad
 objects,colors,georeference=add_helipad(objects,colors,georeference)
 data={'objects':objects,'colors':colors,'labels':labels,'origin':{'latitude':29.413077,'longitude':76.848831,'coordinateFrame':'local metres, +X east, +Z south; schematic alignment'},'assumptions':{'geometry':'Satellite/photo informed schematic, not survey or photogrammetry','hall':[42,66,9.8],'coreCompound':[120,120],'audienceSeatsIllustrated':320,'seatCountIsCapacity':False,'event':'All room assignments, partitions, parking and furniture are proposals','heights':'Estimated; not measured','boundary':'Approximate visual core only; legal ownership not verified'},'sources':[{'title':'Google Maps: supplied venue pin, satellite and public photographs','url':'https://maps.app.goo.gl/JG881XSsXu1Vi61L9?g_st=aw','accessed':'2026-10-20'},{'title':'Brahma Kumaris Panipat: auditorium name and event report','url':'https://panipat.bk.ooo/?p=2036','note':'Search-indexed report identifies Dadi Chandramani Universal Peace Auditorium; exact roofed footprint not established.'}]}
-data['assumptions']['audienceSeatsIllustrated']=840
+data['assumptions']['audienceSeatsIllustrated']=sum(o['name']=='Cream upholstered chair seat' for o in objects)
 data['signs']=signs
 data['georeference']=georeference
 hallq=np.array(next(f['points'] for f in georeference['footprints'] if f['id']=='hall'));data['assumptions']['hall']=[float(np.linalg.norm(hallq[1]-hallq[0])),float(np.linalg.norm(hallq[3]-hallq[0])),9.8]
@@ -192,6 +194,8 @@ data['assumptions']['stageAccess']='User site correction: two side staircases, l
 (OUT/'observed-signage.json').write_text(json.dumps(signs,ensure_ascii=False,indent=2),encoding='utf-8')
 import subprocess
 subprocess.run(['powershell','-NoProfile','-ExecutionPolicy','Bypass','-File',str(ROOT/'work/render_signs.ps1')],check=True)
+from detail_stage_photo import photo_texture
+photo_texture()
 scene=trimesh.Scene()
 base={'box':trimesh.creation.box(), 'sphere':trimesh.creation.icosphere(subdivisions=1), 'cylinder':trimesh.creation.cylinder(radius=1,height=1,sections=20)}
 base['sphereSmooth']=trimesh.creation.icosphere(subdivisions=2)

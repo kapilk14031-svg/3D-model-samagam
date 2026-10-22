@@ -181,6 +181,7 @@ exec((ROOT/'work/frontage_boundary.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/p5_parking.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/foot_overbridge.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/realistic_environment.py').read_text(encoding='utf-8'))
+exec((ROOT/'work/clear_photo_gate_frontage.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/railway_train.py').read_text(encoding='utf-8'))
 exec((ROOT/'work/water_supply.py').read_text(encoding='utf-8'))
 amusement_info={'status':'Removed at user request; R18 rear parcel now contains reference-style residential tents'}

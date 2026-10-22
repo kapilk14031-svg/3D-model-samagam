@@ -1,16 +1,16 @@
 {
-  "status": "Circular VIP Helipad matching user aerial reference design with prominent H",
+  "status": "User-marked red-dot helipad and silver access road, 22 October 2026",
   "gate": [
     -12.767634044722858,
     -65.06607714366064
   ],
   "centre": [
-    -21.820143218129413,
-    -164.65549464203437
+    -13.628249745061568,
+    -297.9444802434911
   ],
-  "gateToCentreMetres": 99.99999999999999,
-  "rightShiftMetres": 8.0,
-  "rightShiftReference": "Looking outward from main gate",
+  "gateToCentreMetres": 232.87999332212033,
+  "rightShiftMetres": null,
+  "rightShiftReference": "Superseded by the user-marked screenshot location",
   "originalOutwardAxis": [
     -0.1699064804616234,
     -0.9854601909245975
@@ -24,30 +24,30 @@
   "areaSquareMetres": 855.2985999398212,
   "corners": [
     [
-      -39.74606111897317,
-      -179.59408451565395
+      -33.895737104990886,
+      -286.3803565795421
     ],
     [
-      -6.881553344509828,
-      -182.58141254287813
+      -25.19237340901057,
+      -318.2119676034204
     ],
     [
-      -3.894225317285664,
-      -149.7169047684148
+      6.639237614867747,
+      -309.5086039074401
     ],
     [
-      -36.758733091749,
-      -146.7295767411906
+      -2.0641260811125637,
+      -277.6769928835618
     ]
   ],
   "helicopterCentre": [
-    -21.820143218129413,
-    -164.65549464203437
+    -13.628249745061568,
+    -297.9444802434911
   ],
   "helicopterDisplayScale": 1.45,
   "alignmentAxis": [
-    -0.09052509173406556,
-    -0.9958941749837373
+    -0.9645942734508581,
+    -0.26373829381758573
   ],
   "carpet": [
     [
@@ -70,42 +70,245 @@
   "carpetDestination": "Auditorium side entrance",
   "vehicleAccess": [
     [
-      -20.480371860465244,
-      -149.91626085227506
+      -0.37637094120410985,
+      -288.3679355551459
     ],
     [
-      -14.4590370987053,
-      -83.67371859139573
+      9.814946172218958,
+      -87.85887706087361
     ]
   ],
   "vehicleAccessEnd": "Main road field-side edge",
   "vehicleAccessPolygon": [
     [
-      -17.741662879259966,
-      -150.16520485454373
+      -0.20391041394911688,
+      -285.6233486342161
     ],
     [
-      -11.740307674889156,
-      -84.14246380503509
+      14.54963314558892,
+      -286.5504112394315
     ],
     [
-      -17.177766522521445,
-      -83.20497337775635
+      13.230397403902684,
+      -150.22105233704582
     ],
     [
-      -23.21908084167052,
-      -149.6673168500064
+      7.003452149553708,
+      -87.37413799313059
+    ],
+    [
+      12.626440194884207,
+      -88.34361612861662
+    ],
+    [
+      18.727767857563546,
+      -149.92270528678176
+    ],
+    [
+      20.106597137249594,
+      -292.4104395071791
+    ],
+    [
+      -0.5488314684591028,
+      -291.1125224760757
     ]
   ],
   "mainRoadJoinEdge": [
     [
-      -17.177766522521445,
-      -83.20497337775635
+      7.003452149553708,
+      -87.37413799313059
     ],
     [
-      -11.740307674889156,
-      -84.14246380503509
+      12.626440194884207,
+      -88.34361612861662
     ]
   ],
-  "vehicleAccessWidthMetres": 5.5
+  "vehicleAccessWidthMetres": 5.5,
+  "vehicleAccessPolyline": [
+    [
+      -0.37637094120410985,
+      -288.3679355551459
+    ],
+    [
+      17.328115141419257,
+      -289.4804253733053
+    ],
+    [
+      15.979082630733116,
+      -150.0718788119138
+    ],
+    [
+      9.814946172218958,
+      -87.85887706087361
+    ]
+  ],
+  "vehicleAccessMaterial": "Silver grey",
+  "roadConnectionCentre": [
+    10.837300466262295,
+    -83.46875007253364
+  ],
+  "accessGate": {
+    "centre": [
+      15.979082630733116,
+      -150.0718788119138
+    ],
+    "roadHeading": -0.00967652585207603,
+    "clearWidth": 5.5,
+    "displayState": "Open",
+    "sourceImagePixel": [
+      330,
+      264
+    ]
+  },
+  "userLayoutRegistration": {
+    "source": "Screenshot 2026-10-22 151630.png",
+    "sourceSize": [
+      525,
+      567
+    ],
+    "controls": [
+      {
+        "image": [
+          347,
+          385
+        ],
+        "registeredPixel": [
+          840,
+          255
+        ]
+      },
+      {
+        "image": [
+          250,
+          379
+        ],
+        "registeredPixel": [
+          515,
+          257
+        ]
+      },
+      {
+        "image": [
+          291,
+          376
+        ],
+        "registeredPixel": [
+          659,
+          251
+        ]
+      },
+      {
+        "image": [
+          253,
+          460
+        ],
+        "registeredPixel": [
+          526,
+          526
+        ]
+      },
+      {
+        "image": [
+          294,
+          457
+        ],
+        "registeredPixel": [
+          670,
+          520
+        ]
+      },
+      {
+        "image": [
+          306,
+          411
+        ],
+        "registeredPixel": [
+          720,
+          331
+        ]
+      },
+      {
+        "image": [
+          370,
+          409
+        ],
+        "registeredPixel": [
+          920,
+          323
+        ]
+      },
+      {
+        "image": [
+          373,
+          470
+        ],
+        "registeredPixel": [
+          928,
+          506
+        ]
+      },
+      {
+        "image": [
+          309,
+          473
+        ],
+        "registeredPixel": [
+          728,
+          514
+        ]
+      }
+    ],
+    "imageToRegisteredPixel": [
+      [
+        3.336509834180513,
+        -0.34929243307464714
+      ],
+      [
+        0.03703851621233811,
+        3.108507187003174
+      ],
+      [
+        -328.2621220885889,
+        -823.9915209749595
+      ]
+    ],
+    "controlFitRmsRegisteredPixels": 15.348591264087739,
+    "helipadImagePixel": [
+      291,
+      77
+    ],
+    "routeImagePixels": [
+      [
+        291,
+        90
+      ],
+      [
+        327,
+        90
+      ],
+      [
+        330,
+        264
+      ],
+      [
+        325,
+        340
+      ]
+    ],
+    "gateImagePixel": [
+      330,
+      264
+    ],
+    "accuracy": "Approximate visual screenshot-to-screenshot registration; not surveyed coordinates."
+  },
+  "campusRoadCentre": [
+    -15.167473070513353,
+    -78.9851802768573
+  ],
+  "surroundingsUpdate": {
+    "source": "Marked satellite screenshot 2026-10-22 151630.png",
+    "fields": "Four agricultural parcels either side of access with cultivated rows",
+    "leftBuilding": "Low L-shaped building in left landscaped plot; screenshot footprint, estimated height and window spacing"
+  },
+  "previousLocationReplaced": true
 }

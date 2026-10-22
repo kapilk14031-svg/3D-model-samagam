@@ -1,0 +1,141 @@
+{
+  "source": "Screenshot 2026-10-22 151630.png",
+  "sourceSize": [
+    525,
+    567
+  ],
+  "controls": [
+    {
+      "image": [
+        347,
+        385
+      ],
+      "registeredPixel": [
+        840,
+        255
+      ]
+    },
+    {
+      "image": [
+        250,
+        379
+      ],
+      "registeredPixel": [
+        515,
+        257
+      ]
+    },
+    {
+      "image": [
+        291,
+        376
+      ],
+      "registeredPixel": [
+        659,
+        251
+      ]
+    },
+    {
+      "image": [
+        253,
+        460
+      ],
+      "registeredPixel": [
+        526,
+        526
+      ]
+    },
+    {
+      "image": [
+        294,
+        457
+      ],
+      "registeredPixel": [
+        670,
+        520
+      ]
+    },
+    {
+      "image": [
+        306,
+        411
+      ],
+      "registeredPixel": [
+        720,
+        331
+      ]
+    },
+    {
+      "image": [
+        370,
+        409
+      ],
+      "registeredPixel": [
+        920,
+        323
+      ]
+    },
+    {
+      "image": [
+        373,
+        470
+      ],
+      "registeredPixel": [
+        928,
+        506
+      ]
+    },
+    {
+      "image": [
+        309,
+        473
+      ],
+      "registeredPixel": [
+        728,
+        514
+      ]
+    }
+  ],
+  "imageToRegisteredPixel": [
+    [
+      3.336509834180513,
+      -0.34929243307464714
+    ],
+    [
+      0.03703851621233811,
+      3.108507187003174
+    ],
+    [
+      -328.2621220885889,
+      -823.9915209749595
+    ]
+  ],
+  "controlFitRmsRegisteredPixels": 15.348591264087739,
+  "helipadImagePixel": [
+    291,
+    77
+  ],
+  "routeImagePixels": [
+    [
+      291,
+      90
+    ],
+    [
+      327,
+      90
+    ],
+    [
+      330,
+      264
+    ],
+    [
+      325,
+      340
+    ]
+  ],
+  "gateImagePixel": [
+    330,
+    264
+  ],
+  "accuracy": "Approximate visual screenshot-to-screenshot registration; not surveyed coordinates."
+}

@@ -231,5 +231,29 @@
       76.8490369285491,
       29.413556041698843
     ]
+  },
+  {
+    "key": "sign-stage-photo-banner",
+    "lines": [
+      ""
+    ],
+    "p": [
+      -38.514207455567096,
+      4.3,
+      9.181770070874816
+    ],
+    "size": [
+      8.898101826786824,
+      4.9
+    ],
+    "rot": -3.141228124992675,
+    "source": "User supplied IMG20261021165204 - Rajesh Malik.jpg; cropped original event banner",
+    "bg": "#ffffff",
+    "fg": "#333333",
+    "image": "sign-textures/sign-stage-photo-banner.png",
+    "longitudeLatitude": [
+      76.84843414670647,
+      29.412994163895746
+    ]
   }
 ]

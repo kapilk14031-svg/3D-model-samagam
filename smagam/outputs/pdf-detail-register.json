@@ -976,11 +976,30 @@
     "page": 1,
     "representation": "3D footprint and illustrative structure",
     "world": [
-      388.5,
+      390.09774133646454,
       8,
-      487.9
+      487.46766999130955
     ],
-    "layer": "gates"
+    "layer": "gates",
+    "gate_style": "Photo reference: cream pillars, brown metal leaves, central guard room, potted palms",
+    "gateAlignment": {
+      "sourceWorld": [
+        388.5,
+        8,
+        487.9
+      ],
+      "angle": 4.9766490002980195,
+      "station": 521.1857023166804,
+      "boundaryCentre": [
+        390.09774133646454,
+        0.0,
+        487.46766999130955
+      ],
+      "tangent": [
+        -0.2611950472753574,
+        -0.9652860442784946
+      ]
+    }
   },
   {
     "id": "G02",
@@ -999,11 +1018,30 @@
     "page": 1,
     "representation": "3D footprint and illustrative structure",
     "world": [
-      302.4,
+      295.433654308343,
       8,
-      135.79999999999998
+      137.19326913833132
     ],
-    "layer": "gates"
+    "layer": "gates",
+    "gate_style": "Photo reference: cream pillars, brown metal leaves, central guard room, potted palms",
+    "gateAlignment": {
+      "sourceWorld": [
+        302.4,
+        8,
+        135.79999999999998
+      ],
+      "angle": 4.90978454023457,
+      "station": 884.0302301748724,
+      "boundaryCentre": [
+        295.433654308343,
+        0.0,
+        137.19326913833132
+      ],
+      "tangent": [
+        -0.19611613513818396,
+        -0.9805806756909202
+      ]
+    }
   },
   {
     "id": "G03",
@@ -1022,11 +1060,30 @@
     "page": 1,
     "representation": "3D footprint and illustrative structure",
     "world": [
-      237.99999999999997,
+      252.30288507757382,
       8,
-      -75.6
+      -78.46057701551479
     ],
-    "layer": "gates"
+    "layer": "gates",
+    "gate_style": "Photo reference: cream pillars, dark overhead beam, raised SANT NIRANKARI ADHYATMIK STHAL lettering, central guard cabin, wood-tone gates",
+    "gateAlignment": {
+      "sourceWorld": [
+        237.99999999999997,
+        8,
+        -75.6
+      ],
+      "angle": 4.90978454023457,
+      "station": 1103.954864118832,
+      "boundaryCentre": [
+        252.30288507757382,
+        0.0,
+        -78.46057701551479
+      ],
+      "tangent": [
+        -0.19611613513818396,
+        -0.9805806756909202
+      ]
+    }
   },
   {
     "id": "G04",

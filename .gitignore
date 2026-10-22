@@ -1,3 +1,6 @@
+# Ignore root outputs delivery mirror folder
+/outputs/
+
 # Ignore videos and photos
 photos/
 videos/
