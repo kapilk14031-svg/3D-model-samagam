@@ -3,7 +3,7 @@ import json, math, pathlib, numpy as np, trimesh
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'outputs'; OUT.mkdir(exist_ok=True)
 objects=[]
-colors={'stone':'#e5dfcc','white':'#f0eee3','roof':'#bac4bf','glass':'#58787d','grass':'#8d9b68','tree':'#526e50','bark':'#897359','paving':'#c5bcaa','road':'#858b88','pink':'#dca7b8','gold':'#b69962','proposal':'#be8955','seat':'#b8b19c','dark':'#525b62','context':'#a7aaa3','flower':'#b87d8b','wood':'#bd9b7b','carpet':'#3d733b','light':'#fff4d2','acoustic':'#d1d2ca'}
+colors={'stone':'#eae3d5','white':'#f5f5f2','roof':'#374151','glass':'#6ba5d6','grass':'#4a9c2a','tree':'#2d7a2e','bark':'#422817','paving':'#eae2d3','road':'#32373f','pink':'#e8739a','gold':'#f59e0b','proposal':'#d97706','seat':'#cbd5e1','dark':'#1f2937','context':'#94a3b8','flower':'#f43f5e','wood':'#b47b48','carpet':'#16a34a','light':'#fef08a','acoustic':'#e2e8f0'}
 def add(name,p,s,mat='stone',shape='box',group='campus',rot=0):
     objects.append(dict(name=name,p=p,s=s,mat=mat,shape=shape,group=group,rot=rot))
 def box(name,x,y,z,w,h,d,mat='stone',group='campus',rot=0):add(name,[x,y,z],[w,h,d],mat,group=group,rot=rot)

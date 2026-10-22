@@ -3096,7 +3096,7 @@ const depMaterials={
 
 
 
-  vipCar:new THREE.MeshStandardMaterial({color:0x09090b,roughness:0.2,metalness:0.85}),
+  vipCar:new THREE.MeshStandardMaterial({color:0x090b0e,roughness:0.08,metalness:0.96}),
 
 
 
@@ -3120,7 +3120,7 @@ const depMaterials={
 
 
 
-  vipBeaconRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xdc2626,emissiveIntensity:1.5}),
+  vipBeaconRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xdc2626,emissiveIntensity:2.5}),
 
 
 
@@ -3128,7 +3128,7 @@ const depMaterials={
 
 
 
-  vipBeaconBlue:new THREE.MeshStandardMaterial({color:0x3b82f6,emissive:0x2563eb,emissiveIntensity:1.5}),
+  vipBeaconBlue:new THREE.MeshStandardMaterial({color:0x3b82f6,emissive:0x2563eb,emissiveIntensity:2.5}),
 
 
 
@@ -3160,7 +3160,7 @@ const depMaterials={
 
 
 
-  barricadeYellow:new THREE.MeshStandardMaterial({color:0xeab308,roughness:0.4}),
+  barricadeYellow:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.28,metalness:0.25}),
 
 
 
@@ -3200,7 +3200,7 @@ const depMaterials={
 
 
 
-  khaki:new THREE.MeshStandardMaterial({color:0xb58e5c,roughness:0.82}), // Real Indian Police Khaki uniform shirt
+  khaki:new THREE.MeshStandardMaterial({color:0xc8a870,roughness:0.72}), // Real Indian Police Khaki uniform shirt
 
 
 
@@ -3208,7 +3208,7 @@ const depMaterials={
 
 
 
-  trousers:new THREE.MeshStandardMaterial({color:0x9f7947,roughness:0.85}), // Khaki trousers
+  trousers:new THREE.MeshStandardMaterial({color:0xab8954,roughness:0.75}), // Khaki trousers
 
 
 
@@ -3216,7 +3216,7 @@ const depMaterials={
 
 
 
-  dark:new THREE.MeshStandardMaterial({color:0x16181b,roughness:0.35,metalness:0.2}), // Polished black leather boots, holster, belt, visor
+  dark:new THREE.MeshStandardMaterial({color:0x111827,roughness:0.22,metalness:0.25}), // Polished black leather boots, holster, belt, visor
 
 
 
@@ -3224,7 +3224,7 @@ const depMaterials={
 
 
 
-  yellow:new THREE.MeshStandardMaterial({color:0xe5b839,roughness:0.3,metalness:0.65}), // Brass stars, insignia, buckle
+  yellow:new THREE.MeshStandardMaterial({color:0xf59e0b,roughness:0.15,metalness:0.92}), // Brass stars, insignia, buckle
 
 
 
@@ -3256,7 +3256,7 @@ const depMaterials={
 
 
 
-  white:new THREE.MeshStandardMaterial({color:0xf3f4f6,roughness:0.7}), // Whistle cord / name text
+  white:new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.55}), // Whistle cord / name text
 
 
 
@@ -3312,7 +3312,7 @@ const depMaterials={
 
 
 
-  hhmdLedGreen:new THREE.MeshStandardMaterial({color:0x22c55e,emissive:0x15803d,emissiveIntensity:1.5,roughness:0.2}), // Power ON green LED
+  hhmdLedGreen:new THREE.MeshStandardMaterial({color:0x22c55e,emissive:0x15803d,emissiveIntensity:2.5,roughness:0.2}), // Power ON green LED
 
 
 
@@ -3328,7 +3328,7 @@ const depMaterials={
 
 
 
-  hhmdLedRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xb91c1c,emissiveIntensity:1.5,roughness:0.2}), // Alarm metal-detect red LED
+  hhmdLedRed:new THREE.MeshStandardMaterial({color:0xef4444,emissive:0xb91c1c,emissiveIntensity:2.5,roughness:0.2}), // Alarm metal-detect red LED
 
 
 
@@ -3352,7 +3352,7 @@ const depMaterials={
 
 
 
-  fireRed:new THREE.MeshStandardMaterial({color:0xc1121f,roughness:0.28,metalness:0.12}), // Tactical fire engine signal red
+  fireRed:new THREE.MeshStandardMaterial({color:0xef4444,roughness:0.2,metalness:0.2}), // Tactical fire engine signal red
 
 
 

@@ -85,7 +85,7 @@ def register(objects,colors,signs,labels):
             f['name']='Blue-roof building beside Luft india map listing';f['status']='Nearby Luft india listing checked; ownership and exact roof association not established.'
         if f['id']=='industrial-east':
             f['name']='BAMC Medical • partial industrial roof beside verified map pin';f['status']='Map listing and BAMC roof lettering corroborate industrial context; legal boundary/height unverified.'
-    colors.update({'redRoof':'#a55250','solar':'#344b5c','paverObject':'#d6d1c4'})
+    colors.update({'redRoof':'#c23b32','solar':'#1e293b','paverObject':'#ede4d3'})
     def add(name,p,s,mat,group='campus',shape='box',rot=0):objects.append(dict(name=name,p=p,s=s,mat=mat,shape=shape,group=group,rot=rot))
     # Reconstruct the surrounding roof extents directly from the registered image.
     for f in footprints:
