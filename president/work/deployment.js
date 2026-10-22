@@ -1602,7 +1602,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Maximize / minimize details">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row"><span id="dep-peek-title" class="dep-peek-title">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit officer details (अधिकारी विवरण बदलें)" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Add another / Duplicate post (एक और जोड़ें)">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -2090,7 +2090,7 @@ if(depPeekMinBtn){
 
 
 
-    setDepPeekMinimized(!depPeekIsMinimized);
+    depDuplicateSelectedItem();
 
 
 
@@ -29979,6 +29979,242 @@ if (document.readyState === 'loading') {
 
 
 
-// Dialog modal removed as requested
-window.openOfficerDialog = function(){};
-window.closeOfficerDialog = function(){};
+// =========================================================================
+// DUPLICATE SELECTED ITEM ENGINE
+// =========================================================================
+function depDuplicateSelectedItem() {
+  if (!depSelected) return;
+  const cur = depItems.find(o => o.id === depSelected);
+  if (!cur) return;
+
+  const sameKindItems = depItems.filter(o => o && o.kind === cur.kind);
+  const count = sameKindItems.length + 1;
+
+  let newName = '';
+  if (cur.kind === 'officer') {
+    newName = `Officer ${count}`;
+  } else if (cur.kind === 'hhmd') {
+    newName = `HHMD Officer ${count}`;
+  } else if (cur.kind === 'binocular') {
+    newName = `Spotter Officer ${count}`;
+  } else if (cur.kind === 'radio') {
+    newName = `Radio Officer ${count}`;
+  } else if (cur.kind === 'ambulance') {
+    newName = `Ambulance ${count}`;
+  } else if (cur.kind === 'firebrigade') {
+    newName = `Fire Tender ${count}`;
+  } else if (cur.kind === 'qbelt') {
+    newName = `Q-Belt Barrier ${count}`;
+  } else if (cur.kind === 'parking') {
+    newName = `Vehicle Parking #${count}`;
+  } else if (cur.kind === 'square_box') {
+    newName = `Item Box ${count}`;
+  } else {
+    newName = `${cur.name || cur.kind} ${count}`;
+  }
+
+  // Slightly offset position (+1.5m to the right/side of current facing angle or in X/Z)
+  const angleRad = ((cur.angle || 0) + 90) * (Math.PI / 180);
+  const offsetDist = 1.5;
+  const newX = Math.round((cur.x + Math.cos(angleRad) * offsetDist) * 100) / 100;
+  const newZ = Math.round((cur.z + Math.sin(angleRad) * offsetDist) * 100) / 100;
+  const newY = typeof getSurfaceHeight === 'function' ? getSurfaceHeight(newX, newZ, cur.y) : cur.y;
+  const newDuty = typeof depGetAutoDuty === 'function' ? depGetAutoDuty(newX, newY, newZ, cur.kind) : (cur.duty || 'Security post');
+
+  const newId = 'post-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6);
+
+  const newItem = {
+    id: newId,
+    kind: cur.kind,
+    name: newName,
+    x: newX,
+    y: newY,
+    z: newZ,
+    angle: cur.angle || 0,
+    duty: newDuty,
+    belt: '',
+    mobile: '',
+    status: cur.status || 'Active'
+  };
+
+  depItems.push(newItem);
+  depStore();
+  depBuild();
+  depChoose(newItem.id, true);
+
+  if (typeof depShowToast === 'function') {
+    depShowToast(`➕ ${newItem.name} (${newItem.duty}) added!`);
+  } else if (depUI('status')) {
+    depUI('status').textContent = `➕ ${newItem.name} added.`;
+  }
+}
+window.depDuplicateSelectedItem = depDuplicateSelectedItem;
+
+// =========================================================================
+// OFFICER & EQUIPMENT EDIT DIALOG ENGINE (Triggered ONLY via ✏️ icon)
+// =========================================================================
+let currentDialogItemId = null;
+
+function depShowToast(msg) {
+  let toast = document.getElementById('dep-live-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'dep-live-toast';
+    toast.className = 'dep-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3200);
+}
+window.depShowToast = depShowToast;
+
+function openOfficerDialog(itemId) {
+  const targetId = itemId || depSelected;
+  if (!targetId) return;
+  const item = depItems.find(o => o.id === targetId);
+  if (!item) return;
+  currentDialogItemId = targetId;
+
+  // Set title & symbol
+  const symEl = document.getElementById('dep-dlg-symbol');
+  const titleTextEl = document.getElementById('dep-dlg-title-text');
+  const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
+  if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? `Officer Details / अधिकारी विवरण (${item.name})` : `Equipment Details / उपकरण विवरण (${item.name})`;
+
+  // Fill input fields with current values
+  const nameInput = document.getElementById('dep-dlg-name');
+  const beltInput = document.getElementById('dep-dlg-belt');
+  const mobileInput = document.getElementById('dep-dlg-mobile');
+  const dutyInput = document.getElementById('dep-dlg-duty');
+
+  if (nameInput) nameInput.value = item.name || '';
+  if (beltInput) beltInput.value = item.belt || '';
+  if (mobileInput) mobileInput.value = item.mobile || '';
+  if (dutyInput) dutyInput.value = item.duty || '';
+
+  // Show modal
+  const modal = document.getElementById('dep-officer-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    setTimeout(() => {
+      if (nameInput) {
+        nameInput.focus();
+        nameInput.select();
+      }
+    }, 60);
+  }
+}
+window.openOfficerDialog = openOfficerDialog;
+
+function closeOfficerDialog() {
+  const modal = document.getElementById('dep-officer-modal');
+  if (modal) modal.style.display = 'none';
+  currentDialogItemId = null;
+}
+window.closeOfficerDialog = closeOfficerDialog;
+
+function saveOfficerDialog() {
+  if (!currentDialogItemId) return;
+  const item = depItems.find(o => o.id === currentDialogItemId);
+  if (!item) return;
+
+  const nameInput = document.getElementById('dep-dlg-name');
+  const beltInput = document.getElementById('dep-dlg-belt');
+  const mobileInput = document.getElementById('dep-dlg-mobile');
+  const dutyInput = document.getElementById('dep-dlg-duty');
+
+  const oldName = item.name;
+  const newName = nameInput ? nameInput.value.trim() : item.name;
+  const newBelt = beltInput ? beltInput.value.trim() : (item.belt || '');
+  const newMobile = mobileInput ? mobileInput.value.trim() : (item.mobile || '');
+  const newDuty = dutyInput ? dutyInput.value.trim() : (item.duty || '');
+
+  item.name = newName || oldName;
+  item.belt = newBelt;
+  item.mobile = newMobile;
+  item.duty = newDuty;
+
+  // Sync to left/right inspector inputs if active
+  if (depUI('name')) depUI('name').value = item.name;
+  if (depUI('belt')) depUI('belt').value = item.belt;
+  if (depUI('mobile')) depUI('mobile').value = item.mobile;
+  if (depUI('duty')) depUI('duty').value = item.duty;
+
+  // Update dropdown labels & markers
+  depSyncDropdownLabels(item);
+
+  // Persist to localStorage & backend SQLite immediately
+  depStore();
+  depBuild();
+  depChoose(item.id, false);
+
+  closeOfficerDialog();
+  depShowToast(`✅ ${item.name} विवरण सुरक्षित (Saved) हो गया!`);
+}
+window.saveOfficerDialog = saveOfficerDialog;
+
+// Bind Dialog events when DOM is ready
+function setupOfficerDialogEvents() {
+  const modal = document.getElementById('dep-officer-modal');
+  const backdrop = document.getElementById('dep-officer-backdrop');
+  const closeX = document.getElementById('dep-dlg-close-x');
+  const cancelBtn = document.getElementById('dep-dlg-cancel-btn');
+  const form = document.getElementById('dep-officer-dialog-form');
+
+  if (backdrop) backdrop.addEventListener('click', closeOfficerDialog);
+  if (closeX) closeX.addEventListener('click', closeOfficerDialog);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeOfficerDialog);
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      saveOfficerDialog();
+    });
+  }
+
+  // ONLY ✏️ button on depPeek opens the dialog
+  const editBtn = depPeekHead.querySelector('#dep-peek-edit');
+  if (editBtn) {
+    editBtn.addEventListener('pointerdown', e => e.stopPropagation());
+    editBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      openOfficerDialog(depSelected);
+    });
+  }
+
+  // Bind + button to duplicate selected item
+  const minBtn = depPeekHead.querySelector('#dep-peek-min');
+  if (minBtn) {
+    minBtn.addEventListener('pointerdown', e => e.stopPropagation());
+    minBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      depDuplicateSelectedItem();
+    });
+  }
+
+  // Keyboard shortcut (ESC closes dialog)
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      const m = document.getElementById('dep-officer-modal');
+      if (m && m.style.display !== 'none') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeOfficerDialog();
+      }
+    }
+  });
+}
+
+// Call setup immediately or on ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupOfficerDialogEvents);
+} else {
+  setTimeout(setupOfficerDialogEvents, 100);
+}
+

@@ -402,6 +402,19 @@
       "y": 0,
       "z": -169.51,
       "angle": 167.78
+    },
+    {
+      "id": "post-mvj4vdss-t5vh",
+      "kind": "officer",
+      "name": "Officer 24",
+      "x": 4.13,
+      "y": 0,
+      "z": -195.07,
+      "angle": 226.97,
+      "duty": "Helipad approach road security",
+      "belt": "",
+      "mobile": "",
+      "status": "Active"
     }
   ]
 }
