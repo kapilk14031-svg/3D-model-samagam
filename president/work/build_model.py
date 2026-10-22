@@ -100,7 +100,7 @@ box('East block • ownership/use unverified',91,3.4,-44,29,6.8,44,'context','co
 for y in [2,5,8,11,14]:
     box('Unfinished multi-storey block • seen in local photos; position approximate',51,y,47,19,.4,16,'context','context')
     for x in [42,48,54,60]:box('Unfinished block column',x,y+1.2,47,.7,2.5,16,'context','context')
-for x,z in [(-5,-25),(54,-45),(54,-25),(54,0),(54,22),(-54,35),(-34,35),(30,36),(-75,-54),(-85,-54)]:
+for x,z in [(-5,-25),(54,-45),(54,-25),(54,6),(54,22),(-54,35),(-34,35),(30,36),(-75,-54),(-85,-54)]:
     cyl('Landscape tree trunk',x,1.6,z,.35,3,'bark');sphere('Landscape tree canopy',x,4.4,z,2.3,3.1,2.3)
 # Event overlay deliberately independent from existing geometry.
 for name,x,w,mat in [('VVIP lounge • proposed',-40,22,'proposal'),('Reception • proposed',-14,23,'proposal'),('Medical / support • proposed',13,23,'proposal'),('Dining / service • proposed',40,22,'proposal')]:
