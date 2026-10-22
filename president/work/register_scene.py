@@ -96,13 +96,23 @@ def register(objects,colors,signs,labels):
         if f['id'].startswith('west'):
             for dz in np.arange(-d/2+2,d/2,6):add('Registered west roof seam',[c[0],h+.33,c[1]+dz],[w,.04,.07],'metal','context',rot=angle)
         if f['id']=='red':
-            # Garden hut seen in both YouTube references; association with this
-            # overhead red-roof feature is a visual interpretation, not survey.
-            objects[:]=[o for o in objects if o['name']!=f['name']+' roof']
-            add('Red garden hut pitched roof • satellite match inferred',[c[0],h,c[1]],[w+1.3,1.25,d+1.3],'redRoof',shape='hutRoof',rot=angle)
-            add('Garden hut green frontage • video informed',[c[0],1.4,c[1]+d/2+.05],[w,.9,.10],'carpet')
-            for xx in [-w*.45,0,w*.45]:add('Garden hut slim veranda post',[c[0]+xx,2,c[1]+d/2+.25],[.1,2.2,.1],'carpet')
-            for i in range(3):add('Garden hut front terracotta step',[c[0],.25+i*.16,c[1]+d/2+1.2-i*.3],[w*.5,.2,.45],'redRoof')
+            # Garden hut rotated 90 degrees clockwise per user request (clears front entrance from tree)
+            rot_red = angle - math.pi / 2
+            objects[:]=[o for o in objects if not o['name'].startswith(f['name'])]
+            add(f['name']+' - graticule registered',[c[0],h/2,c[1]],[w,h,d],'white' if f['group']=='campus' else 'context',f['group'],rot=rot_red)
+            add('Red garden hut pitched roof - satellite match inferred',[c[0],h,c[1]],[w+1.3,1.25,d+1.3],'redRoof',shape='hutRoof',rot=rot_red)
+            def rot_hut(lx, lz):
+                dx = lx * math.cos(rot_red) + lz * math.sin(rot_red)
+                dz = -lx * math.sin(rot_red) + lz * math.cos(rot_red)
+                return [c[0] + dx, c[1] + dz]
+            p_front = rot_hut(0, d/2 + .05)
+            add('Garden hut green frontage - video informed',[p_front[0],1.4,p_front[1]],[w,.9,.10],'carpet',rot=rot_red)
+            for xx in [-w*.45,0,w*.45]:
+                p_post = rot_hut(xx, d/2 + .25)
+                add('Garden hut slim veranda post',[p_post[0],2,p_post[1]],[.1,2.2,.1],'carpet',rot=rot_red)
+            for i in range(3):
+                p_step = rot_hut(0, d/2 + 1.2 - i*.3)
+                add('Garden hut front terracotta step',[p_step[0],.25+i*.16,p_step[1]],[w*.5,.2,.45],'redRoof',rot=rot_red)
     q=np.array(next(f['points'] for f in footprints if f['id']=='construction'));c=q.mean(axis=0);w=np.linalg.norm(q[1]-q[0]);d=np.linalg.norm(q[3]-q[0])
     for y in [2,5,8,11,14]:
         add('Southwest construction floor slab • registered footprint',[c[0],y,c[1]],[w,.3,d],'context')

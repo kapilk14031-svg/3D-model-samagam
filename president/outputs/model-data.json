@@ -227992,7 +227992,7 @@
       "rot": 0.004964503466841884
     },
     {
-      "name": "Small red-roof structure • graticule registered",
+      "name": "Small red-roof structure - graticule registered",
       "p": [
         54.616504295798265,
         1.55,
@@ -228006,10 +228006,10 @@
       "mat": "white",
       "shape": "box",
       "group": "campus",
-      "rot": -0.00677670177137151
+      "rot": -1.5775730285662681
     },
     {
-      "name": "Red garden hut pitched roof • satellite match inferred",
+      "name": "Red garden hut pitched roof - satellite match inferred",
       "p": [
         54.616504295798265,
         3.1,
@@ -228023,14 +228023,14 @@
       "mat": "redRoof",
       "shape": "hutRoof",
       "group": "campus",
-      "rot": -0.00677670177137151
+      "rot": -1.5775730285662681
     },
     {
-      "name": "Garden hut green frontage • video informed",
+      "name": "Garden hut green frontage - video informed",
       "p": [
-        54.616504295798265,
+        50.43439910685303,
         1.4,
-        -7.090035690853487
+        -11.30057822397008
       ],
       "s": [
         7.524317513110574,
@@ -228040,14 +228040,14 @@
       "mat": "carpet",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Garden hut slim veranda post",
       "p": [
-        51.2305614148985,
+        50.257349048699446,
         2,
-        -6.8900356908534865
+        -14.687798687657612
       ],
       "s": [
         0.1,
@@ -228057,14 +228057,14 @@
       "mat": "carpet",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Garden hut slim veranda post",
       "p": [
-        54.616504295798265,
+        50.234403699204144,
         2,
-        -6.8900356908534865
+        -11.301933553950674
       ],
       "s": [
         0.1,
@@ -228074,14 +228074,14 @@
       "mat": "carpet",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Garden hut slim veranda post",
       "p": [
-        58.00244717669803,
+        50.211458349708835,
         2,
-        -6.8900356908534865
+        -7.916068420243737
       ],
       "s": [
         0.1,
@@ -228091,14 +228091,14 @@
       "mat": "carpet",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Garden hut front terracotta step",
       "p": [
-        54.616504295798265,
+        49.284425512871934,
         0.25,
-        -5.940035690853486
+        -11.308371371358493
       ],
       "s": [
         3.762158756555287,
@@ -228108,14 +228108,14 @@
       "mat": "redRoof",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Garden hut front terracotta step",
       "p": [
-        54.616504295798265,
+        49.58441862434526,
         0.41000000000000003,
-        -6.240035690853486
+        -11.306338376387604
       ],
       "s": [
         3.762158756555287,
@@ -228125,14 +228125,14 @@
       "mat": "redRoof",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Garden hut front terracotta step",
       "p": [
-        54.616504295798265,
+        49.88441173581859,
         0.5700000000000001,
-        -6.540035690853486
+        -11.304305381416713
       ],
       "s": [
         3.762158756555287,
@@ -228142,7 +228142,7 @@
       "mat": "redRoof",
       "shape": "box",
       "group": "campus",
-      "rot": 0
+      "rot": -1.5775730285662681
     },
     {
       "name": "Southwest construction floor slab • registered footprint",
@@ -239516,57 +239516,6 @@
       "shape": "box",
       "group": "helipad",
       "rot": 0.09064918896201535
-    },
-    {
-      "name": "Perimeter floodlight dark mast",
-      "p": [
-        -21.820143218129413,
-        2.85,
-        -143.15549464203437
-      ],
-      "s": [
-        0.14,
-        5.5,
-        0.14
-      ],
-      "mat": "padPoleDark",
-      "shape": "cylinder",
-      "group": "helipad",
-      "rot": 0.0
-    },
-    {
-      "name": "Perimeter floodlight yellow head box",
-      "p": [
-        -21.820143218129413,
-        5.65,
-        -143.15549464203437
-      ],
-      "s": [
-        0.65,
-        0.48,
-        0.55
-      ],
-      "mat": "padPoleYellow",
-      "shape": "box",
-      "group": "helipad",
-      "rot": 3.141592653589793
-    },
-    {
-      "name": "Perimeter floodlight lamp reflector",
-      "p": [
-        -21.820143218129413,
-        5.62,
-        -143.15549464203437
-      ],
-      "s": [
-        0.55,
-        0.38,
-        0.05
-      ],
-      "mat": "heliWhite",
-      "shape": "box",
-      "group": "helipad",
-      "rot": 3.141592653589793
     },
     {
       "name": "Perimeter floodlight dark mast",
