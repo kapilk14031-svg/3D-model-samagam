@@ -5707,42 +5707,75 @@ function depBuildQBelt(g){
 
 function depBuildParking(g){
   g.scale.setScalar(1);
-  depPart(g,'box',[0,0.02,0],[14,0.04,10],'dark');
-  for(let x=-5.5;x<=5.5;x+=3.6){
-    depPart(g,'box',[x,0.05,0],[0.12,0.02,8.5],'white');
+  // Double-sized parking lot: 28m wide x 20m deep (exact 2x footprint)
+  depPart(g,'box',[0,0.02,0],[28,0.04,20],'dark');
+
+  // White boundary demarcation border around the 28x20 parking lot
+  depPart(g,'box',[0,0.045,-9.9],[27.8,0.02,0.16],'white');
+  depPart(g,'box',[0,0.045,9.9],[27.8,0.02,0.16],'white');
+  depPart(g,'box',[-13.9,0.045,0],[0.16,0.02,19.8],'white');
+  depPart(g,'box',[13.9,0.045,0],[0.16,0.02,19.8],'white');
+
+  // Yellow central driving lane demarcation (connecting rows)
+  for(let x=-12.5; x<=12.5; x+=2.8){
+    depPart(g,'box',[x,0.045,0],[1.6,0.02,0.16],'yellow');
   }
-  depPart(g,'cylinder',[6.2,1.2,-4.2],[0.06,2.4,0.06],'dark');
-  depPart(g,'box',[6.2,2.3,-4.2],[0.8,0.8,0.06],'blue');
-  
-  // White VIP Staff Car in stall 1
-  const car1X=-3.7;
-  depPart(g,'box',[car1X,0.42,0],[2.1,0.55,4.2],'whiteBody');
-  depPart(g,'box',[car1X,0.88,-0.2],[1.9,0.48,2.4],'glassTint');
-  depPart(g,'cylinder',[car1X-0.95,0.28,1.2],[0.35,0.25,0.35],'tireRubber');
-  depPart(g,'cylinder',[car1X+0.95,0.28,1.2],[0.35,0.25,0.35],'tireRubber');
-  depPart(g,'cylinder',[car1X-0.95,0.28,-1.2],[0.35,0.25,0.35],'tireRubber');
-  depPart(g,'cylinder',[car1X+0.95,0.28,-1.2],[0.35,0.25,0.35],'tireRubber');
 
-  // Dark VIP SUV in stall 2
-  const car2X=0;
-  depPart(g,'box',[car2X,0.5,0],[2.2,0.65,4.4],'vipCar');
-  depPart(g,'box',[car2X,1.02,-0.1],[2.0,0.55,2.8],'glassTint');
-  depPart(g,'box',[car2X,1.34,-0.1],[0.3,0.1,0.8],'vipBeaconRed');
-  depPart(g,'cylinder',[car2X-1.0,0.32,1.3],[0.4,0.28,0.4],'tireRubber');
-  depPart(g,'cylinder',[car2X+1.0,0.32,1.3],[0.4,0.28,0.4],'tireRubber');
-  depPart(g,'cylinder',[car2X-1.0,0.32,-1.3],[0.4,0.28,0.4],'tireRubber');
-  depPart(g,'cylinder',[car2X+1.0,0.32,-1.3],[0.4,0.28,0.4],'tireRubber');
+  // Row 1 (North bays: z = -5.0) stall divider lines
+  for(let x=-12.6; x<=12.6; x+=3.6){
+    depPart(g,'box',[x,0.05,-5.0],[0.14,0.02,8.5],'white');
+  }
+  // Row 2 (South bays: z = 5.0) stall divider lines
+  for(let x=-12.6; x<=12.6; x+=3.6){
+    depPart(g,'box',[x,0.05,5.0],[0.14,0.02,8.5],'white');
+  }
 
-  // Police Troop Bus in stall 3
-  const busX=3.8;
-  depPart(g,'box',[busX,0.75,0],[2.3,1.1,5.0],'dark');
-  depPart(g,'box',[busX,1.45,-0.2],[2.2,0.6,3.8],'glassTint');
-  depPart(g,'box',[busX,0.85,0],[2.34,0.18,5.02],'yellow');
-  depPart(g,'box',[busX,1.82,-0.2],[0.3,0.12,1.2],'vipBeaconBlue');
-  depPart(g,'cylinder',[busX-1.05,0.36,1.5],[0.42,0.3,0.42],'tireRubber');
-  depPart(g,'cylinder',[busX+1.05,0.36,1.5],[0.42,0.3,0.42],'tireRubber');
-  depPart(g,'cylinder',[busX-1.05,0.36,-1.5],[0.42,0.3,0.42],'tireRubber');
-  depPart(g,'cylinder',[busX+1.05,0.36,-1.5],[0.42,0.3,0.42],'tireRubber');
+  // Parking Entrance Signboard "P" at corner
+  depPart(g,'cylinder',[13.0,1.4,-9.0],[0.08,2.8,0.08],'dark');
+  depPart(g,'box',[13.0,2.6,-9.0],[1.1,1.1,0.08],'blue');
+  depPart(g,'box',[13.0,2.6,-8.95],[0.22,0.72,0.02],'white'); // P stem
+  depPart(g,'box',[13.16,2.78,-8.95],[0.38,0.36,0.02],'white'); // P loop
+  depPart(g,'box',[13.14,2.78,-8.93],[0.18,0.18,0.03],'blue'); // P hole
+
+  // Vehicles: Sizes remain EXACTLY the same (1:1 standard scale)
+  // 1. White VIP Staff Car (Exact original size: 2.1 x 0.55 x 4.2)
+  const car1X=-7.2, car1Z=-5.0;
+  depPart(g,'box',[car1X,0.42,car1Z],[2.1,0.55,4.2],'whiteBody');
+  depPart(g,'box',[car1X,0.88,car1Z-0.2],[1.9,0.48,2.4],'glassTint');
+  depPart(g,'cylinder',[car1X-0.95,0.28,car1Z+1.2],[0.35,0.25,0.35],'tireRubber');
+  depPart(g,'cylinder',[car1X+0.95,0.28,car1Z+1.2],[0.35,0.25,0.35],'tireRubber');
+  depPart(g,'cylinder',[car1X-0.95,0.28,car1Z-1.2],[0.35,0.25,0.35],'tireRubber');
+  depPart(g,'cylinder',[car1X+0.95,0.28,car1Z-1.2],[0.35,0.25,0.35],'tireRubber');
+
+  // 2. Dark VIP SUV (Exact original size: 2.2 x 0.65 x 4.4)
+  const car2X=-3.6, car2Z=-5.0;
+  depPart(g,'box',[car2X,0.5,car2Z],[2.2,0.65,4.4],'vipCar');
+  depPart(g,'box',[car2X,1.02,car2Z-0.1],[2.0,0.55,2.8],'glassTint');
+  depPart(g,'box',[car2X,1.34,car2Z-0.1],[0.3,0.1,0.8],'vipBeaconRed');
+  depPart(g,'cylinder',[car2X-1.0,0.32,car2Z+1.3],[0.4,0.28,0.4],'tireRubber');
+  depPart(g,'cylinder',[car2X+1.0,0.32,car2Z+1.3],[0.4,0.28,0.4],'tireRubber');
+  depPart(g,'cylinder',[car2X-1.0,0.32,car2Z-1.3],[0.4,0.28,0.4],'tireRubber');
+  depPart(g,'cylinder',[car2X+1.0,0.32,car2Z-1.3],[0.4,0.28,0.4],'tireRubber');
+
+  // 3. Official VIP Sedan (Exact original size: 2.1 x 0.55 x 4.2)
+  const car3X=0, car3Z=-5.0;
+  depPart(g,'box',[car3X,0.42,car3Z],[2.1,0.55,4.2],'whiteBody');
+  depPart(g,'box',[car3X,0.88,car3Z-0.2],[1.9,0.48,2.4],'glassTint');
+  depPart(g,'cylinder',[car3X-0.95,0.28,car3Z+1.2],[0.35,0.25,0.35],'tireRubber');
+  depPart(g,'cylinder',[car3X+0.95,0.28,car3Z+1.2],[0.35,0.25,0.35],'tireRubber');
+  depPart(g,'cylinder',[car3X-0.95,0.28,car3Z-1.2],[0.35,0.25,0.35],'tireRubber');
+  depPart(g,'cylinder',[car3X+0.95,0.28,car3Z-1.2],[0.35,0.25,0.35],'tireRubber');
+
+  // 4. Police Troop Bus (Exact original size: 2.3 x 1.1 x 5.0)
+  const busX=4.0, busZ=-5.0;
+  depPart(g,'box',[busX,0.75,busZ],[2.3,1.1,5.0],'dark');
+  depPart(g,'box',[busX,1.45,busZ-0.2],[2.2,0.6,3.8],'glassTint');
+  depPart(g,'box',[busX,0.85,busZ],[2.34,0.18,5.02],'yellow');
+  depPart(g,'box',[busX,1.82,busZ-0.2],[0.3,0.12,1.2],'vipBeaconBlue');
+  depPart(g,'cylinder',[busX-1.05,0.36,busZ+1.5],[0.42,0.3,0.42],'tireRubber');
+  depPart(g,'cylinder',[busX+1.05,0.36,busZ+1.5],[0.42,0.3,0.42],'tireRubber');
+  depPart(g,'cylinder',[busX-1.05,0.36,busZ-1.5],[0.42,0.3,0.42],'tireRubber');
+  depPart(g,'cylinder',[busX+1.05,0.36,busZ-1.5],[0.42,0.3,0.42],'tireRubber');
 }
 
 function depBuildSquareBox(g){
@@ -11633,7 +11666,7 @@ function depView(mode, smooth = true){
 
 
 
-  const distBehind = o.kind === 'firebrigade' ? 9.2
+  const distBehind = o.kind === 'parking' ? 18.0 : o.kind === 'firebrigade' ? 9.2
 
 
 
@@ -16553,7 +16586,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const distBehind = o.kind === 'firebrigade' ? 9.2
+        const distBehind = o.kind === 'parking' ? 18.0 : o.kind === 'firebrigade' ? 9.2
 
 
 
