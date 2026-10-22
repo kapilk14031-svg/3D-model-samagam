@@ -81,8 +81,8 @@ function applyView(){
  groups.roof.visible=!cut;groups.ceiling.visible=internal;groups.shell.visible=!cut;groups.event.visible=eventInput.checked;groups.context.visible=contextInput.checked;
  groups.lotusInterior.visible=current==='lotusinside';groups.snapshot.visible=snapshotInput.checked;if(current==='alignment')for(const g of Object.values(groups))g.visible=false;
  const views={campus:[[135,135,157],[-20,0,0]],neighborhood:[[640,630,730],[60,0,10]],mainroad:[[5,145,-235],[-10,0,-61]],gate:[[-13,4.5,-108],[-13,3.2,-61]],roads:[[-9,3.3,-53],[-9,2.8,23]],residential:[[-9,4,1],[0,5.8,28]],classroom:[[-6,2.2,-34],[-18,1.5,-34]],cutaway:[[112,133,145],[-10,0,0]],plan:[[-15,270,1],[-15,0,0]],hall:[[-40,2.7,-37],[-40,3.3,10]],stage:[[-40,3.8,13],[-40,2.3,-35]],stageplan:[[-40,23,-23],[-40,1.4,12]],entry:[[3,3.8,12],[-19,3,12]],garden:[[28,7,-7],[28,6,-45]],lotusinside:[[24.2,5.1,-45],[32.5,5.1,-45]],lounge:[[2,58,82],[0,1,39]]};
- let pos,target;if(current==='helicopter'){const h=geo.helipadProposal,c=h.helicopterCentre,a=h.alignmentAxis;pos=[c[0]-a[0]*16-a[1]*15,5.2,c[1]-a[1]*16+a[0]*15];target=[c[0],2.4,c[1]];}else if(current==='helipad'){const h=geo.helipadProposal;target=[(h.centre[0]+h.gate[0])/2,0,(h.centre[1]+h.gate[1])/2];target[0]-=35;pos=[target[0]+130,Math.max(310,h.gateToCentreMetres*1.4),target[2]+160];}else if(current==='alignment'){const cx=rc.reduce((a,p)=>a+p[0],0)/4,cz=rc.reduce((a,p)=>a+p[1],0)/4;pos=[cx,490,cz+.01];target=[cx,0,cz];}else{[pos,target]=views[current];pos=mapPreset(pos,current);target=mapPreset(target,current);}camera.position.fromArray(pos);controls.target.fromArray(target);controls.update();
- info.textContent=current==='helipad'?'Helipad at the supplied red dot; silver access follows the yellow route, with the entry gate at the green mark. Screenshot registration is approximate. Helicopter and access are proposed.':current==='lotusinside'?'Video-supported partial meditation interior. Curtains, furniture and fittings approximate; portrait/artwork and small donation-box lettering not replicated.':current==='alignment'?'Google Earth graticule registered reference. Blue: core footprint traces; orange: adjacent blocks. Click the map for estimated latitude / longitude.':internal?'Video-informed interior; registered footprint. Heights, exact details and chair count estimated.':current==='lounge'?'South building cutaway: room allocations proposed; existing room use unverified.':'WGS84 graticule registered plan · Heights/details estimated · *Satellite objects and nearby ownership/use unverified';setLighting();draw();
+ let pos,target;if(current==='helicopter'){const h=geo.helipadProposal,c=h.helicopterCentre,a=h.alignmentAxis;pos=[c[0]-a[0]*16-a[1]*15,5.2,c[1]-a[1]*16+a[0]*15];target=[c[0],2.4,c[1]];}else if(current==='helipad'){const h=geo.helipadProposal;pos=[h.centre[0]+55,75,h.centre[1]-65];target=[(h.centre[0]+h.gate[0])/2,0,(h.centre[1]+h.gate[1])/2];}else if(current==='alignment'){const cx=rc.reduce((a,p)=>a+p[0],0)/4,cz=rc.reduce((a,p)=>a+p[1],0)/4;pos=[cx,490,cz+.01];target=[cx,0,cz];}else{[pos,target]=views[current];pos=mapPreset(pos,current);target=mapPreset(target,current);}camera.position.fromArray(pos);controls.target.fromArray(target);controls.update();
+ info.textContent=current==='helipad'?'Proposed helipad: 100 m from gate; area matches central garden footprint. Helicopter and vehicle access are illustrative. Red carpet: helicopter to access-road edge, and separately main gate to auditorium.':current==='lotusinside'?'Video-supported partial meditation interior. Curtains, furniture and fittings approximate; portrait/artwork and small donation-box lettering not replicated.':current==='alignment'?'Google Earth graticule registered reference. Blue: core footprint traces; orange: adjacent blocks. Click the map for estimated latitude / longitude.':internal?'Video-informed interior; registered footprint. Heights, exact details and chair count estimated.':current==='lounge'?'South building cutaway: room allocations proposed; existing room use unverified.':'WGS84 graticule registered plan · Heights/details estimated · *Satellite objects and nearby ownership/use unverified';setLighting();draw();
 }
 
 select.addEventListener('change',()=>{if(select.value==='lounge')eventInput.checked=true;if(select.value==='neighborhood')contextInput.checked=true;applyView();save()});
@@ -308,13 +308,13 @@ window.__DEP_INITIAL_PLAN__ = {
       "id": "post-4",
       "kind": "officer",
       "name": "Officer 4",
-      "duty": "Inner cordon duty",
+      "duty": "Lotus duty",
       "belt": "",
       "mobile": "",
-      "x": -10.29,
-      "y": 0.35,
-      "z": 0.48,
-      "angle": 0
+      "x": 8.76,
+      "y": 0.15,
+      "z": -58.19,
+      "angle": 252.36
     },
     {
       "id": "post-5",
@@ -431,10 +431,10 @@ window.__DEP_INITIAL_PLAN__ = {
       "duty": "Binocular duty — rooftop",
       "belt": "",
       "mobile": "",
-      "x": -22.14,
+      "x": -21.34,
       "y": 10.15,
-      "z": -38.34,
-      "angle": 91.02
+      "z": -38.21,
+      "angle": 98.97
     },
     {
       "id": "post-mvhpefek-wu7",
@@ -639,6 +639,19 @@ window.__DEP_INITIAL_PLAN__ = {
       "y": 0.36,
       "z": -74.08,
       "angle": 259.49
+    },
+    {
+      "id": "post-mvjgkjgw-ors",
+      "kind": "officer",
+      "name": "DEEPAK",
+      "duty": "Lotus duty",
+      "belt": "",
+      "mobile": "",
+      "x": -7.33,
+      "y": 0.34,
+      "z": -73.21,
+      "angle": 356.62,
+      "customDuty": true
     }
   ]
 };
@@ -752,7 +765,7 @@ setTimeout(depSyncDutyLists, 60);
 
 
 
-const depSymbols={qrt:'🚙',xray:'🧳',armed_officer:'👮‍✈️',officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️'};
+const depSymbols={officer:'👮',_dummy:'👮',barricade:'🚧',binocular:'🔭',dfmd:'🚪',hhmd:'🔍',radio:'📻',cone:'⚠️',cctv:'📹',light:'💡',square_box:'📦',ambulance:'🚑',firebrigade:'🚒',qbelt:'🎗️',parking:'🅿️',helipad:'🚁'};
 
 
 
@@ -1513,6 +1526,7 @@ initTouchControls();
 
 
 function depGetAutoDuty(x, y, z, kind='officer'){
+  if(kind==='helipad') return 'Helipad security & landing cordon';
   if(kind==='ambulance') return 'Emergency Medical Response';
   if(kind==='firebrigade') return 'Fire & Safety Standby';
   if(kind==='qbelt') return 'Queue & Crowd Management';
@@ -2528,7 +2542,7 @@ depPeekHead.className='dep-peek-head';
 
 
 
-depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit details" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title" title="Click to edit officer details" style="cursor:pointer;">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge" title="Click to edit duty & details" style="cursor:pointer;"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit details" style="color:#0284c7;font-size:13px;">✏️</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Duplicate post">+</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
+depPeekHead.innerHTML='<div class="dep-peek-title-row" id="dep-peek-title-row" title="Click to edit details" style="cursor:pointer;"><span id="dep-peek-title" class="dep-peek-title" title="Click to edit officer details" style="cursor:pointer;">👮 Post Information</span><span id="dep-peek-duty-badge" class="dep-peek-duty-badge" title="Click to edit duty & details" style="cursor:pointer;"></span></div><div class="dep-peek-controls"><button type="button" id="dep-peek-edit" class="dep-peek-btn-icon" title="Edit details" style="display:none;">✏️</button><button type="button" id="dep-peek-min" class="dep-peek-btn-icon" title="Duplicate post / Add another (+1)">+</button><button type="button" id="dep-peek-del" class="dep-peek-btn-icon btn-danger-soft" title="Delete post">🗑️</button><button type="button" id="dep-peek-close" class="dep-peek-btn-icon" title="Close">✕</button></div>';
 
 
 
@@ -2720,7 +2734,7 @@ function setDepPeekMinimized(minimized){
 
 
 
-    if(minBtn){minBtn.textContent='+';minBtn.title='Maximize full details';}
+    if(minBtn){minBtn.textContent='+';minBtn.title='Duplicate post / Add another (+1)';}
 
 
 
@@ -2752,7 +2766,7 @@ function setDepPeekMinimized(minimized){
 
 
 
-    if(minBtn){minBtn.textContent='−';minBtn.title='Minimize';}
+    if(minBtn){minBtn.textContent='+';minBtn.title='Duplicate post / Add another (+1)';}
 
 
 
@@ -4060,7 +4074,21 @@ const depMaterials={
 
 
 
-  crateTrim:new THREE.MeshStandardMaterial({color:0x272e39,roughness:0.38,metalness:0.7}) // Reinforced steel corner brackets
+  crateTrim:new THREE.MeshStandardMaterial({color:0x272e39,roughness:0.38,metalness:0.7}),
+  // Helipad Materials (Exact match to circular helipad in detail_helipad.py)
+  padConcrete:new THREE.MeshStandardMaterial({color:0x4b535d,roughness:0.85}),
+  padOuterRim:new THREE.MeshStandardMaterial({color:0xcbd5e1,roughness:0.75}),
+  padAsphalt:new THREE.MeshStandardMaterial({color:0x2c323c,roughness:0.90}),
+  padLineWhite:new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.50}),
+  padLineDark:new THREE.MeshStandardMaterial({color:0x181e24,roughness:0.80}),
+  padLineYellow:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.40,metalness:0.2}),
+  padDashedRed:new THREE.MeshStandardMaterial({color:0xef4444,roughness:0.60}),
+  padLightTurquoise:new THREE.MeshStandardMaterial({color:0x2dd4bf,emissive:0x14b8a6,emissiveIntensity:2.5,roughness:0.2}),
+  padLightMetal:new THREE.MeshStandardMaterial({color:0x475569,roughness:0.35,metalness:0.7}),
+  padPoleDark:new THREE.MeshStandardMaterial({color:0x27272a,roughness:0.60,metalness:0.4}),
+  padPoleYellow:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.3}),
+  padWindsockOrange:new THREE.MeshStandardMaterial({color:0xf97316,roughness:0.70}),
+  padWindsockWhite:new THREE.MeshStandardMaterial({color:0xf8fafc,roughness:0.70}) // Reinforced steel corner brackets
 
 
 
@@ -6676,6 +6704,235 @@ function depBuildQBelt(g){
 
 
 
+
+
+// =========================================================================
+// Circular Tactical Helipad (Exact copy of campus VIP Helipad without helicopter)
+// =========================================================================
+function depBuildHelipad(g){
+  g.scale.setScalar(1);
+  const padGroup = new THREE.Group();
+
+  // 1.1 Outer Light Concrete Perimeter Rim (Raised platform disc, R = 16.5m, H = 0.28m)
+  const rimMesh = new THREE.Mesh(geos.cylinder, depMaterials.padOuterRim);
+  rimMesh.position.set(0, 0.14, 0);
+  rimMesh.scale.set(16.5, 0.28, 16.5);
+  rimMesh.receiveShadow = true;
+  rimMesh.castShadow = true;
+  padGroup.add(rimMesh);
+
+  // 1.2 Dark Asphalt Circular Apron Ring (R = 15.0m, H = 0.30m)
+  const asphaltMesh = new THREE.Mesh(geos.cylinder, depMaterials.padAsphalt);
+  asphaltMesh.position.set(0, 0.15, 0);
+  asphaltMesh.scale.set(15.0, 0.30, 15.0);
+  asphaltMesh.receiveShadow = true;
+  padGroup.add(asphaltMesh);
+
+  // 1.3 Inner Slate Gray Touchdown Core (TLOF, R = 9.8m, H = 0.32m)
+  const tlofMesh = new THREE.Mesh(geos.cylinder, depMaterials.padConcrete);
+  tlofMesh.position.set(0, 0.16, 0);
+  tlofMesh.scale.set(9.8, 0.32, 9.8);
+  tlofMesh.receiveShadow = true;
+  padGroup.add(tlofMesh);
+
+  const markY = 0.328;
+
+  // 1.4 Solid Yellow Safety Ring (R = 12.8m, W = 0.48m)
+  const yellowRingGeo = new THREE.RingGeometry(12.56, 13.04, 64);
+  yellowRingGeo.rotateX(-Math.PI / 2);
+  const yellowRingMesh = new THREE.Mesh(yellowRingGeo, depMaterials.padLineYellow);
+  yellowRingMesh.position.set(0, markY + 0.002, 0);
+  padGroup.add(yellowRingMesh);
+
+  // 1.5 Solid White Guide Ring (R = 11.2m, W = 0.40m)
+  const whiteRingGeo = new THREE.RingGeometry(11.00, 11.40, 64);
+  whiteRingGeo.rotateX(-Math.PI / 2);
+  const whiteRingMesh = new THREE.Mesh(whiteRingGeo, depMaterials.padLineWhite);
+  whiteRingMesh.position.set(0, markY + 0.004, 0);
+  padGroup.add(whiteRingMesh);
+
+  // 1.6 Dashed Red Warning Ring (R = 8.6m, 36 dashes)
+  const nDashed = 72;
+  const segLenR = (2 * Math.PI * 8.6) / nDashed + 0.03;
+  for (let k = 0; k < nDashed; k += 2) {
+    const t = 2 * Math.PI * k / nDashed;
+    const px = 8.6 * Math.cos(t);
+    const pz = 8.6 * Math.sin(t);
+    const dashMesh = new THREE.Mesh(geos.box, depMaterials.padDashedRed);
+    dashMesh.position.set(px, markY + 0.006, pz);
+    dashMesh.scale.set(segLenR, 0.024, 0.32);
+    dashMesh.rotation.y = Math.PI / 2 - t;
+    padGroup.add(dashMesh);
+  }
+
+  // 1.7 Perimeter Dome Lights (28 turquoise glowing LED dome lights along outer rim R = 15.75m)
+  const nLights = 28;
+  const rLights = 15.75;
+  for (let k = 0; k < nLights; k++) {
+    const t = 2 * Math.PI * k / nLights;
+    const px = rLights * Math.cos(t);
+    const pz = rLights * Math.sin(t);
+
+    const bezel = new THREE.Mesh(geos.cylinder, depMaterials.padLightMetal);
+    bezel.position.set(px, 0.29, pz);
+    bezel.scale.set(0.34, 0.05, 0.34);
+    padGroup.add(bezel);
+
+    const lens = new THREE.Mesh(geos.cylinder, depMaterials.padLightTurquoise);
+    lens.position.set(px, 0.34, pz);
+    lens.scale.set(0.22, 0.08, 0.22);
+    padGroup.add(lens);
+  }
+
+  // 2. AVIATION 'H' MARKINGS (Large, bold, prominent)
+  const hUprightLen = 8.6;
+  const hCrossbarLen = 5.0;
+  const hStroke = 1.15;
+  const hSep = 2.50;
+
+  // 2.1 Dark contrast underlay
+  for (const x of [-hSep, hSep]) {
+    const backUpright = new THREE.Mesh(geos.box, depMaterials.padLineDark);
+    backUpright.position.set(x, markY + 0.008, 0);
+    backUpright.scale.set(hStroke + 0.16, 0.015, hUprightLen + 0.16);
+    padGroup.add(backUpright);
+  }
+  const backBar = new THREE.Mesh(geos.box, depMaterials.padLineDark);
+  backBar.position.set(0, markY + 0.008, 0);
+  backBar.scale.set(hCrossbarLen + 0.16, 0.015, hStroke + 0.16);
+  padGroup.add(backBar);
+
+  // 2.2 Pure White 'H' Strokes
+  for (const x of [-hSep, hSep]) {
+    const whiteUpright = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    whiteUpright.position.set(x, markY + 0.012, 0);
+    whiteUpright.scale.set(hStroke, 0.024, hUprightLen);
+    padGroup.add(whiteUpright);
+  }
+  const whiteBar = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+  whiteBar.position.set(0, markY + 0.012, 0);
+  whiteBar.scale.set(hCrossbarLen, 0.024, hStroke);
+  padGroup.add(whiteBar);
+
+  // 2.3 Flight Approach Alignment Arrows (North & South)
+  for (const sign of [-1, 1]) {
+    const pzArrow = sign * 6.8;
+    const arrowShaft = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    arrowShaft.position.set(0, markY + 0.010, pzArrow);
+    arrowShaft.scale.set(0.45, 0.02, 1.8);
+    padGroup.add(arrowShaft);
+
+    const chevL = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    chevL.position.set(-0.45, markY + 0.010, pzArrow + sign * 0.7);
+    chevL.scale.set(0.35, 0.02, 0.9);
+    chevL.rotation.y = 0.45 * sign;
+    padGroup.add(chevL);
+
+    const chevR = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    chevR.position.set(0.45, markY + 0.010, pzArrow + sign * 0.7);
+    chevR.scale.set(0.35, 0.02, 0.9);
+    chevR.rotation.y = -0.45 * sign;
+    padGroup.add(chevR);
+  }
+
+  // 2.4 Yellow Aviation Stencils: "VIP" and "15t"
+  function addLetterBox(px, pz, sx, sz, rot) {
+    const b = new THREE.Mesh(geos.box, depMaterials.padLineYellow);
+    b.position.set(px, markY + 0.014, pz);
+    b.scale.set(sx, 0.022, sz);
+    if (rot) b.rotation.y = rot;
+    padGroup.add(b);
+  }
+
+  // Stencil "VIP" (upper-left)
+  const vipZ = 3.8;
+  addLetterBox(-6.4, vipZ, 0.26, 1.6, 0.22);
+  addLetterBox(-5.8, vipZ, 0.26, 1.6, -0.22);
+  addLetterBox(-4.9, vipZ, 0.28, 1.6);
+  addLetterBox(-3.9, vipZ, 0.26, 1.6);
+  addLetterBox(-3.5, vipZ + 0.65, 0.75, 0.26);
+  addLetterBox(-3.5, vipZ, 0.75, 0.26);
+  addLetterBox(-3.1, vipZ + 0.32, 0.26, 0.7);
+
+  // Stencil "15t" (lower-right)
+  const tZ = -3.8;
+  addLetterBox(3.4, tZ, 0.28, 1.6);
+  addLetterBox(3.2, tZ + 0.55, 0.4, 0.26, 0.4);
+  addLetterBox(4.4, tZ + 0.65, 0.95, 0.26);
+  addLetterBox(4.0, tZ + 0.35, 0.26, 0.65);
+  addLetterBox(4.4, tZ, 0.95, 0.26);
+  addLetterBox(4.8, tZ - 0.35, 0.26, 0.65);
+  addLetterBox(4.4, tZ - 0.65, 0.95, 0.26);
+  addLetterBox(5.6, tZ - 0.15, 0.26, 1.35);
+  addLetterBox(5.6, tZ + 0.22, 0.75, 0.26);
+
+  // 3. Perimeter Floodlight Masts (5 tall dark poles with yellow box heads at radius 21.5m)
+  const poleAngles = [
+    0.50 * Math.PI,    // North
+    0.12 * Math.PI,    // East
+    -0.28 * Math.PI,   // Southeast
+    -0.68 * Math.PI,   // Southwest
+    0.88 * Math.PI     // West
+  ];
+  for (const ang of poleAngles) {
+    const px = 21.5 * Math.cos(ang);
+    const pz = 21.5 * Math.sin(ang);
+
+    const mast = new THREE.Mesh(geos.cylinder, depMaterials.padPoleDark);
+    mast.position.set(px, 2.85, pz);
+    mast.scale.set(0.14, 5.5, 0.14);
+    mast.castShadow = true;
+    padGroup.add(mast);
+
+    const headBox = new THREE.Mesh(geos.box, depMaterials.padPoleYellow);
+    headBox.position.set(px, 5.65, pz);
+    headBox.scale.set(0.65, 0.48, 0.55);
+    headBox.rotation.y = ang + Math.PI / 2;
+    headBox.castShadow = true;
+    padGroup.add(headBox);
+
+    const faceRot = Math.atan2(-px, -pz);
+    const reflector = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+    reflector.position.set(px, 5.62, pz);
+    reflector.scale.set(0.55, 0.38, 0.05);
+    reflector.rotation.y = faceRot;
+    padGroup.add(reflector);
+  }
+
+  // 4. Windsock near rim (radius 16.2m at 10 o'clock)
+  const windAng = 0.72 * Math.PI;
+  const wx = 16.2 * Math.cos(windAng);
+  const wz = 16.2 * Math.sin(windAng);
+
+  const windCollar = new THREE.Mesh(geos.cylinder, depMaterials.padConcrete);
+  windCollar.position.set(wx, 0.32, wz);
+  windCollar.scale.set(0.45, 0.20, 0.45);
+  padGroup.add(windCollar);
+
+  const windMast = new THREE.Mesh(geos.cylinder, depMaterials.padPoleDark);
+  windMast.position.set(wx, 2.65, wz);
+  windMast.scale.set(0.08, 4.8, 0.08);
+  windMast.castShadow = true;
+  padGroup.add(windMast);
+
+  const windHoop = new THREE.Mesh(geos.torus, depMaterials.padPoleYellow);
+  windHoop.position.set(wx, 5.05, wz);
+  windHoop.scale.set(0.35, 0.35, 0.05);
+  windHoop.rotation.x = Math.PI / 2;
+  padGroup.add(windHoop);
+
+  const windColors = [depMaterials.padWindsockOrange, depMaterials.padWindsockWhite, depMaterials.padWindsockOrange, depMaterials.padWindsockWhite];
+  for (let i = 0; i < 4; i++) {
+    const rCone = 0.34 - i * 0.05;
+    const coneSeg = new THREE.Mesh(geos.cylinder, windColors[i]);
+    coneSeg.position.set(wx + (0.45 + i * 0.36) * 0.9, 5.05 - i * 0.04, wz + (0.45 + i * 0.36) * 0.4);
+    coneSeg.scale.set(rCone, 0.36, rCone);
+    coneSeg.rotation.z = Math.PI / 2 - 0.1;
+    padGroup.add(coneSeg);
+  }
+
+  g.add(padGroup);
+}
 
 function depBuildParking(g){
   g.scale.setScalar(1);
@@ -9602,57 +9859,6 @@ function depBuild(){
 
 
 
-// New deployable visual equipment; shared editor and backend lifecycle.
-function depBuildRifle(g,y=1.06,z=-.30,lmg=false){
- depPart(g,'box',[.05,y,z],[.12,.13,.40],'dark');
- depPart(g,'box',[.05,y,z+.30],[.10,.12,.26],'dark');
- const barrel=depPart(g,'cylinder',[.05,y,z-.43],[.026,lmg?.65:.48,.026],'dark');barrel.rotation.x=Math.PI/2;
- depPart(g,'box',[.05,y-.16,z-.03],[.07,.24,.12],'dark');
- depPart(g,'box',[.05,y+.09,z-.08],[.04,.05,.12],'dark');
- if(lmg){depPart(g,'box',[.20,y-.12,z],[.24,.20,.25],'dark');for(const x of [-.14,.24]){const leg=depPart(g,'box',[x,y-.18,z-.57],[.025,.35,.025],'chrome');leg.rotation.z=x<0?-.4:.4;}}
-}
-function depBuildArmedOfficer(g){depBuildOfficer(g,'officer');depBuildRifle(g);}
-function depBuildQRT(g){
- depPart(g,'box',[0,.50,0],[1.85,.22,3.95],'dark');
- depPart(g,'box',[0,.91,-1.35],[1.8,.54,1.25],'whiteBody');
- depPart(g,'box',[0,.89,1.02],[1.82,.44,1.62],'blue');
- for(const x of [-.88,.88])depPart(g,'box',[x,1.16,.12],[.10,.42,2.18],'whiteBody');
- depPart(g,'box',[0,.87,1.93],[1.8,.46,.10],'whiteBody');
- for(const x of [-1,1])for(const z of [-1.25,1.28]){const w=depPart(g,'cylinder',[x,.43,z],[.40,.22,.40],'tireRubber');w.rotation.z=Math.PI/2;const rim=depPart(g,'cylinder',[x*1.12,.43,z],[.21,.04,.21],'chrome');rim.rotation.z=Math.PI/2;}
- for(const x of [-.83,.83]){depPart(g,'box',[x,1.67,-.62],[.06,.85,.06],'dark');depPart(g,'box',[x,1.78,.95],[.06,1.1,.06],'dark');}
- depPart(g,'box',[0,2.32,.95],[1.72,.07,.07],'dark');
- depPart(g,'box',[0,2.12,-.62],[1.72,.07,.07],'dark');
- depPart(g,'box',[0,1.73,-.65],[1.58,.64,.035],'glassTint');
- for(const x of [-.55,.55]){depPart(g,'box',[x,.85,-.10],[.59,.18,.55],'dark');depPart(g,'box',[x,1.1,.15],[.59,.55,.12],'dark');depPart(g,'box',[x,.98,-1.99],[.30,.24,.05],'white');}
- depPart(g,'box',[0,.55,-2.05],[1.98,.14,.18],'dark');
- depPart(g,'box',[0,.94,-2.0],[.66,.24,.04],'dark');
- for(let x=-.28;x<.30;x+=.09)depPart(g,'box',[x,.94,-2.03],[.025,.20,.025],'chrome');
- for(const x of [-.48,.48]){
-  const man=new THREE.Group();depBuildOfficer(man,'officer');
-  man.traverse(m=>{if(m.isMesh&&(m.material===depMaterials.khaki||m.material===depMaterials.trousers))m.material=depMaterials.blue;});
-  depBuildRifle(man,1.06,-.30,false);man.scale.setScalar(.82);man.position.set(x,.65,.72);g.add(man);
- }
- depPart(g,'cylinder',[0,1.43,.06],[.045,.65,.045],'chrome');
- const mount=new THREE.Group();mount.position.set(0,0,.06);depBuildRifle(mount,1.84,-.50,true);g.add(mount);
-}
-function depBuildXray(g){
- // Open inspection tunnel with opaque side walls and roof.
- depPart(g,'box',[0,.88,0],[1.14,.18,3.2],'chrome');
- depPart(g,'box',[0,.99,0],[.91,.05,3.35],'dark');
- for(const x of [-.58,.58])depPart(g,'box',[x,1.45,0],[.20,1.02,1.35],'blue');
- depPart(g,'box',[0,1.98,0],[1.36,.18,1.35],'blue');
- for(const x of [-.43,.43])for(const z of [-1.25,1.25])depPart(g,'box',[x,.43,z],[.09,.86,.09],'chrome');
- for(const z of [-.71,.71])for(let x=-.40;x<.45;x+=.10)depPart(g,'box',[x,1.49,z],[.085,.80,.025],'dark');
- for(let z=-1.5;z<1.55;z+=.15)depPart(g,'box',[0,1.025,z],[.88,.018,.018],'shutterMetal');
- depPart(g,'box',[.91,1.0,.20],[.48,.10,.65],'chrome');
- depPart(g,'box',[.91,1.36,.35],[.48,.35,.06],'dark');
- depPart(g,'box',[.91,1.36,.313],[.40,.27,.012],'blue');
- depPart(g,'box',[.91,1.08,-.03],[.39,.025,.18],'dark');
- depPart(g,'box',[0,1.20,-1.14],[.46,.30,.48],'crateWood');
- depPart(g,'box',[0,1.38,-1.14],[.18,.06,.05],'dark');
- for(const z of [-.75,.75])depPart(g,'box',[.60,1.84,z],[.08,.08,.06],'hhmdLedGreen');
-}
-
 function depCreateEquipmentMesh(kind) {
 
 
@@ -9669,7 +9875,7 @@ function depCreateEquipmentMesh(kind) {
 
 
 
-  if(kind==='qrt'){depBuildQRT(g);} else if(kind==='xray'){depBuildXray(g);} else if(kind==='armed_officer'){depBuildArmedOfficer(g);} else if (kind === 'officer' || kind === 'hhmd' || kind === 'binocular' || kind === 'radio') {
+  if (kind === 'officer' || kind === 'hhmd' || kind === 'binocular' || kind === 'radio') {
 
 
 
@@ -9685,6 +9891,8 @@ function depCreateEquipmentMesh(kind) {
 
 
 
+  } else if (kind === 'helipad') {
+    depBuildHelipad(g);
   } else if (kind === 'ambulance') {
 
 
@@ -10550,7 +10758,7 @@ function depUpdate(){
 
 
 
-    const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(peekItem.kind);
+    const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(peekItem.kind);
 
 
 
@@ -10558,7 +10766,7 @@ function depUpdate(){
 
 
 
-    const canFirstPerson = isOfficerLike || peekItem.kind === 'qrt' || peekItem.kind === 'ambulance' || peekItem.kind === 'firebrigade';
+    const canFirstPerson = isOfficerLike || peekItem.kind === 'ambulance' || peekItem.kind === 'firebrigade';
 
 
 
@@ -10782,7 +10990,7 @@ function depUpdate(){
 
 
 
-    const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(item.kind);
+    const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(item.kind);
 
 
 
@@ -11184,6 +11392,7 @@ function depChoose(id, zoom = true){
 
 
   depSelected=depItems.some(o=>o.id===id)?id:null;depHover=null;depPlace=false;
+  if (typeof updateGtaMinimap === 'function') updateGtaMinimap(0.016);
 
 
 
@@ -11336,7 +11545,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(o.kind);
+  const isOfficerLike = ['officer','hhmd','binocular','radio'].includes(o.kind);
 
 
 
@@ -11344,7 +11553,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const canFirstPerson = isOfficerLike || o.kind === 'qrt' || o.kind === 'ambulance' || o.kind === 'firebrigade';
+  const canFirstPerson = isOfficerLike || o.kind === 'ambulance' || o.kind === 'firebrigade';
 
 
 
@@ -11392,7 +11601,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isVehicle = o.kind === 'qrt' || o.kind === 'ambulance' || o.kind === 'firebrigade';
+  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade';
 
 
 
@@ -11991,7 +12200,7 @@ depUI('add').onclick=()=>{
 
 
 
-  const name = kind === 'qrt' ? `QRT Open Gypsy ${count}` : kind === 'xray' ? `Baggage X-ray Scanner ${count}` : kind === 'armed_officer' ? `Armed Officer ${count}` : kind === 'officer' ? `Officer ${count}`
+  const name = kind === 'officer' ? `Officer ${count}`
 
 
 
@@ -12023,6 +12232,7 @@ depUI('add').onclick=()=>{
 
 
 
+    : kind === 'helipad' ? `Helipad H-${count}`
     : kind === 'ambulance' ? `Ambulance ${count}`
 
 
@@ -12069,7 +12279,7 @@ depUI('add').onclick=()=>{
 
 
 
-  const duty = kind === 'qrt' ? 'QRT standby' : kind === 'xray' ? 'Baggage screening' : kind === 'armed_officer' ? 'Armed security duty' : kind === 'officer' ? 'Security post'
+  const duty = kind === 'officer' ? 'Security post'
 
 
 
@@ -12101,6 +12311,7 @@ depUI('add').onclick=()=>{
 
 
 
+    : kind === 'helipad' ? 'Helipad security & landing cordon'
     : kind === 'ambulance' ? 'Emergency Medical Response'
 
 
@@ -12323,150 +12534,30 @@ function depView(mode, smooth = true){
 
 
 
-  const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(o.kind);
-
-
-
-
-
-
-
+  const isOfficerLike = o.kind === 'officer' || o.kind === '_dummy' || (o.kind && o.kind.startsWith('officer_')) || ['hhmd','binocular','radio'].includes(o.kind);
   const itemHeight = isOfficerLike ? 1.65
-
-
-
-
-
-
-
     : o.kind === 'firebrigade' ? 2.5
-
-
-
-
-
-
-
     : o.kind === 'ambulance' ? 1.85
-
-
-
-
-
-
-
     : o.kind === 'dfmd' ? 1.8
-
-
-
-
-
-
-
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
-
-
-
-
-
-
-
     : o.kind === 'barricade' ? 0.9
-
-
-
-
-
-
-
     : o.kind === 'square_box' ? 0.8
-
-
-
-
-
-
-
     : o.kind === 'qbelt' ? 0.8
-
-
-
-
-
-
-
+    : o.kind === 'parking' ? 1.0
+    : o.kind === 'helipad' ? 0.5
     : 0.6;
-
-
-
-
-
-
-
-  const distBehind = o.kind === 'parking' ? 18.0 : o.kind === 'firebrigade' ? 9.2
-
-
-
-
-
-
-
+  const distBehind = o.kind === 'helipad' ? 36.0
+    : o.kind === 'parking' ? 28.0
+    : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
-
-
-
-
-
-
-
     : isOfficerLike ? 3.8
-
-
-
-
-
-
-
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
-
-
-
-
-
-
-
     : 3.2;
-
-
-
-
-
-
-
-  const heightAbove = o.kind === 'firebrigade' ? 3.4
-
-
-
-
-
-
-
+  const heightAbove = o.kind === 'helipad' ? 24.0
+    : o.kind === 'parking' ? 18.0
+    : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
-
-
-
-
-
-
-
     : isOfficerLike ? 1.2
-
-
-
-
-
-
-
     : 1.5;
 
 
@@ -12500,22 +12591,10 @@ function depView(mode, smooth = true){
 
 
   if(mode === 'first'){
-
-
-
-
-
-
-
     if(o.kind === 'ambulance') eyeY = o.y + 1.62;
-
-
-
-
-
-
-
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
+    if(o.kind === 'helipad') eyeY = o.y + 4.0;
+    if(o.kind === 'parking') eyeY = o.y + 3.0;
 
 
 
@@ -12579,7 +12658,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
 
 
 
@@ -14253,6 +14332,10 @@ function depCycleNearestItem(reverse = false) {
 
 
 window.__DEP_CYCLE_NEAREST = depCycleNearestItem;
+window.__camera = camera;
+window.__controls = controls;
+window.__depView = depView;
+window.__depItems = depItems;
 
 
 
@@ -14492,7 +14575,7 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-    const name = kind === 'qrt' ? `QRT Open Gypsy ${count}` : kind === 'xray' ? `Baggage X-ray Scanner ${count}` : kind === 'armed_officer' ? `Armed Officer ${count}` : kind === 'officer' ? `Officer ${count}`
+    const name = kind === 'officer' ? `Officer ${count}`
 
 
 
@@ -14524,7 +14607,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-      : kind === 'ambulance' ? `Ambulance ${count}`
+      : kind === 'helipad' ? `Helipad H-${count}`
+    : kind === 'ambulance' ? `Ambulance ${count}`
 
 
 
@@ -14591,7 +14675,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
 
-      : kind === 'ambulance' ? 'Emergency Medical Response'
+      : kind === 'helipad' ? 'Helipad security & landing cordon'
+    : kind === 'ambulance' ? 'Emergency Medical Response'
 
 
 
@@ -15184,7 +15269,376 @@ let lastDepStoreTime = 0;
 
 
 
+
+// =========================================================================
+// GTA-Style Tactical Radar Navigation Minimap HUD
+// =========================================================================
+let gtaRadarZoom = 2.4; // Pixels per meter (~35-40m visible radius around player)
+let gtaSweepAngle = 0;
+
+function updateGtaMinimap(dt = 0.016) {
+  const container = root.querySelector('#dep-gta-minimap-container');
+  if (!container) return;
+
+  const targetId = (typeof depSelected !== 'undefined') ? depSelected : null;
+  if (!targetId) {
+    if (container.style.display !== 'none') container.style.display = 'none';
+    return;
+  }
+  const o = depItems.find(x => x.id === targetId);
+  if (!o) {
+    if (container.style.display !== 'none') container.style.display = 'none';
+    return;
+  }
+
+  // Reveal minimap HUD
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+  }
+
+  const canvas = root.querySelector('#dep-gta-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const w = canvas.width;  // 352
+  const h = canvas.height; // 352
+  const cx = w / 2;
+  const cy = h / 2;
+  const R = cx - 4; // Outer radar radius in canvas px (~172px)
+
+  // Radar heading & sweep
+  gtaSweepAngle = (gtaSweepAngle + (dt || 0.016) * 2.0) % (Math.PI * 2);
+  const playerHeadingRad = ((o.angle || 0) * Math.PI) / 180;
+
+  // 1. Clear & clip circular radar area
+  ctx.save();
+  ctx.clearRect(0, 0, w, h);
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.clip();
+
+  // 2. Tactical Radar Background (Dark gradient)
+  const grad = ctx.createRadialGradient(cx, cy, 4, cx, cy, R);
+  grad.addColorStop(0, 'rgba(15, 23, 42, 0.94)');
+  grad.addColorStop(0.75, 'rgba(12, 19, 36, 0.97)');
+  grad.addColorStop(1, 'rgba(8, 12, 22, 1.0)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // 3. Rotating Radar Sweep Beam (GTA / Military radar effect)
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(gtaSweepAngle);
+  const sweepGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
+  sweepGrad.addColorStop(0, 'rgba(56, 189, 248, 0.40)');
+  sweepGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+  ctx.fillStyle = sweepGrad;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.arc(0, 0, R, -0.42, 0);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  // 4. Concentric Range Rings (15m, 30m, 50m)
+  const ringDistances = [15, 30, 50];
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.20)';
+  ctx.lineWidth = 1.2;
+  for (const d of ringDistances) {
+    const rPx = d * gtaRadarZoom;
+    if (rPx < R) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, rPx, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  // Crosshairs
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.12)';
+  ctx.beginPath();
+  ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy);
+  ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R);
+  ctx.stroke();
+
+  // 5. Transform into Player Local Coordinates (Heading-Up Mode)
+  // Forward faces UP on the radar screen!
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(playerHeadingRad);
+  ctx.scale(gtaRadarZoom, gtaRadarZoom);
+  ctx.translate(-o.x, -o.z);
+
+  // 5.1 Draw Roads (from geo.roads)
+  if (typeof geo !== 'undefined' && geo && geo.roads) {
+    for (const r of geo.roads) {
+      if (!r.points || r.points.length < 2) continue;
+      ctx.beginPath();
+      ctx.moveTo(r.points[0][0], r.points[0][1]);
+      for (let i = 1; i < r.points.length; i++) {
+        ctx.lineTo(r.points[i][0], r.points[i][1]);
+      }
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = r.width || 6;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // Centerline
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+
+  // 5.2 Draw Helipad Access Road (to Main Gate)
+  if (typeof geo !== 'undefined' && geo && geo.helipadProposal && geo.helipadProposal.gate) {
+    const hGate = geo.helipadProposal.gate;
+    ctx.beginPath();
+    ctx.moveTo(6.39, -308.2);
+    ctx.lineTo(hGate[0], hGate[1]);
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 5.5;
+    ctx.stroke();
+  }
+
+  // 5.3 Draw Building Footprints (from geo.footprints)
+  if (typeof geo !== 'undefined' && geo && geo.footprints) {
+    for (const fp of geo.footprints) {
+      if (!fp.points || fp.points.length < 3) continue;
+      ctx.beginPath();
+      ctx.moveTo(fp.points[0][0], fp.points[0][1]);
+      for (let i = 1; i < fp.points.length; i++) {
+        ctx.lineTo(fp.points[i][0], fp.points[i][1]);
+      }
+      ctx.closePath();
+      if (fp.id === 'hall') {
+        ctx.fillStyle = 'rgba(30, 58, 138, 0.55)'; // Auditorium
+        ctx.strokeStyle = 'rgba(96, 165, 250, 0.85)';
+      } else if (fp.id === 'pavilion') {
+        ctx.fillStyle = 'rgba(180, 83, 9, 0.50)'; // Lotus
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.85)';
+      } else if (fp.id === 'garden') {
+        ctx.fillStyle = 'rgba(22, 101, 52, 0.35)'; // Garden
+        ctx.strokeStyle = 'rgba(74, 222, 128, 0.65)';
+      } else {
+        ctx.fillStyle = 'rgba(51, 65, 85, 0.45)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.65)';
+      }
+      ctx.lineWidth = 0.9;
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+
+  // 5.4 Draw Helipads on Radar
+  // Campus Helipad:
+  ctx.beginPath();
+  ctx.arc(6.39, -308.2, 16.5, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(51, 65, 85, 0.65)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(250, 204, 21, 0.85)';
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 9px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('H', 6.39, -308.2);
+
+  // Deployed Helipads:
+  for (const it of depItems) {
+    if (it.kind === 'helipad' && it.id !== o.id) {
+      ctx.beginPath();
+      ctx.arc(it.x, it.z, 16.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(51, 65, 85, 0.65)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.85)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 9px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('H', it.x, it.z);
+    }
+  }
+
+  ctx.restore(); // Restore back to radar center (cx, cy)
+
+  // 6. Draw Radar Blips for Other Deployed Posts (with GTA Edge Clamping!)
+  for (const it of depItems) {
+    if (it.id === o.id) continue;
+
+    const dx = it.x - o.x;
+    const dz = it.z - o.z;
+    const dist = Math.hypot(dx, dz);
+
+    const worldAngle = Math.atan2(dx, -dz);
+    const radarAngle = worldAngle - playerHeadingRad;
+    const rDistPx = dist * gtaRadarZoom;
+
+    let bx, by;
+    const isClamped = (rDistPx > (R - 8));
+    if (isClamped) {
+      bx = cx + (R - 8) * Math.sin(radarAngle);
+      by = cy - (R - 8) * Math.cos(radarAngle);
+    } else {
+      bx = cx + rDistPx * Math.sin(radarAngle);
+      by = cy - rDistPx * Math.cos(radarAngle);
+    }
+
+    let blipColor = '#38bdf8';
+    let blipSize = 3.8;
+    if (it.kind === 'officer' || it.kind === 'hhmd' || it.kind === 'binocular' || it.kind === 'radio') {
+      blipColor = '#0284c7';
+      blipSize = 4.2;
+    } else if (it.kind === 'ambulance') {
+      blipColor = '#ef4444';
+      blipSize = 4.8;
+    } else if (it.kind === 'firebrigade') {
+      blipColor = '#f97316';
+      blipSize = 4.8;
+    } else if (it.kind === 'helipad' || it.kind === 'helicopter') {
+      blipColor = '#22c55e';
+      blipSize = 5.2;
+    } else if (it.kind === 'parking') {
+      blipColor = '#a855f7';
+      blipSize = 4.2;
+    } else {
+      blipColor = '#facc15';
+      blipSize = 3.5;
+    }
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(bx, by, blipSize, 0, Math.PI * 2);
+    ctx.fillStyle = blipColor;
+    ctx.shadowColor = blipColor;
+    ctx.shadowBlur = isClamped ? 7 : 4;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 7. Draw Controlled Player Blip (Center of Radar)
+  ctx.save();
+  ctx.translate(cx, cy);
+
+  // Field of vision cone pointing straight up
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-24, -58);
+  ctx.lineTo(24, -58);
+  ctx.closePath();
+  const fovGrad = ctx.createLinearGradient(0, 0, 0, -58);
+  fovGrad.addColorStop(0, 'rgba(56, 189, 248, 0.40)');
+  fovGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+  ctx.fillStyle = fovGrad;
+  ctx.fill();
+
+  // Directional Arrow (Facing UP)
+  ctx.beginPath();
+  ctx.moveTo(0, -10);
+  ctx.lineTo(8, 7);
+  ctx.lineTo(0, 3.5);
+  ctx.lineTo(-8, 7);
+  ctx.closePath();
+  ctx.fillStyle = '#ffffff';
+  ctx.shadowColor = '#38bdf8';
+  ctx.shadowBlur = 8;
+  ctx.fill();
+  ctx.strokeStyle = '#0284c7';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  ctx.restore();
+
+  // 8. Outer Compass Ring & North Indicator
+  ctx.restore(); // Restore unclipped context
+
+  // Draw Outer Border Ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // North (N) Indicator on Rim (Points to true world North)
+  const northAngle = -playerHeadingRad;
+  const nx = cx + (R - 2) * Math.sin(northAngle);
+  const ny = cy - (R - 2) * Math.cos(northAngle);
+
+  ctx.save();
+  ctx.translate(nx, ny);
+  ctx.rotate(northAngle);
+
+  // Red arrowhead pointing towards North
+  ctx.beginPath();
+  ctx.moveTo(0, -6);
+  ctx.lineTo(4, 3);
+  ctx.lineTo(-4, 3);
+  ctx.closePath();
+  ctx.fillStyle = '#ef4444';
+  ctx.shadowColor = '#ef4444';
+  ctx.shadowBlur = 6;
+  ctx.fill();
+
+  // Letter "N"
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 9px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('N', 0, 11);
+
+  ctx.restore();
+
+  // 9. Update Location & Coordinate Badges
+  const locBadge = root.querySelector('#dep-gta-loc-badge');
+  if (locBadge) {
+    const dutyText = (o.duty || 'CAMPUS PATROL').toUpperCase();
+    locBadge.textContent = `${depSymbols[o.kind] || '📍'} ${o.name || 'POST'} · ${dutyText}`;
+  }
+
+  const coordsEl = root.querySelector('#dep-gta-coords');
+  if (coordsEl) {
+    coordsEl.textContent = `X: ${Math.round(o.x * 10) / 10} | Z: ${Math.round(o.z * 10) / 10}`;
+  }
+
+  const headingEl = root.querySelector('#dep-gta-heading');
+  if (headingEl) {
+    headingEl.textContent = `${Math.round(o.angle || 0)}°`;
+  }
+}
+window.updateGtaMinimap = updateGtaMinimap;
+
+function initGtaMinimapEvents() {
+  const zoomIn = root.querySelector('#dep-gta-zoom-in');
+  const zoomOut = root.querySelector('#dep-gta-zoom-out');
+  if (zoomIn) {
+    zoomIn.addEventListener('pointerdown', e => e.stopPropagation());
+    zoomIn.addEventListener('click', e => {
+      e.stopPropagation();
+      gtaRadarZoom = Math.min(4.5, gtaRadarZoom * 1.35);
+      updateGtaMinimap(0);
+    });
+  }
+  if (zoomOut) {
+    zoomOut.addEventListener('pointerdown', e => e.stopPropagation());
+    zoomOut.addEventListener('click', e => {
+      e.stopPropagation();
+      gtaRadarZoom = Math.max(0.9, gtaRadarZoom / 1.35);
+      updateGtaMinimap(0);
+    });
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGtaMinimapEvents);
+} else {
+  setTimeout(initGtaMinimapEvents, 100);
+}
+
 window.__DEP_TICK = function(dt) {
+  if (typeof updateGtaMinimap === 'function') { updateGtaMinimap(dt); }
+
 
 
 
@@ -15789,21 +16243,9 @@ window.__DEP_TICK = function(dt) {
 
 
       if (o.kind === 'ambulance') turnSpeed = 75;
-
-
-
-
-
-
-
       else if (o.kind === 'firebrigade') turnSpeed = 65;
-
-
-
-
-
-
-
+      else if (o.kind === 'helipad') turnSpeed = 55;
+      else if (o.kind === 'parking') turnSpeed = 45;
       else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
 
 
@@ -16060,6 +16502,14 @@ window.__DEP_TICK = function(dt) {
 
 
 
+      } else if (o.kind === 'helipad') {
+        baseFwdSpeed = 7.0;
+        sprintFwdSpeed = 15.0;
+        baseBackSpeed = 5.0;
+      } else if (o.kind === 'parking') {
+        baseFwdSpeed = 6.0;
+        sprintFwdSpeed = 13.0;
+        baseBackSpeed = 4.5;
       } else if (o.kind === 'square_box' || o.kind === 'qbelt' || o.kind === 'barricade') {
 
 
@@ -16454,7 +16904,7 @@ window.__DEP_TICK = function(dt) {
 
         if (wallBlocked && (!depOfficerJump.isJumping || o.y < surfaceNext - 0.2)) {
           depUI('status').textContent = '⚠️ Blocked by obstacle / wall! Press SPACE to jump over.';
-        } else if (heightDiff <= 0.65) {
+        } else if (o.kind === 'helipad' || o.kind === 'parking' || heightDiff <= 0.65) {
 
 
 
@@ -17113,150 +17563,30 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const isOfficerLike = ['officer','armed_officer','hhmd','binocular','radio'].includes(o.kind);
-
-
-
-
-
-
-
+        const isOfficerLike = o.kind === 'officer' || o.kind === '_dummy' || (o.kind && o.kind.startsWith('officer_')) || ['hhmd','binocular','radio'].includes(o.kind);
         const itemHeight = isOfficerLike ? 1.65
-
-
-
-
-
-
-
           : o.kind === 'firebrigade' ? 2.5
-
-
-
-
-
-
-
           : o.kind === 'ambulance' ? 1.85
-
-
-
-
-
-
-
           : o.kind === 'dfmd' ? 1.8
-
-
-
-
-
-
-
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
-
-
-
-
-
-
-
           : o.kind === 'barricade' ? 0.9
-
-
-
-
-
-
-
           : o.kind === 'square_box' ? 0.8
-
-
-
-
-
-
-
           : o.kind === 'qbelt' ? 0.8
-
-
-
-
-
-
-
+          : o.kind === 'parking' ? 1.0
+          : o.kind === 'helipad' ? 0.5
           : 0.6;
-
-
-
-
-
-
-
-        const distBehind = o.kind === 'parking' ? 18.0 : o.kind === 'firebrigade' ? 9.2
-
-
-
-
-
-
-
+        const distBehind = o.kind === 'helipad' ? 36.0
+          : o.kind === 'parking' ? 28.0
+          : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
-
-
-
-
-
-
-
           : isOfficerLike ? 3.8
-
-
-
-
-
-
-
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
-
-
-
-
-
-
-
           : 3.2;
-
-
-
-
-
-
-
-        const heightAbove = o.kind === 'firebrigade' ? 3.4
-
-
-
-
-
-
-
+        const heightAbove = o.kind === 'helipad' ? 24.0
+          : o.kind === 'parking' ? 18.0
+          : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
-
-
-
-
-
-
-
           : isOfficerLike ? 1.2
-
-
-
-
-
-
-
           : 1.5;
 
 
@@ -17289,7 +17619,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0);
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
 
 
 
@@ -24736,7 +25066,7 @@ function vvipAuditoriumRoute(){
 
 
 
- const path=[[gate[0],.36,gate[1]-3],[gate[0],.36,gate[1]],[gate[0],.36,outer[0].p[2]],...outer.map(o=>[o.p[0],o.p[1]+o.s[1]/2+.02,o.p[2]]),[entry[0]-.7,floorY,outer[0].p[2]],[stairs[0].p[0]+.8,floorY,stairs[0].p[2]-.8],...stairs.map(o=>[o.p[0],o.p[1]+o.s[1]/2+.02,o.p[2]]),[stairs.at(-1).p[0],stageY,end[2]],end];
+ const path=[[gate[0],.36,gate[1]-3],[gate[0],.36,gate[1]],[gate[0],.36,outer[0].p[2]],...outer.map(o=>[o.p[0],o.p[1]+o.s[1]/2+.02,o.p[2]]),[entry[0]-.7,floorY,outer[0].p[2]],[stairs[0].p[0],floorY,stairs[0].p[2]-1],...stairs.map(o=>[o.p[0],o.p[1]+o.s[1]/2+.02,o.p[2]]),[stairs.at(-1).p[0],stageY,end[2]],end];
 
 
 
@@ -25740,6 +26070,7 @@ function stopVvipSimulation() {
 
 
 
+
 // BEGIN REALISTIC REHEARSAL ENGINE
 // Visual rehearsal engine. No aircraft performance or protective protocol certification.
 var vvipReal;
@@ -25963,7 +26294,7 @@ function vrContact(actor,size){
 }
 function vrInit(){
  const h=geo.helipadProposal,gate=h.gate,carStart=h.vehicleAccess[0];
- const walls=data.objects.filter(o=>['box','rounded','cylinder'].includes(o.shape)&&/wall|column|pillar|jamb|railing|roof|ceiling|tree trunk|fence|bollard|lamp post|bench/i.test(o.name)&&!(/paint|sign|stripe|coping|texture|shadow/i.test(o.name)));
+ const walls=data.objects.filter(o=>['box','rounded','cylinder'].includes(o.shape)&&/wall|column|pillar|pier|jamb|railing|roof|ceiling|tree trunk|fence|bollard|lamp post|bench/i.test(o.name)&&!(/paint|sign|stripe|coping|texture|shadow/i.test(o.name)));
  const furniture=data.objects.filter(o=>o.group==='interior'&&/sofa|Low stage table|chair.*(seat|back)/i.test(o.name));
  vvipReal={elapsed:0,t:0,contacts:[],blocked:false,actors:[vvipFemale,vvipEscort1,vvipEscort2],walkObstacles:[...walls.filter(o=>!/roof|ceiling/i.test(o.name)),...furniture],cameraObstacles:[...walls,...furniture],surfaces:data.objects.filter(o=>(o.shape==='box'||o.name.startsWith('Raised stage'))&&/Hall floor|Raised stage|External black entry step|Stage right side green stair|Auditorium red-carpet|Proposed red carpet|Core compound|main road.*surface|road asphalt|paved.*road/i.test(o.name)),carDistance:0,speed:0,rotor:35,completed:false};
  vvipCar.position.set(carStart[0],vrSurface(...[carStart[0],carStart[1]],.30),carStart[1]);
@@ -26027,12 +26358,36 @@ function vrRouteAroundPeople(path,actor){
  }
  return vrPath(out);
 }
+function vrPrepareRoadDuty(){
+ const R=vvipReal;if(vvipPhase>2)return;
+ for(const {node:n} of R.facing){
+  if(n.g.userData.vvipRoadPrepared)continue;
+  n.g.userData.vvipRoadPrepared=true;
+  let nearest=null,best=Infinity;
+  for(let d=0;d<R.carPath.total;d+=.5){const q=vrSample(R.carPath,d),gap=Math.hypot(q.pos[0]-n.g.position.x,q.pos[2]-n.g.position.z);if(Math.abs(n.g.position.y-q.pos[1])<1.3&&gap<best){best=gap;nearest=q;}}
+  if(!nearest||best>5.8)continue;
+  const normal=[Math.cos(nearest.angle),-Math.sin(nearest.angle)],signed=(n.g.position.x-nearest.pos[0])*normal[0]+(n.g.position.z-nearest.pos[2])*normal[1],preferred=signed<0?-1:1;
+  for(const side of [preferred,-preferred])for(const offset of [5.9,6.7,7.5]){
+   if(n.g.userData.vvipRoadPositioned)break;
+   const target=new THREE.Vector3(nearest.pos[0]+normal[0]*side*offset,n.g.position.y,nearest.pos[2]+normal[1]*side*offset),box={p:[target.x,target.y+.85,target.z],s:[.7,1.7,.7],rot:0};
+   const occupied=R.walkObstacles.some(o=>vrSegmentBox(box.p,box.p,o,.42)!==null)||depNodes.some(other=>other!==n&&Math.abs(other.g.position.y-target.y)<1.3&&other.g.position.distanceTo(target)<1.2);
+   if(!occupied){n.g.position.copy(target);n.g.userData.vvipYield=target.clone();n.g.userData.vvipRoadPositioned=true;}
+  }
+ }
+}
+function vrCruiseTarget(path,distance){
+ const now=vrSample(path,distance),ahead=vrSample(path,Math.min(path.total,distance+7));
+ const turn=Math.abs(Math.atan2(Math.sin(ahead.angle-now.angle),Math.cos(ahead.angle-now.angle)));
+ return Math.min(2.4,turn>.45?1.0:turn>.20?1.6:2.4,Math.sqrt(Math.max(0,1.4*(path.total-distance))));
+}
 function vrSceneActors(dt){
  const R=vvipReal,vip=vvipFemale.getWorldPosition(new THREE.Vector3());
  if(typeof gateController!=='undefined'&&!gateController.isOpen)gateController.open();
  // Deployment can finish loading or rebuild after playback starts. Always follow live nodes.
  R.facing=depNodes.filter(n=>['officer','armed_officer','hhmd','binocular','radio'].includes(n.item.kind)).map(n=>R.facing.find(old=>old.node.g===n.g)||{node:n,angle:n.g.rotation.y});
- if(vvipPhase===3&&vvipCar.position.z>geo.helipadProposal.gate[1]-16){for(const n of depNodes)if(n.item.kind==='dfmd'&&!n.g.userData.vvipHidden){n.g.userData.vvipHidden=true;n.g.visible=false;R.temporaryHidden.push(n);}}
+ vrPrepareRoadDuty();
+ const gate=geo.helipadProposal.gate;
+ if(vvipPhase===3&&Math.hypot(vvipCar.position.x-gate[0],vvipCar.position.z-gate[1])<20){for(const n of depNodes)if(n.item.kind==='dfmd'&&Math.hypot(n.item.x-gate[0],n.item.z-gate[1])<22&&!n.g.userData.vvipHidden){n.g.userData.vvipHidden=true;n.g.visible=false;R.temporaryHidden.push(n);}}
  for(const {node:n} of R.facing){if(n.g.position.distanceTo(vip)<25&&(!n.g.userData.vvipYield||n.g.position.distanceTo(n.g.userData.vvipYield)<.05))n.g.rotation.y=vrAngle(n.g.rotation.y,Math.atan2(n.g.position.x-vip.x,n.g.position.z-vip.z),4,dt);}
  if(vvipPhase!==3){if(vvipPhase===4||vvipPhase===5)vrPedestrianYield();vrMoveYielders(dt);return;}
  // Animation-only yielding: keep existing saved duty positions untouched.
@@ -26071,7 +26426,7 @@ function vrMoveYielders(dt){
 function vrRestoreScene(){
  if(!vvipReal)return;
  if(typeof gateController!=='undefined'&&vvipReal.savedGateOpen!==undefined){if(vvipReal.savedGateOpen)gateController.open();else gateController.close();}
- for(const {node:n} of vvipReal.facing||[]){n.g.position.set(n.item.x,n.item.y,n.item.z);n.g.rotation.y=-n.item.angle*Math.PI/180;delete n.g.userData.vvipYield;}
+ for(const {node:n} of vvipReal.facing||[]){n.g.position.set(n.item.x,n.item.y,n.item.z);n.g.rotation.y=-n.item.angle*Math.PI/180;delete n.g.userData.vvipYield;delete n.g.userData.vvipRoadPrepared;delete n.g.userData.vvipRoadPositioned;}
  for(const n of vvipReal.temporaryHidden||[]){delete n.g.userData.vvipHidden;n.g.visible=true;}
 }
 function vrStagePaths(){
@@ -26156,7 +26511,7 @@ function vrFlight(dt){
 function tickVvipSimulation(dt){
  if(!vvipActive||!vvipGroup||!vvipReal)return false;
  if(vvipReal.paused)return false;
- const R=vvipReal;if(!R.lastDiagnostic||R.elapsed-R.lastDiagnostic>.3){R.lastDiagnostic=R.elapsed;root.dataset.rehearsalState=JSON.stringify({phase:vvipPhase,walk:R.walkDistance,offset:R.followOffsets,follow:R.followD,actors:R.actors.map(a=>({role:a.userData.role,p:a.position.toArray()})),blocked:R.blockedName});}R.blocked=false;dt=Math.min(.05,Math.max(0,dt));R.elapsed+=dt;R.t+=dt;vvipPhaseTimer=R.t;
+ const R=vvipReal;if(!R.lastDiagnostic||R.elapsed-R.lastDiagnostic>.3){R.lastDiagnostic=R.elapsed;root.dataset.rehearsalState=JSON.stringify({phase:vvipPhase,walk:R.walkDistance,offset:R.followOffsets,follow:R.followD,actors:R.actors.map(a=>({role:a.userData.role,p:a.position.toArray()})),blocked:R.blockedName,car:vvipCar.position?.toArray?.(),carDistance:R.carDistance,carTotal:R.carPath?.total,speed:R.speed,dfmdCleared:R.temporaryHidden?.length||0});}R.blocked=false;dt=Math.min(.10,Math.max(0,dt));R.elapsed+=dt;R.t+=dt;vvipPhaseTimer=R.t;
  vrSceneActors(dt);
  if(vvipPhase===1){R.t=(performance.now()-R.flightStart)/1000;vrFlight(dt);}
  else if(vvipPhase===2||vvipPhase===4){
@@ -26175,7 +26530,7 @@ function tickVvipSimulation(dt){
  }else if(vvipPhase===3){
   vrRunEscorts(dt);
   if(vvipFemale.parent!==vvipCar||vvipCar.userData.doors.some(d=>d.open>.001)){updateVvipHUD(3,'Waiting','Vehicle remains stopped until VVIP is seated and doors are closed');return true;}
-  const remaining=R.carPath.total-R.carDistance,target=Math.min(2.5,Math.sqrt(Math.max(0,2*.75*remaining)));R.speed=Math.min(target,R.speed+.75*dt);const distance=Math.min(R.carPath.total,R.carDistance+Math.max(.015,R.speed)*dt),q=vrSample(R.carPath,distance),last=vvipCar.position.clone();
+  const remaining=R.carPath.total-R.carDistance,target=vrCruiseTarget(R.carPath,R.carDistance);R.speed+=Math.max(-.85*dt,Math.min(.65*dt,target-R.speed));const distance=Math.min(R.carPath.total,R.carDistance+Math.max(.015,R.speed)*dt),q=vrSample(R.carPath,distance),last=vvipCar.position.clone();
   const carTarget=[q.pos[0],vrSurface(q.pos[0],q.pos[2],.30),q.pos[2]];
   const blocker=[...R.walkObstacles,...vrDynamicObstacles()].find(o=>vrVehicleSweep(last.toArray(),carTarget,vvipCar.rotation.y,o));if(blocker){R.speed=0;R.blocked=true;updateVvipHUD(3,'Vehicle stopped','Vehicle stopped for clearance: '+(blocker.name||'nearby person or equipment'));return true;}
   vvipCar.position.fromArray(carTarget);vvipCar.rotation.y=vrAngle(vvipCar.rotation.y,q.angle,2.5,dt);vvipCar.userData.rollWheels(last.distanceTo(vvipCar.position));R.carDistance=distance;
@@ -26183,7 +26538,7 @@ function tickVvipSimulation(dt){
   if(distance>=R.carPath.total-.01&&R.speed<.18){R.speed=0;vrChange(4);}
  }else if(vvipPhase===5){
   if(!vvipHallPrepared){prepareVvipHall();groups.roof.visible=false;}
-  const remain=R.stageRoute.total-R.walkDistance,target=Math.min(1.4,Math.sqrt(Math.max(0,1.6*remain)));R.speed=Math.min(target,R.speed+1.0*dt);const d=Math.min(R.stageRoute.total,R.walkDistance+Math.max(.025,R.speed)*dt);
+  const remain=R.stageRoute.total-R.walkDistance,target=Math.min(1.4,Math.sqrt(Math.max(0,1.6*remain)));R.speed+=Math.max(-1.0*dt,Math.min(.85*dt,target-R.speed));const d=Math.min(R.stageRoute.total,R.walkDistance+Math.max(.025,R.speed)*dt);
   if(vrMove(vvipFemale,R.stageRoute,d,R.speed,dt))R.walkDistance=d;
   for(let i=1;i<3;i++){if(R.walkDistance<R.stageRoute.total-.01&&R.actors[i].position.distanceTo(i===1?vvipFemale.position:R.actors[1].position)<1.4){R.actors[i].userData.pose();continue;}const path=R.followPaths[i],finished=R.walkDistance>=R.stageRoute.total-.01,desired=finished?path.total:Math.max(0,Math.min(path.total,R.walkDistance+R.followOffsets[i]-i*1.5)),travel=Math.min(desired,R.followD[i]+1.65*dt);if(travel>R.followD[i]&&vrMove(R.actors[i],path,travel,1.65,dt))R.followD[i]=travel;}
   const a=vvipFemale.position;vrCamera([a.x,a.y+1.05,a.z],[-3.5,2,-5.7],dt);updateVvipHUD(5,'Main stage',R.blocked?'Waiting for clearance: '+R.blockedName:'Walking through auditorium entry and side stairs to the existing stage');
@@ -26639,8 +26994,9 @@ function openOfficerDialog(itemId) {
   const titleTextEl = document.getElementById('dep-dlg-title-text');
   const badgeEl = document.getElementById('dep-dlg-badge');
   const isOfficer = item.kind === 'officer' || item.kind === 'hhmd' || item.kind === 'binocular' || item.kind === 'radio';
+  const isHelipad = item.kind === 'helipad';
   if (symEl) symEl.textContent = depSymbols[item.kind] || '👮';
-  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : 'Equipment Details';
+  if (titleTextEl) titleTextEl.textContent = isOfficer ? 'Officer Details' : (isHelipad ? 'Helipad Details' : 'Equipment Details');
   if (badgeEl) badgeEl.textContent = item.name || '';
 
   // Fill input fields with current values

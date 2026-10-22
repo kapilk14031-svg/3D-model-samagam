@@ -35,13 +35,13 @@
       "id": "post-4",
       "kind": "officer",
       "name": "Officer 4",
-      "duty": "Inner cordon duty",
+      "duty": "Lotus duty",
       "belt": "",
       "mobile": "",
-      "x": -10.29,
-      "y": 0.35,
-      "z": 0.48,
-      "angle": 0
+      "x": 8.76,
+      "y": 0.15,
+      "z": -58.19,
+      "angle": 252.36
     },
     {
       "id": "post-5",
@@ -158,10 +158,10 @@
       "duty": "Binocular duty — rooftop",
       "belt": "",
       "mobile": "",
-      "x": -22.14,
+      "x": -21.34,
       "y": 10.15,
-      "z": -38.34,
-      "angle": 91.02
+      "z": -38.21,
+      "angle": 98.97
     },
     {
       "id": "post-mvhpefek-wu7",
@@ -366,6 +366,19 @@
       "y": 0.36,
       "z": -74.08,
       "angle": 259.49
+    },
+    {
+      "id": "post-mvjgkjgw-ors",
+      "kind": "officer",
+      "name": "DEEPAK",
+      "duty": "Lotus duty",
+      "belt": "",
+      "mobile": "",
+      "x": -7.33,
+      "y": 0.34,
+      "z": -73.21,
+      "angle": 356.62,
+      "customDuty": true
     }
   ]
 }

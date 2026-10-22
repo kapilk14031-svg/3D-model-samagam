@@ -178,7 +178,7 @@ function vrDynamicObstacles(ignore){
    for(const x of [-.58,.58])out.push({p:[o.x+Math.cos(rot)*x,o.y+1.1,o.z-Math.sin(rot)*x],s:[.16,2.2,.40],rot});
    out.push({p:[o.x,o.y+2.2,o.z],s:[1.30,.18,.40],rot});
   }else{
-   const person=['officer','hhmd','binocular','radio'].includes(kind),size=person?[.65,1.8,.65]:kind==='qrt'?[2.3,2.5,4.5]:kind==='xray'?[1.9,2.1,3.5]:kind==='ambulance'?[2.3,2.7,5.8]:kind==='firebrigade'?[2.6,3.6,7.2]:kind==='barricade'?[2.2,1.2,.7]:kind==='cone'?[.5,.8,.5]:[.8,1.3,.8];
+   const person=['officer','armed_officer','hhmd','binocular','radio'].includes(kind),size=person?[.65,1.8,.65]:kind==='qrt'?[2.3,2.5,4.5]:kind==='xray'?[1.9,2.1,3.5]:kind==='ambulance'?[2.3,2.7,5.8]:kind==='firebrigade'?[2.6,3.6,7.2]:kind==='barricade'?[2.2,1.2,.7]:kind==='cone'?[.5,.8,.5]:[.8,1.3,.8];
    out.push({p:[actual.x,actual.y+size[1]/2,actual.z],s:size,rot,name:o.name,id:o.id});
   }
  }
@@ -220,7 +220,7 @@ function vrContact(actor,size){
 }
 function vrInit(){
  const h=geo.helipadProposal,gate=h.gate,carStart=h.vehicleAccess[0];
- const walls=data.objects.filter(o=>['box','rounded','cylinder'].includes(o.shape)&&/wall|column|pillar|jamb|railing|roof|ceiling|tree trunk|fence|bollard|lamp post|bench/i.test(o.name)&&!(/paint|sign|stripe|coping|texture|shadow/i.test(o.name)));
+ const walls=data.objects.filter(o=>['box','rounded','cylinder'].includes(o.shape)&&/wall|column|pillar|pier|jamb|railing|roof|ceiling|tree trunk|fence|bollard|lamp post|bench/i.test(o.name)&&!(/paint|sign|stripe|coping|texture|shadow/i.test(o.name)));
  const furniture=data.objects.filter(o=>o.group==='interior'&&/sofa|Low stage table|chair.*(seat|back)/i.test(o.name));
  vvipReal={elapsed:0,t:0,contacts:[],blocked:false,actors:[vvipFemale,vvipEscort1,vvipEscort2],walkObstacles:[...walls.filter(o=>!/roof|ceiling/i.test(o.name)),...furniture],cameraObstacles:[...walls,...furniture],surfaces:data.objects.filter(o=>(o.shape==='box'||o.name.startsWith('Raised stage'))&&/Hall floor|Raised stage|External black entry step|Stage right side green stair|Auditorium red-carpet|Proposed red carpet|Core compound|main road.*surface|road asphalt|paved.*road/i.test(o.name)),carDistance:0,speed:0,rotor:35,completed:false};
  vvipCar.position.set(carStart[0],vrSurface(...[carStart[0],carStart[1]],.30),carStart[1]);
@@ -239,7 +239,7 @@ function vrInit(){
  camera.position.set(vvipHeli.position.x-15,vvipHeli.position.y+7,vvipHeli.position.z-22);controls.target.copy(vvipHeli.position);
  root.querySelector('#vvip-skip-btn').textContent='Next chapter';
  const pause=root.querySelector('#vvip-pause-btn');if(pause){pause.textContent='Pause';pause.onclick=()=>{vvipReal.paused=!vvipReal.paused;if(vvipReal.paused)vvipReal.pauseStart=performance.now();else if(vvipReal.pauseStart)vvipReal.flightStart+=performance.now()-vvipReal.pauseStart;pause.textContent=vvipReal.paused?'Resume':'Pause';};}
- vvipReal.facing=[];for(const n of depNodes)if(['officer','hhmd','binocular','radio'].includes(n.item.kind))vvipReal.facing.push({node:n,angle:n.g.rotation.y});
+ vvipReal.facing=[];for(const n of depNodes)if(['officer','armed_officer','hhmd','binocular','radio'].includes(n.item.kind))vvipReal.facing.push({node:n,angle:n.g.rotation.y});
  vvipReal.temporaryHidden=[];if(typeof gateController!=='undefined'){vvipReal.savedGateOpen=gateController.isOpen;gateController.open();}vvipReal.flightStart=performance.now();vrBuildLandingCarpet();vrBuildWelcome();
 }
 function vrBuildLandingCarpet(){
@@ -284,12 +284,36 @@ function vrRouteAroundPeople(path,actor){
  }
  return vrPath(out);
 }
+function vrPrepareRoadDuty(){
+ const R=vvipReal;if(vvipPhase>2)return;
+ for(const {node:n} of R.facing){
+  if(n.g.userData.vvipRoadPrepared)continue;
+  n.g.userData.vvipRoadPrepared=true;
+  let nearest=null,best=Infinity;
+  for(let d=0;d<R.carPath.total;d+=.5){const q=vrSample(R.carPath,d),gap=Math.hypot(q.pos[0]-n.g.position.x,q.pos[2]-n.g.position.z);if(Math.abs(n.g.position.y-q.pos[1])<1.3&&gap<best){best=gap;nearest=q;}}
+  if(!nearest||best>5.8)continue;
+  const normal=[Math.cos(nearest.angle),-Math.sin(nearest.angle)],signed=(n.g.position.x-nearest.pos[0])*normal[0]+(n.g.position.z-nearest.pos[2])*normal[1],preferred=signed<0?-1:1;
+  for(const side of [preferred,-preferred])for(const offset of [5.9,6.7,7.5]){
+   if(n.g.userData.vvipRoadPositioned)break;
+   const target=new THREE.Vector3(nearest.pos[0]+normal[0]*side*offset,n.g.position.y,nearest.pos[2]+normal[1]*side*offset),box={p:[target.x,target.y+.85,target.z],s:[.7,1.7,.7],rot:0};
+   const occupied=R.walkObstacles.some(o=>vrSegmentBox(box.p,box.p,o,.42)!==null)||depNodes.some(other=>other!==n&&Math.abs(other.g.position.y-target.y)<1.3&&other.g.position.distanceTo(target)<1.2);
+   if(!occupied){n.g.position.copy(target);n.g.userData.vvipYield=target.clone();n.g.userData.vvipRoadPositioned=true;}
+  }
+ }
+}
+function vrCruiseTarget(path,distance){
+ const now=vrSample(path,distance),ahead=vrSample(path,Math.min(path.total,distance+7));
+ const turn=Math.abs(Math.atan2(Math.sin(ahead.angle-now.angle),Math.cos(ahead.angle-now.angle)));
+ return Math.min(2.4,turn>.45?1.0:turn>.20?1.6:2.4,Math.sqrt(Math.max(0,1.4*(path.total-distance))));
+}
 function vrSceneActors(dt){
  const R=vvipReal,vip=vvipFemale.getWorldPosition(new THREE.Vector3());
  if(typeof gateController!=='undefined'&&!gateController.isOpen)gateController.open();
  // Deployment can finish loading or rebuild after playback starts. Always follow live nodes.
- R.facing=depNodes.filter(n=>['officer','hhmd','binocular','radio'].includes(n.item.kind)).map(n=>R.facing.find(old=>old.node.g===n.g)||{node:n,angle:n.g.rotation.y});
- if(vvipPhase===3&&vvipCar.position.z>geo.helipadProposal.gate[1]-16){for(const n of depNodes)if(n.item.kind==='dfmd'&&!n.g.userData.vvipHidden){n.g.userData.vvipHidden=true;n.g.visible=false;R.temporaryHidden.push(n);}}
+ R.facing=depNodes.filter(n=>['officer','armed_officer','hhmd','binocular','radio'].includes(n.item.kind)).map(n=>R.facing.find(old=>old.node.g===n.g)||{node:n,angle:n.g.rotation.y});
+ vrPrepareRoadDuty();
+ const gate=geo.helipadProposal.gate;
+ if(vvipPhase===3&&Math.hypot(vvipCar.position.x-gate[0],vvipCar.position.z-gate[1])<20){for(const n of depNodes)if(n.item.kind==='dfmd'&&Math.hypot(n.item.x-gate[0],n.item.z-gate[1])<22&&!n.g.userData.vvipHidden){n.g.userData.vvipHidden=true;n.g.visible=false;R.temporaryHidden.push(n);}}
  for(const {node:n} of R.facing){if(n.g.position.distanceTo(vip)<25&&(!n.g.userData.vvipYield||n.g.position.distanceTo(n.g.userData.vvipYield)<.05))n.g.rotation.y=vrAngle(n.g.rotation.y,Math.atan2(n.g.position.x-vip.x,n.g.position.z-vip.z),4,dt);}
  if(vvipPhase!==3){if(vvipPhase===4||vvipPhase===5)vrPedestrianYield();vrMoveYielders(dt);return;}
  // Animation-only yielding: keep existing saved duty positions untouched.
@@ -328,7 +352,7 @@ function vrMoveYielders(dt){
 function vrRestoreScene(){
  if(!vvipReal)return;
  if(typeof gateController!=='undefined'&&vvipReal.savedGateOpen!==undefined){if(vvipReal.savedGateOpen)gateController.open();else gateController.close();}
- for(const {node:n} of vvipReal.facing||[]){n.g.position.set(n.item.x,n.item.y,n.item.z);n.g.rotation.y=-n.item.angle*Math.PI/180;delete n.g.userData.vvipYield;}
+ for(const {node:n} of vvipReal.facing||[]){n.g.position.set(n.item.x,n.item.y,n.item.z);n.g.rotation.y=-n.item.angle*Math.PI/180;delete n.g.userData.vvipYield;delete n.g.userData.vvipRoadPrepared;delete n.g.userData.vvipRoadPositioned;}
  for(const n of vvipReal.temporaryHidden||[]){delete n.g.userData.vvipHidden;n.g.visible=true;}
 }
 function vrStagePaths(){
@@ -413,7 +437,7 @@ function vrFlight(dt){
 function tickVvipSimulation(dt){
  if(!vvipActive||!vvipGroup||!vvipReal)return false;
  if(vvipReal.paused)return false;
- const R=vvipReal;if(!R.lastDiagnostic||R.elapsed-R.lastDiagnostic>.3){R.lastDiagnostic=R.elapsed;root.dataset.rehearsalState=JSON.stringify({phase:vvipPhase,walk:R.walkDistance,offset:R.followOffsets,follow:R.followD,actors:R.actors.map(a=>({role:a.userData.role,p:a.position.toArray()})),blocked:R.blockedName});}R.blocked=false;dt=Math.min(.05,Math.max(0,dt));R.elapsed+=dt;R.t+=dt;vvipPhaseTimer=R.t;
+ const R=vvipReal;if(!R.lastDiagnostic||R.elapsed-R.lastDiagnostic>.3){R.lastDiagnostic=R.elapsed;root.dataset.rehearsalState=JSON.stringify({phase:vvipPhase,walk:R.walkDistance,offset:R.followOffsets,follow:R.followD,actors:R.actors.map(a=>({role:a.userData.role,p:a.position.toArray()})),blocked:R.blockedName,car:vvipCar.position?.toArray?.(),carDistance:R.carDistance,carTotal:R.carPath?.total,speed:R.speed,dfmdCleared:R.temporaryHidden?.length||0});}R.blocked=false;dt=Math.min(.10,Math.max(0,dt));R.elapsed+=dt;R.t+=dt;vvipPhaseTimer=R.t;
  vrSceneActors(dt);
  if(vvipPhase===1){R.t=(performance.now()-R.flightStart)/1000;vrFlight(dt);}
  else if(vvipPhase===2||vvipPhase===4){
@@ -432,7 +456,7 @@ function tickVvipSimulation(dt){
  }else if(vvipPhase===3){
   vrRunEscorts(dt);
   if(vvipFemale.parent!==vvipCar||vvipCar.userData.doors.some(d=>d.open>.001)){updateVvipHUD(3,'Waiting','Vehicle remains stopped until VVIP is seated and doors are closed');return true;}
-  const remaining=R.carPath.total-R.carDistance,target=Math.min(2.5,Math.sqrt(Math.max(0,2*.75*remaining)));R.speed=Math.min(target,R.speed+.75*dt);const distance=Math.min(R.carPath.total,R.carDistance+Math.max(.015,R.speed)*dt),q=vrSample(R.carPath,distance),last=vvipCar.position.clone();
+  const remaining=R.carPath.total-R.carDistance,target=vrCruiseTarget(R.carPath,R.carDistance);R.speed+=Math.max(-.85*dt,Math.min(.65*dt,target-R.speed));const distance=Math.min(R.carPath.total,R.carDistance+Math.max(.015,R.speed)*dt),q=vrSample(R.carPath,distance),last=vvipCar.position.clone();
   const carTarget=[q.pos[0],vrSurface(q.pos[0],q.pos[2],.30),q.pos[2]];
   const blocker=[...R.walkObstacles,...vrDynamicObstacles()].find(o=>vrVehicleSweep(last.toArray(),carTarget,vvipCar.rotation.y,o));if(blocker){R.speed=0;R.blocked=true;updateVvipHUD(3,'Vehicle stopped','Vehicle stopped for clearance: '+(blocker.name||'nearby person or equipment'));return true;}
   vvipCar.position.fromArray(carTarget);vvipCar.rotation.y=vrAngle(vvipCar.rotation.y,q.angle,2.5,dt);vvipCar.userData.rollWheels(last.distanceTo(vvipCar.position));R.carDistance=distance;
@@ -440,7 +464,7 @@ function tickVvipSimulation(dt){
   if(distance>=R.carPath.total-.01&&R.speed<.18){R.speed=0;vrChange(4);}
  }else if(vvipPhase===5){
   if(!vvipHallPrepared){prepareVvipHall();groups.roof.visible=false;}
-  const remain=R.stageRoute.total-R.walkDistance,target=Math.min(1.4,Math.sqrt(Math.max(0,1.6*remain)));R.speed=Math.min(target,R.speed+1.0*dt);const d=Math.min(R.stageRoute.total,R.walkDistance+Math.max(.025,R.speed)*dt);
+  const remain=R.stageRoute.total-R.walkDistance,target=Math.min(1.4,Math.sqrt(Math.max(0,1.6*remain)));R.speed+=Math.max(-1.0*dt,Math.min(.85*dt,target-R.speed));const d=Math.min(R.stageRoute.total,R.walkDistance+Math.max(.025,R.speed)*dt);
   if(vrMove(vvipFemale,R.stageRoute,d,R.speed,dt))R.walkDistance=d;
   for(let i=1;i<3;i++){if(R.walkDistance<R.stageRoute.total-.01&&R.actors[i].position.distanceTo(i===1?vvipFemale.position:R.actors[1].position)<1.4){R.actors[i].userData.pose();continue;}const path=R.followPaths[i],finished=R.walkDistance>=R.stageRoute.total-.01,desired=finished?path.total:Math.max(0,Math.min(path.total,R.walkDistance+R.followOffsets[i]-i*1.5)),travel=Math.min(desired,R.followD[i]+1.65*dt);if(travel>R.followD[i]&&vrMove(R.actors[i],path,travel,1.65,dt))R.followD[i]=travel;}
   const a=vvipFemale.position;vrCamera([a.x,a.y+1.05,a.z],[-3.5,2,-5.7],dt);updateVvipHUD(5,'Main stage',R.blocked?'Waiting for clearance: '+R.blockedName:'Walking through auditorium entry and side stairs to the existing stage');
