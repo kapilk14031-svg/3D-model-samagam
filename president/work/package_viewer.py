@@ -1231,13 +1231,39 @@ function init3DCardRotators() {{
 
       mesh.position.set(-center.x, -bbox.min.y, -center.z);
 
+      let initialRotY = -0.55; // 3/4 front isometric perspective
+      let initialRotX = 0.18;
+      let camDistMult = 1.6;
+
+      if (kind === 'helipad') {{
+        initialRotY = -0.35;
+        initialRotX = 0.42; // Elevated aerial view to showcase bold 'H' and lights
+        camDistMult = 1.35;
+      }} else if (kind === 'parking') {{
+        initialRotY = -0.52;
+        initialRotX = 0.38; // Elevated aerial perspective to showcase all 4 parked cars & stalls
+        camDistMult = 1.25;
+      }} else if (kind === 'light') {{
+        initialRotY = -0.45;
+        initialRotX = 0.14; // Shows trailer, outriggers, generator, and 4 floodlights
+        camDistMult = 1.5;
+      }} else if (kind === 'qbelt') {{
+        initialRotY = -0.32;
+        initialRotX = 0.16; // Shows both chrome stanchions and the red belt
+        camDistMult = 1.4;
+      }} else if (kind === 'ambulance' || kind === 'firebrigade' || kind === 'qrt') {{
+        initialRotY = -0.55; // Shows front grille, headlights, siren lights, AND side livery!
+        initialRotX = 0.16;
+        camDistMult = 1.5;
+      }}
+
       const pivot = new THREE.Group();
       pivot.add(mesh);
-      pivot.rotation.y = Math.PI; // Face front initially
-      pivot.rotation.x = 0.12;
+      pivot.rotation.y = initialRotY;
+      pivot.rotation.x = initialRotX;
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const camDist = Math.max(maxDim * 1.7, 2.0);
+      const camDist = Math.max(maxDim * camDistMult, 2.0);
       const camTargetY = Math.max(size.y * 0.48, 0.3);
       const stageRadius = Math.max(Math.hypot(size.x, size.z) * 0.65, 0.9);
 
@@ -1246,8 +1272,8 @@ function init3DCardRotators() {{
         pivot,
         canvas,
         ctx: canvas.getContext('2d'),
-        rotY: Math.PI,
-        rotX: 0.12,
+        rotY: initialRotY,
+        rotX: initialRotX,
         camDist,
         camTargetY,
         stageRadius,
