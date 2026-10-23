@@ -942,7 +942,7 @@ function depDeleteItemById(id) {
     depPeek.hidden = true;
     if (depUI('editor')) depUI('editor').hidden = true;
   }
-  depStore();
+  depStore(true);
   depBuild();
   draw();
   if (typeof depShowToast === 'function') {
@@ -2249,7 +2249,7 @@ if(depPeekDelBtn){
 
 
 
-    depStore();
+    depStore(true);
 
 
 
@@ -2950,12 +2950,12 @@ const initialLocal=depLoadLocal();
 
 
 
-if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInitialPlan.items || initialLocal.items.length >= depInitialPlan.items.length)) {
-  depItems=initialLocal.items;
-} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depValid(depInitialPlan.items)) {
-  depItems=JSON.parse(JSON.stringify(depInitialPlan.items));
+if (initialLocal && Array.isArray(initialLocal.items) && depValid(initialLocal.items) && initialLocal.items.length > 0) {
+  depItems = initialLocal.items;
+} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depValid(depInitialPlan.items) && depInitialPlan.items.length > 0) {
+  depItems = JSON.parse(JSON.stringify(depInitialPlan.items));
 } else {
-  depItems=depSeed();
+  depItems = depSeed();
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
@@ -3004,30 +3004,9 @@ try{
 
 
 
-function depStore(){
-
-
-
-
-
-
-
+function depStore(immediate = false){
   try{
-
-
-
-
-
-
-
     const record={version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems};
-
-
-
-
-
-
-
     localStorage.setItem(depStorage,JSON.stringify(record));
 
 
@@ -3052,7 +3031,7 @@ function depStore(){
 
 
 
-  depQueue();
+  depQueue(immediate);
 
 
 
@@ -3556,73 +3535,22 @@ function depPart(g,shape,p,s,mat){
 
 
 function depCreateHhmdDecalCanvas(flipped=false){
-  const c=document.createElement('canvas');c.width=256;c.height=1024;
-  const ctx=c.getContext('2d');
-  if(flipped){ctx.translate(256,0);ctx.scale(-1,1);}
-  ctx.fillStyle='#13171d';ctx.fillRect(0,0,256,1024);
-  ctx.strokeStyle='#334155';ctx.lineWidth=6;ctx.strokeRect(8,8,240,1008);
-  // Prominent Garrett SuperScanner Golden Yellow Header
-  ctx.fillStyle='#facc15';ctx.fillRect(14,20,228,155);
-  ctx.strokeStyle='#ca8a04';ctx.lineWidth=3;ctx.strokeRect(14,20,228,155);
-  ctx.fillStyle='#0f172a';ctx.textAlign='center';
-  ctx.font='900 42px Arial,Helvetica,sans-serif';
-  ctx.fillText('GARRETT',128,78);
-  ctx.font='900 24px Arial,Helvetica,sans-serif';
-  ctx.fillText('SUPER SCANNER',128,124);
-  ctx.font='bold 20px Arial,Helvetica,sans-serif';
-  ctx.fillText('V',128,158);
-  // Chevron accents
-  ctx.fillStyle='#1e293b';
-  for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(24+i*56,195);ctx.lineTo(48+i*56,195);ctx.lineTo(32+i*56,212);ctx.lineTo(8+i*56,212);ctx.fill();}
-  // Central Sensing Panel
-  ctx.fillStyle='#0b0f17';ctx.fillRect(18,225,220,555);
-  ctx.strokeStyle='#475569';ctx.lineWidth=4;ctx.strokeRect(24,235,208,535);
-  ctx.strokeStyle='#facc15';ctx.lineWidth=2.5;ctx.strokeRect(32,245,192,515);
-  // 360° Detection Coil Graphics
-  ctx.strokeStyle='#38bdf8';ctx.lineWidth=5;
-  ctx.beginPath();ctx.arc(128,405,58,0,Math.PI*2);ctx.stroke();
-  ctx.beginPath();ctx.arc(128,405,38,0,Math.PI*2);ctx.stroke();
-  ctx.fillStyle='#38bdf8';
-  ctx.beginPath();ctx.arc(128,405,14,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='#ffffff';
-  ctx.font='900 22px Arial,Helvetica,sans-serif';
-  ctx.fillText('360° DETECTION',128,505);
-  ctx.fillStyle='#94a3b8';
-  ctx.font='bold 16px Arial,Helvetica,sans-serif';
-  ctx.fillText('HIGH SENSITIVITY',128,540);
-  ctx.font='14px Arial,Helvetica,sans-serif';
-  ctx.fillText('ALL METALS',128,568);
-  for(let y=605;y<=715;y+=16){
-    ctx.fillStyle=y%32===0?'#facc15':'#64748b';
-    ctx.fillRect(68,y,120,6);
-  }
-  // Red Metal Detector Warning Banner
-  ctx.fillStyle='#dc2626';ctx.fillRect(22,800,212,68);
-  ctx.strokeStyle='#b91c1c';ctx.lineWidth=3;ctx.strokeRect(22,800,212,68);
-  ctx.fillStyle='#ffffff';
-  ctx.font='900 23px Arial,Helvetica,sans-serif';
-  ctx.fillText('METAL DETECTOR',128,844);
-  // Status Legend
-  ctx.fillStyle='#cbd5e1';
-  ctx.font='bold 16px Arial,Helvetica,sans-serif';
-  ctx.fillText('PWR ● BATT ● ALARM',128,915);
-  ctx.fillStyle='#64748b';
-  ctx.font='13px monospace';
-  ctx.fillText('MODEL 1165190 • CE',128,965);
-  return c;
+ const c=document.createElement('canvas');c.width=256;c.height=1024;const ctx=c.getContext('2d');
+ ctx.fillStyle='#101316';ctx.fillRect(0,0,256,1024);ctx.strokeStyle='#7b8285';ctx.lineWidth=7;ctx.strokeRect(10,10,236,1004);
+ ctx.save();ctx.translate(128,512);ctx.rotate(-Math.PI/2);ctx.fillStyle='#e3ed55';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 90px Arial';ctx.fillText('SUPER SCANNER',0,0,950);ctx.restore();return c;
 }
 const depHhmdCanvas=depCreateHhmdDecalCanvas(false);
 const depHhmdDecalFrontTex=new THREE.CanvasTexture(depHhmdCanvas);
 depHhmdDecalFrontTex.anisotropy=8;
 const depHhmdDecalFront=new THREE.MeshStandardMaterial({
-  map:depHhmdDecalFrontTex,roughness:0.35,metalness:0.1,
+  map:depHhmdDecalFrontTex,roughness:1,metalness:0,
   polygonOffset:true,polygonOffsetFactor:-2.0,polygonOffsetUnits:-4.0,depthWrite:true,side:THREE.DoubleSide
 });
 const depHhmdBackCanvas=depCreateHhmdDecalCanvas(true);
 const depHhmdDecalBackTex=new THREE.CanvasTexture(depHhmdBackCanvas);
 depHhmdDecalBackTex.anisotropy=8;
 const depHhmdDecalBack=new THREE.MeshStandardMaterial({
-  map:depHhmdDecalBackTex,roughness:0.35,metalness:0.1,
+  map:depHhmdDecalBackTex,roughness:1,metalness:0,
   polygonOffset:true,polygonOffsetFactor:-2.0,polygonOffsetUnits:-4.0,depthWrite:true,side:THREE.DoubleSide
 });
 
@@ -3744,23 +3672,43 @@ const depAmbulanceRearDecal=new THREE.MeshStandardMaterial({
   polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
 });
 
-// Fire Engine Front Visor / Nose Decal - Bold Yellow FIRE BRIGADE
-const depFireFrontCanvas=document.createElement('canvas');depFireFrontCanvas.width=512;depFireFrontCanvas.height=128;
-const dffc=depFireFrontCanvas.getContext('2d');
-dffc.clearRect(0,0,512,128);
-dffc.fillStyle='#0f172a';
-dffc.fillRect(14,14,484,100);
-dffc.strokeStyle='#facc15';
-dffc.lineWidth=6;
-dffc.strokeRect(16,16,480,96);
-dffc.fillStyle='#facc15';
-dffc.font='900 66px Arial, sans-serif';
-dffc.textAlign='center';
-dffc.textBaseline='middle';
-dffc.fillText('FIRE BRIGADE',256,64);
-const depFireFrontDecal=new THREE.MeshStandardMaterial({
-  map:new THREE.CanvasTexture(depFireFrontCanvas),
+// Fire Engine Front Visor Decal - Massive Bold Yellow FIRE BRIGADE
+const depFireVisorCanvas=document.createElement('canvas');depFireVisorCanvas.width=1024;depFireVisorCanvas.height=192;
+const dfvc=depFireVisorCanvas.getContext('2d');
+dfvc.clearRect(0,0,1024,192);
+dfvc.fillStyle='#0f172a';dfvc.fillRect(16,16,992,160);
+dfvc.strokeStyle='#facc15';dfvc.lineWidth=8;dfvc.strokeRect(20,20,984,152);
+dfvc.fillStyle='#facc15';dfvc.font='900 108px Arial, sans-serif';dfvc.textAlign='center';dfvc.textBaseline='middle';
+dfvc.fillText('FIRE BRIGADE',512,96);
+
+const depFireVisorDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireVisorCanvas),
   transparent:true,opacity:1.0,roughness:0.3,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
+
+// Fire Engine Front Caution Plate - Massive Bold Yellow FIRE BRIGADE (matching rear plate!)
+const depFireFrontPlateCanvas=document.createElement('canvas');depFireFrontPlateCanvas.width=1024;depFireFrontPlateCanvas.height=256;
+const dfpc=depFireFrontPlateCanvas.getContext('2d');
+dfpc.clearRect(0,0,1024,256);
+dfpc.fillStyle='#facc15';dfpc.fillRect(0,0,1024,256);
+dfpc.fillStyle='#dc2626';
+for(let x=-256;x<=1024;x+=64){
+  dfpc.beginPath();
+  dfpc.moveTo(x,256);dfpc.lineTo(x+64,0);dfpc.lineTo(x+96,0);dfpc.lineTo(x+32,256);
+  dfpc.fill();
+}
+// Central Caution Plate
+dfpc.fillStyle='#0f172a';dfpc.fillRect(80,36,864,184);
+dfpc.strokeStyle='#facc15';dfpc.lineWidth=8;dfpc.strokeRect(84,40,856,176);
+dfpc.fillStyle='#facc15';dfpc.font='900 88px Arial, sans-serif';dfpc.textAlign='center';dfpc.textBaseline='middle';
+dfpc.fillText('FIRE BRIGADE',512,108);
+dfpc.fillStyle='#fef08a';dfpc.font='bold 34px sans-serif';dfpc.textAlign='center';dfpc.textBaseline='middle';
+dfpc.fillText('अग्नि शमन सेवा · EMERGENCY 101',512,172);
+
+const depFireFrontPlateDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireFrontPlateCanvas),
+  roughness:0.4,metalness:0.1,side:THREE.FrontSide,
   polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
 });
 
@@ -5065,11 +5013,14 @@ function depBuildFireBrigade(g){
 
 
   const fWind=depPart(g,'box',[0,1.96,-3.40],[2.26,.92,.08],'glassTint');fWind.rotation.x=-0.16;
-  // Front FIRE BRIGADE Decals (Bold Yellow on cab visor and front nose plate)
-  const fbVisor=depPart(g,'sign',[0,2.52,-3.38],[1.82,0.24,1],depFireFrontDecal);
+  // Front FIRE BRIGADE Decals - Big and bold matching the rear plate!
+  // 1. Cab Roof Visor Header (facing -Z)
+  const fbVisor=depPart(g,'sign',[0,2.52,-3.59],[2.28,0.32,1],depFireVisorDecal);
   fbVisor.rotation.y=Math.PI;
-  const fbNose=depPart(g,'sign',[0,1.52,-3.61],[1.35,0.18,1],depFireFrontDecal);
-  fbNose.rotation.y=Math.PI;
+
+  // 2. Front Nose Caution Plate with Chevrons (facing -Z, large & prominent matching the rear plate!)
+  const fbPlate=depPart(g,'sign',[0,1.40,-3.65],[2.10,0.52,1],depFireFrontPlateDecal);
+  fbPlate.rotation.y=Math.PI;
 
 
 
@@ -7676,7 +7627,7 @@ function depBuildOfficer(g, mode='officer'){
 
 
 
-    hhmd.position.set(0, -.63, -.04);
+    hhmd.position.set(0,-.61,-.16);
 
 
 
@@ -7684,7 +7635,7 @@ function depBuildOfficer(g, mode='officer'){
 
 
 
-    hhmd.rotation.set(Math.PI/4.2, 0, 0);
+    hhmd.quaternion.copy(rightArm.quaternion).invert();
 
 
 
@@ -8092,7 +8043,7 @@ function depBuildOfficer(g, mode='officer'){
 
 
 
-    depPart(hhmd, 'box', [0, .365, 0], [.078, .024, .024], 'hhmdStripe');
+
 
 
 
@@ -8117,7 +8068,7 @@ function depBuildOfficer(g, mode='officer'){
 
 
         // High-visibility yellow safety band across paddle top
-    depPart(hhmd, 'box', [0, .365, 0], [.078, .024, .024], 'hhmdStripe');
+
 
     // High-contrast Garrett SuperScanner decals (Front & Back - zero Z-fighting, non-mirrored)
     depPart(hhmd, 'sign', [0, .255, .0125], [.068, .22, 1], depHhmdDecalFront);
@@ -17120,7 +17071,7 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
         if (!o.customDuty) {
           o.duty=depGetAutoDuty(o.x, o.y, o.z, o.kind);
         }
-        depPlace=false;depNew=null;depStore();depBuild();depChoose(o.id);
+        depPlace=false;depNew=null;depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -18212,7 +18163,7 @@ window.addEventListener('keyup', e => {
 
 
 
-    if (depSelected) depStore();
+    if (depSelected) depStore(true);
 
 
 
@@ -19508,47 +19459,16 @@ function depPayload(){
 
 
 
-function depQueue(){
-
-
-
-
-
-
-
+function depQueue(immediate = false){
   if(!depBackendURL)return;
-
-
-
-
-
-
-
   depPending=depPayload();
-
-
-
-
-
-
-
-  if(depUI('sync'))depUI('sync').textContent='Backend: auto-saving…';
-
-
-
-
-
-
-
+  if(depUI('sync'))depUI('sync').textContent='Backend: auto-saving...';
   clearTimeout(depSaveTimer);
-
-
-
-
-
-
-
-  depSaveTimer=setTimeout(depFlush,50);
+  if(immediate){
+    depFlush();
+  } else {
+    depSaveTimer=setTimeout(depFlush,50);
+  }
 
 
 
@@ -20109,94 +20029,24 @@ async function depLoadBackend(){
 
 
     // Smart sync: determine whether local storage or backend is newer
-
-
-
-
-
-
-
-    if(local&&local.items&&local.items.length>=(backendItems?backendItems.length:0)&&localTime>backendTime+2000){
-
-
-
-
-
-
-
-      depItems=local.items;
-
-
-
-
-
-
-
+    if (local && Array.isArray(local.items) && depValid(local.items) && local.items.length > 0 && localTime > backendTime) {
+      depItems = local.items;
       depBuild();
-
-
-
-
-
-
-
-      depStore();
-
-
-
-
-
-
-
-      if(depUI('sync'))depUI('sync').textContent=`✅ Auto-saved · restored ${depItems.length} items & synced to DB`;
-
-
-
-
-
-
-
-    }else if(backendItems){
-
-
-
-
-
-
-
-      depItems=backendItems;
-
-
-
-
-
-
-
+      depStore(true);
+      if (depUI('sync')) depUI('sync').textContent = 'Auto-saved synced ' + depItems.length + ' items to DB (rev ' + depRevision + ')';
+    } else if (backendItems && backendItems.length > 0) {
+      depItems = backendItems;
       depBuild();
-
-
-
-
-
-
-
-      try{localStorage.setItem(depStorage,JSON.stringify({version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems}));}catch(e){}
-
-
-
-
-
-
-
-      if(depUI('sync'))depUI('sync').textContent=`✅ Auto-saved · loaded ${depItems.length} items from DB (rev ${depRevision})`;
-
-
-
-
-
-
-
-    }else if(local&&local.items){
+      try {
+        localStorage.setItem(depStorage, JSON.stringify({
+          version: 1,
+          savedAt: Date.now(),
+          origin: [geo.originLongitude, geo.originLatitude],
+          items: depItems
+        }));
+      } catch (e) {}
+      if (depUI('sync')) depUI('sync').textContent = 'Auto-saved loaded ' + depItems.length + ' items from DB (rev ' + depRevision + ')';
+    } else if (local && Array.isArray(local.items) && depValid(local.items) && local.items.length > 0) {
 
 
 
@@ -26167,7 +26017,7 @@ function depDuplicateSelectedItem() {
   }
 
   depItems.push(newItem);
-  depStore();
+  depStore(true);
   depBuild();
   depChoose(newItem.id, true);
 
@@ -26300,7 +26150,7 @@ function saveOfficerDialog() {
   depSyncDropdownLabels(item);
 
   // Persist to localStorage & backend SQLite immediately
-  depStore();
+  depStore(true);
   depBuild();
   depChoose(item.id, false);
 
@@ -26387,3 +26237,9 @@ if (document.readyState === 'loading') {
   setTimeout(setupOfficerDialogEvents, 100);
 }
 
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    depSaveBeforeLeave();
+  }
+});

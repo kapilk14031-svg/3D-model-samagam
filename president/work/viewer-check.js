@@ -4376,23 +4376,43 @@ const depAmbulanceRearDecal=new THREE.MeshStandardMaterial({
   polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
 });
 
-// Fire Engine Front Visor / Nose Decal - Bold Yellow FIRE BRIGADE
-const depFireFrontCanvas=document.createElement('canvas');depFireFrontCanvas.width=512;depFireFrontCanvas.height=128;
-const dffc=depFireFrontCanvas.getContext('2d');
-dffc.clearRect(0,0,512,128);
-dffc.fillStyle='#0f172a';
-dffc.fillRect(14,14,484,100);
-dffc.strokeStyle='#facc15';
-dffc.lineWidth=6;
-dffc.strokeRect(16,16,480,96);
-dffc.fillStyle='#facc15';
-dffc.font='900 66px Arial, sans-serif';
-dffc.textAlign='center';
-dffc.textBaseline='middle';
-dffc.fillText('FIRE BRIGADE',256,64);
-const depFireFrontDecal=new THREE.MeshStandardMaterial({
-  map:new THREE.CanvasTexture(depFireFrontCanvas),
+// Fire Engine Front Visor Decal - Massive Bold Yellow FIRE BRIGADE
+const depFireVisorCanvas=document.createElement('canvas');depFireVisorCanvas.width=1024;depFireVisorCanvas.height=192;
+const dfvc=depFireVisorCanvas.getContext('2d');
+dfvc.clearRect(0,0,1024,192);
+dfvc.fillStyle='#0f172a';dfvc.fillRect(16,16,992,160);
+dfvc.strokeStyle='#facc15';dfvc.lineWidth=8;dfvc.strokeRect(20,20,984,152);
+dfvc.fillStyle='#facc15';dfvc.font='900 108px Arial, sans-serif';dfvc.textAlign='center';dfvc.textBaseline='middle';
+dfvc.fillText('FIRE BRIGADE',512,96);
+
+const depFireVisorDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireVisorCanvas),
   transparent:true,opacity:1.0,roughness:0.3,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
+
+// Fire Engine Front Caution Plate - Massive Bold Yellow FIRE BRIGADE (matching rear plate!)
+const depFireFrontPlateCanvas=document.createElement('canvas');depFireFrontPlateCanvas.width=1024;depFireFrontPlateCanvas.height=256;
+const dfpc=depFireFrontPlateCanvas.getContext('2d');
+dfpc.clearRect(0,0,1024,256);
+dfpc.fillStyle='#facc15';dfpc.fillRect(0,0,1024,256);
+dfpc.fillStyle='#dc2626';
+for(let x=-256;x<=1024;x+=64){
+  dfpc.beginPath();
+  dfpc.moveTo(x,256);dfpc.lineTo(x+64,0);dfpc.lineTo(x+96,0);dfpc.lineTo(x+32,256);
+  dfpc.fill();
+}
+// Central Caution Plate
+dfpc.fillStyle='#0f172a';dfpc.fillRect(80,36,864,184);
+dfpc.strokeStyle='#facc15';dfpc.lineWidth=8;dfpc.strokeRect(84,40,856,176);
+dfpc.fillStyle='#facc15';dfpc.font='900 88px Arial, sans-serif';dfpc.textAlign='center';dfpc.textBaseline='middle';
+dfpc.fillText('FIRE BRIGADE',512,108);
+dfpc.fillStyle='#fef08a';dfpc.font='bold 34px sans-serif';dfpc.textAlign='center';dfpc.textBaseline='middle';
+dfpc.fillText('अग्नि शमन सेवा · EMERGENCY 101',512,172);
+
+const depFireFrontPlateDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireFrontPlateCanvas),
+  roughness:0.4,metalness:0.1,side:THREE.FrontSide,
   polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
 });
 
@@ -5697,11 +5717,14 @@ function depBuildFireBrigade(g){
 
 
   const fWind=depPart(g,'box',[0,1.96,-3.40],[2.26,.92,.08],'glassTint');fWind.rotation.x=-0.16;
-  // Front FIRE BRIGADE Decals (Bold Yellow on cab visor and front nose plate)
-  const fbVisor=depPart(g,'sign',[0,2.52,-3.38],[1.82,0.24,1],depFireFrontDecal);
+  // Front FIRE BRIGADE Decals - Big and bold matching the rear plate!
+  // 1. Cab Roof Visor Header (facing -Z)
+  const fbVisor=depPart(g,'sign',[0,2.52,-3.59],[2.28,0.32,1],depFireVisorDecal);
   fbVisor.rotation.y=Math.PI;
-  const fbNose=depPart(g,'sign',[0,1.52,-3.61],[1.35,0.18,1],depFireFrontDecal);
-  fbNose.rotation.y=Math.PI;
+
+  // 2. Front Nose Caution Plate with Chevrons (facing -Z, large & prominent matching the rear plate!)
+  const fbPlate=depPart(g,'sign',[0,1.40,-3.65],[2.10,0.52,1],depFireFrontPlateDecal);
+  fbPlate.rotation.y=Math.PI;
 
 
 
