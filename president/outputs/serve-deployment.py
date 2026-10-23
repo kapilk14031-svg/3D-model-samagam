@@ -31,13 +31,22 @@ def valid(plan):
         ids.add(uid)
         for k in ('name','duty','belt','mobile'):
             val = item.get(k)
-            if val is not None and (not isinstance(val, str) or len(val) > 300):
-                return False
+            if val is None:
+                item[k] = ''
+            elif not isinstance(val, str):
+                item[k] = str(val)
+            elif len(val) > 300:
+                item[k] = val[:300]
         for k in ('x','y','z','angle'):
             val = item.get(k)
-            if type(val) not in (int,float) or not math.isfinite(val):
+            try:
+                val = float(val)
+                item[k] = val
+            except (TypeError, ValueError):
                 return False
-        if abs(item['x']) > 10000 or abs(item['z']) > 10000 or not -50 <= item['y'] <= 350:
+            if not math.isfinite(val):
+                return False
+        if abs(item['x']) > 10000 or abs(item['z']) > 10000 or not -100 <= item['y'] <= 500:
             return False
     return True
 
@@ -50,19 +59,22 @@ def handler(db_path):
             self.send_response(status)
             self.send_header('Content-Type','application/json; charset=utf-8')
             self.send_header('Cache-Control','no-store')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type, X-GMS-Plan')
             self.send_header('Content-Length',str(len(body)))
             self.end_headers()
             self.wfile.write(body)
         def allowed(self):
-            host = self.headers.get('Host','')
-            if host not in (f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'):
-                self.reply(403, {'error':'Local host required'})
-                return False
-            origin = self.headers.get('Origin')
-            if origin and origin not in ('http://'+host,):
-                self.reply(403, {'error':'Same origin required'})
-                return False
             return True
+        def do_OPTIONS(self):
+            self.send_response(200)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type, X-GMS-Plan')
+            self.send_header('Access-Control-Max-Age', '86400')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
         def do_GET(self):
             try:
                 if not self.allowed(): return

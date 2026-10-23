@@ -20485,7 +20485,7 @@ const depPanel=root.querySelector('#gms-deployment'),
 
 
 
-depBackendURL=location.protocol.startsWith('http')&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/deployment':null;
+depBackendURL=location.protocol.startsWith('http')?(location.origin+'/api/deployment'):'http://127.0.0.1:8794/api/deployment';
 
 
 
@@ -20765,7 +20765,7 @@ async function depFlush(){
 
 
 
-      headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+      headers:{'Content-Type':'text/plain','X-GMS-Plan':'1'},
 
 
 
@@ -21557,7 +21557,7 @@ function depSaveBeforeLeave(){
 
 
 
-  if(depBackendURL&&depItems.length>0){
+  if(depBackendURL){
 
 
 
@@ -21597,7 +21597,7 @@ function depSaveBeforeLeave(){
 
 
 
-        const blob=new Blob([body],{type:'application/json'});
+        const blob=new Blob([body],{type:'text/plain'});
 
 
 
@@ -21637,7 +21637,7 @@ function depSaveBeforeLeave(){
 
 
 
-          headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+          headers:{'Content-Type':'text/plain','X-GMS-Plan':'1'},
 
 
 

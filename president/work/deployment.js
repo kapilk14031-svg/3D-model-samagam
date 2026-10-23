@@ -718,6 +718,22 @@ function initTouchControls() {
 
         depKeysDown[key] = true;
 
+  if ((key === 'delete' || key === 'backspace') && depSelected) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof depDeleteItemById === 'function') {
+      depDeleteItemById(depSelected);
+    } else {
+      depReturnView();
+      depItems = depItems.filter(o => o.id !== depSelected);
+      depSelected = null;
+      depPlace = false;
+      depStore(true);
+      depBuild();
+    }
+    return;
+  }
+
 
 
 
@@ -2846,130 +2862,91 @@ const gate=mapPreset([-13,.3,-61],'gate');for(const [kind,dx,dz] of [['dfmd',-3,
 
 
 
-function depValid(items){return Array.isArray(items)&&items.length<=500&&items.every(o=>o&&typeof o.id==='string'&&depTypes.includes(o.kind)&&['x','y','z','angle'].every(k=>typeof o[k]==='number'&&Number.isFinite(o[k]))&&Math.abs(o.x)<5000&&Math.abs(o.z)<5000&&o.y>=0&&o.y<=100&&['name','duty','belt','mobile'].every(k=>typeof o[k]==='string'&&o[k].length<=200))&&new Set(items.map(o=>o.id)).size===items.length;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function depLoadLocal(){
-
-
-
-
-
-
-
-  try{
-
-
-
-
-
-
-
-    const raw=localStorage.getItem(depStorage);if(!raw)return null;
-
-
-
-
-
-
-
-    const parsed=JSON.parse(raw);
-
-
-
-
-
-
-
-    const items=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
-
-
-
-
-
-
-
-    if(depValid(items))return {items,savedAt:(parsed&&parsed.savedAt)||0};
-
-
-
-
-
-
-
-  }catch(e){console.warn('depLoadLocal error:',e);}
-
-
-
-
-
-
-
-  return null;
-
-
-
-
-
-
-
+function depNormalizeItem(o, index) {
+  if (!o || typeof o !== 'object') return null;
+  const id = (typeof o.id === 'string' && o.id.trim()) ? o.id.trim() : ('post-' + (index + 1));
+  const kind = (typeof o.kind === 'string' && o.kind) ? o.kind : 'officer';
+  const name = (typeof o.name === 'string' && o.name.trim()) ? o.name.trim() : (kind === 'officer' ? 'Officer ' + (index + 1) : 'Item ' + (index + 1));
+  const duty = (typeof o.duty === 'string') ? o.duty : (o.duty != null ? String(o.duty) : '');
+  const belt = (typeof o.belt === 'string') ? o.belt : (o.belt != null ? String(o.belt) : '');
+  const mobile = (typeof o.mobile === 'string') ? o.mobile : (o.mobile != null ? String(o.mobile) : '');
+
+  let x = Number(o.x);
+  if (!Number.isFinite(x) || Math.abs(x) > 10000) x = 0;
+
+  let z = Number(o.z);
+  if (!Number.isFinite(z) || Math.abs(z) > 10000) z = 0;
+
+  let y = Number(o.y);
+  if (!Number.isFinite(y)) y = 0.3;
+
+  let angle = Number(o.angle);
+  if (!Number.isFinite(angle)) angle = 0;
+  angle = ((angle % 360) + 360) % 360;
+
+  return {
+    ...o,
+    id,
+    kind,
+    name,
+    duty,
+    belt,
+    mobile,
+    x: Math.round(x * 100) / 100,
+    y: Math.round(y * 100) / 100,
+    z: Math.round(z * 100) / 100,
+    angle: Math.round(angle * 100) / 100
+  };
 }
 
+function depValid(items){
+  return Array.isArray(items) && items.length > 0 && items.length <= 2000;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+function depLoadLocal(){
+  try{
+    const raw=localStorage.getItem(depStorage);if(!raw)return null;
+    const parsed=JSON.parse(raw);
+    const rawItems=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
+    if(!rawItems||!Array.isArray(rawItems)||rawItems.length===0)return null;
+    const seenIds=new Set();
+    const items=[];
+    for(let i=0;i<rawItems.length;i++){
+      const item=depNormalizeItem(rawItems[i],i);
+      if(item&&item.kind!=='helicopter'){
+        if(seenIds.has(item.id)){
+          item.id=item.id+'-'+(i+1);
+        }
+        seenIds.add(item.id);
+        items.push(item);
+      }
+    }
+    if(items.length>0)return {items,savedAt:(parsed&&parsed.savedAt)||0};
+  }catch(e){console.warn('depLoadLocal error:',e);}
+  return null;
+}
 
 const initialLocal=depLoadLocal();
 
-
-
-
-
-
-
-if (initialLocal && Array.isArray(initialLocal.items) && depValid(initialLocal.items) && initialLocal.items.length > 0) {
+if (initialLocal && Array.isArray(initialLocal.items) && initialLocal.items.length > 0) {
   depItems = initialLocal.items;
-} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depValid(depInitialPlan.items) && depInitialPlan.items.length > 0) {
-  depItems = JSON.parse(JSON.stringify(depInitialPlan.items));
+} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depInitialPlan.items.length > 0) {
+  depItems = depInitialPlan.items.map((it, idx) => depNormalizeItem(it, idx)).filter(Boolean);
 } else {
   depItems = depSeed();
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
   if (o) {
-    // If officer or equipment is sunken below ground/floor, elevate immediately
     if (typeof getSurfaceHeight === 'function') {
       const properFloorY = getSurfaceHeight(o.x, o.z, o.y);
       if (properFloorY > o.y + 0.04) {
         o.y = properFloorY;
       }
     }
-    if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
+    if (!o.customDuty && (!o.duty || o.duty.trim() === '')) {
       const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
-      if (match && match.duty && match.duty !== 'Security post') {
+      if (match && match.duty && match.duty !== 'Security post' && match.duty !== 'Post') {
         o.duty = match.duty;
       } else {
         o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
@@ -3004,34 +2981,20 @@ try{
 
 
 
-function depStore(immediate = false){
+function depStore(immediate = true){
   try{
     const record={version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems};
     localStorage.setItem(depStorage,JSON.stringify(record));
-
-
-
-
-
-
-
-    depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
-
-
-
-
-
-
-
+    if (depUI('status')) {
+      depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
+    }
+    if(depUI('sync') && !depBackendReady){
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
+    }
   }catch(e){console.warn('localStorage save warning:',e);}
-
-
-
-
-
-
-
-  depQueue(immediate);
+  if(depBackendURL && depBackendReady){
+    depQueue(immediate);
+  }
 
 
 
@@ -3960,13 +3923,197 @@ const depCrateDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(
 
 
 // =========================================================================
+// =========================================================================
+// HIGH-RESOLUTION VEHICLE TEXT DECALS (Ambulance Red & Fire Brigade Yellow)
+// =========================================================================
+let _depVehicleDecalMats = null;
+function depGetDecalMaterials() {
+  if (_depVehicleDecalMats) return _depVehicleDecalMats;
+  _depVehicleDecalMats = {};
+
+  function drawRedCross(ctx, cx, cy, sz) {
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(cx - sz / 6, cy - sz / 2, sz / 3, sz);
+    ctx.fillRect(cx - sz / 2, cy - sz / 6, sz, sz / 3);
+  }
+
+  // 1. Ambulance Side Decal - Crisp White Background, Red Borders, Red Crosses, Bold Red "AMBULANCE"
+  const ambSideCanvas = document.createElement('canvas');
+  ambSideCanvas.width = 1024;
+  ambSideCanvas.height = 256;
+  const asc = ambSideCanvas.getContext('2d');
+  asc.fillStyle = '#ffffff';
+  asc.fillRect(0, 0, 1024, 256);
+  asc.lineWidth = 14;
+  asc.strokeStyle = '#dc2626';
+  asc.strokeRect(10, 10, 1004, 236);
+  drawRedCross(asc, 95, 128, 95);
+  drawRedCross(asc, 929, 128, 95);
+  asc.fillStyle = '#dc2626';
+  asc.font = '900 120px "Arial Black", Arial, sans-serif';
+  asc.textAlign = 'center';
+  asc.textBaseline = 'middle';
+  asc.fillText('AMBULANCE', 512, 128);
+
+  const texAmbSide = new THREE.CanvasTexture(ambSideCanvas);
+  _depVehicleDecalMats.ambSide = new THREE.MeshStandardMaterial({
+    map: texAmbSide,
+    roughness: 0.25,
+    metalness: 0.05,
+    side: THREE.FrontSide,
+    polygonOffset: true,
+    polygonOffsetFactor: -3,
+    polygonOffsetUnits: -6
+  });
+
+  // 2. Ambulance Front Decal - Bold Red "AMBULANCE"
+  const ambFrontCanvas = document.createElement('canvas');
+  ambFrontCanvas.width = 1024;
+  ambFrontCanvas.height = 256;
+  const afc = ambFrontCanvas.getContext('2d');
+  afc.fillStyle = '#ffffff';
+  afc.fillRect(0, 0, 1024, 256);
+  afc.lineWidth = 14;
+  afc.strokeStyle = '#dc2626';
+  afc.strokeRect(10, 10, 1004, 236);
+  drawRedCross(afc, 90, 128, 90);
+  drawRedCross(afc, 934, 128, 90);
+  afc.fillStyle = '#dc2626';
+  afc.font = '900 124px "Arial Black", Arial, sans-serif';
+  afc.textAlign = 'center';
+  afc.textBaseline = 'middle';
+  afc.fillText('AMBULANCE', 512, 128);
+
+  const texAmbFront = new THREE.CanvasTexture(ambFrontCanvas);
+  _depVehicleDecalMats.ambFront = new THREE.MeshStandardMaterial({
+    map: texAmbFront,
+    roughness: 0.25,
+    metalness: 0.05,
+    side: THREE.FrontSide,
+    polygonOffset: true,
+    polygonOffsetFactor: -3,
+    polygonOffsetUnits: -6
+  });
+
+  // 3. Ambulance Rear Decal - Bold Red "AMBULANCE"
+  const ambRearCanvas = document.createElement('canvas');
+  ambRearCanvas.width = 1024;
+  ambRearCanvas.height = 256;
+  const arc = ambRearCanvas.getContext('2d');
+  arc.fillStyle = '#ffffff';
+  arc.fillRect(0, 0, 1024, 256);
+  arc.lineWidth = 14;
+  arc.strokeStyle = '#dc2626';
+  arc.strokeRect(10, 10, 1004, 236);
+  drawRedCross(arc, 90, 128, 90);
+  drawRedCross(arc, 934, 128, 90);
+  arc.fillStyle = '#dc2626';
+  arc.font = '900 120px "Arial Black", Arial, sans-serif';
+  arc.textAlign = 'center';
+  arc.textBaseline = 'middle';
+  arc.fillText('AMBULANCE', 512, 128);
+
+  const texAmbRear = new THREE.CanvasTexture(ambRearCanvas);
+  _depVehicleDecalMats.ambRear = new THREE.MeshStandardMaterial({
+    map: texAmbRear,
+    roughness: 0.25,
+    metalness: 0.05,
+    side: THREE.FrontSide,
+    polygonOffset: true,
+    polygonOffsetFactor: -3,
+    polygonOffsetUnits: -6
+  });
+
+  // 4. Fire Brigade Front Decal - Bold Yellow "FIRE BRIGADE"
+  const fireFrontCanvas = document.createElement('canvas');
+  fireFrontCanvas.width = 1024;
+  fireFrontCanvas.height = 256;
+  const ffc = fireFrontCanvas.getContext('2d');
+  ffc.fillStyle = '#0f172a';
+  ffc.fillRect(0, 0, 1024, 256);
+  ffc.lineWidth = 14;
+  ffc.strokeStyle = '#facc15';
+  ffc.strokeRect(12, 12, 1000, 232);
+  ffc.lineWidth = 4;
+  ffc.strokeStyle = '#fef08a';
+  ffc.strokeRect(26, 26, 972, 204);
+  ffc.fillStyle = '#facc15';
+  ffc.font = '900 120px "Arial Black", Arial, sans-serif';
+  ffc.textAlign = 'center';
+  ffc.textBaseline = 'middle';
+  ffc.fillText('FIRE BRIGADE', 512, 128);
+
+  const texFireFront = new THREE.CanvasTexture(fireFrontCanvas);
+  _depVehicleDecalMats.fireFront = new THREE.MeshStandardMaterial({
+    map: texFireFront,
+    roughness: 0.3,
+    metalness: 0.1,
+    side: THREE.FrontSide,
+    polygonOffset: true,
+    polygonOffsetFactor: -3,
+    polygonOffsetUnits: -6
+  });
+
+  // 5. Fire Brigade Rear Decal - Bold Yellow "FIRE BRIGADE" with Safety Chevrons
+  const fireRearCanvas = document.createElement('canvas');
+  fireRearCanvas.width = 1024;
+  fireRearCanvas.height = 256;
+  const frc = fireRearCanvas.getContext('2d');
+  frc.fillStyle = '#facc15';
+  frc.fillRect(0, 0, 1024, 256);
+  frc.fillStyle = '#dc2626';
+  for (let x = -256; x <= 1024; x += 64) {
+    frc.beginPath();
+    frc.moveTo(x, 256);
+    frc.lineTo(x + 64, 0);
+    frc.lineTo(x + 104, 0);
+    frc.lineTo(x + 40, 256);
+    frc.fill();
+  }
+  frc.fillStyle = '#0f172a';
+  frc.fillRect(60, 36, 904, 184);
+  frc.lineWidth = 10;
+  frc.strokeStyle = '#facc15';
+  frc.strokeRect(66, 42, 892, 172);
+  frc.fillStyle = '#facc15';
+  frc.font = '900 115px "Arial Black", Arial, sans-serif';
+  frc.textAlign = 'center';
+  frc.textBaseline = 'middle';
+  frc.fillText('FIRE BRIGADE', 512, 128);
+
+  const texFireRear = new THREE.CanvasTexture(fireRearCanvas);
+  _depVehicleDecalMats.fireRear = new THREE.MeshStandardMaterial({
+    map: texFireRear,
+    roughness: 0.3,
+    metalness: 0.1,
+    side: THREE.FrontSide,
+    polygonOffset: true,
+    polygonOffsetFactor: -3,
+    polygonOffsetUnits: -6
+  });
+
+  return _depVehicleDecalMats;
+}
+
+function depAddDecal(g, mat, pos, size, rotY, rotX) {
+  const geo = (typeof geos !== 'undefined' && geos.sign) ? geos.sign : new THREE.PlaneGeometry(1, 1);
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.fromArray(pos);
+  mesh.scale.set(size[0], size[1], 1);
+  if (rotY) mesh.rotation.y = rotY;
+  if (rotX) mesh.rotation.x = rotX;
+  mesh.renderOrder = 6;
+  g.add(mesh);
+  return mesh;
+}
+
+// =========================================================================
 // 1. HIGH-INTENSITY MOBILE GENERATOR FLOODLIGHT TOWER (Heavy Industrial Spec)
 // =========================================================================
 function depBuildLight(g) {
   g.scale.setScalar(1);
 
   // 1. Mobile Trailer Chassis & Outrigger Stabilizers
-  // Main trailer chassis frame
   depPart(g, 'box', [0, 0.32, 0], [1.25, 0.16, 2.1], 'dark');
   // Trailer tongue / A-frame drawbar with ball hitch & jockey caster wheel
   depPart(g, 'box', [0, 0.28, -1.35], [0.42, 0.08, 0.75], 'dark');
@@ -3982,7 +4129,6 @@ function depBuildLight(g) {
     tire.rotation.z = Math.PI / 2;
     const rim = depPart(wGroup, 'cylinder', [0, 0, 0], [0.22, 0.17, 0.22], 'chrome');
     rim.rotation.z = Math.PI / 2;
-    // Wheel arch / fender
     depPart(g, 'box', [wx > 0 ? 0.68 : -0.68, 0.54, 0.12], [0.18, 0.22, 0.85], 'dark');
   }
 
@@ -3992,93 +4138,74 @@ function depBuildLight(g) {
     [-0.95, 0.95], [0.95, 0.95]
   ];
   for (const [ox, oz] of outriggers) {
-    // Diagonal tubular leg
     const leg = depPart(g, 'box', [ox * 0.65, 0.22, oz * 0.65], [0.08, 0.08, 0.65], 'dark');
     leg.rotation.y = Math.atan2(ox, oz);
-    // Vertical screw jack post
     depPart(g, 'cylinder', [ox, 0.18, oz], [0.035, 0.32, 0.035], 'chrome');
-    // Circular ground pad
     depPart(g, 'cylinder', [ox, 0.03, oz], [0.18, 0.04, 0.18], 'yellow');
   }
 
   // 2. Soundproof Acoustic Generator Enclosure (DG Set)
-  // Industrial safety yellow generator canopy
   depPart(g, 'box', [0, 0.76, 0], [1.12, 0.72, 1.82], 'yellow');
-  // Front cooling intake louvers
   depPart(g, 'box', [0, 0.76, -0.92], [0.82, 0.48, 0.04], 'dark');
-  // Side engine access doors with black recessed latches
   for (const sx of [-0.57, 0.57]) {
     depPart(g, 'box', [sx, 0.76, 0.05], [0.02, 0.55, 1.25], 'dark');
     depPart(g, 'box', [sx * 1.01, 0.76, -0.2], [0.02, 0.08, 0.04], 'chrome');
   }
-  // Top exhaust silencer pipe with rain flapper cap
   depPart(g, 'cylinder', [0.32, 1.22, -0.35], [0.055, 0.28, 0.055], 'dark');
   depPart(g, 'box', [0.32, 1.36, -0.33], [0.08, 0.02, 0.12], 'dark');
 
   // 3. Telescopic Steel Mast Tower (~4.2m elevation)
-  // Mast base pivot cradle & hand winch drum
   depPart(g, 'box', [0, 1.25, 0.45], [0.32, 0.28, 0.35], 'dark');
-  depPart(g, 'cylinder', [0.22, 1.25, 0.45], [0.08, 0.12, 0.08], 'yellow'); // Winch crank
-  // Stage 1 (Base heavy mast section)
+  depPart(g, 'cylinder', [0.22, 1.25, 0.45], [0.08, 0.12, 0.08], 'yellow');
   depPart(g, 'box', [0, 2.05, 0.45], [0.18, 1.45, 0.18], 'dark');
-  // Stage 2 (Mid telescopic section)
   depPart(g, 'box', [0, 3.15, 0.45], [0.13, 1.35, 0.13], 'chrome');
-  // Stage 3 (Top extension section)
   depPart(g, 'box', [0, 4.05, 0.45], [0.09, 1.25, 0.09], 'chrome');
-  // Coiled black electrical spiral power cable
-  for (let cy = 1.45; cy <= 4.2; cy += 0.35) {
-    depPart(g, 'torus', [0, cy, 0.45], [0.12, 0.018, 1], 'dark');
-  }
 
-  // 4. Quad High-Power LED Stadium Floodlight Fixture
-  // Heavy horizontal crossarm T-bar
-  depPart(g, 'box', [0, 4.65, 0.45], [1.85, 0.07, 0.07], 'chrome');
-  depPart(g, 'box', [0, 4.55, 0.45], [0.09, 0.22, 0.09], 'chrome');
+  // Winch & heavy cable
+  depPart(g, 'cylinder', [0, 1.8, 0.58], [0.08, 0.16, 0.08], 'dark');
+  depPart(g, 'cylinder', [0, 2.8, 0.54], [0.015, 1.8, 0.015], 'dark');
 
-  // 4 Individual Heavy-Duty LED Stadium Floodlight Modules
-  const lampPositions = [-0.68, -0.23, 0.23, 0.68];
-  for (let i = 0; i < lampPositions.length; i++) {
-    const lx = lampPositions[i];
-    const lampGroup = new THREE.Group();
-    lampGroup.position.set(lx, 4.65, 0.45);
-    // Outer lamps angled slightly outward for wide-angle security perimeter illumination
-    const yaw = (i === 0) ? -0.25 : (i === 3) ? 0.25 : 0;
-    lampGroup.rotation.set(0.35, yaw, 0); // Tilted forward/downward 20 deg
-    g.add(lampGroup);
+  // 4. Floodlight Masthead Crossbar & 4 Stadium LED Floodlights
+  depPart(g, 'box', [0, 4.45, 0.45], [1.95, 0.08, 0.08], 'dark');
+  depPart(g, 'box', [0, 4.54, 0.45], [0.14, 0.10, 0.14], 'dark');
 
-    // Swivel U-bracket
-    depPart(lampGroup, 'box', [0, 0, 0.08], [0.38, 0.04, 0.12], 'dark');
-    // Die-cast aluminum heatsink housing with cooling fins
-    depPart(lampGroup, 'box', [0, 0.02, 0.02], [0.36, 0.28, 0.14], 'dark');
-    // Protective top glare visor hood
-    depPart(lampGroup, 'box', [0, 0.17, -0.04], [0.38, 0.03, 0.12], 'dark');
-    // Reflector housing bevel
-    depPart(lampGroup, 'box', [0, 0.02, -0.05], [0.34, 0.26, 0.04], 'chrome');
-    // Ultra-bright glowing multi-die LED light panel
-    const ledLens = depPart(lampGroup, 'box', [0, 0.02, -0.075], [0.30, 0.22, 0.02], 'white');
-    ledLens.material = new THREE.MeshStandardMaterial({
-      color: 0xfffbeb,
-      emissive: 0xfef08a,
-      emissiveIntensity: 2.5,
-      roughness: 0.1
+  const lampOffsets = [-0.82, -0.28, 0.28, 0.82];
+  for (const lx of lampOffsets) {
+    const lamp = new THREE.Group();
+    lamp.position.set(lx, 4.38, 0.45);
+    lamp.rotation.x = 0.42;
+    g.add(lamp);
+
+    depPart(lamp, 'cylinder', [0, 0.08, 0], [0.02, 0.14, 0.02], 'dark');
+    depPart(lamp, 'box', [0, 0, 0.08], [0.34, 0.26, 0.14], 'dark');
+    for (const fz of [0.04, 0.08, 0.12]) {
+      depPart(lamp, 'box', [0, 0, fz], [0.32, 0.24, 0.015], 'chrome');
+    }
+    const lens = depPart(lamp, 'box', [0, 0, -0.01], [0.30, 0.22, 0.02], 'white');
+    lens.material = new THREE.MeshStandardMaterial({
+      color: 0xffffee,
+      emissive: 0xfffee0,
+      emissiveIntensity: 2.5
     });
+    depPart(lamp, 'box', [0, 0.13, -0.04], [0.32, 0.02, 0.08], 'dark');
+    depPart(lamp, 'box', [0, -0.13, -0.04], [0.32, 0.02, 0.08], 'dark');
+    depPart(lamp, 'box', [-0.16, 0, -0.04], [0.02, 0.26, 0.08], 'dark');
+    depPart(lamp, 'box', [0.16, 0, -0.04], [0.02, 0.26, 0.08], 'dark');
   }
 }
 
 // =========================================================================
-// 2. ULTRA-DETAILED 108 EMERGENCY ADVANCED LIFE SUPPORT (ALS) AMBULANCE
+// 2. EMERGENCY MEDICAL AMBULANCE (Force Traveller / 108 ALS High-Roof)
 // =========================================================================
 function depBuildAmbulance(g) {
   g.scale.setScalar(1);
 
   // 1. Heavy Underbody Chassis Frame & Bumpers
   depPart(g, 'box', [0, 0.32, 0], [1.78, 0.22, 5.0], 'dark');
-  // Front heavy impact bumper with recessed air intake
   depPart(g, 'box', [0, 0.44, -2.58], [2.12, 0.36, 0.34], 'dark');
-  depPart(g, 'box', [0, 0.38, -2.74], [1.35, 0.16, 0.06], 'dark'); // Lower skid air dam
-  // Rear step bumper with aluminum treadplate
+  depPart(g, 'box', [0, 0.38, -2.74], [1.35, 0.16, 0.06], 'dark');
   depPart(g, 'box', [0, 0.42, 2.52], [2.12, 0.22, 0.36], 'dark');
-  depPart(g, 'box', [0, 0.54, 2.55], [1.75, 0.03, 0.32], 'chrome'); // Anti-slip tread
+  depPart(g, 'box', [0, 0.54, 2.55], [1.75, 0.03, 0.32], 'chrome');
 
   // 2. Four Deep-Tread Rubber Tires & Steel Rims
   const wCoords = [
@@ -4089,132 +4216,104 @@ function depBuildAmbulance(g) {
     const wGroup = new THREE.Group();
     wGroup.position.set(wx, wy, wz);
     g.add(wGroup);
-    // Outer tire
     const tire = depPart(wGroup, 'cylinder', [0, 0, 0], [0.38, 0.24, 0.38], 'tireRubber');
     tire.rotation.z = Math.PI / 2;
-    // Steel rim
     const rim = depPart(wGroup, 'cylinder', [0, 0, 0], [0.26, 0.25, 0.26], 'chrome');
     rim.rotation.z = Math.PI / 2;
-    // Central axle hub
     const hub = depPart(wGroup, 'cylinder', [wx > 0 ? 0.13 : -0.13, 0, 0], [0.10, 0.04, 0.10], 'dark');
     hub.rotation.z = Math.PI / 2;
-    // Wheel arch flare
     depPart(g, 'cylinder', [wx > 0 ? 1.04 : -1.04, wy + 0.18, wz], [0.46, 0.08, 0.46], 'dark');
-    // Rear mudflaps
     if (wz > 0) {
       depPart(g, 'box', [wx > 0 ? 0.98 : -0.98, 0.28, wz + 0.46], [0.24, 0.28, 0.03], 'dark');
     }
   }
 
   // 3. Front Cab Nose, Chrome Radiator Grille & Projector Headlights
-  // Front grille surround
   depPart(g, 'box', [0, 0.74, -2.62], [1.32, 0.34, 0.08], 'dark');
-  // Chrome horizontal grille louvers
   depPart(g, 'box', [0, 0.78, -2.65], [1.05, 0.04, 0.04], 'chrome');
   depPart(g, 'box', [0, 0.70, -2.65], [1.05, 0.04, 0.04], 'chrome');
-  // Center Red Medical Cross Badge on Grille
   depPart(g, 'cylinder', [0, 0.74, -2.66], [0.10, 0.02, 0.10], 'white');
-  const gCrossH = depPart(g, 'box', [0, 0.74, -2.68], [0.14, 0.04, 0.02], 'qbeltRibbon');
-  const gCrossV = depPart(g, 'box', [0, 0.74, -2.68], [0.04, 0.14, 0.02], 'qbeltRibbon');
+  depPart(g, 'box', [0, 0.74, -2.68], [0.14, 0.04, 0.02], 'qbeltRibbon');
+  depPart(g, 'box', [0, 0.74, -2.68], [0.04, 0.14, 0.02], 'qbeltRibbon');
 
-  // Modern Dual-Beam Headlight Clusters
   for (const hx of [-0.82, 0.82]) {
-    // Chrome reflector cup
     depPart(g, 'box', [hx, 0.74, -2.59], [0.34, 0.22, 0.06], 'chrome');
-    // Polycarbonate lens
     const lens = depPart(g, 'box', [hx, 0.74, -2.62], [0.32, 0.20, 0.02], 'white');
     lens.material = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xfef08a, emissiveIntensity: 1.2 });
-    // Amber side turn indicator
     depPart(g, 'box', [hx > 0 ? hx + 0.14 : hx - 0.14, 0.74, -2.58], [0.08, 0.20, 0.07], 'yellow');
-    // Lower bumper fog lamp
     depPart(g, 'cylinder', [hx, 0.44, -2.68], [0.07, 0.03, 0.07], 'yellow');
   }
 
   // 4. Aerodynamic Sloping Hood & Windshield
   depPart(g, 'box', [0, 1.08, -2.14], [2.02, 0.46, 1.05], 'whiteBody');
-  // Mirrored Red AMBULANCE text stripe on hood
   depPart(g, 'box', [0, 1.32, -2.25], [1.25, 0.12, 0.02], 'qbeltRibbon');
 
-  // Sloping Panoramic Windshield
   const ws = depPart(g, 'box', [0, 1.58, -1.56], [1.92, 0.82, 0.08], 'glassTint');
   ws.rotation.x = -0.48;
-  // Dual Windshield Wipers
   for (const wipX of [-0.42, 0.36]) {
     const wiper = depPart(g, 'cylinder', [wipX, 1.36, -1.74], [0.012, 0.46, 0.012], 'dark');
     wiper.rotation.set(-0.48, 0, 0.28);
   }
 
-  // Dual Aerodynamic Side Mirrors
   for (const mx of [-1.16, 1.16]) {
     depPart(g, 'cylinder', [mx > 0 ? mx - 0.08 : mx + 0.08, 1.48, -1.46], [0.02, 0.26, 0.02], 'dark');
     depPart(g, 'box', [mx, 1.48, -1.48], [0.10, 0.28, 0.08], 'dark');
-    depPart(g, 'box', [mx, 1.48, -1.44], [0.08, 0.24, 0.01], 'chrome'); // Mirror reflection
+    depPart(g, 'box', [mx, 1.48, -1.44], [0.08, 0.24, 0.01], 'chrome');
   }
 
   // 5. Patient Saloon Body & Aerodynamic High Roof
   depPart(g, 'box', [0, 1.46, 0.28], [2.10, 1.62, 3.95], 'whiteBody');
-  // Curved aerodynamic high roof cap
   depPart(g, 'rounded', [0, 2.32, 0.28], [2.04, 0.38, 3.90], 'whiteBody');
 
   // 6. Authentic 108 Emergency Medical Livery
-  // High-visibility Fluorescent Yellow & Red Battenburg side stripes
   for (const sx of [-1.06, 1.06]) {
-    // Fluorescent yellow lower band
     depPart(g, 'box', [sx, 0.88, 0.28], [0.02, 0.24, 3.90], 'yellow');
-    // Vivid safety red stripe band
     depPart(g, 'box', [sx, 1.02, 0.28], [0.02, 0.08, 3.90], 'qbeltRibbon');
 
-    // Bold Red Medical Cross (+) on white disc
-    depPart(g, 'cylinder', [sx * 1.01, 1.48, 0.25], [0.38, 0.02, 0.38], 'white');
-    const scH = depPart(g, 'box', [sx * 1.02, 1.48, 0.25], [0.02, 0.46, 0.16], 'qbeltRibbon');
-    const scV = depPart(g, 'box', [sx * 1.02, 1.48, 0.25], [0.02, 0.16, 0.46], 'qbeltRibbon');
-
-    // Tinted Privacy Patient Windows
     depPart(g, 'box', [sx, 1.72, 0.35], [0.02, 0.54, 2.75], 'glassTint');
-    // Window divider pillar
     depPart(g, 'box', [sx * 1.01, 1.72, 0.35], [0.02, 0.56, 0.12], 'dark');
 
-    // Cab door windows
     depPart(g, 'box', [sx, 1.58, -1.25], [0.02, 0.52, 0.72], 'glassTint');
-    // Door handles
     depPart(g, 'box', [sx * 1.02, 1.15, -0.95], [0.02, 0.04, 0.14], 'dark');
-    depPart(g, 'box', [sx * 1.02, 1.05, 1.25], [0.02, 0.04, 0.14], 'dark'); // Sliding door handle
+    depPart(g, 'box', [sx * 1.02, 1.05, 1.25], [0.02, 0.04, 0.14], 'dark');
   }
 
   // 7. Roof Emergency Strobe Lightbar & Siren
-  // Full-width low-profile LED Lightbar
   depPart(g, 'box', [0, 2.45, -1.25], [1.75, 0.10, 0.35], 'dark');
-  // Alternating Red & Blue Strobe LED modules
   const ledCols = ['vipBeaconRed', 'vipBeaconRed', 'white', 'vipBeaconBlue', 'vipBeaconBlue'];
   for (let i = 0; i < ledCols.length; i++) {
     const lx = -0.65 + i * 0.325;
     depPart(g, 'box', [lx, 2.47, -1.25], [0.28, 0.08, 0.30], ledCols[i]);
   }
-  // Central chrome siren speaker horn
   depPart(g, 'cylinder', [0, 2.42, -1.55], [0.12, 0.16, 0.12], 'chrome');
-  // Rear roof corner high-mount flashers
   depPart(g, 'box', [-0.85, 2.42, 2.15], [0.14, 0.08, 0.10], 'vipBeaconRed');
   depPart(g, 'box', [0.85, 2.42, 2.15], [0.14, 0.08, 0.10], 'vipBeaconBlue');
-  // Roof AC pod
   depPart(g, 'box', [0, 2.46, 0.75], [0.95, 0.16, 1.45], 'whiteBody');
 
   // 8. Rear Patient Loading Twin Doors
   depPart(g, 'box', [0, 1.45, 2.26], [1.95, 1.55, 0.02], 'whiteBody');
-  // Door split line
   depPart(g, 'box', [0, 1.45, 2.27], [0.03, 1.55, 0.02], 'dark');
-  // Rear door windows
   for (const rx of [-0.48, 0.48]) {
     depPart(g, 'box', [rx, 1.72, 2.27], [0.65, 0.52, 0.02], 'glassTint');
-    // Rear Red Cross
-    const rcH = depPart(g, 'box', [rx, 1.22, 2.28], [0.28, 0.08, 0.02], 'qbeltRibbon');
-    const rcV = depPart(g, 'box', [rx, 1.22, 2.28], [0.08, 0.28, 0.02], 'qbeltRibbon');
   }
-  // Vertical Rear LED Taillight Clusters
   for (const tx of [-0.98, 0.98]) {
     depPart(g, 'box', [tx, 1.15, 2.27], [0.08, 0.18, 0.02], 'vipBeaconRed');
     depPart(g, 'box', [tx, 0.92, 2.27], [0.08, 0.16, 0.02], 'yellow');
     depPart(g, 'box', [tx, 0.72, 2.27], [0.08, 0.12, 0.02], 'white');
   }
+
+  // 9. Official Emergency Text Markings (Front, Rear & Both Sides in Bold Red)
+  const ambDecals = depGetDecalMaterials();
+  // Front Cab Hood Markings
+  depAddDecal(g, ambDecals.ambFront, [0, 1.15, -2.68], [1.35, 0.28], Math.PI);
+  // Sloping Cab Visor Markings
+  depAddDecal(g, ambDecals.ambFront, [0, 2.14, -1.90], [1.45, 0.22], Math.PI, 0.45);
+  // Rear Patient Twin Doors Markings
+  depAddDecal(g, ambDecals.ambRear, [0, 1.25, 2.29], [1.55, 0.32], 0);
+  // Right Flank Saloon Markings
+  depAddDecal(g, ambDecals.ambSide, [1.07, 1.25, 0.28], [2.6, 0.36], Math.PI / 2);
+  // Left Flank Saloon Markings
+  depAddDecal(g, ambDecals.ambSide, [-1.07, 1.25, 0.28], [2.6, 0.36], -Math.PI / 2);
 }
 
 // =========================================================================
@@ -4225,12 +4324,10 @@ function depBuildFireBrigade(g) {
 
   // 1. Heavy 6x4 Truck Chassis Frame & Massive Push Bumper
   depPart(g, 'box', [0, 0.42, 0], [2.10, 0.28, 7.6], 'dark');
-  // Heavy front push bumper with black rubber overriders & tow hooks
   depPart(g, 'box', [0, 0.54, -3.85], [2.55, 0.44, 0.38], 'dark');
   for (const hx of [-0.75, 0.75]) {
     depPart(g, 'torus', [hx, 0.54, -4.06], [0.10, 0.03, 1], 'chrome');
   }
-  // Rear equipment access bumper with towing eye
   depPart(g, 'box', [0, 0.48, 3.65], [2.52, 0.26, 0.42], 'dark');
 
   // 2. Six Heavy-Duty Truck Wheels (3 Axles: Front + Dual Rear Drive Axles)
@@ -4243,27 +4340,21 @@ function depBuildFireBrigade(g) {
     const wGroup = new THREE.Group();
     wGroup.position.set(wx, wy, wz);
     g.add(wGroup);
-    // Deep tread truck tire
     const tire = depPart(wGroup, 'cylinder', [0, 0, 0], [0.52, 0.28, 0.52], 'tireRubber');
     tire.rotation.z = Math.PI / 2;
-    // Fire-red steel wheel disc
     const rim = depPart(wGroup, 'cylinder', [0, 0, 0], [0.35, 0.29, 0.35], 'fireRed');
     rim.rotation.z = Math.PI / 2;
-    // Chrome central hub & lug ring
     const hub = depPart(wGroup, 'cylinder', [wx > 0 ? 0.15 : -0.15, 0, 0], [0.14, 0.04, 0.14], 'chrome');
     hub.rotation.z = Math.PI / 2;
-    // Heavy rubber wheel arches
     depPart(g, 'cylinder', [wx > 0 ? 1.22 : -1.22, wy + 0.22, wz], [0.62, 0.12, 0.62], 'dark');
   }
 
   // 3. Forward-Control Crew Cab (Vibrant Signal Red)
   depPart(g, 'box', [0, 1.58, -2.45], [2.48, 1.75, 2.45], 'fireRed');
-  // Lower front grille & radiator surround
   depPart(g, 'box', [0, 0.95, -3.72], [1.85, 0.52, 0.08], 'dark');
   depPart(g, 'box', [0, 1.02, -3.75], [1.45, 0.06, 0.04], 'chrome');
   depPart(g, 'box', [0, 0.90, -3.75], [1.45, 0.06, 0.04], 'chrome');
 
-  // Dual Headlights & Signal Flashers
   for (const hx of [-0.98, 0.98]) {
     depPart(g, 'box', [hx, 0.95, -3.70], [0.36, 0.26, 0.06], 'chrome');
     const hl = depPart(g, 'box', [hx, 0.95, -3.74], [0.32, 0.22, 0.02], 'white');
@@ -4271,450 +4362,337 @@ function depBuildFireBrigade(g) {
     depPart(g, 'box', [hx > 0 ? hx + 0.15 : hx - 0.15, 0.95, -3.71], [0.10, 0.22, 0.06], 'yellow');
   }
 
-  // Panoramic Front Windshield with Sunvisor
   const ws = depPart(g, 'box', [0, 1.88, -3.58], [2.32, 0.85, 0.08], 'glassTint');
   ws.rotation.x = -0.12;
-  // Black sunvisor
   depPart(g, 'box', [0, 2.36, -3.62], [2.38, 0.14, 0.22], 'dark');
-  // 3 Heavy Truck Wiper Arms
   for (const wpX of [-0.75, 0, 0.75]) {
     const wip = depPart(g, 'cylinder', [wpX, 1.62, -3.68], [0.015, 0.52, 0.015], 'dark');
     wip.rotation.set(-0.12, 0, 0.18);
   }
 
-  // Crew Cab 4 Doors, Windows & Mirrors
   for (const sx of [-1.26, 1.26]) {
-    // Front cab door window
     depPart(g, 'box', [sx, 1.88, -3.0], [0.02, 0.62, 0.85], 'glassTint');
-    // Rear crew cab window
     depPart(g, 'box', [sx, 1.88, -2.0], [0.02, 0.62, 0.85], 'glassTint');
-    // Grab rails & anti-slip entry steps
     depPart(g, 'cylinder', [sx * 1.02, 1.45, -3.45], [0.02, 0.95, 0.02], 'chrome');
     depPart(g, 'cylinder', [sx * 1.02, 1.45, -1.55], [0.02, 0.95, 0.02], 'chrome');
     depPart(g, 'box', [sx, 0.65, -2.5], [0.16, 0.08, 2.2], 'chrome');
 
-    // Heavy West Coast Dual Truck Mirrors
     depPart(g, 'cylinder', [sx > 0 ? sx - 0.12 : sx + 0.12, 1.82, -3.42], [0.025, 0.65, 0.025], 'dark');
     depPart(g, 'box', [sx, 1.82, -3.45], [0.12, 0.44, 0.18], 'dark');
     depPart(g, 'box', [sx, 1.82, -3.38], [0.10, 0.40, 0.02], 'chrome');
   }
 
-  // Cab Roof: Emergency Lightbar, Air Horns & Siren
   depPart(g, 'box', [0, 2.54, -3.15], [2.10, 0.12, 0.38], 'dark');
-  // Red & Blue Emergency Strobe Bar
   for (let i = 0; i < 6; i++) {
     const lx = -0.85 + i * 0.34;
     depPart(g, 'box', [lx, 2.58, -3.15], [0.28, 0.10, 0.32], (i < 3 ? 'vipBeaconRed' : 'vipBeaconBlue'));
   }
-  // Twin Chrome Trumpet Air Horns
   for (const hx of [-0.42, 0.42]) {
-    const horn = depPart(g, 'cylinder', [hx, 2.58, -2.65], [0.045, 0.65, 0.045], 'chrome');
-    horn.rotation.x = Math.PI / 2;
-    depPart(g, 'cylinder', [hx, 2.58, -2.95], [0.10, 0.08, 0.10], 'chrome'); // Flare
+    depPart(g, 'cylinder', [hx, 2.58, -3.55], [0.06, 0.48, 0.06], 'chrome');
+    depPart(g, 'cylinder', [hx, 2.58, -3.78], [0.11, 0.06, 0.11], 'chrome');
   }
 
-  // 4. Rear Equipment Body, Water Tank & Roll-up Shutters
-  depPart(g, 'box', [0, 1.82, 1.15], [2.52, 2.15, 4.45], 'fireRed');
-  // Top corner aluminum protective extrusions
-  for (const cx of [-1.27, 1.27]) {
-    depPart(g, 'box', [cx, 2.88, 1.15], [0.08, 0.08, 4.48], 'chrome');
-  }
+  // 4. Heavy Equipment Saloon Body & Roll-up Silver Shutters
+  depPart(g, 'box', [0, 1.72, 1.05], [2.48, 1.95, 4.85], 'fireRed');
+  depPart(g, 'box', [0, 1.35, 1.05], [2.52, 0.08, 4.85], 'white');
 
-  // Three Heavy Roll-Up Aluminum Equipment Lockers per side
-  for (const sx of [-1.27, 1.27]) {
-    for (const lz of [-0.35, 1.15, 2.45]) {
-      // Aluminum shutter door with horizontal rib lines
-      depPart(g, 'box', [sx, 1.65, lz], [0.02, 1.48, 1.15], 'shutterMetal');
-      // Stainless steel lift bar handle
-      depPart(g, 'box', [sx * 1.01, 1.02, lz], [0.04, 0.06, 0.85], 'chrome');
-    }
-    // High-visibility yellow/white reflective safety chevron stripe along lower body
-    depPart(g, 'box', [sx, 0.82, 1.15], [0.02, 0.18, 4.35], 'yellow');
-
-    // Heavy Hard Suction Hose Racks on roof edge
-    depPart(g, 'cylinder', [sx * 0.98, 2.78, 1.15], [0.10, 3.85, 0.10], 'dark');
-    for (const hz of [-0.5, 1.15, 2.8]) {
-      depPart(g, 'torus', [sx * 0.98, 2.78, hz], [0.12, 0.03, 1], 'chrome'); // Chrome couplings
+  for (const sx of [-1.26, 1.26]) {
+    for (const bz of [-0.85, 0.85, 2.35]) {
+      depPart(g, 'box', [sx, 1.62, bz], [0.02, 1.32, 1.25], 'shutterSilver');
+      depPart(g, 'box', [sx * 1.01, 1.62, bz], [0.02, 1.36, 1.30], 'dark');
+      depPart(g, 'box', [sx * 1.02, 1.05, bz], [0.02, 0.06, 0.45], 'chrome');
     }
   }
 
-  // 5. Roof Deck: Extendable Rescue Ladder & Deck Gun (Water Cannon Monitor)
-  // Diamond-plate walkway
-  depPart(g, 'box', [0, 2.92, 1.15], [2.15, 0.04, 4.15], 'chrome');
-
-  // Heavy 2-Stage Silver Aluminum Rescue Ladder on Support Gantry
-  const ladZ = 1.15;
-  for (const lx of [-0.55, -0.15]) {
-    depPart(g, 'box', [lx, 3.12, ladZ], [0.04, 0.10, 4.35], 'chrome');
-  }
-  for (let rz = -0.85; rz <= 3.15; rz += 0.32) {
-    depPart(g, 'cylinder', [-0.35, 3.12, rz], [0.02, 0.38, 0.02], 'chrome');
+  // 5. Roof Heavy Equipment: Extendable Ladder & Water Monitor Gun
+  depPart(g, 'box', [0, 2.74, 1.05], [2.32, 0.06, 4.70], 'dark');
+  depPart(g, 'box', [-0.62, 2.92, 1.15], [0.55, 0.18, 4.40], 'shutterSilver');
+  for (let rz = -0.8; rz <= 3.1; rz += 0.35) {
+    depPart(g, 'cylinder', [-0.62, 2.92, rz], [0.025, 0.48, 0.025], 'chrome');
   }
 
-  // Roof-Mounted High-Pressure Fire Monitor (Water Cannon / Deck Gun)
-  const gunGroup = new THREE.Group();
-  gunGroup.position.set(0.42, 2.95, -0.65);
-  g.add(gunGroup);
-  // Swivel turret base
-  depPart(gunGroup, 'cylinder', [0, 0.15, 0], [0.24, 0.30, 0.24], 'dark');
-  depPart(gunGroup, 'cylinder', [0, 0.35, 0], [0.18, 0.12, 0.18], 'fireRed');
-  // Elevation barrel pointing forward
-  const barrel = depPart(gunGroup, 'cylinder', [0, 0.48, -0.45], [0.075, 0.95, 0.075], 'chrome');
-  barrel.rotation.x = Math.PI / 2 - 0.22; // Angled slightly upward
-  // Dual handwheels
-  depPart(gunGroup, 'torus', [-0.18, 0.42, -0.15], [0.10, 0.02, 1], 'yellow');
-  depPart(gunGroup, 'torus', [0.18, 0.42, -0.15], [0.10, 0.02, 1], 'yellow');
+  const monGroup = new THREE.Group();
+  monGroup.position.set(0.48, 2.82, -0.65);
+  g.add(monGroup);
+  depPart(monGroup, 'cylinder', [0, 0.12, 0], [0.18, 0.24, 0.18], 'fireRed');
+  depPart(monGroup, 'cylinder', [0, 0.28, 0], [0.10, 0.16, 0.10], 'chrome');
+  depPart(monGroup, 'torus', [0, 0.32, 0], [0.12, 0.035, 1], 'yellow');
+  const barrel = depPart(monGroup, 'cylinder', [0, 0.44, -0.25], [0.06, 0.65, 0.06], 'chrome');
+  barrel.rotation.x = -Math.PI / 4;
+  depPart(monGroup, 'cylinder', [0, 0.64, -0.46], [0.09, 0.16, 0.09], 'yellow');
 
-  // 6. Rear Pump Operator Console, Tail Chevrons & Access Ladder
-  depPart(g, 'box', [0, 1.75, 3.39], [2.46, 1.95, 0.04], 'fireRed');
-  // Fluorescent yellow & red diagonal warning chevrons
-  depPart(g, 'box', [0, 1.15, 3.41], [2.35, 0.75, 0.02], 'yellow');
-  // Recessed pump control panel
-  depPart(g, 'box', [0, 1.75, 3.40], [1.35, 0.92, 0.02], 'dark');
-  // Dual chrome delivery outlets with twist caps
-  depPart(g, 'cylinder', [-0.35, 1.45, 3.48], [0.08, 0.14, 0.08], 'chrome');
-  depPart(g, 'cylinder', [0.35, 1.45, 3.48], [0.08, 0.14, 0.08], 'chrome');
-  // Rear Roof Access Ladder
-  for (const ax of [0.85, 1.12]) {
-    depPart(g, 'cylinder', [ax, 1.85, 3.45], [0.02, 2.25, 0.02], 'chrome');
+  for (const hx of [-1.12, 1.12]) {
+    depPart(g, 'cylinder', [hx, 2.82, 1.35], [0.075, 3.8, 0.075], 'dark');
+    depPart(g, 'torus', [hx, 2.82, -0.45], [0.09, 0.03, 1], 'chrome');
+    depPart(g, 'torus', [hx, 2.82, 3.15], [0.09, 0.03, 1], 'chrome');
   }
-  for (let ry = 0.85; ry <= 2.85; ry += 0.28) {
-    depPart(g, 'box', [0.985, ry, 3.45], [0.26, 0.03, 0.03], 'chrome');
+
+  // 6. Rear Pump Console & Discharge Valves
+  depPart(g, 'box', [0, 1.85, 3.82], [1.45, 0.48, 0.08], 'dark');
+  for (const vx of [-0.52, 0.52]) {
+    depPart(g, 'cylinder', [vx, 1.62, 3.88], [0.08, 0.12, 0.08], 'chrome');
   }
+
+  // 7. Official Emergency Text Markings (Front & Rear in Bold Yellow)
+  const fireDecals = depGetDecalMaterials();
+  // Front Roof Sunvisor Markings
+  depAddDecal(g, fireDecals.fireFront, [0, 2.38, -3.67], [2.25, 0.26], Math.PI, 0.12);
+  // Front Crew Cab Nose Plate Markings
+  depAddDecal(g, fireDecals.fireFront, [0, 1.28, -3.75], [1.85, 0.30], Math.PI);
+  // Rear Heavy Tailgate / Hazard Console Markings
+  depAddDecal(g, fireDecals.fireRear, [0, 1.35, 3.86], [2.25, 0.48], 0);
 }
 
 // =========================================================================
-// 4. FUNCTION VEHICLE PARKING LOT WITH 4 REALISTIC 3D VEHICLES
+// 4. MULTI-BAY VEHICLE PARKING FACILITY (Haryana Police Bus, VIP SUVs & Stalls)
 // =========================================================================
-function depBuildParking(g) {
+function depBuildParking(g) { depBuildParkingLot(g); }
+function depBuildParkingLot(g) {
   g.scale.setScalar(1);
 
-  // 1. Paved Asphalt Compound with Safety Hazard Curbs
-  // Asphalt pavement base (28m wide x 20m deep)
-  depPart(g, 'box', [0, 0.02, 0], [28, 0.04, 20], 'dark');
+  // 1. Heavy Asphalt Tarmac Ground Pavement
+  depPart(g, 'box', [0, 0.05, 0], [14.0, 0.10, 10.0], 'padAsphalt');
 
-  // Raised concrete perimeter curb border with alternating yellow/black hazard stripes
-  for (let x = -13.6; x <= 13.6; x += 1.6) {
-    const col = (Math.round((x + 13.6) / 1.6) % 2 === 0) ? 'yellow' : 'dark';
-    depPart(g, 'box', [x, 0.07, -9.9], [1.55, 0.08, 0.25], col);
-    depPart(g, 'box', [x, 0.07, 9.9], [1.55, 0.08, 0.25], col);
-  }
-  for (let z = -9.6; z <= 9.6; z += 1.6) {
-    const col = (Math.round((z + 9.6) / 1.6) % 2 === 0) ? 'yellow' : 'dark';
-    depPart(g, 'box', [-13.9, 0.07, z], [0.25, 0.08, 1.55], col);
-    depPart(g, 'box', [13.9, 0.07, z], [0.25, 0.08, 1.55], col);
-  }
+  // Perimeter Raised Concrete Curbing with Yellow/Black Safety Stripes
+  depPart(g, 'box', [0, 0.14, -5.02], [14.2, 0.14, 0.22], 'dark');
+  depPart(g, 'box', [0, 0.14, 5.02], [14.2, 0.14, 0.22], 'dark');
+  depPart(g, 'box', [-7.02, 0.14, 0], [0.22, 0.14, 10.2], 'dark');
+  depPart(g, 'box', [7.02, 0.14, 0], [0.22, 0.14, 10.2], 'dark');
 
-  // Yellow central driving lane connecting rows
-  for (let x = -12.5; x <= 12.5; x += 2.8) {
-    depPart(g, 'box', [x, 0.045, 0], [1.6, 0.02, 0.18], 'yellow');
+  // 2. High-Visibility Parking Bay Demarcation Lines
+  for (let bx = -6.0; bx <= 6.0; bx += 3.0) {
+    depPart(g, 'box', [bx, 0.11, 0], [0.12, 0.015, 8.2], 'padLineWhite');
+    depPart(g, 'cylinder', [bx + 1.5, 0.16, -3.6], [0.12, 0.14, 0.12], 'yellow');
   }
+  depPart(g, 'box', [0, 0.11, 4.1], [12.2, 0.015, 0.12], 'padLineWhite');
 
-  // Row 1 (North bays: z = -5.8) stall divider lines and concrete wheel stops
-  for (const x of [-11.4, -7.6, -3.8, 0, 3.8, 7.6, 11.4]) {
-    depPart(g, 'box', [x, 0.05, -5.8], [0.14, 0.02, 7.6], 'white');
-    if (x > -11.4) {
-      depPart(g, 'box', [x - 1.9, 0.08, -9.2], [2.4, 0.12, 0.22], 'white');
+  // Blue & White "P" Parking Facility Signpost
+  const pSign = new THREE.Group();
+  pSign.position.set(-6.2, 0, 4.2);
+  g.add(pSign);
+  depPart(pSign, 'cylinder', [0, 1.25, 0], [0.045, 2.5, 0.045], 'chrome');
+  depPart(pSign, 'box', [0, 2.45, 0], [0.65, 0.65, 0.05], 'blue');
+  depPart(pSign, 'cylinder', [0, 2.45, 0.03], [0.28, 0.02, 0.28], 'white');
+  depPart(pSign, 'box', [-0.06, 2.45, 0.045], [0.08, 0.35, 0.02], 'blue');
+  depPart(pSign, 'torus', [0.02, 2.52, 0.045], [0.08, 0.03, 1], 'blue');
+
+  // 3. Four Distinct High-Detail 3D Vehicles
+
+  // --- VEHICLE 1 (Bay 1): Heavy Haryana Police Security Force Bus ---
+  const bus = new THREE.Group();
+  bus.position.set(-4.5, 0, -0.4);
+  g.add(bus);
+  // Chassis & Wheels
+  depPart(bus, 'box', [0, 0.35, 0], [2.35, 0.25, 6.8], 'dark');
+  for (const bx of [-1.15, 1.15]) {
+    for (const bz of [-2.1, 1.9]) {
+      const bw = depPart(bus, 'cylinder', [bx, 0.45, bz], [0.45, 0.26, 0.45], 'tireRubber');
+      bw.rotation.z = Math.PI / 2;
+      const rim = depPart(bus, 'cylinder', [bx, 0.45, bz], [0.28, 0.27, 0.28], 'dark');
+      rim.rotation.z = Math.PI / 2;
     }
   }
-  // Row 2 (South bays: z = 5.8) stall divider lines and concrete wheel stops
-  for (const x of [-11.4, -7.6, -3.8, 0, 3.8, 7.6, 11.4]) {
-    depPart(g, 'box', [x, 0.05, 5.8], [0.14, 0.02, 7.6], 'white');
-    if (x > -11.4) {
-      depPart(g, 'box', [x - 1.9, 0.08, 9.2], [2.4, 0.12, 0.22], 'white');
+  // Bus Body & Police Dark Blue/White Livery
+  depPart(bus, 'box', [0, 1.62, 0], [2.40, 1.95, 6.75], 'darkBlue');
+  depPart(bus, 'box', [0, 1.22, 0], [2.42, 0.32, 6.78], 'white');
+  depPart(bus, 'box', [0, 1.05, 0], [2.43, 0.10, 6.80], 'vipBeaconRed');
+  // Windshield & Side Windows
+  const bws = depPart(bus, 'box', [0, 1.82, -3.38], [2.25, 0.95, 0.06], 'glassTint');
+  bws.rotation.x = -0.08;
+  for (const sx of [-1.22, 1.22]) {
+    depPart(bus, 'box', [sx, 1.85, 0.25], [0.02, 0.75, 5.2], 'glassTint');
+  }
+  // Roof AC Units & Beacon
+  depPart(bus, 'box', [0, 2.70, 0.4], [1.45, 0.22, 2.2], 'white');
+  depPart(bus, 'box', [0, 2.72, -3.0], [0.35, 0.12, 0.25], 'vipBeaconRed');
+
+  // --- VEHICLE 2 (Bay 2): White VIP Fortuner SUV ---
+  const suv1 = new THREE.Group();
+  suv1.position.set(-1.5, 0, -0.6);
+  g.add(suv1);
+  depPart(suv1, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
+  for (const sx of [-0.95, 0.95]) {
+    for (const sz of [-1.35, 1.35]) {
+      const sw = depPart(suv1, 'cylinder', [sx, 0.38, sz], [0.38, 0.22, 0.38], 'tireRubber');
+      sw.rotation.z = Math.PI / 2;
+      const srim = depPart(suv1, 'cylinder', [sx, 0.38, sz], [0.24, 0.23, 0.24], 'chrome');
+      srim.rotation.z = Math.PI / 2;
     }
   }
+  // Body, Cab & Chrome Grille
+  depPart(suv1, 'box', [0, 0.85, 0], [1.88, 0.65, 4.45], 'whiteBody');
+  depPart(suv1, 'box', [0, 1.38, 0.2], [1.68, 0.62, 2.65], 'whiteBody');
+  const sws1 = depPart(suv1, 'box', [0, 1.32, -1.18], [1.55, 0.55, 0.05], 'glassTint');
+  sws1.rotation.x = -0.42;
+  depPart(suv1, 'box', [0, 0.72, -2.24], [1.32, 0.26, 0.05], 'chrome');
+  for (const hx of [-0.68, 0.68]) {
+    depPart(suv1, 'box', [hx, 0.74, -2.23], [0.26, 0.14, 0.04], 'white');
+  }
+  depPart(suv1, 'box', [0, 1.74, 0.25], [1.25, 0.06, 2.1], 'chrome');
 
-  // Entrance Parking Lollipop Sign "P"
-  depPart(g, 'cylinder', [13.0, 1.4, -9.0], [0.08, 2.8, 0.08], 'dark');
-  depPart(g, 'box', [13.0, 2.6, -9.0], [1.1, 1.1, 0.08], 'blue');
-  depPart(g, 'box', [12.92, 2.6, -8.95], [0.16, 0.72, 0.02], 'white'); // P stem
-  depPart(g, 'box', [13.12, 2.78, -8.95], [0.36, 0.36, 0.02], 'white'); // P loop
-  depPart(g, 'box', [13.10, 2.78, -8.93], [0.18, 0.18, 0.03], 'blue');
-
-  // Solar LED Light Bollards at corners
-  for (const [lx, lz] of [[-13.2, -9.2], [13.2, 9.2]]) {
-    depPart(g, 'cylinder', [lx, 1.1, lz], [0.06, 2.2, 0.06], 'dark');
-    depPart(g, 'box', [lx, 2.25, lz], [0.28, 0.14, 0.28], 'white');
-  }
-
-  // Helper to build realistic detailed wheels
-  function makeCarWheel(cx, cy, cz, radius = 0.34, width = 0.22) {
-    const wGroup = new THREE.Group();
-    wGroup.position.set(cx, cy, cz);
-    g.add(wGroup);
-    const tire = depPart(wGroup, 'cylinder', [0, 0, 0], [radius, width, radius], 'tireRubber');
-    tire.rotation.z = Math.PI / 2;
-    const rim = depPart(wGroup, 'cylinder', [0, 0, 0], [radius * 0.65, width * 1.05, radius * 0.65], 'chrome');
-    rim.rotation.z = Math.PI / 2;
-  }
-
-  // =========================================================================
-  // VEHICLE 1: White VIP Delegate SUV (Toyota Fortuner Type, Stall 1: X = -9.5)
-  // =========================================================================
-  const s1X = -9.5, s1Z = -5.8;
-  // SUV Body & Hood
-  depPart(g, 'box', [s1X, 0.52, s1Z], [2.12, 0.58, 4.55], 'whiteBody');
-  depPart(g, 'box', [s1X, 1.08, s1Z + 0.15], [1.95, 0.58, 2.85], 'whiteBody');
-  // Windshield & Windows
-  const suvWs = depPart(g, 'box', [s1X, 1.05, s1Z - 1.25], [1.88, 0.55, 0.08], 'glassTint');
-  suvWs.rotation.x = -0.42;
-  depPart(g, 'box', [s1X, 1.08, s1Z + 0.25], [1.98, 0.48, 2.55], 'glassTint');
-  // Chrome Grille & Headlights
-  depPart(g, 'box', [s1X, 0.54, s1Z - 2.28], [1.45, 0.26, 0.06], 'chrome');
-  for (const hx of [-0.85, 0.85]) {
-    depPart(g, 'box', [s1X + hx, 0.56, s1Z - 2.28], [0.28, 0.18, 0.06], 'white');
-  }
-  // Roof Rails & VIP Red Strobe Beacon
-  depPart(g, 'box', [s1X - 0.75, 1.42, s1Z + 0.15], [0.06, 0.06, 2.65], 'chrome');
-  depPart(g, 'box', [s1X + 0.75, 1.42, s1Z + 0.15], [0.06, 0.06, 2.65], 'chrome');
-  depPart(g, 'box', [s1X, 1.44, s1Z - 0.25], [0.28, 0.08, 0.65], 'vipBeaconRed');
-  // 4 Wheels
-  makeCarWheel(s1X - 1.02, 0.35, s1Z - 1.35, 0.38, 0.24);
-  makeCarWheel(s1X + 1.02, 0.35, s1Z - 1.35, 0.38, 0.24);
-  makeCarWheel(s1X - 1.02, 0.35, s1Z + 1.35, 0.38, 0.24);
-  makeCarWheel(s1X + 1.02, 0.35, s1Z + 1.35, 0.38, 0.24);
-
-  // =========================================================================
-  // VEHICLE 2: Gloss Black Executive VIP Escort SUV (Stall 2: X = -5.7)
-  // =========================================================================
-  const s2X = -5.7, s2Z = -5.8;
-  depPart(g, 'box', [s2X, 0.54, s2Z], [2.18, 0.62, 4.65], 'vipCar');
-  depPart(g, 'box', [s2X, 1.12, s2Z + 0.15], [2.02, 0.62, 2.95], 'vipCar');
-  // Front heavy chrome bull-bar
-  depPart(g, 'box', [s2X, 0.52, s2Z - 2.38], [1.85, 0.38, 0.12], 'chrome');
-  for (const bx of [-0.42, 0.42]) {
-    depPart(g, 'cylinder', [s2X + bx, 0.55, s2Z - 2.45], [0.09, 0.04, 0.09], 'white'); // Spotlights
-  }
-  // Windshield & Windows
-  const bWs = depPart(g, 'box', [s2X, 1.10, s2Z - 1.28], [1.92, 0.58, 0.08], 'glassTint');
-  bWs.rotation.x = -0.42;
-  depPart(g, 'box', [s2X, 1.12, s2Z + 0.25], [2.05, 0.52, 2.65], 'glassTint');
-  // Roof Emergency Lightbar (Red/Blue)
-  depPart(g, 'box', [s2X, 1.48, s2Z - 0.2], [0.35, 0.08, 0.95], 'vipBeaconBlue');
-  // 4 Wheels
-  makeCarWheel(s2X - 1.05, 0.36, s2Z - 1.4, 0.40, 0.26);
-  makeCarWheel(s2X + 1.05, 0.36, s2Z - 1.4, 0.40, 0.26);
-  makeCarWheel(s2X - 1.05, 0.36, s2Z + 1.4, 0.40, 0.26);
-  makeCarWheel(s2X + 1.05, 0.36, s2Z + 1.4, 0.40, 0.26);
-
-  // =========================================================================
-  // VEHICLE 3: Official Executive Sedan (White Dzire/Ciaz, Stall 3: X = -1.9)
-  // =========================================================================
-  const s3X = -1.9, s3Z = -5.8;
-  // Lower body (hood, cabin, trunk)
-  depPart(g, 'box', [s3X, 0.42, s3Z], [2.05, 0.48, 4.45], 'whiteBody');
-  // Cabin greenhouse
-  depPart(g, 'box', [s3X, 0.88, s3Z - 0.15], [1.85, 0.48, 2.45], 'whiteBody');
-  const s3Ws = depPart(g, 'box', [s3X, 0.86, s3Z - 1.35], [1.78, 0.52, 0.08], 'glassTint');
-  s3Ws.rotation.x = -0.52;
-  const s3RearWs = depPart(g, 'box', [s3X, 0.86, s3Z + 1.05], [1.78, 0.52, 0.08], 'glassTint');
-  s3RearWs.rotation.x = 0.52;
-  depPart(g, 'box', [s3X, 0.88, s3Z - 0.15], [1.88, 0.42, 2.25], 'glassTint');
-  // Front grille & lights
-  depPart(g, 'box', [s3X, 0.42, s3Z - 2.24], [1.35, 0.18, 0.04], 'chrome');
-  for (const hx of [-0.75, 0.75]) {
-    depPart(g, 'box', [s3X + hx, 0.44, s3Z - 2.24], [0.25, 0.14, 0.04], 'white');
-  }
-  // 4 Wheels
-  makeCarWheel(s3X - 0.98, 0.28, s3Z - 1.3, 0.32, 0.22);
-  makeCarWheel(s3X + 0.98, 0.28, s3Z - 1.3, 0.32, 0.22);
-  makeCarWheel(s3X - 0.98, 0.28, s3Z + 1.3, 0.32, 0.22);
-  makeCarWheel(s3X + 0.98, 0.28, s3Z + 1.3, 0.32, 0.22);
-
-  // =========================================================================
-  // VEHICLE 4: Official Haryana Police Troop Bus (Stall 5: X = +5.7)
-  // =========================================================================
-  const bX = 5.7, bZ = -5.8;
-  // Bus main body (Navy Blue lower + White upper)
-  depPart(g, 'box', [bX, 0.85, bZ], [2.45, 1.05, 6.2], 'blue'); // Navy lower
-  depPart(g, 'box', [bX, 1.62, bZ], [2.42, 0.75, 6.1], 'whiteBody'); // White upper
-  // Signature red/blue Haryana Police side stripe
-  for (const bx of [-1.24, 1.24]) {
-    depPart(g, 'box', [bX + bx, 1.25, bZ], [0.02, 0.08, 6.15], 'qbeltRibbon');
-    depPart(g, 'box', [bX + bx, 1.17, bZ], [0.02, 0.08, 6.15], 'yellow');
-  }
-  // Front windshield (split dual glass)
-  for (const fx of [-0.58, 0.58]) {
-    depPart(g, 'box', [bX + fx, 1.62, bZ - 3.12], [1.12, 0.65, 0.04], 'glassTint');
-  }
-  // Front chrome bus grille & headlights
-  depPart(g, 'box', [bX, 0.82, bZ - 3.14], [1.75, 0.32, 0.04], 'dark');
-  depPart(g, 'box', [bX, 0.82, bZ - 3.16], [1.35, 0.06, 0.04], 'chrome');
-  for (const hx of [-0.95, 0.95]) {
-    depPart(g, 'box', [bX + hx, 0.82, bZ - 3.14], [0.26, 0.22, 0.04], 'white');
-  }
-  // Side Passenger Windows
-  for (const sx of [-1.24, 1.24]) {
-    for (let wz = -2.1; wz <= 2.5; wz += 1.15) {
-      depPart(g, 'box', [bX + sx, 1.62, bZ + wz], [0.02, 0.55, 0.95], 'glassTint');
+  // --- VEHICLE 3 (Bay 3): Executive Administration Sedan (Silver-Grey) ---
+  const car = new THREE.Group();
+  car.position.set(1.5, 0, -0.8);
+  g.add(car);
+  depPart(car, 'box', [0, 0.24, 0], [1.78, 0.16, 4.3], 'dark');
+  for (const cx of [-0.90, 0.90]) {
+    for (const cz of [-1.32, 1.32]) {
+      const cw = depPart(car, 'cylinder', [cx, 0.32, cz], [0.32, 0.20, 0.32], 'tireRubber');
+      cw.rotation.z = Math.PI / 2;
+      const crim = depPart(car, 'cylinder', [cx, 0.32, cz], [0.20, 0.21, 0.20], 'chrome');
+      crim.rotation.z = Math.PI / 2;
     }
   }
-  // Roof Emergency LED Lightbar & AC Unit
-  depPart(g, 'box', [bX, 2.12, bZ - 2.55], [0.38, 0.12, 1.35], 'vipBeaconBlue');
-  depPart(g, 'box', [bX, 2.10, bZ + 0.45], [1.25, 0.18, 2.45], 'whiteBody');
-  // 6 Bus Wheels (Front steer + Dual rear drive)
-  makeCarWheel(bX - 1.12, 0.42, bZ - 1.95, 0.44, 0.28);
-  makeCarWheel(bX + 1.12, 0.42, bZ - 1.95, 0.44, 0.28);
-  makeCarWheel(bX - 1.12, 0.42, bZ + 1.45, 0.44, 0.28);
-  makeCarWheel(bX + 1.12, 0.42, bZ + 1.45, 0.44, 0.28);
-  makeCarWheel(bX - 1.12, 0.42, bZ + 2.45, 0.44, 0.28);
-  makeCarWheel(bX + 1.12, 0.42, bZ + 2.45, 0.44, 0.28);
+  // Low-Slung Sedan Body
+  depPart(car, 'box', [0, 0.64, 0], [1.80, 0.46, 4.35], 'shutterSilver');
+  depPart(car, 'box', [0, 1.08, 0.12], [1.58, 0.48, 2.25], 'shutterSilver');
+  const cws = depPart(car, 'box', [0, 1.05, -1.05], [1.46, 0.46, 0.05], 'glassTint');
+  cws.rotation.x = -0.55;
+  const crws = depPart(car, 'box', [0, 1.05, 1.28], [1.46, 0.46, 0.05], 'glassTint');
+  crws.rotation.x = 0.55;
+
+  // --- VEHICLE 4 (Bay 4): Black Security Escort SUV with VIP Flasher ---
+  const suv2 = new THREE.Group();
+  suv2.position.set(4.5, 0, -0.6);
+  g.add(suv2);
+  depPart(suv2, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
+  for (const sx of [-0.95, 0.95]) {
+    for (const sz of [-1.35, 1.35]) {
+      const sw = depPart(suv2, 'cylinder', [sx, 0.38, sz], [0.38, 0.22, 0.38], 'tireRubber');
+      sw.rotation.z = Math.PI / 2;
+      const srim = depPart(suv2, 'cylinder', [sx, 0.38, sz], [0.24, 0.23, 0.24], 'dark');
+      srim.rotation.z = Math.PI / 2;
+    }
+  }
+  depPart(suv2, 'box', [0, 0.85, 0], [1.88, 0.65, 4.45], 'dark');
+  depPart(suv2, 'box', [0, 1.38, 0.2], [1.68, 0.62, 2.65], 'dark');
+  const sws2 = depPart(suv2, 'box', [0, 1.32, -1.18], [1.55, 0.55, 0.05], 'glassTint');
+  sws2.rotation.x = -0.42;
+  // Red/Blue Grill Strobes & Roof Flasher Bar
+  depPart(suv2, 'box', [-0.35, 0.74, -2.24], [0.22, 0.08, 0.04], 'vipBeaconRed');
+  depPart(suv2, 'box', [0.35, 0.74, -2.24], [0.22, 0.08, 0.04], 'vipBeaconBlue');
+  depPart(suv2, 'box', [-0.25, 1.74, 0.25], [0.24, 0.06, 0.12], 'vipBeaconRed');
+  depPart(suv2, 'box', [0.25, 1.74, 0.25], [0.24, 0.06, 0.12], 'vipBeaconBlue');
 }
 
 // =========================================================================
-// 5. FULL-SCALE AVIATION CIRCULAR HELIPAD (VIP TLOF with bold 'H' & markings)
+// 5. OFFICIAL VIP HELIPAD (ICAO Spec Elevated Apron, Chevrons, Tower & Lights)
 // =========================================================================
 function depBuildHelipad(g) {
   g.scale.setScalar(1);
+
   const padGroup = new THREE.Group();
 
-  // 1. Raised Concrete Perimeter Rim (R = 16.5m, H = 0.28m)
+  // 1. Concrete Outer Foundation Rim (18.6m diameter)
   const rimMesh = new THREE.Mesh(geos.cylinder, depMaterials.padOuterRim);
-  rimMesh.position.set(0, 0.14, 0);
-  rimMesh.scale.set(16.5, 0.28, 16.5);
+  rimMesh.position.set(0, 0.04, 0);
+  rimMesh.scale.set(18.6, 0.08, 18.6);
   padGroup.add(rimMesh);
 
-  // 2. Dark Asphalt Apron Safety Ring (R = 15.0m, H = 0.30m)
-  const asphaltMesh = new THREE.Mesh(geos.cylinder, depMaterials.padAsphalt);
-  asphaltMesh.position.set(0, 0.15, 0);
-  asphaltMesh.scale.set(15.0, 0.30, 15.0);
-  padGroup.add(asphaltMesh);
+  // 2. Dark Asphalt Safety Shoulder Apron (17.4m diameter)
+  const apronMesh = new THREE.Mesh(geos.cylinder, depMaterials.padAsphalt);
+  apronMesh.position.set(0, 0.09, 0);
+  apronMesh.scale.set(17.4, 0.04, 17.4);
+  padGroup.add(apronMesh);
 
-  // 3. Central Slate Gray Touchdown Core (TLOF, R = 9.8m, H = 0.32m)
-  const tlofMesh = new THREE.Mesh(geos.cylinder, depMaterials.padConcrete);
-  tlofMesh.position.set(0, 0.16, 0);
-  tlofMesh.scale.set(9.8, 0.32, 9.8);
-  padGroup.add(tlofMesh);
+  // 3. Central Slate Concrete TLOF Landing Core (14.2m diameter)
+  const coreMesh = new THREE.Mesh(geos.cylinder, depMaterials.padConcrete);
+  coreMesh.position.set(0, 0.12, 0);
+  coreMesh.scale.set(14.2, 0.03, 14.2);
+  padGroup.add(coreMesh);
 
-  // 4. Circular Markings (White Outer Border + Yellow Touchdown Ring)
-  // Outer White Ring (R = 14.2m)
-  const whiteRing = new THREE.Mesh(geos.torus, depMaterials.padLineWhite);
-  whiteRing.position.set(0, 0.33, 0);
-  whiteRing.rotation.x = Math.PI / 2;
-  whiteRing.scale.set(14.2, 14.2, 1.2);
-  padGroup.add(whiteRing);
+  // 4. Yellow Concentric Touchdown & Lift-Off (TLOF) Safety Ring
+  const tlofRing = new THREE.Mesh(geos.torus, depMaterials.padLineYellow);
+  tlofRing.position.set(0, 0.14, 0);
+  tlofRing.rotation.x = Math.PI / 2;
+  tlofRing.scale.set(6.2, 6.2, 1);
+  padGroup.add(tlofRing);
 
-  // Inner Yellow TLOF Ring (R = 9.2m)
-  const yellowRing = new THREE.Mesh(geos.torus, depMaterials.padLineYellow);
-  yellowRing.position.set(0, 0.335, 0);
-  yellowRing.rotation.x = Math.PI / 2;
-  yellowRing.scale.set(9.2, 9.2, 1.6);
-  padGroup.add(yellowRing);
+  // 5. Official Bold White ICAO "H" (3.8m Tall, 2.8m Wide)
+  const hBarL = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+  hBarL.position.set(-1.15, 0.145, 0);
+  hBarL.scale.set(0.48, 0.02, 3.8);
+  padGroup.add(hBarL);
 
-  // Red & White Alternating Perimeter Warning Chevrons (48 perimeter blocks)
+  const hBarR = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+  hBarR.position.set(1.15, 0.145, 0);
+  hBarR.scale.set(0.48, 0.02, 3.8);
+  padGroup.add(hBarR);
+
+  const hCross = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
+  hCross.position.set(0, 0.145, 0);
+  hCross.scale.set(1.85, 0.02, 0.52);
+  padGroup.add(hCross);
+
+  // 6. Perimeter Red & White Hazard Chevrons (48 Radial Segments)
   const numChevrons = 48;
+  const chevRadius = 8.05;
   for (let i = 0; i < numChevrons; i++) {
     const angle = (i / numChevrons) * Math.PI * 2;
-    const cx = Math.cos(angle) * 15.7;
-    const cz = Math.sin(angle) * 15.7;
-    const chBlock = new THREE.Mesh(
-      geos.box,
-      (i % 2 === 0) ? depMaterials.padDashedRed : depMaterials.padLineWhite
-    );
-    chBlock.position.set(cx, 0.29, cz);
-    chBlock.rotation.y = -angle;
-    chBlock.scale.set(0.65, 0.04, 0.95);
-    padGroup.add(chBlock);
+    const mat = (i % 2 === 0) ? depMaterials.padDashedRed : depMaterials.padLineWhite;
+    const chev = new THREE.Mesh(geos.box, mat);
+    chev.position.set(Math.cos(angle) * chevRadius, 0.115, Math.sin(angle) * chevRadius);
+    chev.rotation.y = -angle;
+    chev.scale.set(0.24, 0.02, 0.88);
+    padGroup.add(chev);
   }
 
-  // 5. Bold White Official ICAO "H" Touchdown Marker (5.5m tall x 3.6m wide)
-  // Left vertical leg
-  const hLeg1 = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
-  hLeg1.position.set(-1.45, 0.34, 0);
-  hLeg1.scale.set(0.72, 0.03, 5.5);
-  padGroup.add(hLeg1);
-  // Right vertical leg
-  const hLeg2 = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
-  hLeg2.position.set(1.45, 0.34, 0);
-  hLeg2.scale.set(0.72, 0.03, 5.5);
-  padGroup.add(hLeg2);
-  // Horizontal crossbar
-  const hBar = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
-  hBar.position.set(0, 0.34, 0);
-  hBar.scale.set(2.2, 0.03, 0.85);
-  padGroup.add(hBar);
-
-  // Yellow Orientation Alignment Bars
-  const alignBar1 = new THREE.Mesh(geos.box, depMaterials.padLineYellow);
-  alignBar1.position.set(0, 0.338, -6.8);
-  alignBar1.scale.set(4.5, 0.03, 0.45);
-  padGroup.add(alignBar1);
-
-  const alignBar2 = new THREE.Mesh(geos.box, depMaterials.padLineYellow);
-  alignBar2.position.set(0, 0.338, 6.8);
-  alignBar2.scale.set(4.5, 0.03, 0.45);
-  padGroup.add(alignBar2);
-
-  // 6. Perimeter Green Touchdown LED Beacons (8 perimeter lights)
-  const numLights = 8;
-  for (let i = 0; i < numLights; i++) {
-    const angle = (i / numLights) * Math.PI * 2;
-    const lx = Math.cos(angle) * 14.2;
-    const lz = Math.sin(angle) * 14.2;
+  // 7. Eight High-Intensity Green LED Perimeter Landing Guidance Lights
+  for (let i = 0; i < 8; i++) {
+    const angle = (i / 8) * Math.PI * 2;
+    const lx = Math.cos(angle) * 7.4;
+    const lz = Math.sin(angle) * 7.4;
 
     const base = new THREE.Mesh(geos.cylinder, depMaterials.padLightMetal);
-    base.position.set(lx, 0.38, lz);
-    base.scale.set(0.24, 0.12, 0.24);
+    base.position.set(lx, 0.15, lz);
+    base.scale.set(0.26, 0.14, 0.26);
     padGroup.add(base);
 
     const greenLed = new THREE.Mesh(geos.sphereSmooth, depMaterials.padLightTurquoise);
-    greenLed.position.set(lx, 0.48, lz);
-    greenLed.scale.set(0.14, 0.14, 0.14);
+    greenLed.position.set(lx, 0.25, lz);
+    greenLed.scale.set(0.12, 0.12, 0.12);
     padGroup.add(greenLed);
   }
 
-  // 7. Four Corner Floodlight Towers on Galvanized Steel Pylons
-  const floodAngles = [Math.PI * 0.25, Math.PI * 0.75, Math.PI * 1.25, Math.PI * 1.75];
-  for (const a of floodAngles) {
-    const px = Math.cos(a) * 17.5;
-    const pz = Math.sin(a) * 17.5;
-    // Pylon pole
-    const pylon = new THREE.Mesh(geos.cylinder, depMaterials.padLightMetal);
-    pylon.position.set(px, 1.8, pz);
-    pylon.scale.set(0.16, 3.6, 0.16);
-    padGroup.add(pylon);
-    // Cross bracket angled towards pad center
-    const fixture = new THREE.Mesh(geos.box, depMaterials.padLineYellow);
-    fixture.position.set(px * 0.96, 3.65, pz * 0.96);
-    fixture.rotation.y = Math.atan2(px, pz);
-    fixture.scale.set(0.65, 0.22, 0.28);
-    padGroup.add(fixture);
-    // Glowing floodlight lens
-    const lens = new THREE.Mesh(geos.box, depMaterials.padLineWhite);
-    lens.position.set(px * 0.94, 3.65, pz * 0.94);
-    lens.rotation.y = Math.atan2(px, pz);
-    lens.scale.set(0.55, 0.16, 0.05);
-    lens.material = new THREE.MeshStandardMaterial({ color: 0xfffbeb, emissive: 0xfef08a, emissiveIntensity: 2.0 });
-    padGroup.add(lens);
+  // 8. Four Corner Perimeter Floodlight Towers
+  const cornerAngles = [Math.PI / 4, 3 * Math.PI / 4, 5 * Math.PI / 4, 7 * Math.PI / 4];
+  for (const cAngle of cornerAngles) {
+    const tx = Math.cos(cAngle) * 9.5;
+    const tz = Math.sin(cAngle) * 9.5;
+
+    const tower = new THREE.Mesh(geos.cylinder, depMaterials.padLightMetal);
+    tower.position.set(tx, 1.2, tz);
+    tower.scale.set(0.08, 2.4, 0.08);
+    padGroup.add(tower);
+
+    const head = new THREE.Mesh(geos.box, depMaterials.padLightTurquoise);
+    head.position.set(tx, 2.45, tz);
+    head.scale.set(0.35, 0.22, 0.25);
+    head.lookAt(0, 0.2, 0);
+    padGroup.add(head);
   }
 
-  // 8. Aviation Windsock Assembly on Perimeter
+  // 9. Standard High-Visibility Orange & White Striped Windsock
   const windGroup = new THREE.Group();
-  windGroup.position.set(16.8, 0, 4.2);
-  // Striped mast pole (white & orange)
-  const sockPole = new THREE.Mesh(geos.cylinder, depMaterials.padLineWhite);
-  sockPole.position.set(0, 2.2, 0);
-  sockPole.scale.set(0.08, 4.4, 0.08);
-  windGroup.add(sockPole);
-  for (let wy = 1.0; wy <= 4.0; wy += 0.8) {
-    const band = new THREE.Mesh(geos.cylinder, depMaterials.padWindsockOrange);
-    band.position.set(0, wy, 0);
-    band.scale.set(0.088, 0.38, 0.088);
-    windGroup.add(band);
-  }
-  // Swivel hoop at top
-  const hoop = new THREE.Mesh(geos.torus, depMaterials.padLightMetal);
-  hoop.position.set(0, 4.4, 0);
-  hoop.rotation.x = Math.PI / 2;
-  hoop.scale.set(0.38, 0.38, 0.08);
-  windGroup.add(hoop);
-  // Conical orange/white striped windsock
-  const sock = new THREE.Mesh(geos.cylinder, depMaterials.padWindsockOrange);
-  sock.position.set(0.75, 4.4, 0);
-  sock.rotation.z = -Math.PI / 2;
-  sock.scale.set(0.35, 1.45, 0.22);
-  windGroup.add(sock);
+  windGroup.position.set(9.2, 0, -2.5);
+
+  const mast = new THREE.Mesh(geos.cylinder, depMaterials.padLightMetal);
+  mast.position.set(0, 2.2, 0);
+  mast.scale.set(0.06, 4.4, 0.06);
+  windGroup.add(mast);
+
+  const sockRing = new THREE.Mesh(geos.torus, depMaterials.padLightMetal);
+  sockRing.position.set(0.3, 4.4, 0);
+  sockRing.rotation.y = Math.PI / 2;
+  sockRing.scale.set(0.25, 0.25, 1);
+  windGroup.add(sockRing);
+
+  const sockBase = new THREE.Mesh(geos.cylinder, depMaterials.padWindsockOrange);
+  sockBase.position.set(0.85, 4.4, 0);
+  sockBase.rotation.z = -Math.PI / 2;
+  sockBase.scale.set(0.24, 0.75, 0.20);
+  windGroup.add(sockBase);
+
   const sockTip = new THREE.Mesh(geos.cylinder, depMaterials.padWindsockWhite);
   sockTip.position.set(1.52, 4.4, 0);
   sockTip.rotation.z = -Math.PI / 2;
@@ -4733,32 +4711,23 @@ function depBuildQBelt(g, span = 2.0) {
   const curSpan = (typeof span === 'number' && span >= 0.5) ? span : 2.0;
   const half = curSpan / 2;
 
-  // Stanchion Chrome Posts at both ends (-half and +half)
   for (const px of [-half, half]) {
-    // Heavy Flared Bell-Shaped Weighted Base (R = 0.19m)
     depPart(g, 'cylinder', [px, 0.024, 0], [0.38, 0.048, 0.38], 'stanchionChrome');
-    // Black Rubber Floor Protection Rim
     depPart(g, 'torus', [px, 0.008, 0], [0.192, 0.014, 1], 'dark');
-    // Tapered Base Collar
     depPart(g, 'cylinder', [px, 0.065, 0], [0.12, 0.045, 0.12], 'stanchionChrome');
-    // Vertical Polished Stainless Steel Tube
     depPart(g, 'cylinder', [px, 0.52, 0], [0.052, 0.88, 0.052], 'stanchionChrome');
 
-    // 4-Way Retractable Cassette Crown at top
     depPart(g, 'cylinder', [px, 0.94, 0], [0.082, 0.14, 0.082], 'stanchionChrome');
     for (const rot of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
       const slot = depPart(g, 'box', [px + Math.sin(rot) * 0.044, 0.94, Math.cos(rot) * 0.044], [0.012, 0.09, 0.022], 'dark');
       slot.rotation.y = rot;
     }
-    // Domed Polished Finial Cap
     depPart(g, 'sphereSmooth', [px, 1.03, 0], [0.052, 0.052, 0.052], 'stanchionChrome');
   }
 
-  // Taut Heavy-Duty Red Nylon Webbing Ribbon
   const ribbonLen = Math.max(0.1, curSpan - 0.09);
-  const ribbon = depPart(g, 'box', [0, 0.94, 0], [ribbonLen, 0.062, 0.008], 'qbeltRibbon');
+  depPart(g, 'box', [0, 0.94, 0], [ribbonLen, 0.062, 0.008], 'qbeltRibbon');
 
-  // Chrome End Buckles / Locking Clips
   depPart(g, 'box', [half - 0.045, 0.94, 0], [0.035, 0.078, 0.022], 'stanchionChrome');
   depPart(g, 'box', [-half + 0.045, 0.94, 0], [0.035, 0.078, 0.022], 'stanchionChrome');
 }
@@ -9249,7 +9218,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade' || o.kind === 'qrt';
+  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade';
 
 
 
@@ -9579,7 +9548,7 @@ depUI('form').addEventListener('submit',e=>{
 
 
 
-  if(!depValid([next])){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
+  const normNext = depNormalizeItem(next, 0); if(!normNext){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
 
 
 
@@ -9592,7 +9561,7 @@ depUI('form').addEventListener('submit',e=>{
     o.customDuty = true;
     if (typeof depRegisterCustomDuty === 'function') depRegisterCustomDuty(next.duty);
   }
-  depStore();depBuild();depChoose(o.id);
+  depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -9640,7 +9609,7 @@ if(depUI('name')) depUI('name').addEventListener('input', () => {
 
 
 
-  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(); }
+  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(true); }
 
 
 
@@ -9665,7 +9634,7 @@ if(depUI('duty')) depUI('duty').addEventListener('input', () => {
       depRegisterCustomDuty(o.duty);
     }
     depSyncDropdownLabels(o);
-    depStore();
+    depStore(true);
   }
 
 
@@ -9698,7 +9667,7 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 
-  if (o) { o.belt = depUI('belt').value; depStore(); }
+  if (o) { o.belt = depUI('belt').value; depStore(true); }
 
 
 
@@ -9715,29 +9684,32 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 if(depUI('mobile')) depUI('mobile').addEventListener('input', () => {
-
-
-
-
-
-
-
   const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.mobile = depUI('mobile').value; depStore(true); }
+});
 
-
-
-
-
-
-
-  if (o) { o.mobile = depUI('mobile').value; depStore(); }
-
-
-
-
-
-
-
+['x','y','z','angle'].forEach(coord => {
+  const el = depUI(coord);
+  if (el) {
+    const handleCoord = () => {
+      const o = depItems.find(x => x.id === depSelected);
+      if (o) {
+        const val = parseFloat(el.value);
+        if (Number.isFinite(val)) {
+          if (coord === 'angle') {
+            o.angle = ((val % 360) + 360) % 360;
+          } else {
+            o[coord] = Math.round(val * 100) / 100;
+          }
+          depStore(true);
+          depBuild();
+          if (typeof draw === 'function') draw();
+        }
+      }
+    };
+    el.addEventListener('input', handleCoord);
+    el.addEventListener('change', handleCoord);
+  }
 });
 
 
@@ -9778,7 +9750,7 @@ function depRotate(delta){
 
 
 
-  depStore();depBuild();depChoose(o.id);
+  depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -10108,7 +10080,7 @@ depUI('delete').onclick=()=>{
 
 
 
-  depSelected=null;depPlace=false;depStore();depBuild();
+  depSelected=null;depPlace=false;depStore(true);depBuild();
 
 
 
@@ -10192,7 +10164,6 @@ function depView(mode, smooth = true){
   const itemHeight = isOfficerLike ? 1.65
     : o.kind === 'firebrigade' ? 2.5
     : o.kind === 'ambulance' ? 1.85
-    : o.kind === 'qrt' ? 1.75
     : o.kind === 'dfmd' ? 1.8
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
     : o.kind === 'barricade' ? 0.9
@@ -10205,7 +10176,6 @@ function depView(mode, smooth = true){
     : o.kind === 'parking' ? 28.0
     : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
-    : o.kind === 'qrt' ? 6.8
     : isOfficerLike ? 3.8
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
     : 3.2;
@@ -10213,7 +10183,6 @@ function depView(mode, smooth = true){
     : o.kind === 'parking' ? 18.0
     : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
-    : o.kind === 'qrt' ? 2.5
     : isOfficerLike ? 1.2
     : 1.5;
 
@@ -10252,7 +10221,6 @@ function depView(mode, smooth = true){
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
     if(o.kind === 'helipad') eyeY = o.y + 4.0;
     if(o.kind === 'parking') eyeY = o.y + 3.0;
-    if(o.kind === 'qrt') eyeY = o.y + 1.58;
 
 
 
@@ -10293,7 +10261,6 @@ function depView(mode, smooth = true){
 
 
     if(o.kind === 'firebrigade') eye.addScaledVector(dir, 2.1);
-    if(o.kind === 'qrt') eye.addScaledVector(dir, 0.45);
 
 
 
@@ -10317,7 +10284,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (o.kind==='qrt' ? 6.5 : (mode==='first' ? 10 : 2.0)))));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
 
 
 
@@ -13975,7 +13942,6 @@ window.__DEP_TICK = function(dt) {
 
       if (o.kind === 'ambulance') turnSpeed = 75;
       else if (o.kind === 'firebrigade') turnSpeed = 65;
-      else if (o.kind === 'qrt') turnSpeed = 80;
       else if (o.kind === 'helipad') turnSpeed = 55;
       else if (o.kind === 'parking') turnSpeed = 45;
       else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
@@ -14234,11 +14200,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-      } else if (o.kind === 'qrt') {
-        baseFwdSpeed = 7.5;
-        sprintFwdSpeed = 13.5;
-        baseBackSpeed = 3.6;
-      }else if (o.kind === 'helipad') {
+      } else if (o.kind === 'helipad') {
         baseFwdSpeed = 7.0;
         sprintFwdSpeed = 15.0;
         baseBackSpeed = 5.0;
@@ -15322,7 +15284,6 @@ window.__DEP_TICK = function(dt) {
         const itemHeight = isOfficerLike ? 1.65
           : o.kind === 'firebrigade' ? 2.5
           : o.kind === 'ambulance' ? 1.85
-          : o.kind === 'qrt' ? 1.75
           : o.kind === 'dfmd' ? 1.8
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
           : o.kind === 'barricade' ? 0.9
@@ -15335,7 +15296,6 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'parking' ? 28.0
           : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
-          : o.kind === 'qrt' ? 6.8
           : isOfficerLike ? 3.8
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
           : 3.2;
@@ -15343,7 +15303,6 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'parking' ? 18.0
           : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
-          : o.kind === 'qrt' ? 2.5
           : isOfficerLike ? 1.2
           : 1.5;
 
@@ -15377,7 +15336,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : (o.kind === 'qrt' ? 6.5 : 2.0))));
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
 
 
 
@@ -18027,7 +17986,7 @@ const depPanel=root.querySelector('#gms-deployment'),
 
 
 
-depBackendURL=location.protocol.startsWith('http')&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/deployment':null;
+depBackendURL=location.protocol.startsWith('http')?(location.origin+'/api/deployment'):'http://127.0.0.1:8794/api/deployment';
 
 
 
@@ -18083,7 +18042,7 @@ function depPayload(){
 
 
 
-    item.y = Math.max(0, Math.min(99, Math.round((Number(item.y) || 0) * 100) / 100));
+    item.y = Math.max(-50, Math.min(350, Math.round((Number(item.y) || 0) * 100) / 100));
 
 
 
@@ -18179,7 +18138,7 @@ function depPayload(){
 
 
 
-function depQueue(immediate = false){
+function depQueue(immediate = true){
   if(!depBackendURL)return;
   depPending=depPayload();
   if(depUI('sync'))depUI('sync').textContent='Backend: auto-saving...';
@@ -18276,7 +18235,7 @@ async function depFlush(){
 
 
 
-      headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+      headers:{'Content-Type':'text/plain','X-GMS-Plan':'1'},
 
 
 
@@ -18397,6 +18356,14 @@ async function depFlush(){
 
 
     depRevision=result.revision;
+    try {
+      localStorage.setItem(depStorage, JSON.stringify({
+        version: 1,
+        savedAt: new Date(result.updated || Date.now()).getTime(),
+        origin: [geo.originLongitude, geo.originLatitude],
+        items: depItems
+      }));
+    } catch(e) {}
 
 
 
@@ -18533,223 +18500,32 @@ async function depFlush(){
 
 
 async function depLoadBackend(){
-
-
-
-
-
-
-
   const local=depLoadLocal();
-
-
-
-
-
-
-
   if(!depBackendURL){
-
-
-
-
-
-
-
-    if(local&&depValid(local.items)){
-
-
-
-
-
-
-
+    if(local&&Array.isArray(local.items)&&local.items.length>0){
       depItems=local.items;
-
-
-
-
-
-
-
       depBuild();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     if(depUI('sync')){
-
-
-
-
-
-
-
       depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
-
-
-
-
-
-
-
-      depUI('retry').hidden=true;
-
-
-
-
-
-
-
+      if(depUI('retry')) depUI('retry').hidden=true;
     }
-
-
-
-
-
-
-
     return;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   depPanel.inert=true;
-
-
-
-
-
-
-
   try{
-
-
-
-
-
-
-
     const r=await fetch(depBackendURL,{cache:'no-store'});
-
-
-
-
-
-
-
     if(!r.ok)throw Error('Backend HTTP '+r.status);
-
-
-
-
-
-
-
     const result=await r.json();
-
-
-
-
-
-
-
     depRevision=result.revision||0;
-
-
-
-
-
-
-
     depBackendReady=true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const backendPlan=result.plan;
-
-
-
-
-
-
-
-    const backendItems=backendPlan&&Array.isArray(backendPlan.items)&&depValid(backendPlan.items)?backendPlan.items:null;
-
-
-
-
-
-
-
+    const rawBackendItems=backendPlan&&Array.isArray(backendPlan.items)?backendPlan.items:null;
+    const backendItems=rawBackendItems?rawBackendItems.map((it,idx)=>depNormalizeItem(it,idx)).filter(Boolean):null;
     const backendTime=result.updated?new Date(result.updated).getTime():0;
-
-
-
-
-
-
-
     const localTime=local?(local.savedAt||0):0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Smart sync: determine whether local storage or backend is newer
-    if (local && Array.isArray(local.items) && depValid(local.items) && local.items.length > 0 && localTime > backendTime) {
+    if (local && Array.isArray(local.items) && local.items.length > 0 && localTime > backendTime) {
       depItems = local.items;
       depBuild();
       depStore(true);
@@ -18766,205 +18542,26 @@ async function depLoadBackend(){
         }));
       } catch (e) {}
       if (depUI('sync')) depUI('sync').textContent = 'Auto-saved loaded ' + depItems.length + ' items from DB (rev ' + depRevision + ')';
-    } else if (local && Array.isArray(local.items) && depValid(local.items) && local.items.length > 0) {
-
-
-
-
-
-
-
-      depItems=local.items;
-
-
-
-
-
-
-
+    } else if (local && Array.isArray(local.items) && local.items.length > 0) {
+      depItems = local.items;
       depBuild();
-
-
-
-
-
-
-
-      depStore();
-
-
-
-
-
-
-
-    }else{
-
-
-
-
-
-
-
-      depItems=depSeed();
-
-
-
-
-
-
-
-      depBuild();
-
-
-
-
-
-
-
-      depStore();
-
-
-
-
-
-
-
+      depStore(true);
     }
-
-
-
-
-
-
-
     if(depUI('retry'))depUI('retry').hidden=true;
-
-
-
-
-
-
-
   }catch(e){
-
-
-
-
-
-
-
     console.warn('Backend load failed, using local storage:',e);
-
-
-
-
-
-
-
-    if(local&&depValid(local.items)){
-
-
-
-
-
-
-
+    if(local&&Array.isArray(local.items)&&local.items.length>0){
       depItems=local.items;
-
-
-
-
-
-
-
       depBuild();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     if(depUI('sync')){
-
-
-
-
-
-
-
-      depUI('sync').textContent='✅ Auto-saved in browser ('+depItems.length+' items, backend offline)';
-
-
-
-
-
-
-
-      depUI('retry').hidden=false;
-
-
-
-
-
-
-
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
     }
-
-
-
-
-
-
-
+    if(depUI('retry'))depUI('retry').hidden=true;
   }finally{
-
-
-
-
-
-
-
     depPanel.inert=false;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function depSaveBeforeLeave(){
 
@@ -18998,7 +18595,7 @@ function depSaveBeforeLeave(){
 
 
 
-  if(depBackendURL&&depItems.length>0){
+  if(depBackendURL){
 
 
 
@@ -19038,7 +18635,7 @@ function depSaveBeforeLeave(){
 
 
 
-        const blob=new Blob([body],{type:'application/json'});
+        const blob=new Blob([body],{type:'text/plain'});
 
 
 
@@ -19078,7 +18675,7 @@ function depSaveBeforeLeave(){
 
 
 
-          headers:{'Content-Type':'application/json','X-GMS-Plan':'1'},
+          headers:{'Content-Type':'text/plain','X-GMS-Plan':'1'},
 
 
 
