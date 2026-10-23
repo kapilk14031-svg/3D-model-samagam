@@ -4187,183 +4187,76 @@ function depPart(g,shape,p,s,mat){
 
 
 
-const depHhmdCanvas=document.createElement('canvas');depHhmdCanvas.width=128;depHhmdCanvas.height=512;
-
-
-
-
-
-
-
-const dhc=depHhmdCanvas.getContext('2d');
-
-
-
-
-
-
-
-dhc.fillStyle='#181b20';dhc.fillRect(0,0,128,512);
-
-
-
-
-
-
-
-dhc.strokeStyle='#374151';dhc.lineWidth=4;dhc.strokeRect(6,6,116,500);
-
-
-
-
-
-
-
-dhc.fillStyle='#eab308';dhc.fillRect(10,16,108,64);
-
-
-
-
-
-
-
-dhc.fillStyle='#0f172a';dhc.font='900 18px sans-serif';dhc.textAlign='center';dhc.fillText('SECURITY',64,42);
-
-
-
-
-
-
-
-dhc.font='800 13px sans-serif';dhc.fillText('SCANNER',64,62);
-
-
-
-
-
-
-
-dhc.fillStyle='#1e293b';
-
-
-
-
-
-
-
-for(let i=0;i<4;i++){dhc.beginPath();dhc.moveTo(12+i*28,72);dhc.lineTo(24+i*28,72);dhc.lineTo(16+i*28,80);dhc.lineTo(4+i*28,80);dhc.fill();}
-
-
-
-
-
-
-
-dhc.fillStyle='#111827';dhc.fillRect(16,92,96,276);
-
-
-
-
-
-
-
-dhc.strokeStyle='#64748b';dhc.lineWidth=2.5;dhc.strokeRect(22,100,84,260);
-
-
-
-
-
-
-
-dhc.strokeStyle='#eab308';dhc.lineWidth=1.5;dhc.strokeRect(28,110,72,240);
-
-
-
-
-
-
-
-dhc.strokeStyle='#38bdf8';dhc.lineWidth=2.5;
-
-
-
-
-
-
-
-dhc.beginPath();dhc.arc(64,185,26,0,Math.PI*2);dhc.stroke();
-
-
-
-
-
-
-
-dhc.beginPath();dhc.arc(64,185,16,0,Math.PI*2);dhc.stroke();
-
-
-
-
-
-
-
-dhc.fillStyle='#38bdf8';dhc.beginPath();dhc.arc(64,185,6,0,Math.PI*2);dhc.fill();
-
-
-
-
-
-
-
-dhc.fillStyle='#f8fafc';dhc.font='bold 11px sans-serif';dhc.fillText('360° SENSING',64,235);
-
-
-
-
-
-
-
-dhc.font='9px sans-serif';dhc.fillStyle='#94a3b8';dhc.fillText('HIGH SENSITIVITY',64,252);dhc.fillText('ALL METALS',64,268);
-
-
-
-
-
-
-
-for(let y=290;y<=340;y+=8){dhc.fillStyle=y%16===0?'#eab308':'#64748b';dhc.fillRect(36,y,56,3);}
-
-
-
-
-
-
-
-dhc.fillStyle='#dc2626';dhc.fillRect(16,382,96,28);
-
-
-
-
-
-
-
-dhc.fillStyle='#ffffff';dhc.font='bold 12px sans-serif';dhc.fillText('METAL DETECTOR',64,401);
-
-
-
-
-
-
-
-dhc.fillStyle='#94a3b8';dhc.font='bold 9px sans-serif';dhc.fillText('PWR ● BATT ● ALARM',64,435);
-
-
-
-
-
-
-
-const depHhmdDecalFront=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depHhmdCanvas),roughness:0.35,metalness:0.1});
+function depCreateHhmdDecalCanvas(flipped=false){
+  const c=document.createElement('canvas');c.width=256;c.height=1024;
+  const ctx=c.getContext('2d');
+  if(flipped){ctx.translate(256,0);ctx.scale(-1,1);}
+  ctx.fillStyle='#13171d';ctx.fillRect(0,0,256,1024);
+  ctx.strokeStyle='#334155';ctx.lineWidth=6;ctx.strokeRect(8,8,240,1008);
+  // Prominent Garrett SuperScanner Golden Yellow Header
+  ctx.fillStyle='#facc15';ctx.fillRect(14,20,228,155);
+  ctx.strokeStyle='#ca8a04';ctx.lineWidth=3;ctx.strokeRect(14,20,228,155);
+  ctx.fillStyle='#0f172a';ctx.textAlign='center';
+  ctx.font='900 42px Arial,Helvetica,sans-serif';
+  ctx.fillText('GARRETT',128,78);
+  ctx.font='900 24px Arial,Helvetica,sans-serif';
+  ctx.fillText('SUPER SCANNER',128,124);
+  ctx.font='bold 20px Arial,Helvetica,sans-serif';
+  ctx.fillText('V',128,158);
+  // Chevron accents
+  ctx.fillStyle='#1e293b';
+  for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(24+i*56,195);ctx.lineTo(48+i*56,195);ctx.lineTo(32+i*56,212);ctx.lineTo(8+i*56,212);ctx.fill();}
+  // Central Sensing Panel
+  ctx.fillStyle='#0b0f17';ctx.fillRect(18,225,220,555);
+  ctx.strokeStyle='#475569';ctx.lineWidth=4;ctx.strokeRect(24,235,208,535);
+  ctx.strokeStyle='#facc15';ctx.lineWidth=2.5;ctx.strokeRect(32,245,192,515);
+  // 360° Detection Coil Graphics
+  ctx.strokeStyle='#38bdf8';ctx.lineWidth=5;
+  ctx.beginPath();ctx.arc(128,405,58,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.arc(128,405,38,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#38bdf8';
+  ctx.beginPath();ctx.arc(128,405,14,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.font='900 22px Arial,Helvetica,sans-serif';
+  ctx.fillText('360° DETECTION',128,505);
+  ctx.fillStyle='#94a3b8';
+  ctx.font='bold 16px Arial,Helvetica,sans-serif';
+  ctx.fillText('HIGH SENSITIVITY',128,540);
+  ctx.font='14px Arial,Helvetica,sans-serif';
+  ctx.fillText('ALL METALS',128,568);
+  for(let y=605;y<=715;y+=16){
+    ctx.fillStyle=y%32===0?'#facc15':'#64748b';
+    ctx.fillRect(68,y,120,6);
+  }
+  // Red Metal Detector Warning Banner
+  ctx.fillStyle='#dc2626';ctx.fillRect(22,800,212,68);
+  ctx.strokeStyle='#b91c1c';ctx.lineWidth=3;ctx.strokeRect(22,800,212,68);
+  ctx.fillStyle='#ffffff';
+  ctx.font='900 23px Arial,Helvetica,sans-serif';
+  ctx.fillText('METAL DETECTOR',128,844);
+  // Status Legend
+  ctx.fillStyle='#cbd5e1';
+  ctx.font='bold 16px Arial,Helvetica,sans-serif';
+  ctx.fillText('PWR ● BATT ● ALARM',128,915);
+  ctx.fillStyle='#64748b';
+  ctx.font='13px monospace';
+  ctx.fillText('MODEL 1165190 • CE',128,965);
+  return c;
+}
+const depHhmdCanvas=depCreateHhmdDecalCanvas(false);
+const depHhmdDecalFrontTex=new THREE.CanvasTexture(depHhmdCanvas);
+depHhmdDecalFrontTex.anisotropy=8;
+const depHhmdDecalFront=new THREE.MeshStandardMaterial({
+  map:depHhmdDecalFrontTex,roughness:0.35,metalness:0.1,
+  polygonOffset:true,polygonOffsetFactor:-2.0,polygonOffsetUnits:-4.0,depthWrite:true,side:THREE.DoubleSide
+});
+const depHhmdBackCanvas=depCreateHhmdDecalCanvas(true);
+const depHhmdDecalBackTex=new THREE.CanvasTexture(depHhmdBackCanvas);
+depHhmdDecalBackTex.anisotropy=8;
+const depHhmdDecalBack=new THREE.MeshStandardMaterial({
+  map:depHhmdDecalBackTex,roughness:0.35,metalness:0.1,
+  polygonOffset:true,polygonOffsetFactor:-2.0,polygonOffsetUnits:-4.0,depthWrite:true,side:THREE.DoubleSide
+});
 
 
 
@@ -9065,22 +8958,12 @@ function depBuildOfficer(g, mode='officer'){
 
 
 
-    depPart(hhmd, 'sign', [0, .255, .0115], [.068, .22, 1], depHhmdDecalFront);
+        // High-visibility yellow safety band across paddle top
+    depPart(hhmd, 'box', [0, .365, 0], [.078, .024, .024], 'hhmdStripe');
 
-
-
-
-
-
-
-    const decalBack = depPart(hhmd, 'sign', [0, .255, -.0115], [.068, .22, 1], depHhmdDecalFront);
-
-
-
-
-
-
-
+    // High-contrast Garrett SuperScanner decals (Front & Back - zero Z-fighting, non-mirrored)
+    depPart(hhmd, 'sign', [0, .255, .0125], [.068, .22, 1], depHhmdDecalFront);
+    const decalBack = depPart(hhmd, 'sign', [0, .255, -.0125], [.068, .22, 1], depHhmdDecalBack);
     decalBack.rotation.y = Math.PI;
 
 

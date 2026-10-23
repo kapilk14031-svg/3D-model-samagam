@@ -7,6 +7,10 @@
       <span class="brand-sub">Bhodwal Majri, Panipat · 29.4131° N, 76.8488° E · Study Revision 15</span>
     </div>
     <div class="header-actions">
+      <button type="button" class="action-pill" id="gms-roster-btn" title="View, Filter and Print/Export Deployed Duty Roster">📋 Duty Roster</button>
+      <button type="button" class="action-pill" id="gms-sectors-btn" title="Toggle 3D Tactical Security Sectors">🛡️ Sectors</button>
+      <button type="button" class="action-pill" id="gms-evac-btn" title="Toggle Emergency Evacuation Corridors">🚨 Evac Routes</button>
+      <button type="button" class="action-pill" id="gms-measure-btn" title="Virtual 3D Measuring Tape (Distance Tool)">📏 Measure</button>
       <button type="button" class="action-pill" id="gms-reset-btn" title="Reset camera to whole compound">↺ Reset View</button>
       <button type="button" class="action-pill" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas">⛶ Fullscreen</button>
     </div>
@@ -153,6 +157,7 @@
               <select class="form-select form-select-sm" id="gms-light">
                 <option value="day" selected>☀️ Day</option>
                 <option value="evening">🌙 Night</option>
+                <option value="fog">🌫️ Winter Fog (November)</option>
               </select>
             </div>
             <div class="layer-divider"></div>
@@ -241,6 +246,211 @@
         <div class="vvip-finish-buttons">
           <button type="button" class="btn btn-primary" id="vvip-replay-btn">↺ Replay Protocol</button>
           <button type="button" class="btn btn-secondary" id="vvip-done-btn">✕ Return to Standard 3D Map</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tactical Sectors Legend Floating Card -->
+    <div id="gms-sectors-legend" class="canvas-legend-card" style="display:none;">
+      <div class="legend-card-header">
+        <span class="legend-card-title">🛡️ Tactical Security Sectors</span>
+        <button type="button" class="legend-card-close" id="sectors-legend-close" title="Close Legend">✕</button>
+      </div>
+      <div class="legend-card-body">
+        <div class="legend-item" data-sector="1">
+          <span class="legend-badge sec-badge-1">SEC-1</span>
+          <div class="legend-info">
+            <span class="legend-name">Sector 1: Helipad &amp; Convoy</span>
+            <span class="legend-count" id="legend-count-sec1">0 deployed</span>
+          </div>
+        </div>
+        <div class="legend-item" data-sector="2">
+          <span class="legend-badge sec-badge-2">SEC-2</span>
+          <div class="legend-info">
+            <span class="legend-name">Sector 2: Main Gate &amp; Perimeter</span>
+            <span class="legend-count" id="legend-count-sec2">0 deployed</span>
+          </div>
+        </div>
+        <div class="legend-item" data-sector="3">
+          <span class="legend-badge sec-badge-3">SEC-3</span>
+          <div class="legend-info">
+            <span class="legend-name">Sector 3: Auditorium &amp; Stage</span>
+            <span class="legend-count" id="legend-count-sec3">0 deployed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emergency Evacuation Routes Floating Card -->
+    <div id="gms-evac-legend" class="canvas-legend-card" style="display:none;">
+      <div class="legend-card-header">
+        <span class="legend-card-title">🚨 Emergency Evacuation Corridors</span>
+        <button type="button" class="legend-card-close" id="evac-legend-close" title="Close Legend">✕</button>
+      </div>
+      <div class="legend-card-body">
+        <div class="legend-item">
+          <span class="legend-dot evac-dot-primary"></span>
+          <div class="legend-info">
+            <span class="legend-name">🟢 Primary VVIP Corridor</span>
+            <span class="legend-sub">Stage ➔ West Gate ➔ Main Gate ➔ Helipad H-1</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot evac-dot-contingency"></span>
+          <div class="legend-info">
+            <span class="legend-name">🔴 Secondary Contingency Route</span>
+            <span class="legend-sub">Auditorium Rear / Lounge ➔ South Road ➔ West Exit</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot evac-dot-medical"></span>
+          <div class="legend-info">
+            <span class="legend-name">🟡 Medical Emergency Transit</span>
+            <span class="legend-sub">Central First Aid ➔ Main Gate ➔ NH-44 Highway</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Virtual 3D Measuring Tape HUD -->
+    <div id="gms-measure-hud" class="canvas-measure-hud" style="display:none;">
+      <div class="measure-hud-header">
+        <span class="measure-hud-title">📏 3D Distance Measurement Tool</span>
+        <button type="button" class="measure-hud-close" id="measure-hud-close" title="Exit Measurement Tool">✕</button>
+      </div>
+      <div class="measure-hud-body">
+        <div class="measure-step-hint" id="measure-step-hint">Click on ground or building for <b>Point A</b></div>
+        <div class="measure-stats-row" id="measure-stats-row" style="display:none;">
+          <div class="measure-stat-box">
+            <span class="stat-lbl">Line of Sight</span>
+            <span class="stat-val" id="stat-dist-3d">0.0 m</span>
+          </div>
+          <div class="measure-stat-box">
+            <span class="stat-lbl">Ground Distance</span>
+            <span class="stat-val" id="stat-dist-ground">0.0 m</span>
+          </div>
+          <div class="measure-stat-box">
+            <span class="stat-lbl">Height Diff</span>
+            <span class="stat-val" id="stat-dist-height">0.0 m</span>
+          </div>
+          <div class="measure-stat-box">
+            <span class="stat-lbl">Est. Walk</span>
+            <span class="stat-val" id="stat-dist-walk">0s</span>
+          </div>
+        </div>
+        <div class="measure-btn-row">
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="measure-clear-btn" style="padding:4px 10px;font-size:11px;">Clear / New Measurement</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Duty Roster Modal (Interactive & Print-Ready) -->
+    <div id="gms-roster-modal" class="roster-modal-backdrop" style="display:none;">
+      <div class="roster-modal-dialog">
+        <div class="roster-modal-header">
+          <div class="roster-header-title-box">
+            <span class="roster-badge-icon">📋</span>
+            <div>
+              <h2 class="roster-title">Police Security Deployment Scheme &amp; Duty Roster</h2>
+              <span class="roster-subtitle">79th Nirankari Sant Samagam · Gyan Mansarovar &amp; Helipad Complex, Bhodwal Majri</span>
+            </div>
+          </div>
+          <div class="roster-header-actions">
+            <button type="button" class="btn btn-sm btn-primary" id="roster-print-btn" title="Print official duty sheet or save as PDF">🖨️ Print / Save PDF</button>
+            <button type="button" class="btn btn-sm btn-secondary" id="roster-csv-btn" title="Download deployment data as CSV / Excel">📥 Export CSV</button>
+            <button type="button" class="roster-close-btn" id="roster-close-btn" title="Close Roster">✕</button>
+          </div>
+        </div>
+
+        <!-- Roster Metrics Strip -->
+        <div class="roster-metrics-strip">
+          <div class="roster-metric-chip metric-total">
+            <span class="metric-val" id="roster-count-total">0</span>
+            <span class="metric-lbl">Total Deployed</span>
+          </div>
+          <div class="roster-metric-chip metric-sec1">
+            <span class="metric-val" id="roster-count-sec1">0</span>
+            <span class="metric-lbl">Sector 1 (Helipad)</span>
+          </div>
+          <div class="roster-metric-chip metric-sec2">
+            <span class="metric-val" id="roster-count-sec2">0</span>
+            <span class="metric-lbl">Sector 2 (Main Gate)</span>
+          </div>
+          <div class="roster-metric-chip metric-sec3">
+            <span class="metric-val" id="roster-count-sec3">0</span>
+            <span class="metric-lbl">Sector 3 (Auditorium)</span>
+          </div>
+          <div class="roster-metric-chip metric-officers">
+            <span class="metric-val" id="roster-count-officers">0</span>
+            <span class="metric-lbl">Police Officers</span>
+          </div>
+          <div class="roster-metric-chip metric-equip">
+            <span class="metric-val" id="roster-count-equip">0</span>
+            <span class="metric-lbl">Security Assets</span>
+          </div>
+        </div>
+
+        <!-- Roster Filter Controls -->
+        <div class="roster-filter-bar">
+          <div class="roster-search-wrap">
+            <input type="text" id="roster-search-input" class="roster-search-field" placeholder="🔍 Live search by officer name, belt number, duty place, mobile or sector...">
+          </div>
+          <div class="roster-filters-group">
+            <select id="roster-sector-filter" class="form-select form-select-sm">
+              <option value="all">All Tactical Sectors</option>
+              <option value="1">Sector 1 (Helipad &amp; Convoy)</option>
+              <option value="2">Sector 2 (Main Gate &amp; Perimeter)</option>
+              <option value="3">Sector 3 (Auditorium &amp; Stage)</option>
+            </select>
+            <select id="roster-type-filter" class="form-select form-select-sm">
+              <option value="all">All Deployment Types</option>
+              <option value="officers">All Officers (Civil &amp; Armed)</option>
+              <option value="vehicles">Vehicles &amp; Mobiles (QRT/Ambulance/Fire)</option>
+              <option value="scanners">Access &amp; Scanners (DFMD/HHMD/X-Ray)</option>
+              <option value="security">Perimeter, CCTV &amp; Barricades</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Roster Table Container -->
+        <div class="roster-table-scroll">
+          <table class="roster-table" id="roster-table">
+            <thead>
+              <tr>
+                <th style="width:40px;">#</th>
+                <th>Officer / Post Name</th>
+                <th>Assigned Duty Place</th>
+                <th>Tactical Sector</th>
+                <th>Belt No.</th>
+                <th>Contact Mobile</th>
+                <th>Type / Equipment</th>
+                <th>Coordinates</th>
+                <th class="roster-col-action" style="width:75px;">3D Action</th>
+              </tr>
+            </thead>
+            <tbody id="roster-tbody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+          <div id="roster-empty-state" class="roster-empty" style="display:none;">
+            <span>No deployed posts match your search or filter.</span>
+          </div>
+        </div>
+
+        <!-- Print Official Signature Footer (Print Only) -->
+        <div class="roster-print-footer">
+          <div class="print-sign-box">
+            <span>Prepared By: ___________________</span>
+            <span>Duty Officer / Panipat Police Control</span>
+          </div>
+          <div class="print-sign-box">
+            <span>Verified By: ___________________</span>
+            <span>DSP / Sector Commander</span>
+          </div>
+          <div class="print-sign-box">
+            <span>Approved By: ___________________</span>
+            <span>Superintendent of Police, Panipat</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1908,6 +2118,293 @@
   border-color: #fca5a5;
 }
 
+
+/* Tactical Features Styles: Sectors, Measuring Tape, Evac Routes, Roster Modal & Print */
+.canvas-legend-card {
+  position: absolute;
+  top: 60px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  padding: 12px 14px;
+  z-index: 45;
+  min-width: 260px;
+  max-width: 320px;
+  font-family: inherit;
+}
+.legend-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+.legend-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.legend-card-close {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.legend-card-close:hover { color: #0f172a; }
+.legend-card-body { display: flex; flex-direction: column; gap: 8px; }
+.legend-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.legend-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+.sec-badge-1 { background: #0ea5e9; }
+.sec-badge-2 { background: #f59e0b; }
+.sec-badge-3 { background: #10b981; }
+.legend-info { display: flex; flex-direction: column; }
+.legend-name { font-weight: 600; color: #1e293b; }
+.legend-count { font-size: 11px; color: #64748b; }
+.legend-sub { font-size: 11px; color: #64748b; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.evac-dot-primary { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.evac-dot-contingency { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.evac-dot-medical { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+
+/* 3D Measuring Tape HUD */
+.canvas-measure-hud {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  padding: 12px 18px;
+  z-index: 45;
+  min-width: 320px;
+  max-width: 480px;
+}
+.measure-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.measure-hud-title { font-size: 13px; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
+.measure-hud-close { background: none; border: none; color: #94a3b8; font-size: 14px; cursor: pointer; }
+.measure-hud-close:hover { color: #ffffff; }
+.measure-step-hint { font-size: 12px; color: #cbd5e1; text-align: center; margin: 4px 0; }
+.measure-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 10px 0 6px 0;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 8px;
+  padding: 8px;
+}
+.measure-stat-box { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.stat-lbl { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-val { font-size: 13px; font-weight: 700; color: #f8fafc; }
+.measure-btn-row { display: flex; justify-content: center; gap: 8px; margin-top: 6px; }
+
+/* Duty Roster Modal */
+.roster-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.roster-modal-dialog {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+.roster-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+}
+.roster-header-title-box { display: flex; align-items: center; gap: 12px; }
+.roster-badge-icon { font-size: 24px; }
+.roster-title { margin: 0; font-size: 17px; font-weight: 700; color: #0f172a; }
+.roster-subtitle { font-size: 12px; color: #64748b; }
+.roster-header-actions { display: flex; align-items: center; gap: 8px; }
+.roster-close-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #475569;
+}
+.roster-close-btn:hover { background: #e2e8f0; color: #0f172a; }
+
+.roster-metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+.roster-metric-chip {
+  padding: 8px 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+.metric-val { font-size: 18px; font-weight: 700; color: #0f172a; line-height: 1.1; }
+.metric-lbl { font-size: 11px; color: #64748b; font-weight: 500; }
+.metric-sec1 { border-color: #bae6fd; background: #f0f9ff; }
+.metric-sec1 .metric-val { color: #0284c7; }
+.metric-sec2 { border-color: #fde68a; background: #fffbeb; }
+.metric-sec2 .metric-val { color: #d97706; }
+.metric-sec3 { border-color: #a7f3d0; background: #ecfdf5; }
+.metric-sec3 .metric-val { color: #059669; }
+
+.roster-filter-bar {
+  padding: 10px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+.roster-search-wrap { flex: 1; }
+.roster-search-field {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+}
+.roster-search-field:focus { border-color: #0284c7; box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
+.roster-filters-group { display: flex; gap: 8px; }
+
+.roster-table-scroll {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(90vh - 270px);
+}
+.roster-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.roster-table th {
+  position: sticky;
+  top: 0;
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 600;
+  padding: 9px 12px;
+  border-bottom: 2px solid #cbd5e1;
+  white-space: nowrap;
+}
+.roster-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+}
+.roster-table tr:hover td { background: #f8fafc; }
+.roster-sector-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.roster-btn-jump {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #0284c7;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.roster-btn-jump:hover { background: #0284c7; color: #ffffff; }
+.roster-empty { padding: 30px; text-align: center; color: #64748b; font-size: 13px; }
+.roster-print-footer { display: none; }
+
+/* Print Specific Rules */
+@media print {
+  body * { visibility: hidden !important; }
+  #gms-roster-modal, #gms-roster-modal * { visibility: visible !important; }
+  #gms-roster-modal {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background: #ffffff !important;
+    display: block !important;
+    padding: 0 !important;
+  }
+  .roster-modal-dialog {
+    max-width: 100% !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .roster-header-actions, .roster-filter-bar, .roster-col-action { display: none !important; }
+  .roster-table-scroll { max-height: none !important; overflow: visible !important; }
+  .roster-table th { background: #e2e8f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .roster-table td, .roster-table th { border: 1px solid #94a3b8 !important; }
+  .roster-print-footer {
+    display: flex !important;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding: 20px 10px 0 10px;
+    border-top: 1px dashed #64748b;
+  }
+  .print-sign-box { display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: #1e293b; }
+}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
@@ -1942,11 +2439,20 @@ const sp=new THREE.Shape();data.profiles.scallopedSpandrel.forEach((p,i)=>i?sp.l
 geos.lotusDome=new THREE.LatheGeometry(data.profiles.lotusDome.map(p=>new THREE.Vector2(...p)),64);
 for(const [key,m] of Object.entries(data.profiles.lotusMeshes||{})){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(m.vertices.flat(),3));g.setIndex(m.faces.flat());g.computeVertexNormals();geos[key]=g;}
 const mats=Object.fromEntries(Object.entries(data.colors).map(([k,v])=>[k,new THREE.MeshStandardMaterial({color:new THREE.Color(v).convertSRGBToLinear(),roughness:.85,metalness:k==='gold'?.25:0})]));mats.light.emissive=new THREE.Color(data.colors.light).convertSRGBToLinear();mats.light.emissiveIntensity=.35;
-function texture(kind){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');let seed=98765;const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};if(kind==='wood'){for(let y=0;y<512;y+=32){const baseR=175+Math.floor(rand()*25),baseG=130+Math.floor(rand()*20),baseB=85+Math.floor(rand()*18);ctx.fillStyle=`rgb(${baseR},${baseG},${baseB})`;ctx.fillRect(0,y,512,31);ctx.fillStyle='rgba(45,30,15,0.55)';ctx.fillRect(0,y+31,512,1);for(let x=0;x<512;x+=128){const xx=x+(y%64?64:0);ctx.fillRect(xx,y,1.5,31);}ctx.strokeStyle='rgba(60,40,20,0.12)';for(let k=0;k<60;k++){const yy=y+rand()*30;ctx.beginPath();ctx.moveTo(rand()*512,yy);ctx.lineTo(rand()*512,yy+0.5);ctx.stroke();}}}else if(kind==='grass'){ctx.fillStyle='#449826';ctx.fillRect(0,0,512,512);for(let i=0;i<4000;i++){ctx.fillStyle=`rgba(35,78,22,${0.15+rand()*0.25})`;ctx.fillRect(rand()*512,rand()*512,4+rand()*8,4+rand()*8);}for(let i=0;i<26000;i++){const tone=rand();ctx.fillStyle=tone>0.65?`rgba(110,198,52,${0.35+rand()*0.45})`:(tone>0.3?`rgba(82,165,40,${0.3+rand()*0.4})`:`rgba(55,120,30,${0.25+rand()*0.35})`);ctx.fillRect(rand()*512,rand()*512,1+rand()*1.6,2+rand()*4.5);}for(let i=0;i<5000;i++){ctx.fillStyle=`rgba(195,225,85,${0.2+rand()*0.3})`;ctx.fillRect(rand()*512,rand()*512,1,2);}}else if(kind==='paving'){ctx.fillStyle='#ede5d5';ctx.fillRect(0,0,512,512);for(let ty=0;ty<512;ty+=64){for(let tx=0;tx<512;tx+=64){const v=Math.floor((rand()-0.5)*18);ctx.fillStyle=`rgba(${v>0?255:40},${v>0?250:35},${v>0?235:30},${Math.abs(v)/255*0.35})`;ctx.fillRect(tx,ty,64,64);}}for(let i=0;i<12000;i++){const cval=Math.floor(rand()*70);ctx.fillStyle=`rgba(${cval},${cval},${cval},${0.04+rand()*0.1})`;ctx.fillRect(rand()*512,rand()*512,1+rand()*2,1+rand()*2);}ctx.strokeStyle='rgba(110,100,85,0.4)';ctx.lineWidth=2;for(let i=0;i<=512;i+=64){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}else if(kind==='asphalt'){ctx.fillStyle='#2c323c';ctx.fillRect(0,0,512,512);for(let i=0;i<32000;i++){const g=55+Math.floor(rand()*55);ctx.fillStyle=`rgba(${g},${g+4},${g+8},${0.15+rand()*0.3})`;ctx.fillRect(rand()*512,rand()*512,1+rand()*2,1+rand()*2);}for(let i=0;i<6000;i++){ctx.fillStyle=`rgba(210,220,230,${0.1+rand()*0.15})`;ctx.fillRect(rand()*512,rand()*512,1,1);}}else if(kind==='fabric'){ctx.fillStyle='#b8b19c';ctx.fillRect(0,0,512,512);ctx.strokeStyle='rgba(40,35,25,0.15)';for(let i=0;i<512;i+=4){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(kind==='wood'?4:kind==='grass'?8:6,kind==='wood'?5:kind==='grass'?8:6);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t;}
+function texture(kind){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');let seed=98765;const rand=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};if(kind==='wood'){for(let y=0;y<512;y+=32){const baseR=175+Math.floor(rand()*25),baseG=130+Math.floor(rand()*20),baseB=85+Math.floor(rand()*18);ctx.fillStyle='rgb('+baseR+','+baseG+','+baseB+')';ctx.fillRect(0,y,512,31);ctx.fillStyle='rgba(45,30,15,0.55)';ctx.fillRect(0,y+31,512,1);for(let x=0;x<512;x+=128){const xx=x+(y%64?64:0);ctx.fillRect(xx,y,1.5,31);}ctx.strokeStyle='rgba(60,40,20,0.12)';for(let k=0;k<60;k++){const yy=y+rand()*30;ctx.beginPath();ctx.moveTo(rand()*512,yy);ctx.lineTo(rand()*512,yy+0.5);ctx.stroke();}}}else if(kind==='grass'){ctx.fillStyle='#449826';ctx.fillRect(0,0,512,512);for(let i=0;i<4000;i++){ctx.fillStyle='rgba(35,78,22,'+(0.15+rand()*0.25)+')';ctx.fillRect(rand()*512,rand()*512,4+rand()*8,4+rand()*8);}for(let i=0;i<26000;i++){const tone=rand();ctx.fillStyle=tone>0.65?'rgba(110,198,52,'+(0.35+rand()*0.45)+')':(tone>0.3?'rgba(82,165,40,'+(0.3+rand()*0.4)+')':'rgba(55,120,30,'+(0.25+rand()*0.35)+')');ctx.fillRect(rand()*512,rand()*512,1+rand()*1.6,2+rand()*4.5);}for(let i=0;i<5000;i++){ctx.fillStyle='rgba(195,225,85,'+(0.2+rand()*0.3)+')';ctx.fillRect(rand()*512,rand()*512,1,2);}}else if(kind==='paving'){ctx.fillStyle='#ede5d5';ctx.fillRect(0,0,512,512);for(let ty=0;ty<512;ty+=64){for(let tx=0;tx<512;tx+=64){const v=Math.floor((rand()-0.5)*18);ctx.fillStyle='rgba('+(v>0?255:40)+','+(v>0?250:35)+','+(v>0?235:30)+','+(Math.abs(v)/255*0.35)+')';ctx.fillRect(tx,ty,64,64);}}for(let i=0;i<12000;i++){const cval=Math.floor(rand()*70);ctx.fillStyle='rgba('+cval+','+cval+','+cval+','+(0.04+rand()*0.1)+')';ctx.fillRect(rand()*512,rand()*512,1+rand()*2,1+rand()*2);}ctx.strokeStyle='rgba(110,100,85,0.4)';ctx.lineWidth=2;for(let i=0;i<=512;i+=64){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}else if(kind==='asphalt'){ctx.fillStyle='#2c323c';ctx.fillRect(0,0,512,512);for(let i=0;i<32000;i++){const g=55+Math.floor(rand()*55);ctx.fillStyle='rgba('+g+','+(g+4)+','+(g+8)+','+(0.15+rand()*0.3)+')';ctx.fillRect(rand()*512,rand()*512,1+rand()*2,1+rand()*2);}for(let i=0;i<6000;i++){ctx.fillStyle='rgba(210,220,230,'+(0.1+rand()*0.15)+')';ctx.fillRect(rand()*512,rand()*512,1,1);}}else if(kind==='fabric'){ctx.fillStyle='#b8b19c';ctx.fillRect(0,0,512,512);ctx.strokeStyle='rgba(40,35,25,0.15)';for(let i=0;i<512;i+=4){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,512);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(512,i);ctx.stroke();}}else if(kind==='soil'){ctx.fillStyle='#4a331e';ctx.fillRect(0,0,512,512);for(let y=0;y<512;y+=16){ctx.fillStyle=rand()>0.5?'rgba(42,26,14,0.45)':'rgba(88,60,36,0.35)';ctx.fillRect(0,y,512,8+Math.floor(rand()*4));}for(let i=0;i<18000;i++){const tone=rand();ctx.fillStyle=tone>0.7?'rgba(98,68,40,'+(0.25+rand()*0.35)+')':tone>0.35?'rgba(38,24,12,'+(0.3+rand()*0.4)+')':'rgba(120,84,50,'+(0.18+rand()*0.25)+')';ctx.fillRect(rand()*512,rand()*512,1.5+rand()*3.5,1.5+rand()*2.5);}for(let i=0;i<10000;i++){ctx.fillStyle='rgba(25,15,8,'+(0.15+rand()*0.25)+')';ctx.fillRect(rand()*512,rand()*512,1+rand()*1.5,1+rand()*1.5);}for(let i=0;i<3000;i++){ctx.fillStyle='rgba(142,88,48,'+(0.15+rand()*0.2)+')';ctx.fillRect(rand()*512,rand()*512,1,1);}}else if(kind==='crop'){ctx.fillStyle='#2f681a';ctx.fillRect(0,0,512,512);for(let y=0;y<512;y+=12){ctx.fillStyle='rgba(26,56,14,0.42)';ctx.fillRect(0,y+8,512,4);ctx.fillStyle='rgba(65,138,34,0.48)';ctx.fillRect(0,y,512,8);}for(let i=0;i<24000;i++){const tone=rand();ctx.fillStyle=tone>0.65?'rgba(92,185,42,'+(0.35+rand()*0.45)+')':tone>0.3?'rgba(56,128,26,'+(0.3+rand()*0.4)+')':'rgba(38,88,18,'+(0.3+rand()*0.35)+')';ctx.fillRect(rand()*512,rand()*512,1.5+rand()*2.2,2+rand()*4.0);}for(let i=0;i<6000;i++){ctx.fillStyle='rgba(154,228,68,'+(0.22+rand()*0.35)+')';ctx.fillRect(rand()*512,rand()*512,1.2+rand()*1.8,1.5+rand()*2.0);}for(let i=0;i<4000;i++){ctx.fillStyle='rgba(48,32,18,'+(0.2+rand()*0.3)+')';ctx.fillRect(rand()*512,rand()*512,1.5+rand()*2,1.5+rand()*2);}}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(kind==='wood'?4:kind==='grass'?8:kind==='soil'?10:kind==='crop'?10:6,kind==='wood'?5:kind==='grass'?8:kind==='soil'?10:kind==='crop'?10:6);t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return t;}
 mats.wood.map=texture('wood');mats.wood.roughness=0.52;
 mats.paving.map=texture('paving');mats.paving.bumpMap=mats.paving.map;mats.paving.bumpScale=0.018;mats.paving.roughness=0.68;
 mats.road.map=texture('asphalt');mats.road.bumpMap=mats.road.map;mats.road.bumpScale=0.015;mats.road.roughness=0.82;
 mats.grass.map=texture('grass');mats.grass.bumpMap=mats.grass.map;mats.grass.bumpScale=0.025;mats.grass.roughness=0.76;
+const soilTex=texture('soil'), cropTex=texture('crop');
+if(mats.soil){mats.soil.map=soilTex;mats.soil.bumpMap=soilTex;mats.soil.bumpScale=0.022;mats.soil.roughness=0.92;mats.soil.color.set('#4a321e').convertSRGBToLinear();}
+if(mats.helipadFurrow){mats.helipadFurrow.map=soilTex;mats.helipadFurrow.bumpMap=soilTex;mats.helipadFurrow.bumpScale=0.024;mats.helipadFurrow.roughness=0.94;mats.helipadFurrow.color.set('#452f1c').convertSRGBToLinear();}
+if(mats.fieldDark){mats.fieldDark.map=soilTex;mats.fieldDark.bumpMap=soilTex;mats.fieldDark.bumpScale=0.020;mats.fieldDark.roughness=0.90;mats.fieldDark.color.set('#3a2615').convertSRGBToLinear();}
+if(mats.fieldDry){mats.fieldDry.map=soilTex;mats.fieldDry.bumpMap=soilTex;mats.fieldDry.bumpScale=0.018;mats.fieldDry.roughness=0.88;mats.fieldDry.color.set('#6a4c2f').convertSRGBToLinear();}
+if(mats.helipadFieldDry){mats.helipadFieldDry.map=soilTex;mats.helipadFieldDry.bumpMap=soilTex;mats.helipadFieldDry.bumpScale=0.022;mats.helipadFieldDry.roughness=0.88;mats.helipadFieldDry.color.set('#5a4228').convertSRGBToLinear();}
+if(mats.helipadFieldGreen){mats.helipadFieldGreen.map=cropTex;mats.helipadFieldGreen.bumpMap=cropTex;mats.helipadFieldGreen.bumpScale=0.025;mats.helipadFieldGreen.roughness=0.78;mats.helipadFieldGreen.color.set('#3d881e').convertSRGBToLinear();}
+if(mats.helipadFieldStubble){mats.helipadFieldStubble.map=cropTex;mats.helipadFieldStubble.bumpMap=cropTex;mats.helipadFieldStubble.bumpScale=0.024;mats.helipadFieldStubble.roughness=0.80;mats.helipadFieldStubble.color.set('#489422').convertSRGBToLinear();}
+if(mats.fieldGreen){mats.fieldGreen.map=cropTex;mats.fieldGreen.bumpMap=cropTex;mats.fieldGreen.bumpScale=0.025;mats.fieldGreen.roughness=0.78;mats.fieldGreen.color.set('#3d881e').convertSRGBToLinear();}
 mats.seat.map=texture('fabric');mats.seat.bumpMap=mats.seat.map;mats.seat.bumpScale=0.012;mats.seat.roughness=0.88;
 mats.acoustic.map=texture('fabric');mats.acoustic.bumpMap=mats.acoustic.map;mats.acoustic.bumpScale=0.01;
 mats.metal.metalness=0.92;mats.metal.roughness=0.15;
@@ -1981,6 +2487,11 @@ for(const [key,items] of Object.entries(batches)){
 function buildRoadInfrastructure(targetScene) {
   const infraGroup = new THREE.Group();
   infraGroup.name = 'roadInfrastructureGroup';
+  infraGroup.userData = {
+    streetLights: [],
+    lightCones: [],
+    ledLensMat: null
+  };
 
   // Materials
   const poleMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.78, metalness: 0.25 });
@@ -1994,6 +2505,7 @@ function buildRoadInfrastructure(targetScene) {
     emissiveIntensity: 3.6,
     roughness: 0.15
   });
+  infraGroup.userData.ledLensMat = ledLensMat;
   const wireMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.65, metalness: 0.45 });
   const lightConeMat = new THREE.MeshBasicMaterial({
     color: 0xfff6dd,
@@ -2152,11 +2664,13 @@ function buildRoadInfrastructure(targetScene) {
     const cone = new THREE.Mesh(coneGeo, lightConeMat);
     cone.position.set(0, 0.35, 1.95);
     armGroup.add(cone);
+    infraGroup.userData.lightCones.push(cone);
 
     // Authentic roadside point light illumination
     const streetLight = new THREE.PointLight(0xfffae6, 0.65, 22, 1.25);
     streetLight.position.set(0, 0.25, 1.95);
     armGroup.add(streetLight);
+    infraGroup.userData.streetLights.push(streetLight);
 
     poleGroup.add(armGroup);
     infraGroup.add(poleGroup);
@@ -2219,6 +2733,7 @@ function buildRoadInfrastructure(targetScene) {
 }
 
 const roadInfraGroup = buildRoadInfrastructure(scene);
+setLighting();
 const geo=data.georeference,referenceGroup=new THREE.Group();referenceGroup.visible=false;const rc=geo.raster.corners;
 const referenceMesh=new THREE.Mesh();
 function transformPoint(p,m){return [p[0]*m[0][0]+p[2]*m[1][0]+m[2][0],p[1],p[0]*m[0][1]+p[2]*m[1][1]+m[2][1]];}
@@ -2231,7 +2746,44 @@ const select=root.querySelector('#gms-view'), eventInput=root.querySelector('#gm
 let current='campus';
 function draw(){renderer.render(scene,camera);if(typeof depUpdate==='function')depUpdate();const rect=host.getBoundingClientRect();for(const l of labels){const v=l.p.clone().project(camera);l.e.style.display=(['hall','stage','lounge','entry','garden','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(current)||(l.context&&current!=='neighborhood')||(!l.context&&current==='neighborhood')||v.z>1||Math.abs(v.x)>.85||Math.abs(v.y)>.9)?'none':'block';l.e.style.left=((v.x+1)*rect.width/2)+'px';l.e.style.top=((-v.y+1)*rect.height/2)+'px';}}
 function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:current,lighting:lightSelect.value,eventProposal:eventInput.checked,nearbyBlocks:contextInput.checked,satelliteDateObjects:snapshotInput.checked},privateContent:null}).catch(()=>{});}
-function setLighting(){lotusRoomLight.visible=current==='lotusinside';const internal=['hall','stage'].includes(current),evening=lightSelect.value==='evening';light.intensity=internal?0.35:evening?0.2:1.40;hemi.intensity=internal?0.42:evening?0.32:0.68;ambient.intensity=current==='lotusinside'?0.55:internal?0.32:0.26;interiorLights.visible=internal;interiorLights.children.forEach(l=>l.intensity=0.75);hallKey.visible=internal;eveningLights.visible=evening&&!internal;renderer.toneMappingExposure=internal?1.0:evening?1.05:1.08;scene.background=evening&&!internal?new THREE.Color('#152735'):null;mats.light.emissiveIntensity=evening?2.0:0.7;mats.lotusGlass.emissiveIntensity=evening?0.65:0.1;mats.lotusFinial.emissiveIntensity=evening?2.0:1.0;}
+function setLighting(){
+  lotusRoomLight.visible=current==='lotusinside';
+  const internal=['hall','stage'].includes(current), evening=lightSelect.value==='evening', isFog=lightSelect.value==='fog';
+  if (typeof roadInfraGroup !== 'undefined' && roadInfraGroup && roadInfraGroup.userData) {
+    const isNight = evening && !internal;
+    if (roadInfraGroup.userData.lightCones) {
+      roadInfraGroup.userData.lightCones.forEach(c => { c.visible = isNight; });
+    }
+    if (roadInfraGroup.userData.streetLights) {
+      roadInfraGroup.userData.streetLights.forEach(l => {
+        l.visible = isNight;
+        l.intensity = isNight ? 0.85 : 0.0;
+      });
+    }
+    if (roadInfraGroup.userData.ledLensMat) {
+      roadInfraGroup.userData.ledLensMat.emissiveIntensity = isNight ? 3.6 : 0.0;
+      roadInfraGroup.userData.ledLensMat.color.set(isNight ? 0xfffaed : 0x718096);
+    }
+  }
+  if (isFog && !internal) {
+    scene.fog = new THREE.Fog(0xd4e2ec, 35, 430);
+    scene.background = new THREE.Color(0xd4e2ec);
+  } else {
+    scene.fog = null;
+    scene.background = evening && !internal ? new THREE.Color('#152735') : null;
+  }
+  light.intensity = internal ? 0.35 : evening ? 0.2 : isFog ? 0.95 : 1.40;
+  hemi.intensity = internal ? 0.42 : evening ? 0.32 : isFog ? 0.75 : 0.68;
+  ambient.intensity = current === 'lotusinside' ? 0.55 : internal ? 0.32 : isFog ? 0.45 : 0.26;
+  interiorLights.visible = internal;
+  interiorLights.children.forEach(l => l.intensity = 0.75);
+  hallKey.visible = internal;
+  eveningLights.visible = evening && !internal;
+  renderer.toneMappingExposure = internal ? 1.0 : evening ? 1.05 : isFog ? 1.12 : 1.08;
+  mats.light.emissiveIntensity = evening ? 2.0 : 0.7;
+  mats.lotusGlass.emissiveIntensity = evening ? 0.65 : 0.1;
+  mats.lotusFinial.emissiveIntensity = evening ? 2.0 : 1.0;
+}
 
 function applyView(){
  motion=null;
@@ -2432,6 +2984,555 @@ root.addEventListener('keydown',handleFreeCameraFlight);
 function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);if(current==='alignment'){const xs=rc.map(p=>p[0]),zs=rc.map(p=>p[1]),ww=Math.max(...xs)-Math.min(...xs),dd=Math.max(...zs)-Math.min(...zs),height=Math.max(dd,ww/camera.aspect)/(2*Math.tan(camera.fov*Math.PI/360))*1.1;camera.position.set((Math.max(...xs)+Math.min(...xs))/2,height,(Math.max(...zs)+Math.min(...zs))/2+.01);controls.target.set(camera.position.x,0,camera.position.z-.01);controls.update();}draw();}new ResizeObserver(resize).observe(host);
 function restore(s){const v=s?.modelContent;if(!v)return;if(['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(v.view))select.value=v.view;lightSelect.value=v.lighting==='evening'?'evening':'day';eventInput.checked=!!v.eventProposal;contextInput.checked=v.nearbyBlocks!==false;snapshotInput.checked=v.satelliteDateObjects!==false;applyView();}
 window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
+
+  // ==========================================
+  // TACTICAL SUITE: SECTORS, EVACUATION, MEASURE, ROSTER
+  // ==========================================
+  const sectorsGroup = new THREE.Group(); scene.add(sectorsGroup); sectorsGroup.visible = false;
+  const evacGroup = new THREE.Group(); scene.add(evacGroup); evacGroup.visible = false;
+  const measureGroup = new THREE.Group(); scene.add(measureGroup); measureGroup.visible = true;
+
+  function getTacticalSector(item) {
+    const z = typeof item.z === 'number' ? item.z : (item.p ? item.p[2] : 0);
+    const d = (item.duty || '').toLowerCase();
+    if (z < -135 || d.includes('helipad')) {
+      return { id: 1, name: 'Sector 1: Helipad & Convoy', short: 'Sector 1', tag: 'SEC-1', color: '#0ea5e9', bg: '#f0f9ff', border: '#0284c7' };
+    }
+    if (z <= -48 || d.includes('gate') || d.includes('naka') || d.includes('perimeter') || d.includes('road')) {
+      return { id: 2, name: 'Sector 2: Main Gate & Perimeter', short: 'Sector 2', tag: 'SEC-2', color: '#f59e0b', bg: '#fffbeb', border: '#d97706' };
+    }
+    return { id: 3, name: 'Sector 3: Auditorium & Stage', short: 'Sector 3', tag: 'SEC-3', color: '#10b981', bg: '#ecfdf5', border: '#059669' };
+  }
+  window.getTacticalSector = getTacticalSector;
+
+  function makeSectorBadgeSprite(text, color) {
+    const c = document.createElement('canvas');
+    c.width = 512;
+    c.height = 120;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+    if (ctx.roundRect) {
+      ctx.roundRect(8, 8, 496, 104, 18);
+    } else {
+      ctx.rect(8, 8, 496, 104);
+    }
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = color;
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 256, 60);
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false });
+    const sprite = new THREE.Sprite(mat);
+    sprite.scale.set(30, 7.5, 1);
+    return sprite;
+  }
+
+  function makeBoundaryRibbon(zPos, colorHex) {
+    const geom = new THREE.PlaneGeometry(280, 1.4);
+    const mat = new THREE.MeshBasicMaterial({
+      color: colorHex,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.70,
+      depthWrite: false
+    });
+    const mesh = new THREE.Mesh(geom, mat);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.set(-20, 0.38, zPos);
+    return mesh;
+  }
+
+  function build3DSectors() {
+    sectorsGroup.clear();
+    // Boundary ribbons
+    sectorsGroup.add(makeBoundaryRibbon(-135, 0x0ea5e9));
+    sectorsGroup.add(makeBoundaryRibbon(-48, 0xf59e0b));
+
+    // Floating billboard badges
+    const badge1 = makeSectorBadgeSprite('🛡️ SECTOR 1 · HELIPAD & CONVOY', '#0ea5e9');
+    badge1.position.set(25, 12, -185);
+    sectorsGroup.add(badge1);
+
+    const badge2 = makeSectorBadgeSprite('🛡️ SECTOR 2 · MAIN GATE & PERIMETER', '#f59e0b');
+    badge2.position.set(-13, 11, -92);
+    sectorsGroup.add(badge2);
+
+    const badge3 = makeSectorBadgeSprite('🛡️ SECTOR 3 · AUDITORIUM & VVIP STAGE', '#10b981');
+    badge3.position.set(-38, 14, 5);
+    sectorsGroup.add(badge3);
+  }
+  build3DSectors();
+
+  function makeTubeRoute(points, colorHex) {
+    const vPoints = points.map(p => new THREE.Vector3(p[0], p[1], p[2]));
+    const curve = new THREE.CatmullRomCurve3(vPoints);
+    const geom = new THREE.TubeGeometry(curve, 72, 0.52, 8, false);
+    const mat = new THREE.MeshStandardMaterial({
+      color: colorHex,
+      emissive: colorHex,
+      emissiveIntensity: 0.9,
+      roughness: 0.25
+    });
+    return new THREE.Mesh(geom, mat);
+  }
+
+  function build3DEvacuationRoutes() {
+    evacGroup.clear();
+    // 1. Primary VVIP Corridor: Stage -> Gate -> Helipad
+    const primaryPoints = [
+      [-40, 1.35, 13],
+      [-42, 1.35, -25],
+      [-32, 1.35, -42],
+      [-13, 1.35, -61],
+      [-13, 1.35, -135],
+      [10, 1.35, -178],
+      [35, 1.35, -185]
+    ];
+    evacGroup.add(makeTubeRoute(primaryPoints, 0x10b981));
+
+    // 2. Secondary Contingency Route: Stage Rear -> West Road -> Perimeter
+    const contPoints = [
+      [-25, 1.35, 38],
+      [-65, 1.35, 35],
+      [-80, 1.35, 0],
+      [-85, 1.35, -45],
+      [-95, 1.35, -115]
+    ];
+    evacGroup.add(makeTubeRoute(contPoints, 0xef4444));
+
+    // 3. Medical Emergency Route: Central Lawn -> Main Gate -> NH-44
+    const medPoints = [
+      [10, 1.35, -10],
+      [-5, 1.35, -40],
+      [-13, 1.35, -61],
+      [45, 1.35, -61]
+    ];
+    evacGroup.add(makeTubeRoute(medPoints, 0xf59e0b));
+  }
+  build3DEvacuationRoutes();
+
+  // Sector Counts Helper
+  function updateSectorLegendCounts() {
+    if (typeof depItems === 'undefined' || !Array.isArray(depItems)) return;
+    let s1 = 0, s2 = 0, s3 = 0;
+    depItems.forEach(item => {
+      const sec = getTacticalSector(item);
+      if (sec.id === 1) s1++;
+      else if (sec.id === 2) s2++;
+      else s3++;
+    });
+    const c1 = root.querySelector('#legend-count-sec1');
+    const c2 = root.querySelector('#legend-count-sec2');
+    const c3 = root.querySelector('#legend-count-sec3');
+    if (c1) c1.textContent = s1 + ' deployed posts';
+    if (c2) c2.textContent = s2 + ' deployed posts';
+    if (c3) c3.textContent = s3 + ' deployed posts';
+  }
+
+  // Header Toggle Buttons Wiring
+  const sectorsBtn = root.querySelector('#gms-sectors-btn');
+  const sectorsLegend = root.querySelector('#gms-sectors-legend');
+  const sectorsClose = root.querySelector('#sectors-legend-close');
+  if (sectorsBtn) {
+    sectorsBtn.addEventListener('click', () => {
+      sectorsGroup.visible = !sectorsGroup.visible;
+      sectorsBtn.classList.toggle('active', sectorsGroup.visible);
+      if (sectorsLegend) sectorsLegend.style.display = sectorsGroup.visible ? 'block' : 'none';
+      if (sectorsGroup.visible) updateSectorLegendCounts();
+      draw();
+    });
+  }
+  if (sectorsClose) {
+    sectorsClose.addEventListener('click', () => {
+      sectorsGroup.visible = false;
+      if (sectorsBtn) sectorsBtn.classList.remove('active');
+      if (sectorsLegend) sectorsLegend.style.display = 'none';
+      draw();
+    });
+  }
+
+  const evacBtn = root.querySelector('#gms-evac-btn');
+  const evacLegend = root.querySelector('#gms-evac-legend');
+  const evacClose = root.querySelector('#evac-legend-close');
+  if (evacBtn) {
+    evacBtn.addEventListener('click', () => {
+      evacGroup.visible = !evacGroup.visible;
+      evacBtn.classList.toggle('active', evacGroup.visible);
+      if (evacLegend) evacLegend.style.display = evacGroup.visible ? 'block' : 'none';
+      draw();
+    });
+  }
+  if (evacClose) {
+    evacClose.addEventListener('click', () => {
+      evacGroup.visible = false;
+      if (evacBtn) evacBtn.classList.remove('active');
+      if (evacLegend) evacLegend.style.display = 'none';
+      draw();
+    });
+  }
+
+  // ==========================================
+  // VIRTUAL 3D MEASURING TAPE
+  // ==========================================
+  let measureActive = false;
+  let measurePoints = [];
+  let measureTempLine = null;
+  let measurePermLine = null;
+  let pinA = null;
+  let pinB = null;
+
+  function makeMeasurePin(pos, colorHex) {
+    const grp = new THREE.Group();
+    // Sphere
+    const sph = new THREE.Mesh(
+      new THREE.SphereGeometry(0.5, 16, 16),
+      new THREE.MeshStandardMaterial({ color: colorHex, emissive: colorHex, emissiveIntensity: 1.0 })
+    );
+    sph.position.set(0, 1.8, 0);
+    grp.add(sph);
+
+    // Pointer Cone
+    const cone = new THREE.Mesh(
+      new THREE.ConeGeometry(0.35, 1.6, 16),
+      new THREE.MeshStandardMaterial({ color: colorHex, emissive: colorHex, emissiveIntensity: 0.6 })
+    );
+    cone.position.set(0, 0.8, 0);
+    cone.rotation.x = Math.PI;
+    grp.add(cone);
+
+    // Ground Ring
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(0.6, 0.9, 24),
+      new THREE.MeshBasicMaterial({ color: colorHex, side: THREE.DoubleSide })
+    );
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.set(0, 0.05, 0);
+    grp.add(ring);
+
+    grp.position.copy(pos);
+    return grp;
+  }
+
+  function clearMeasurement() {
+    measurePoints = [];
+    if (pinA) { measureGroup.remove(pinA); pinA = null; }
+    if (pinB) { measureGroup.remove(pinB); pinB = null; }
+    if (measureTempLine) { measureGroup.remove(measureTempLine); measureTempLine = null; }
+    if (measurePermLine) { measureGroup.remove(measurePermLine); measurePermLine = null; }
+    const hint = root.querySelector('#measure-step-hint');
+    if (hint) {
+      hint.style.display = 'block';
+      hint.innerHTML = 'Click on ground or building for <b>Point A</b>';
+    }
+    const statsRow = root.querySelector('#measure-stats-row');
+    if (statsRow) statsRow.style.display = 'none';
+    draw();
+  }
+
+  const measureBtn = root.querySelector('#gms-measure-btn');
+  const measureHud = root.querySelector('#gms-measure-hud');
+  const measureClose = root.querySelector('#measure-hud-close');
+  const measureClear = root.querySelector('#measure-clear-btn');
+
+  function toggleMeasureTool() {
+    measureActive = !measureActive;
+    if (measureBtn) measureBtn.classList.toggle('active', measureActive);
+    if (measureHud) measureHud.style.display = measureActive ? 'block' : 'none';
+    host.style.cursor = measureActive ? 'crosshair' : '';
+    if (!measureActive) {
+      clearMeasurement();
+    }
+  }
+
+  if (measureBtn) measureBtn.addEventListener('click', toggleMeasureTool);
+  if (measureClose) measureClose.addEventListener('click', toggleMeasureTool);
+  if (measureClear) measureClear.addEventListener('click', clearMeasurement);
+
+  // Measure Raycast Clicks
+  host.addEventListener('pointerdown', (e) => {
+    if (!measureActive || e.button !== 0) return;
+    const rect = host.getBoundingClientRect();
+    const mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+    const r = new THREE.Raycaster();
+    r.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
+    const intersects = r.intersectObjects(scene.children, true);
+    const valid = intersects.find(it => {
+      let cur = it.object;
+      while (cur) {
+        if (cur === measureGroup || cur === sectorsGroup || cur === evacGroup) return false;
+        cur = cur.parent;
+      }
+      return true;
+    });
+
+    if (!valid) return;
+    const pt = valid.point.clone();
+
+    if (measurePoints.length === 0) {
+      measurePoints.push(pt);
+      pinA = makeMeasurePin(pt, 0xf59e0b);
+      measureGroup.add(pinA);
+      const hint = root.querySelector('#measure-step-hint');
+      if (hint) hint.innerHTML = 'Point A set! Move mouse and click to place <b>Point B</b>';
+      draw();
+    } else if (measurePoints.length === 1) {
+      measurePoints.push(pt);
+      pinB = makeMeasurePin(pt, 0x0ea5e9);
+      measureGroup.add(pinB);
+
+      // Remove temporary line
+      if (measureTempLine) { measureGroup.remove(measureTempLine); measureTempLine = null; }
+
+      // Permanent Laser Tube
+      const p1 = measurePoints[0], p2 = measurePoints[1];
+      const curve = new THREE.LineCurve3(p1.clone().add(new THREE.Vector3(0, 0.4, 0)), p2.clone().add(new THREE.Vector3(0, 0.4, 0)));
+      const tubeGeom = new THREE.TubeGeometry(curve, 16, 0.22, 8, false);
+      measurePermLine = new THREE.Mesh(tubeGeom, new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+      measureGroup.add(measurePermLine);
+
+      // Calculations
+      const d3d = p1.distanceTo(p2);
+      const dGround = Math.hypot(p2.x - p1.x, p2.z - p1.z);
+      const dHeight = Math.abs(p2.y - p1.y);
+      const walkTime = Math.round(dGround / 1.25);
+
+      const hint = root.querySelector('#measure-step-hint');
+      if (hint) hint.style.display = 'none';
+
+      const statsRow = root.querySelector('#measure-stats-row');
+      if (statsRow) statsRow.style.display = 'grid';
+
+      const el3d = root.querySelector('#stat-dist-3d');
+      const elGround = root.querySelector('#stat-dist-ground');
+      const elHeight = root.querySelector('#stat-dist-height');
+      const elWalk = root.querySelector('#stat-dist-walk');
+
+      if (el3d) el3d.textContent = d3d.toFixed(1) + ' m';
+      if (elGround) elGround.textContent = dGround.toFixed(1) + ' m';
+      if (elHeight) elHeight.textContent = dHeight.toFixed(1) + ' m';
+      if (elWalk) elWalk.textContent = (walkTime > 60 ? Math.floor(walkTime / 60) + 'm ' + (walkTime % 60) + 's' : walkTime + 's');
+
+      draw();
+    }
+  });
+
+  // Dynamic live measuring line on mousemove
+  host.addEventListener('pointermove', (e) => {
+    if (!measureActive || measurePoints.length !== 1) return;
+    const rect = host.getBoundingClientRect();
+    const mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+    const r = new THREE.Raycaster();
+    r.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
+    const intersects = r.intersectObjects(scene.children, true);
+    const valid = intersects.find(it => {
+      let cur = it.object;
+      while (cur) {
+        if (cur === measureGroup || cur === sectorsGroup || cur === evacGroup) return false;
+        cur = cur.parent;
+      }
+      return true;
+    });
+
+    if (!valid) return;
+    const pt = valid.point.clone();
+    const p1 = measurePoints[0];
+
+    if (measureTempLine) measureGroup.remove(measureTempLine);
+    const lineGeom = new THREE.BufferGeometry().setFromPoints([
+      p1.clone().add(new THREE.Vector3(0, 0.4, 0)),
+      pt.clone().add(new THREE.Vector3(0, 0.4, 0))
+    ]);
+    measureTempLine = new THREE.Line(lineGeom, new THREE.LineDashedMaterial({ color: 0x38bdf8, dashSize: 1, gapSize: 0.5 }));
+    measureTempLine.computeLineDistances();
+    measureGroup.add(measureTempLine);
+
+    const dLive = p1.distanceTo(pt);
+    const hint = root.querySelector('#measure-step-hint');
+    if (hint) hint.innerHTML = 'Distance to cursor: <b style="color:#38bdf8;font-size:14px;">' + dLive.toFixed(1) + ' m</b> · Click to anchor Point B';
+    draw();
+  });
+
+  // ==========================================
+  // DUTY ROSTER MODAL, CSV EXPORT & PRINT
+  // ==========================================
+  const rosterModal = root.querySelector('#gms-roster-modal');
+  const rosterBtn = root.querySelector('#gms-roster-btn');
+  const rosterClose = root.querySelector('#roster-close-btn');
+  const rosterPrint = root.querySelector('#roster-print-btn');
+  const rosterCsv = root.querySelector('#roster-csv-btn');
+  const rosterSearch = root.querySelector('#roster-search-input');
+  const rosterSector = root.querySelector('#roster-sector-filter');
+  const rosterType = root.querySelector('#roster-type-filter');
+  const rosterTbody = root.querySelector('#roster-tbody');
+  const rosterEmpty = root.querySelector('#roster-empty-state');
+
+  function openDutyRoster() {
+    if (!rosterModal) return;
+    renderDutyRoster();
+    rosterModal.style.display = 'flex';
+  }
+
+  function closeDutyRoster() {
+    if (!rosterModal) return;
+    rosterModal.style.display = 'none';
+  }
+
+  if (rosterBtn) rosterBtn.addEventListener('click', openDutyRoster);
+  if (rosterClose) rosterClose.addEventListener('click', closeDutyRoster);
+  if (rosterModal) {
+    rosterModal.addEventListener('click', (e) => {
+      if (e.target === rosterModal) closeDutyRoster();
+    });
+  }
+
+  function renderDutyRoster() {
+    if (typeof depItems === 'undefined' || !Array.isArray(depItems)) return;
+    const items = depItems;
+    const q = (rosterSearch ? rosterSearch.value : '').trim().toLowerCase();
+    const secFilter = rosterSector ? rosterSector.value : 'all';
+    const typeFilter = rosterType ? rosterType.value : 'all';
+
+    let s1 = 0, s2 = 0, s3 = 0, offCount = 0, equipCount = 0;
+
+    const filtered = items.filter(it => {
+      const sec = getTacticalSector(it);
+      if (sec.id === 1) s1++;
+      else if (sec.id === 2) s2++;
+      else s3++;
+
+      const isOfficer = ['officer', 'armed_officer', '_dummy'].includes(it.kind);
+      if (isOfficer) offCount++; else equipCount++;
+
+      // Sector Filter
+      if (secFilter !== 'all' && String(sec.id) !== secFilter) return false;
+
+      // Type Filter
+      if (typeFilter === 'officers' && !isOfficer) return false;
+      if (typeFilter === 'vehicles' && !['qrt', 'ambulance', 'firebrigade', 'parking'].includes(it.kind)) return false;
+      if (typeFilter === 'scanners' && !['xray', 'dfmd', 'hhmd'].includes(it.kind)) return false;
+      if (typeFilter === 'security' && !['barricade', 'cctv', 'binocular', 'radio', 'cone', 'light', 'qbelt'].includes(it.kind)) return false;
+
+      // Search Query
+      if (q) {
+        const text = [it.name || '', it.duty || '', it.belt || '', it.mobile || '', sec.name, it.kind || ''].join(' ').toLowerCase();
+        if (!text.includes(q)) return false;
+      }
+      return true;
+    });
+
+    // Update Metrics
+    const cTotal = root.querySelector('#roster-count-total');
+    const cS1 = root.querySelector('#roster-count-sec1');
+    const cS2 = root.querySelector('#roster-count-sec2');
+    const cS3 = root.querySelector('#roster-count-sec3');
+    const cOff = root.querySelector('#roster-count-officers');
+    const cEquip = root.querySelector('#roster-count-equip');
+
+    if (cTotal) cTotal.textContent = items.length;
+    if (cS1) cS1.textContent = s1;
+    if (cS2) cS2.textContent = s2;
+    if (cS3) cS3.textContent = s3;
+    if (cOff) cOff.textContent = offCount;
+    if (cEquip) cEquip.textContent = equipCount;
+
+    if (!rosterTbody) return;
+    rosterTbody.replaceChildren();
+
+    if (filtered.length === 0) {
+      if (rosterEmpty) rosterEmpty.style.display = 'block';
+      return;
+    }
+    if (rosterEmpty) rosterEmpty.style.display = 'none';
+
+    filtered.forEach((it, idx) => {
+      const sec = getTacticalSector(it);
+      const tr = document.createElement('tr');
+
+      const x = typeof it.x === 'number' ? it.x.toFixed(1) : (it.p ? it.p[0].toFixed(1) : '0');
+      const z = typeof it.z === 'number' ? it.z.toFixed(1) : (it.p ? it.p[2].toFixed(1) : '0');
+      const symbol = (typeof depSymbols !== 'undefined' && depSymbols[it.kind]) ? depSymbols[it.kind] : '👮';
+
+      tr.innerHTML = `
+        <td style="font-weight:600;color:#64748b;">${idx + 1}</td>
+        <td><b>${it.name || 'Post'}</b></td>
+        <td>${it.duty || 'General Duty'}</td>
+        <td><span class="roster-sector-tag" style="background:${sec.bg};color:${sec.color};border:1px solid ${sec.border};">${sec.tag}: ${sec.short}</span></td>
+        <td><code>${it.belt || '—'}</code></td>
+        <td>${it.mobile || '—'}</td>
+        <td><span>${symbol} ${it.kind || 'post'}</span></td>
+        <td style="font-size:11px;color:#64748b;">X: ${x}, Z: ${z}</td>
+        <td class="roster-col-action"><button type="button" class="roster-btn-jump" data-id="${it.id}">Jump ➔</button></td>
+      `;
+
+      tr.querySelector('.roster-btn-jump').addEventListener('click', () => {
+        closeDutyRoster();
+        if (typeof depChoose === 'function') depChoose(it.id, true);
+      });
+
+      rosterTbody.appendChild(tr);
+    });
+  }
+
+  if (rosterSearch) rosterSearch.addEventListener('input', renderDutyRoster);
+  if (rosterSector) rosterSector.addEventListener('change', renderDutyRoster);
+  if (rosterType) rosterType.addEventListener('change', renderDutyRoster);
+
+  // Print Action
+  if (rosterPrint) {
+    rosterPrint.addEventListener('click', () => {
+      window.print();
+    });
+  }
+
+  // Export CSV Action
+  if (rosterCsv) {
+    rosterCsv.addEventListener('click', () => {
+      if (typeof depItems === 'undefined' || !Array.isArray(depItems)) return;
+      const headers = ['S.No', 'Officer / Post Name', 'Duty Place / Designation', 'Tactical Sector', 'Belt Number', 'Contact Mobile', 'Deployment Type', 'Coord X', 'Coord Z'];
+      const rows = [headers];
+
+      depItems.forEach((it, idx) => {
+        const sec = getTacticalSector(it);
+        const x = typeof it.x === 'number' ? it.x.toFixed(2) : (it.p ? it.p[0].toFixed(2) : '0');
+        const z = typeof it.z === 'number' ? it.z.toFixed(2) : (it.p ? it.p[2].toFixed(2) : '0');
+        rows.push([
+          idx + 1,
+          '"' + (it.name || '').replace(/"/g, '""') + '"',
+          '"' + (it.duty || '').replace(/"/g, '""') + '"',
+          '"' + sec.name + '"',
+          '"' + (it.belt || '').replace(/"/g, '""') + '"',
+          '"' + (it.mobile || '').replace(/"/g, '""') + '"',
+          '"' + (it.kind || '') + '"',
+          x,
+          z
+        ]);
+      });
+
+      const csvContent = '\uFEFF' + rows.map(r => r.join(',')).join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'police-duty-roster-79th-samagam.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+
 __DEPLOYMENT_JS__
 try{const _uv=(new URLSearchParams(window.location.search)).get('view');if(_uv&&['campus','cutaway','plan','hall','stage','lounge','entry','garden','neighborhood','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(_uv)){select.value=_uv;}}catch(e){}
 applyView();restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));resize();

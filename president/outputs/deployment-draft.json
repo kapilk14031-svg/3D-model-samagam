@@ -12,6 +12,18 @@
       "y": 0.3,
       "z": 20,
       "angle": 45
+    },
+    {
+      "id": "post-cctv-main-gate",
+      "kind": "cctv",
+      "name": "PTZ CCTV Camera 1",
+      "duty": "24x7 CCTV Video Surveillance",
+      "belt": "CAM-PTZ-01",
+      "mobile": "CONTROL-ROOM-FEED",
+      "x": -19.2,
+      "y": 0.35,
+      "z": -66.5,
+      "angle": 35
     }
   ]
 }

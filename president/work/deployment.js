@@ -869,6 +869,7 @@ initTouchControls();
 
 
 function depGetAutoDuty(x, y, z, kind='officer'){
+  if(kind==='cctv') return '24x7 CCTV Video Surveillance';
   if(kind==='qrt') return 'QRT standby & rapid response';
   if(kind==='xray') return 'Baggage screening / X-Ray inspection';
   if(kind==='armed_officer') return 'Armed security / escort cordon';
@@ -3434,7 +3435,24 @@ const depMaterials={
   padPoleDark:new THREE.MeshStandardMaterial({color:0x27272a,roughness:0.60,metalness:0.4}),
   padPoleYellow:new THREE.MeshStandardMaterial({color:0xfacc15,roughness:0.35,metalness:0.3}),
   padWindsockOrange:new THREE.MeshStandardMaterial({color:0xf97316,roughness:0.70}),
-  padWindsockWhite:new THREE.MeshStandardMaterial({color:0xf8fafc,roughness:0.70}) // Reinforced steel corner brackets
+  padWindsockWhite:new THREE.MeshStandardMaterial({color:0xf8fafc,roughness:0.70}),
+  // PTZ Surveillance CCTV Camera Materials (Ultra-Realistic Industrial Spec)
+  cctvMastGalv: new THREE.MeshStandardMaterial({color: 0x9ba3af, roughness: 0.38, metalness: 0.68}),
+  cctvBasePad: new THREE.MeshStandardMaterial({color: 0x3f444c, roughness: 0.88}),
+  cctvAnchorBolt: new THREE.MeshStandardMaterial({color: 0xd1d5db, roughness: 0.22, metalness: 0.88}),
+  cctvEnclosureWhite: new THREE.MeshStandardMaterial({color: 0xf1f5f9, roughness: 0.28, metalness: 0.15}),
+  cctvHousingCharcoal: new THREE.MeshStandardMaterial({color: 0x1e293b, roughness: 0.35, metalness: 0.45}),
+  cctvDomeSmoked: new THREE.MeshStandardMaterial({color: 0x070c14, roughness: 0.04, metalness: 0.98, transparent: true, opacity: 0.82}),
+  cctvLensGlass: new THREE.MeshStandardMaterial({color: 0x0f172a, roughness: 0.06, metalness: 0.92}),
+  cctvLensAR: new THREE.MeshStandardMaterial({color: 0x1d4ed8, roughness: 0.08, metalness: 0.95, emissive: 0x1e3a8a, emissiveIntensity: 0.45}),
+  cctvLensAperture: new THREE.MeshStandardMaterial({color: 0x000000, roughness: 0.9, metalness: 0.1}),
+  cctvIRLed: new THREE.MeshStandardMaterial({color: 0x7e22ce, emissive: 0x6b21a8, emissiveIntensity: 1.8, roughness: 0.3}),
+  cctvLedGreen: new THREE.MeshStandardMaterial({color: 0x22c55e, emissive: 0x16a34a, emissiveIntensity: 2.8, roughness: 0.2}),
+  cctvLedRed: new THREE.MeshStandardMaterial({color: 0xef4444, emissive: 0xdc2626, emissiveIntensity: 3.2, roughness: 0.2}),
+  cctvConduitFlex: new THREE.MeshStandardMaterial({color: 0x64748b, roughness: 0.45, metalness: 0.65}),
+  cctvHazardYellow: new THREE.MeshStandardMaterial({color: 0xfacc15, roughness: 0.35, metalness: 0.15}),
+  cctvCopperGround: new THREE.MeshStandardMaterial({color: 0xb45309, roughness: 0.3, metalness: 0.85}),
+ // Reinforced steel corner brackets
 
 
 
@@ -3530,183 +3548,76 @@ function depPart(g,shape,p,s,mat){
 
 
 
-const depHhmdCanvas=document.createElement('canvas');depHhmdCanvas.width=128;depHhmdCanvas.height=512;
-
-
-
-
-
-
-
-const dhc=depHhmdCanvas.getContext('2d');
-
-
-
-
-
-
-
-dhc.fillStyle='#181b20';dhc.fillRect(0,0,128,512);
-
-
-
-
-
-
-
-dhc.strokeStyle='#374151';dhc.lineWidth=4;dhc.strokeRect(6,6,116,500);
-
-
-
-
-
-
-
-dhc.fillStyle='#eab308';dhc.fillRect(10,16,108,64);
-
-
-
-
-
-
-
-dhc.fillStyle='#0f172a';dhc.font='900 18px sans-serif';dhc.textAlign='center';dhc.fillText('SECURITY',64,42);
-
-
-
-
-
-
-
-dhc.font='800 13px sans-serif';dhc.fillText('SCANNER',64,62);
-
-
-
-
-
-
-
-dhc.fillStyle='#1e293b';
-
-
-
-
-
-
-
-for(let i=0;i<4;i++){dhc.beginPath();dhc.moveTo(12+i*28,72);dhc.lineTo(24+i*28,72);dhc.lineTo(16+i*28,80);dhc.lineTo(4+i*28,80);dhc.fill();}
-
-
-
-
-
-
-
-dhc.fillStyle='#111827';dhc.fillRect(16,92,96,276);
-
-
-
-
-
-
-
-dhc.strokeStyle='#64748b';dhc.lineWidth=2.5;dhc.strokeRect(22,100,84,260);
-
-
-
-
-
-
-
-dhc.strokeStyle='#eab308';dhc.lineWidth=1.5;dhc.strokeRect(28,110,72,240);
-
-
-
-
-
-
-
-dhc.strokeStyle='#38bdf8';dhc.lineWidth=2.5;
-
-
-
-
-
-
-
-dhc.beginPath();dhc.arc(64,185,26,0,Math.PI*2);dhc.stroke();
-
-
-
-
-
-
-
-dhc.beginPath();dhc.arc(64,185,16,0,Math.PI*2);dhc.stroke();
-
-
-
-
-
-
-
-dhc.fillStyle='#38bdf8';dhc.beginPath();dhc.arc(64,185,6,0,Math.PI*2);dhc.fill();
-
-
-
-
-
-
-
-dhc.fillStyle='#f8fafc';dhc.font='bold 11px sans-serif';dhc.fillText('360° SENSING',64,235);
-
-
-
-
-
-
-
-dhc.font='9px sans-serif';dhc.fillStyle='#94a3b8';dhc.fillText('HIGH SENSITIVITY',64,252);dhc.fillText('ALL METALS',64,268);
-
-
-
-
-
-
-
-for(let y=290;y<=340;y+=8){dhc.fillStyle=y%16===0?'#eab308':'#64748b';dhc.fillRect(36,y,56,3);}
-
-
-
-
-
-
-
-dhc.fillStyle='#dc2626';dhc.fillRect(16,382,96,28);
-
-
-
-
-
-
-
-dhc.fillStyle='#ffffff';dhc.font='bold 12px sans-serif';dhc.fillText('METAL DETECTOR',64,401);
-
-
-
-
-
-
-
-dhc.fillStyle='#94a3b8';dhc.font='bold 9px sans-serif';dhc.fillText('PWR ● BATT ● ALARM',64,435);
-
-
-
-
-
-
-
-const depHhmdDecalFront=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depHhmdCanvas),roughness:0.35,metalness:0.1});
+function depCreateHhmdDecalCanvas(flipped=false){
+  const c=document.createElement('canvas');c.width=256;c.height=1024;
+  const ctx=c.getContext('2d');
+  if(flipped){ctx.translate(256,0);ctx.scale(-1,1);}
+  ctx.fillStyle='#13171d';ctx.fillRect(0,0,256,1024);
+  ctx.strokeStyle='#334155';ctx.lineWidth=6;ctx.strokeRect(8,8,240,1008);
+  // Prominent Garrett SuperScanner Golden Yellow Header
+  ctx.fillStyle='#facc15';ctx.fillRect(14,20,228,155);
+  ctx.strokeStyle='#ca8a04';ctx.lineWidth=3;ctx.strokeRect(14,20,228,155);
+  ctx.fillStyle='#0f172a';ctx.textAlign='center';
+  ctx.font='900 42px Arial,Helvetica,sans-serif';
+  ctx.fillText('GARRETT',128,78);
+  ctx.font='900 24px Arial,Helvetica,sans-serif';
+  ctx.fillText('SUPER SCANNER',128,124);
+  ctx.font='bold 20px Arial,Helvetica,sans-serif';
+  ctx.fillText('V',128,158);
+  // Chevron accents
+  ctx.fillStyle='#1e293b';
+  for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(24+i*56,195);ctx.lineTo(48+i*56,195);ctx.lineTo(32+i*56,212);ctx.lineTo(8+i*56,212);ctx.fill();}
+  // Central Sensing Panel
+  ctx.fillStyle='#0b0f17';ctx.fillRect(18,225,220,555);
+  ctx.strokeStyle='#475569';ctx.lineWidth=4;ctx.strokeRect(24,235,208,535);
+  ctx.strokeStyle='#facc15';ctx.lineWidth=2.5;ctx.strokeRect(32,245,192,515);
+  // 360° Detection Coil Graphics
+  ctx.strokeStyle='#38bdf8';ctx.lineWidth=5;
+  ctx.beginPath();ctx.arc(128,405,58,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.arc(128,405,38,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#38bdf8';
+  ctx.beginPath();ctx.arc(128,405,14,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.font='900 22px Arial,Helvetica,sans-serif';
+  ctx.fillText('360° DETECTION',128,505);
+  ctx.fillStyle='#94a3b8';
+  ctx.font='bold 16px Arial,Helvetica,sans-serif';
+  ctx.fillText('HIGH SENSITIVITY',128,540);
+  ctx.font='14px Arial,Helvetica,sans-serif';
+  ctx.fillText('ALL METALS',128,568);
+  for(let y=605;y<=715;y+=16){
+    ctx.fillStyle=y%32===0?'#facc15':'#64748b';
+    ctx.fillRect(68,y,120,6);
+  }
+  // Red Metal Detector Warning Banner
+  ctx.fillStyle='#dc2626';ctx.fillRect(22,800,212,68);
+  ctx.strokeStyle='#b91c1c';ctx.lineWidth=3;ctx.strokeRect(22,800,212,68);
+  ctx.fillStyle='#ffffff';
+  ctx.font='900 23px Arial,Helvetica,sans-serif';
+  ctx.fillText('METAL DETECTOR',128,844);
+  // Status Legend
+  ctx.fillStyle='#cbd5e1';
+  ctx.font='bold 16px Arial,Helvetica,sans-serif';
+  ctx.fillText('PWR ● BATT ● ALARM',128,915);
+  ctx.fillStyle='#64748b';
+  ctx.font='13px monospace';
+  ctx.fillText('MODEL 1165190 • CE',128,965);
+  return c;
+}
+const depHhmdCanvas=depCreateHhmdDecalCanvas(false);
+const depHhmdDecalFrontTex=new THREE.CanvasTexture(depHhmdCanvas);
+depHhmdDecalFrontTex.anisotropy=8;
+const depHhmdDecalFront=new THREE.MeshStandardMaterial({
+  map:depHhmdDecalFrontTex,roughness:0.35,metalness:0.1,
+  polygonOffset:true,polygonOffsetFactor:-2.0,polygonOffsetUnits:-4.0,depthWrite:true,side:THREE.DoubleSide
+});
+const depHhmdBackCanvas=depCreateHhmdDecalCanvas(true);
+const depHhmdDecalBackTex=new THREE.CanvasTexture(depHhmdBackCanvas);
+depHhmdDecalBackTex.anisotropy=8;
+const depHhmdDecalBack=new THREE.MeshStandardMaterial({
+  map:depHhmdDecalBackTex,roughness:0.35,metalness:0.1,
+  polygonOffset:true,polygonOffsetFactor:-2.0,polygonOffsetUnits:-4.0,depthWrite:true,side:THREE.DoubleSide
+});
 
 
 
@@ -8408,22 +8319,12 @@ function depBuildOfficer(g, mode='officer'){
 
 
 
-    depPart(hhmd, 'sign', [0, .255, .0115], [.068, .22, 1], depHhmdDecalFront);
+        // High-visibility yellow safety band across paddle top
+    depPart(hhmd, 'box', [0, .365, 0], [.078, .024, .024], 'hhmdStripe');
 
-
-
-
-
-
-
-    const decalBack = depPart(hhmd, 'sign', [0, .255, -.0115], [.068, .22, 1], depHhmdDecalFront);
-
-
-
-
-
-
-
+    // High-contrast Garrett SuperScanner decals (Front & Back - zero Z-fighting, non-mirrored)
+    depPart(hhmd, 'sign', [0, .255, .0125], [.068, .22, 1], depHhmdDecalFront);
+    const decalBack = depPart(hhmd, 'sign', [0, .255, -.0125], [.068, .22, 1], depHhmdDecalBack);
     decalBack.rotation.y = Math.PI;
 
 
@@ -8962,6 +8863,246 @@ function depBuildXray(g){
  for(const z of [-.75,.75])depPart(g,'box',[.60,1.84,z],[.08,.08,.06],'hhmdLedGreen');
 }
 
+
+// =========================================================================
+// ULTRA-REALISTIC PTZ SURVEILLANCE CCTV SPEED DOME CAMERA BUILDER
+// =========================================================================
+function depBuildCCTV(g) {
+  g.scale.setScalar(1);
+
+  // 1. Concrete Foundation Plinth & Anchor Assembly
+  depPart(g, 'box', [0, 0.05, 0], [0.65, 0.10, 0.65], 'cctvBasePad');
+  depPart(g, 'cylinder', [0, 0.11, 0], [0.42, 0.025, 0.42], 'cctvMastGalv');
+
+  // 4 Heavy-duty structural hex anchor bolts & nuts
+  const boltRadius = 0.16;
+  for (let a = 0; a < 4; a++) {
+    const ang = (a * Math.PI) / 2 + Math.PI / 4;
+    const bx = Math.cos(ang) * boltRadius;
+    const bz = Math.sin(ang) * boltRadius;
+    depPart(g, 'cylinder', [bx, 0.135, bz], [0.032, 0.035, 0.032], 'cctvAnchorBolt');
+    depPart(g, 'cylinder', [bx, 0.165, bz], [0.018, 0.030, 0.018], 'cctvAnchorBolt');
+  }
+
+  // 4 Triangular gusset stiffener ribs
+  for (let a = 0; a < 4; a++) {
+    const ang = (a * Math.PI) / 2;
+    const gx = Math.cos(ang) * 0.11;
+    const gz = Math.sin(ang) * 0.11;
+    const rib = depPart(g, 'box', [gx, 0.22, gz], [0.02, 0.20, 0.14], 'cctvMastGalv');
+    rib.rotation.y = ang;
+  }
+
+  // 2. Galvanized Tubular Steel Mast
+  depPart(g, 'cylinder', [0, 1.01, 0], [0.14, 1.78, 0.14], 'cctvMastGalv'); // Lower mast
+  depPart(g, 'cylinder', [0, 1.90, 0], [0.165, 0.08, 0.165], 'cctvHousingCharcoal'); // Transition collar
+  depPart(g, 'cylinder', [0, 1.90, 0], [0.175, 0.02, 0.175], 'cctvAnchorBolt');
+  depPart(g, 'cylinder', [0, 2.645, 0], [0.105, 1.41, 0.105], 'cctvMastGalv'); // Upper mast
+  depPart(g, 'cylinder', [0, 3.36, 0], [0.13, 0.03, 0.13], 'cctvHousingCharcoal'); // Mast top cap
+
+  // Lightning Surge Arrestor spike atop the mast
+  depPart(g, 'cylinder', [0, 3.55, 0], [0.015, 0.38, 0.015], 'cctvCopperGround');
+  const spikeTip = new THREE.Mesh(new THREE.ConeGeometry(0.015, 0.08, 16), depMaterials.cctvCopperGround);
+  spikeTip.position.set(0, 3.78, 0);
+  g.add(spikeTip);
+
+  // 3. Weatherproof IP67 Power & PoE+ Junction Box
+  const jbX = 0, jbY = 1.25, jbZ = 0.17;
+  depPart(g, 'box', [0, jbY + 0.12, 0.07], [0.22, 0.03, 0.04], 'cctvHousingCharcoal');
+  depPart(g, 'box', [0, jbY - 0.12, 0.07], [0.22, 0.03, 0.04], 'cctvHousingCharcoal');
+  depPart(g, 'box', [jbX, jbY, jbZ], [0.26, 0.36, 0.16], 'cctvEnclosureWhite');
+  depPart(g, 'box', [jbX, jbY, jbZ + 0.082], [0.25, 0.34, 0.012], 'whiteBody');
+  depPart(g, 'box', [jbX - 0.125, jbY + 0.10, jbZ + 0.075], [0.015, 0.04, 0.02], 'cctvHousingCharcoal');
+  depPart(g, 'box', [jbX - 0.125, jbY - 0.10, jbZ + 0.075], [0.015, 0.04, 0.02], 'cctvHousingCharcoal');
+  depPart(g, 'box', [jbX + 0.122, jbY, jbZ + 0.075], [0.015, 0.05, 0.02], 'cctvAnchorBolt');
+
+  const hazardMesh = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.08, 3), depMaterials.cctvHazardYellow);
+  hazardMesh.position.set(jbX, jbY + 0.04, jbZ + 0.09);
+  hazardMesh.rotation.z = Math.PI;
+  g.add(hazardMesh);
+
+  depPart(g, 'sphereSmooth', [jbX + 0.07, jbY - 0.08, jbZ + 0.09], [0.010, 0.010, 0.010], 'cctvLedGreen');
+  depPart(g, 'cylinder', [jbX - 0.05, jbY - 0.195, jbZ], [0.022, 0.035, 0.022], 'cctvAnchorBolt');
+  depPart(g, 'cylinder', [jbX + 0.05, jbY - 0.195, jbZ], [0.022, 0.035, 0.022], 'cctvAnchorBolt');
+
+  // Flexible metallic conduit hose running up the pole
+  const condX = 0.075, condZ = 0.06;
+  depPart(g, 'cylinder', [condX, 2.25, condZ], [0.022, 1.80, 0.022], 'cctvConduitFlex');
+  for (let cy = 1.6; cy <= 3.0; cy += 0.45) {
+    depPart(g, 'box', [condX * 0.7, cy, condZ * 0.7], [0.05, 0.02, 0.03], 'cctvHousingCharcoal');
+  }
+
+  // 4. Heavy-Duty Cantilever Gooseneck Pendant Arm
+  const armBaseY = 3.12;
+  depPart(g, 'cylinder', [0, armBaseY, 0], [0.14, 0.16, 0.14], 'cctvHousingCharcoal');
+  depPart(g, 'cylinder', [-0.07, armBaseY, 0], [0.02, 0.04, 0.02], 'cctvAnchorBolt');
+  depPart(g, 'cylinder', [0.07, armBaseY, 0], [0.02, 0.04, 0.02], 'cctvAnchorBolt');
+
+  const armLength = 0.52, armZCenter = 0.28;
+  const armPipe = depPart(g, 'cylinder', [0, armBaseY + 0.05, armZCenter], [0.048, armLength, 0.048], 'cctvEnclosureWhite');
+  armPipe.rotation.x = Math.PI / 2;
+
+  const strut = depPart(g, 'cylinder', [0, armBaseY - 0.10, 0.18], [0.022, 0.32, 0.022], 'cctvHousingCharcoal');
+  strut.rotation.x = -Math.PI / 4;
+
+  const camZ = 0.56, elbowY = armBaseY + 0.05;
+  depPart(g, 'sphereSmooth', [0, elbowY, camZ - 0.02], [0.06, 0.06, 0.06], 'cctvEnclosureWhite');
+  depPart(g, 'cylinder', [0, elbowY - 0.09, camZ], [0.046, 0.12, 0.046], 'cctvEnclosureWhite');
+
+  const pendantY = elbowY - 0.16;
+  depPart(g, 'cylinder', [0, pendantY, camZ], [0.11, 0.04, 0.11], 'cctvHousingCharcoal');
+  depPart(g, 'cylinder', [0, pendantY - 0.025, camZ], [0.125, 0.015, 0.125], 'cctvAnchorBolt');
+
+  // 5. PTZ Speed Dome Camera Body & Sunshield Visor
+  const camOriginY = pendantY - 0.04;
+  depPart(g, 'cylinder', [0, camOriginY - 0.04, camZ], [0.14, 0.06, 0.14], 'cctvEnclosureWhite');
+
+  const midHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.21, 0.14, 32), depMaterials.cctvEnclosureWhite);
+  midHousing.position.set(0, camOriginY - 0.12, camZ);
+  g.add(midHousing);
+
+  depPart(g, 'cylinder', [0, camOriginY - 0.19, camZ], [0.215, 0.035, 0.215], 'cctvHousingCharcoal');
+  for (let v = 0; v < 8; v++) {
+    const vang = (v * Math.PI) / 4;
+    const vx = Math.cos(vang) * 0.218;
+    const vz = camZ + Math.sin(vang) * 0.218;
+    const vslot = depPart(g, 'box', [vx, camOriginY - 0.19, vz], [0.008, 0.022, 0.035], 'dark');
+    vslot.rotation.y = -vang;
+  }
+
+  depPart(g, 'cylinder', [0, camOriginY - 0.23, camZ], [0.235, 0.06, 0.235], 'cctvEnclosureWhite');
+  depPart(g, 'cylinder', [0, camOriginY - 0.255, camZ], [0.237, 0.015, 0.237], 'blue');
+
+  const visorLip = depPart(g, 'box', [0, camOriginY - 0.24, camZ + 0.15], [0.28, 0.04, 0.12], 'cctvEnclosureWhite');
+  visorLip.rotation.x = 0.18;
+
+  depPart(g, 'sphereSmooth', [-0.07, camOriginY - 0.21, camZ + 0.20], [0.009, 0.009, 0.009], 'cctvLedGreen');
+  depPart(g, 'sphereSmooth', [0.07, camOriginY - 0.21, camZ + 0.20], [0.009, 0.009, 0.009], 'cctvLedRed');
+
+  depPart(g, 'cylinder', [0, camOriginY - 0.275, camZ], [0.228, 0.025, 0.228], 'cctvHousingCharcoal');
+  for (let s = 0; s < 6; s++) {
+    const sang = (s * Math.PI) / 3;
+    const sx = Math.cos(sang) * 0.225;
+    const sz = camZ + Math.sin(sang) * 0.225;
+    depPart(g, 'cylinder', [sx, camOriginY - 0.275, sz], [0.008, 0.028, 0.008], 'cctvAnchorBolt');
+  }
+
+  // 6. Motorized Gimbal Turret & Optical Zoom Lens Assembly
+  const gimbalY = camOriginY - 0.29;
+  const panTurntable = new THREE.Group();
+  panTurntable.position.set(0, gimbalY, camZ);
+  g.add(panTurntable);
+
+  const tplate = new THREE.Mesh(geos.cylinder, depMaterials.cctvHousingCharcoal);
+  tplate.scale.set(0.18, 0.018, 0.18);
+  panTurntable.add(tplate);
+
+  const forkL = new THREE.Mesh(geos.box, depMaterials.cctvHousingCharcoal);
+  forkL.position.set(-0.10, -0.07, 0);
+  forkL.scale.set(0.025, 0.14, 0.09);
+  panTurntable.add(forkL);
+
+  const forkR = new THREE.Mesh(geos.box, depMaterials.cctvHousingCharcoal);
+  forkR.position.set(0.10, -0.07, 0);
+  forkR.scale.set(0.025, 0.14, 0.09);
+  panTurntable.add(forkR);
+
+  const bcapL = new THREE.Mesh(geos.cylinder, depMaterials.cctvAnchorBolt);
+  bcapL.rotation.z = Math.PI / 2;
+  bcapL.position.set(-0.115, -0.07, 0);
+  bcapL.scale.set(0.022, 0.015, 0.022);
+  panTurntable.add(bcapL);
+
+  const bcapR = new THREE.Mesh(geos.cylinder, depMaterials.cctvAnchorBolt);
+  bcapR.rotation.z = Math.PI / 2;
+  bcapR.position.set(0.115, -0.07, 0);
+  bcapR.scale.set(0.022, 0.015, 0.022);
+  panTurntable.add(bcapR);
+
+  // Central Camera Optical Core (surveillance pitch downward ~22°)
+  const tiltCradle = new THREE.Group();
+  tiltCradle.position.set(0, -0.07, 0);
+  tiltCradle.rotation.x = 0.38;
+  panTurntable.add(tiltCradle);
+
+  const tcore = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvLensGlass);
+  tcore.scale.set(0.085, 0.085, 0.085);
+  tiltCradle.add(tcore);
+
+  // Stepped Main Zoom Lens Barrel projecting forward
+  const barrel1 = new THREE.Mesh(geos.cylinder, depMaterials.cctvLensGlass);
+  barrel1.rotation.x = Math.PI / 2;
+  barrel1.position.set(0, 0, 0.05);
+  barrel1.scale.set(0.052, 0.08, 0.052);
+  tiltCradle.add(barrel1);
+
+  const barrelRing = new THREE.Mesh(geos.cylinder, depMaterials.cctvHousingCharcoal);
+  barrelRing.rotation.x = Math.PI / 2;
+  barrelRing.position.set(0, 0, 0.08);
+  barrelRing.scale.set(0.056, 0.025, 0.056);
+  tiltCradle.add(barrelRing);
+
+  const lensBezel = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
+  lensBezel.rotation.x = Math.PI / 2;
+  lensBezel.position.set(0, 0, 0.10);
+  lensBezel.scale.set(0.054, 0.012, 0.054);
+  tiltCradle.add(lensBezel);
+
+  const frontGlass = new THREE.Mesh(geos.cylinder, depMaterials.cctvLensAR);
+  frontGlass.rotation.x = Math.PI / 2;
+  frontGlass.position.set(0, 0, 0.106);
+  frontGlass.scale.set(0.046, 0.005, 0.046);
+  tiltCradle.add(frontGlass);
+
+  const pupil = new THREE.Mesh(geos.cylinder, depMaterials.cctvLensAperture);
+  pupil.rotation.x = Math.PI / 2;
+  pupil.position.set(0, 0, 0.108);
+  pupil.scale.set(0.024, 0.003, 0.024);
+  tiltCradle.add(pupil);
+
+  // Dual High-Power Infrared (IR) Matrix Arrays flanking the lens
+  for (const irSide of [-1, 1]) {
+    const irPanel = new THREE.Mesh(geos.box, depMaterials.cctvHousingCharcoal);
+    irPanel.position.set(irSide * 0.058, 0, 0.07);
+    irPanel.scale.set(0.035, 0.065, 0.015);
+    tiltCradle.add(irPanel);
+
+    for (let iy = -0.022; iy <= 0.022; iy += 0.018) {
+      for (let ix = -0.010; ix <= 0.010; ix += 0.014) {
+        const irLed = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvIRLed);
+        irLed.position.set(irSide * 0.058 + ix, iy, 0.078);
+        irLed.scale.set(0.004, 0.004, 0.004);
+        tiltCradle.add(irLed);
+      }
+    }
+  }
+
+  // Active REC / Tally LED on the turret face
+  const turretRec = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvLedRed);
+  turretRec.position.set(0, 0.040, 0.095);
+  turretRec.scale.set(0.006, 0.006, 0.006);
+  tiltCradle.add(turretRec);
+
+  // Ambient daylight photocell sensor eye
+  const photocell = new THREE.Mesh(geos.cylinder, depMaterials.cctvAnchorBolt);
+  photocell.rotation.x = Math.PI / 2;
+  photocell.position.set(0, -0.040, 0.095);
+  photocell.scale.set(0.006, 0.008, 0.006);
+  tiltCradle.add(photocell);
+
+  // Store turntable reference for dynamic idle pan sweep & REC blink
+  g.userData.cctvTurret = panTurntable;
+  g.userData.cctvTilt = tiltCradle;
+  g.userData.cctvRecLed = turretRec;
+
+  // 7. Smoked Optical Dome Acrylic Bubble
+  const domeRadius = 0.215;
+  const domeGeo = new THREE.SphereGeometry(domeRadius, 32, 24, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
+  const domeMesh = new THREE.Mesh(domeGeo, depMaterials.cctvDomeSmoked);
+  domeMesh.position.set(0, camOriginY - 0.28, camZ);
+  g.add(domeMesh);
+}
+
 function depCreateEquipmentMesh(kind) {
 
 
@@ -9375,53 +9516,7 @@ function depCreateEquipmentMesh(kind) {
 
 
   } else if (kind === 'cctv') {
-
-
-
-
-
-
-
-    depPart(g, 'cylinder', [0, 1.3, 0], [0.045, 2.6, 0.045], 'dark');
-
-
-
-
-
-
-
-    depPart(g, 'cylinder', [0, 0.1, 0], [0.22, 0.2, 0.22], 'dark');
-
-
-
-
-
-
-
-    depPart(g, 'box', [0, 2.6, -0.15], [0.45, 0.25, 0.45], 'white');
-
-
-
-
-
-
-
-    depPart(g, 'sphereSmooth', [0, 2.45, -0.15], [0.14, 0.14, 0.14], 'dark');
-
-
-
-
-
-
-
-    depPart(g, 'cylinder', [0, 2.48, -0.15], [0.16, 0.04, 0.16], 'yellow');
-
-
-
-
-
-
-
+    depBuildCCTV(g);
   } else if (kind === 'light') {
 
 
@@ -9538,6 +9633,13 @@ window.depCreateEquipmentMesh = depCreateEquipmentMesh;
 
     // Invisible hitBox so clicking anywhere on or around helicopter registers immediately
 
+    if (item.kind === 'cctv') {
+      const hitBox = new THREE.Mesh(new THREE.BoxGeometry(1.2, 3.8, 1.2), new THREE.MeshBasicMaterial({visible: false}));
+      hitBox.position.set(0, 1.9, 0.25);
+      hitBox.userData.depId = item.id;
+      hitBox.userData.isHitBox = true;
+      g.add(hitBox);
+    }
     if (item.kind === 'helicopter') {
 
       const hitBox = new THREE.Mesh(new THREE.BoxGeometry(4.8, 4.2, 10.2), new THREE.MeshBasicMaterial({visible: false}));
@@ -10101,7 +10203,7 @@ function depUpdate(){
 
 
 
-    const headHeight = isOfficerLike ? 2.15 : (item.kind==='firebrigade'?3.4:(item.kind==='ambulance'?2.7:(item.kind==='dfmd'?2.3:1.6)));
+    const headHeight = isOfficerLike ? 2.15 : (item.kind==='cctv'?3.85:(item.kind==='firebrigade'?3.4:(item.kind==='ambulance'?2.7:(item.kind==='dfmd'?2.3:1.6))));
 
 
 
@@ -10712,7 +10814,9 @@ function depChoose(id, zoom = true){
 
 
 
-  if (o.kind === 'helicopter') {
+  if (o.kind === 'cctv') {
+    depUI('status').textContent = '📹 ' + o.name + ' Active · 360° Motorized Pan-Tilt-Zoom · 4K UHD Live Feed | Move/Rotate: W/S/A/D, Q/E';
+  } else if (o.kind === 'helicopter') {
 
 
 
@@ -11377,7 +11481,8 @@ depUI('add').onclick=()=>{
 
 
 
-    : `${kind.toUpperCase()} #${count}`;
+    : kind === 'cctv' ? `PTZ CCTV Camera ${count}`
+      : `${kind.toUpperCase()} #${count}`;
 
 
 
@@ -14963,6 +15068,15 @@ window.__DEP_TICK = function(dt) {
 
 
 
+        if (node.g.userData.cctvTurret) {
+          const t = performance.now() * 0.001;
+          // Smooth +/-35 degree motorized surveillance sweep
+          node.g.userData.cctvTurret.rotation.y = Math.sin(t * 0.6) * 0.62;
+          if (node.g.userData.cctvRecLed) {
+            const pulse = (Math.sin(t * 4.0) + 1) * 0.5;
+            node.g.userData.cctvRecLed.material.emissiveIntensity = 1.8 + pulse * 2.2;
+          }
+        }
         if (node.g.userData.rotorDisc) {
 
 
