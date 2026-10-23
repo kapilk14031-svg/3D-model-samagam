@@ -242518,6 +242518,23 @@
       "shape": "box",
       "group": "context",
       "rot": 0.06275409930962146
+    },
+    {
+      "name": "Auditorium entrance porch landing slab",
+      "p": [
+        -18.75,
+        0.95,
+        -2.3567370431640224
+      ],
+      "s": [
+        2.3,
+        0.22,
+        7.37
+      ],
+      "mat": "paving",
+      "shape": "box",
+      "group": "campus",
+      "rot": 0.0
     }
   ],
   "colors": {

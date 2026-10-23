@@ -331,6 +331,7 @@ def add_helipad(objects, colors, geo):
     top = steps[-1]
     jambs = [o for o in objects if o['name'].startswith('Side entrance metal jamb')]
     door_x = sum(o['p'][0] for o in jambs) / len(jambs)
+    add('Auditorium entrance porch landing slab', [-18.75, 0.95, entry_z], [2.3, 0.22, 7.37], 'paving')
     add('Auditorium red-carpet entrance landing', [(top['p'][0] + door_x) / 2, top['p'][1] + top['s'][1] / 2 + 0.015, entry_z], [abs(top['p'][0] - door_x), 0.025, 2.4], 'redCarpet')
     carpet_route.append([door_x, entry_z])
 
