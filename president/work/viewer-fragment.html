@@ -344,6 +344,23 @@
       </div>
     </div>
 
+    <!-- Q-Belt Interactive Stretch Controller Floating HUD -->
+    <div id="dep-qbelt-float-hud" class="qbelt-hud-pill" style="display:none;">
+      <span class="qbelt-hud-icon">🎗️</span>
+      <div class="qbelt-hud-text">
+        <span class="qbelt-hud-title">Q-Belt Barrier</span>
+        <span class="qbelt-hud-span" id="qbelt-hud-span-txt">Length: 2.0 m</span>
+      </div>
+      <div class="qbelt-hud-actions">
+        <button type="button" class="qbelt-hud-btn btn-stretch" id="qbelt-hud-stretch-btn" title="Open / Stretch Q-Belt (Press 'O' key)">
+          ↔️ Stretch (O)
+        </button>
+        <button type="button" class="qbelt-hud-btn btn-reset" id="qbelt-hud-reset-btn" title="Reset back to normal (Press 'P' key)">
+          🔄 Reset (P)
+        </button>
+      </div>
+    </div>
+
     <!-- Full Duty Roster Modal (Interactive & Print-Ready) -->
     <div id="gms-roster-modal" class="roster-modal-backdrop" style="display:none;">
       <div class="roster-modal-dialog">
@@ -2405,6 +2422,67 @@
   .print-sign-box { display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: #1e293b; }
 }
 
+
+/* Floating Q-Belt Stretch HUD */
+.qbelt-hud-pill {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 1px solid #38bdf8;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 55;
+  pointer-events: auto;
+  font-family: inherit;
+  animation: qbeltPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes qbeltPopIn {
+  from { opacity: 0; transform: translate(-50%, 15px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.qbelt-hud-icon { font-size: 20px; }
+.qbelt-hud-text { display: flex; flex-direction: column; }
+.qbelt-hud-title { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+.qbelt-hud-span { font-size: 13px; font-weight: 700; color: #38bdf8; }
+.qbelt-hud-actions { display: flex; gap: 8px; margin-left: 6px; }
+.qbelt-hud-btn {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.qbelt-hud-btn.btn-stretch {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
+.qbelt-hud-btn.btn-stretch:hover {
+  background: #0369a1;
+  transform: scale(1.05);
+}
+.qbelt-hud-btn.btn-reset {
+  background: #334155;
+  color: #f1f5f9;
+  border-color: #475569;
+}
+.qbelt-hud-btn.btn-reset:hover {
+  background: #475569;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
@@ -2733,7 +2811,6 @@ function buildRoadInfrastructure(targetScene) {
 }
 
 const roadInfraGroup = buildRoadInfrastructure(scene);
-setLighting();
 const geo=data.georeference,referenceGroup=new THREE.Group();referenceGroup.visible=false;const rc=geo.raster.corners;
 const referenceMesh=new THREE.Mesh();
 function transformPoint(p,m){return [p[0]*m[0][0]+p[2]*m[1][0]+m[2][0],p[1],p[0]*m[0][1]+p[2]*m[1][1]+m[2][1]];}
@@ -2747,7 +2824,7 @@ let current='campus';
 function draw(){renderer.render(scene,camera);if(typeof depUpdate==='function')depUpdate();const rect=host.getBoundingClientRect();for(const l of labels){const v=l.p.clone().project(camera);l.e.style.display=(['hall','stage','lounge','entry','garden','gate','roads','residential','classroom','mainroad','lotusinside','stageplan','alignment','helipad','helicopter'].includes(current)||(l.context&&current!=='neighborhood')||(!l.context&&current==='neighborhood')||v.z>1||Math.abs(v.x)>.85||Math.abs(v.y)>.9)?'none':'block';l.e.style.left=((v.x+1)*rect.width/2)+'px';l.e.style.top=((-v.y+1)*rect.height/2)+'px';}}
 function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:current,lighting:lightSelect.value,eventProposal:eventInput.checked,nearbyBlocks:contextInput.checked,satelliteDateObjects:snapshotInput.checked},privateContent:null}).catch(()=>{});}
 function setLighting(){
-  lotusRoomLight.visible=current==='lotusinside';
+  if (typeof lotusRoomLight !== 'undefined' && lotusRoomLight) lotusRoomLight.visible = (current === 'lotusinside');
   const internal=['hall','stage'].includes(current), evening=lightSelect.value==='evening', isFog=lightSelect.value==='fog';
   if (typeof roadInfraGroup !== 'undefined' && roadInfraGroup && roadInfraGroup.userData) {
     const isNight = evening && !internal;

@@ -91,6 +91,19 @@
           <label class="input-label" for="dep-mobile">Contact Mobile</label>
           <input class="form-control" id="dep-mobile" type="tel" placeholder="e.g. +91 98765 43210" maxlength="30">
         </div>
+
+        <div id="dep-qbelt-inspector-row" class="input-block" style="display:none;grid-column:1/-1;background:#f0f9ff;padding:10px 14px;border:1px solid #bae6fd;border-radius:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:12px;font-weight:700;color:#0369a1;">🎗️ Retractable Q-Belt Span</span>
+            <b id="dep-qbelt-inspector-val" style="font-size:14px;font-weight:700;color:#0284c7;">2.0 m</b>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="btn btn-sm btn-primary" id="dep-qbelt-insp-stretch" style="flex:1;">↔️ Stretch / Open (O)</button>
+            <button type="button" class="btn btn-sm btn-secondary" id="dep-qbelt-insp-reset" style="flex:1;">🔄 Reset Normal (P)</button>
+          </div>
+          <span style="font-size:11px;color:#64748b;margin-top:5px;display:block;">Press key <b>O</b> to stretch (+0.5m) · Press key <b>P</b> to return back to normal (2.0m)</span>
+        </div>
+
       </div>
 
       <!-- Quick Camera & Orientation Actions -->
