@@ -2862,91 +2862,150 @@ const gate=mapPreset([-13,.3,-61],'gate');for(const [kind,dx,dz] of [['dfmd',-3,
 
 
 
-function depNormalizeItem(o, index) {
-  if (!o || typeof o !== 'object') return null;
-  const id = (typeof o.id === 'string' && o.id.trim()) ? o.id.trim() : ('post-' + (index + 1));
-  const kind = (typeof o.kind === 'string' && o.kind) ? o.kind : 'officer';
-  const name = (typeof o.name === 'string' && o.name.trim()) ? o.name.trim() : (kind === 'officer' ? 'Officer ' + (index + 1) : 'Item ' + (index + 1));
-  const duty = (typeof o.duty === 'string') ? o.duty : (o.duty != null ? String(o.duty) : '');
-  const belt = (typeof o.belt === 'string') ? o.belt : (o.belt != null ? String(o.belt) : '');
-  const mobile = (typeof o.mobile === 'string') ? o.mobile : (o.mobile != null ? String(o.mobile) : '');
-
-  let x = Number(o.x);
-  if (!Number.isFinite(x) || Math.abs(x) > 10000) x = 0;
-
-  let z = Number(o.z);
-  if (!Number.isFinite(z) || Math.abs(z) > 10000) z = 0;
-
-  let y = Number(o.y);
-  if (!Number.isFinite(y)) y = 0.3;
-
-  let angle = Number(o.angle);
-  if (!Number.isFinite(angle)) angle = 0;
-  angle = ((angle % 360) + 360) % 360;
-
-  return {
-    ...o,
-    id,
-    kind,
-    name,
-    duty,
-    belt,
-    mobile,
-    x: Math.round(x * 100) / 100,
-    y: Math.round(y * 100) / 100,
-    z: Math.round(z * 100) / 100,
-    angle: Math.round(angle * 100) / 100
-  };
-}
-
 function depValid(items){
-  return Array.isArray(items) && items.length > 0 && items.length <= 2000;
+  if (!Array.isArray(items) || items.length > 2000) return false;
+  if (items.length === 0) return true;
+  const ids = new Set();
+  for (const o of items) {
+    if (!o || typeof o.id !== 'string' || !o.id || ids.has(o.id)) return false;
+    ids.add(o.id);
+    if (!o.kind || !depTypes.includes(o.kind)) return false;
+    for (const k of ['x','y','z','angle']) {
+      const v = Number(o[k]);
+      if (!Number.isFinite(v)) return false;
+      o[k] = v;
+    }
+    if (Math.abs(o.x) > 10000 || Math.abs(o.z) > 10000 || o.y < -100 || o.y > 500) return false;
+    for (const k of ['name','duty','belt','mobile']) {
+      if (o[k] === undefined || o[k] === null) o[k] = '';
+      else if (typeof o[k] !== 'string') o[k] = String(o[k]);
+    }
+  }
+  return true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function depLoadLocal(){
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
     const raw=localStorage.getItem(depStorage);if(!raw)return null;
+
+
+
+
+
+
+
     const parsed=JSON.parse(raw);
-    const rawItems=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
-    if(!rawItems||!Array.isArray(rawItems)||rawItems.length===0)return null;
-    const seenIds=new Set();
-    const items=[];
-    for(let i=0;i<rawItems.length;i++){
-      const item=depNormalizeItem(rawItems[i],i);
-      if(item&&item.kind!=='helicopter'){
-        if(seenIds.has(item.id)){
-          item.id=item.id+'-'+(i+1);
-        }
-        seenIds.add(item.id);
-        items.push(item);
-      }
-    }
-    if(items.length>0)return {items,savedAt:(parsed&&parsed.savedAt)||0};
+
+
+
+
+
+
+
+    const items=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
+
+
+
+
+
+
+
+    if(depValid(items))return {items,savedAt:(parsed&&parsed.savedAt)||0};
+
+
+
+
+
+
+
   }catch(e){console.warn('depLoadLocal error:',e);}
+
+
+
+
+
+
+
   return null;
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const initialLocal=depLoadLocal();
 
-if (initialLocal && Array.isArray(initialLocal.items) && initialLocal.items.length > 0) {
+
+
+
+
+
+
+if (initialLocal && Array.isArray(initialLocal.items) && depValid(initialLocal.items) && initialLocal.items.length > 0) {
   depItems = initialLocal.items;
-} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depInitialPlan.items.length > 0) {
-  depItems = depInitialPlan.items.map((it, idx) => depNormalizeItem(it, idx)).filter(Boolean);
+} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depValid(depInitialPlan.items) && depInitialPlan.items.length > 0) {
+  depItems = JSON.parse(JSON.stringify(depInitialPlan.items));
 } else {
   depItems = depSeed();
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
   if (o) {
+    // If officer or equipment is sunken below ground/floor, elevate immediately
     if (typeof getSurfaceHeight === 'function') {
       const properFloorY = getSurfaceHeight(o.x, o.z, o.y);
       if (properFloorY > o.y + 0.04) {
         o.y = properFloorY;
       }
     }
-    if (!o.customDuty && (!o.duty || o.duty.trim() === '')) {
+    if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
       const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
-      if (match && match.duty && match.duty !== 'Security post' && match.duty !== 'Post') {
+      if (match && match.duty && match.duty !== 'Security post') {
         o.duty = match.duty;
       } else {
         o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
@@ -2985,16 +3044,30 @@ function depStore(immediate = true){
   try{
     const record={version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems};
     localStorage.setItem(depStorage,JSON.stringify(record));
-    if (depUI('status')) {
-      depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
-    }
-    if(depUI('sync') && !depBackendReady){
-      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
-    }
+
+
+
+
+
+
+
+    depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
+
+
+
+
+
+
+
   }catch(e){console.warn('localStorage save warning:',e);}
-  if(depBackendURL && depBackendReady){
-    depQueue(immediate);
-  }
+
+
+
+
+
+
+
+  depQueue(immediate);
 
 
 
@@ -4449,7 +4522,7 @@ function depBuildFireBrigade(g) {
 // =========================================================================
 function depBuildParking(g) { depBuildParkingLot(g); }
 function depBuildParkingLot(g) {
-  g.scale.setScalar(1);
+  g.scale.setScalar(2.0);
 
   // 1. Heavy Asphalt Tarmac Ground Pavement
   depPart(g, 'box', [0, 0.05, 0], [14.0, 0.10, 10.0], 'padAsphalt');
@@ -9219,7 +9292,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade' || o.kind === 'qrt';
+  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade';
 
 
 
@@ -9549,7 +9622,7 @@ depUI('form').addEventListener('submit',e=>{
 
 
 
-  const normNext = depNormalizeItem(next, 0); if(!normNext){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
+  if(!depValid([next])){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
 
 
 
@@ -9562,7 +9635,7 @@ depUI('form').addEventListener('submit',e=>{
     o.customDuty = true;
     if (typeof depRegisterCustomDuty === 'function') depRegisterCustomDuty(next.duty);
   }
-  depStore(true);depBuild();depChoose(o.id);
+  depStore();depBuild();depChoose(o.id);
 
 
 
@@ -9610,7 +9683,7 @@ if(depUI('name')) depUI('name').addEventListener('input', () => {
 
 
 
-  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(true); }
+  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(); }
 
 
 
@@ -9635,7 +9708,7 @@ if(depUI('duty')) depUI('duty').addEventListener('input', () => {
       depRegisterCustomDuty(o.duty);
     }
     depSyncDropdownLabels(o);
-    depStore(true);
+    depStore();
   }
 
 
@@ -9668,7 +9741,7 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 
-  if (o) { o.belt = depUI('belt').value; depStore(true); }
+  if (o) { o.belt = depUI('belt').value; depStore(); }
 
 
 
@@ -9685,32 +9758,29 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 if(depUI('mobile')) depUI('mobile').addEventListener('input', () => {
-  const o = depItems.find(x => x.id === depSelected);
-  if (o) { o.mobile = depUI('mobile').value; depStore(true); }
-});
 
-['x','y','z','angle'].forEach(coord => {
-  const el = depUI(coord);
-  if (el) {
-    const handleCoord = () => {
-      const o = depItems.find(x => x.id === depSelected);
-      if (o) {
-        const val = parseFloat(el.value);
-        if (Number.isFinite(val)) {
-          if (coord === 'angle') {
-            o.angle = ((val % 360) + 360) % 360;
-          } else {
-            o[coord] = Math.round(val * 100) / 100;
-          }
-          depStore(true);
-          depBuild();
-          if (typeof draw === 'function') draw();
-        }
-      }
-    };
-    el.addEventListener('input', handleCoord);
-    el.addEventListener('change', handleCoord);
-  }
+
+
+
+
+
+
+  const o = depItems.find(x => x.id === depSelected);
+
+
+
+
+
+
+
+  if (o) { o.mobile = depUI('mobile').value; depStore(); }
+
+
+
+
+
+
+
 });
 
 
@@ -9751,7 +9821,7 @@ function depRotate(delta){
 
 
 
-  depStore(true);depBuild();depChoose(o.id);
+  depStore();depBuild();depChoose(o.id);
 
 
 
@@ -10081,7 +10151,7 @@ depUI('delete').onclick=()=>{
 
 
 
-  depSelected=null;depPlace=false;depStore(true);depBuild();
+  depSelected=null;depPlace=false;depStore();depBuild();
 
 
 
@@ -10165,7 +10235,6 @@ function depView(mode, smooth = true){
   const itemHeight = isOfficerLike ? 1.65
     : o.kind === 'firebrigade' ? 2.5
     : o.kind === 'ambulance' ? 1.85
-    : o.kind === 'qrt' ? 1.75
     : o.kind === 'dfmd' ? 1.8
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
     : o.kind === 'barricade' ? 0.9
@@ -10175,18 +10244,16 @@ function depView(mode, smooth = true){
     : o.kind === 'helipad' ? 0.5
     : 0.6;
   const distBehind = o.kind === 'helipad' ? 36.0
-    : o.kind === 'parking' ? 28.0
+    : o.kind === 'parking' ? 44.0
     : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
-    : o.kind === 'qrt' ? 6.8
     : isOfficerLike ? 3.8
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
     : 3.2;
   const heightAbove = o.kind === 'helipad' ? 24.0
-    : o.kind === 'parking' ? 18.0
+    : o.kind === 'parking' ? 28.0
     : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
-    : o.kind === 'qrt' ? 2.5
     : isOfficerLike ? 1.2
     : 1.5;
 
@@ -10224,8 +10291,7 @@ function depView(mode, smooth = true){
     if(o.kind === 'ambulance') eyeY = o.y + 1.62;
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
     if(o.kind === 'helipad') eyeY = o.y + 4.0;
-    if(o.kind === 'parking') eyeY = o.y + 3.0;
-    if(o.kind === 'qrt') eyeY = o.y + 1.58;
+    if(o.kind === 'parking') eyeY = o.y + 5.0;
 
 
 
@@ -10266,7 +10332,6 @@ function depView(mode, smooth = true){
 
 
     if(o.kind === 'firebrigade') eye.addScaledVector(dir, 2.1);
-    if(o.kind === 'qrt') eye.addScaledVector(dir, 0.45);
 
 
 
@@ -10290,7 +10355,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (o.kind==='qrt' ? 6.5 : (mode==='first' ? 10 : 2.0)))));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 16.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
 
 
 
@@ -13199,7 +13264,7 @@ function updateGtaMinimap(dt = 0.016) {
       blipSize = 5.2;
     } else if (it.kind === 'parking') {
       blipColor = '#a855f7';
-      blipSize = 4.2;
+      blipSize = 6.5;
     } else {
       blipColor = '#facc15';
       blipSize = 3.5;
@@ -13948,7 +14013,6 @@ window.__DEP_TICK = function(dt) {
 
       if (o.kind === 'ambulance') turnSpeed = 75;
       else if (o.kind === 'firebrigade') turnSpeed = 65;
-      else if (o.kind === 'qrt') turnSpeed = 80;
       else if (o.kind === 'helipad') turnSpeed = 55;
       else if (o.kind === 'parking') turnSpeed = 45;
       else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
@@ -14207,11 +14271,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-      } else if (o.kind === 'qrt') {
-        baseFwdSpeed = 7.5;
-        sprintFwdSpeed = 13.5;
-        baseBackSpeed = 3.6;
-      }else if (o.kind === 'helipad') {
+      } else if (o.kind === 'helipad') {
         baseFwdSpeed = 7.0;
         sprintFwdSpeed = 15.0;
         baseBackSpeed = 5.0;
@@ -15295,7 +15355,6 @@ window.__DEP_TICK = function(dt) {
         const itemHeight = isOfficerLike ? 1.65
           : o.kind === 'firebrigade' ? 2.5
           : o.kind === 'ambulance' ? 1.85
-          : o.kind === 'qrt' ? 1.75
           : o.kind === 'dfmd' ? 1.8
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
           : o.kind === 'barricade' ? 0.9
@@ -15305,18 +15364,16 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'helipad' ? 0.5
           : 0.6;
         const distBehind = o.kind === 'helipad' ? 36.0
-          : o.kind === 'parking' ? 28.0
+          : o.kind === 'parking' ? 44.0
           : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
-          : o.kind === 'qrt' ? 6.8
           : isOfficerLike ? 3.8
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
           : 3.2;
         const heightAbove = o.kind === 'helipad' ? 24.0
-          : o.kind === 'parking' ? 18.0
+          : o.kind === 'parking' ? 28.0
           : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
-          : o.kind === 'qrt' ? 2.5
           : isOfficerLike ? 1.2
           : 1.5;
 
@@ -15350,7 +15407,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : (o.kind === 'qrt' ? 6.5 : 2.0))));
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 16.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
 
 
 
@@ -18514,68 +18571,382 @@ async function depFlush(){
 
 
 async function depLoadBackend(){
+
+
+
+
+
+
+
   const local=depLoadLocal();
+
+
+
+
+
+
+
   if(!depBackendURL){
-    if(local&&Array.isArray(local.items)&&local.items.length>0){
+
+
+
+
+
+
+
+    if(local&&depValid(local.items)){
+
+
+
+
+
+
+
       depItems=local.items;
+
+
+
+
+
+
+
       depBuild();
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
     if(depUI('sync')){
+
+
+
+
+
+
+
       depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
-      if(depUI('retry')) depUI('retry').hidden=true;
+
+
+
+
+
+
+
+      depUI('retry').hidden=true;
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
     return;
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   depPanel.inert=true;
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
     const r=await fetch(depBackendURL,{cache:'no-store'});
+
+
+
+
+
+
+
     if(!r.ok)throw Error('Backend HTTP '+r.status);
+
+
+
+
+
+
+
     const result=await r.json();
+
+
+
+
+
+
+
     depRevision=result.revision||0;
+
+
+
+
+
+
+
     depBackendReady=true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const backendPlan=result.plan;
-    const rawBackendItems=backendPlan&&Array.isArray(backendPlan.items)?backendPlan.items:null;
-    const backendItems=rawBackendItems?rawBackendItems.map((it,idx)=>depNormalizeItem(it,idx)).filter(Boolean):null;
+
+
+
+
+
+
+
+    const backendItems=backendPlan&&Array.isArray(backendPlan.items)&&depValid(backendPlan.items)?backendPlan.items:null;
+
+
+
+
+
+
+
     const backendTime=result.updated?new Date(result.updated).getTime():0;
+
+
+
+
+
+
+
     const localTime=local?(local.savedAt||0):0;
 
-    if (local && Array.isArray(local.items) && local.items.length > 0 && localTime > backendTime) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Smart sync: determine whether local storage or backend is newer
+    if (local && Array.isArray(local.items) && depValid(local.items) && (localTime > (backendTime + 2000) || backendItems === null)) {
       depItems = local.items;
       depBuild();
       depStore(true);
       if (depUI('sync')) depUI('sync').textContent = 'Auto-saved synced ' + depItems.length + ' items to DB (rev ' + depRevision + ')';
-    } else if (backendItems && backendItems.length > 0) {
+    } else if (backendItems !== null) {
       depItems = backendItems;
       depBuild();
       try {
         localStorage.setItem(depStorage, JSON.stringify({
           version: 1,
-          savedAt: Date.now(),
+          savedAt: backendTime || Date.now(),
           origin: [geo.originLongitude, geo.originLatitude],
           items: depItems
         }));
       } catch (e) {}
       if (depUI('sync')) depUI('sync').textContent = 'Auto-saved loaded ' + depItems.length + ' items from DB (rev ' + depRevision + ')';
-    } else if (local && Array.isArray(local.items) && local.items.length > 0) {
+    } else if (local && Array.isArray(local.items) && depValid(local.items)) {
       depItems = local.items;
       depBuild();
       depStore(true);
-    }
-    if(depUI('retry'))depUI('retry').hidden=true;
-  }catch(e){
-    console.warn('Backend load failed, using local storage:',e);
-    if(local&&Array.isArray(local.items)&&local.items.length>0){
-      depItems=local.items;
+    } else {
+      depItems = depSeed();
       depBuild();
+      depStore(true);
     }
-    if(depUI('sync')){
-      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
-    }
+
+
+
+
+
+
+
     if(depUI('retry'))depUI('retry').hidden=true;
+
+
+
+
+
+
+
+  }catch(e){
+
+
+
+
+
+
+
+    console.warn('Backend load failed, using local storage:',e);
+
+
+
+
+
+
+
+    if(local&&depValid(local.items)){
+
+
+
+
+
+
+
+      depItems=local.items;
+
+
+
+
+
+
+
+      depBuild();
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    if(depUI('sync')){
+
+
+
+
+
+
+
+      depUI('sync').textContent='✅ Auto-saved in browser ('+depItems.length+' items, backend offline)';
+
+
+
+
+
+
+
+      depUI('retry').hidden=false;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
   }finally{
+
+
+
+
+
+
+
     depPanel.inert=false;
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function depSaveBeforeLeave(){
 
