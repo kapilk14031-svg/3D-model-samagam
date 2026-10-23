@@ -782299,6 +782299,9348 @@
       "ground": "",
       "status": "PDF relative position; height and scale illustrative",
       "featureId": "L11"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A , \u0938\u094d\u091f\u094b\u0930 \u0915\u0948\u0902\u091f\u0940\u0928 \u090f\u0935\u0902 \u0932\u0902\u0917\u0930 GPS PIN",
+      "kind": "box",
+      "p": [
+        183.24,
+        13.5,
+        -70.48
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A , \u0938\u094d\u091f\u094b\u0930 \u0915\u0948\u0902\u091f\u0940\u0928 \u090f\u0935\u0902 \u0932\u0902\u0917\u0930 GPS PULSE",
+      "kind": "box",
+      "p": [
+        183.24,
+        14.8,
+        -70.48
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A , \u0938\u094d\u091f\u094b\u0930 \u0915\u0948\u0902\u091f\u0940\u0928 \u090f\u0935\u0902 \u0932\u0902\u0917\u0930 Facility Block",
+      "kind": "box",
+      "p": [
+        183.24,
+        2.5,
+        -70.48
+      ],
+      "s": [
+        10.0,
+        5.0,
+        6.0
+      ],
+      "color": "#94a3b8",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office GPS PIN",
+      "kind": "box",
+      "p": [
+        177.55,
+        13.5,
+        -97.98
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office GPS PULSE",
+      "kind": "box",
+      "p": [
+        177.55,
+        14.8,
+        -97.98
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Ground Floor",
+      "kind": "box",
+      "p": [
+        177.55,
+        2.2,
+        -97.98
+      ],
+      "s": [
+        18.0,
+        4.4,
+        12.0
+      ],
+      "color": "#8d6849",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Upper Floor",
+      "kind": "box",
+      "p": [
+        177.55,
+        6.2,
+        -97.98
+      ],
+      "s": [
+        18.2,
+        3.8,
+        12.2
+      ],
+      "color": "#6b4c33",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Roof Slab",
+      "kind": "box",
+      "p": [
+        177.55,
+        8.3,
+        -97.98
+      ],
+      "s": [
+        19.0,
+        0.5,
+        13.0
+      ],
+      "color": "#baa286",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Portico",
+      "kind": "box",
+      "p": [
+        177.55,
+        2.2,
+        -91.18
+      ],
+      "s": [
+        6.0,
+        3.6,
+        2.5
+      ],
+      "color": "#baa286",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Windows Lower",
+      "kind": "box",
+      "p": [
+        177.55,
+        2.5,
+        -91.93
+      ],
+      "s": [
+        15.0,
+        1.5,
+        0.1
+      ],
+      "color": "#3a5f6e",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Windows Upper",
+      "kind": "box",
+      "p": [
+        177.55,
+        6.3,
+        -91.83
+      ],
+      "s": [
+        15.0,
+        1.5,
+        0.1
+      ],
+      "color": "#3a5f6e",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Mast",
+      "kind": "box",
+      "p": [
+        185.55,
+        9.5,
+        -91.48
+      ],
+      "s": [
+        0.2,
+        6.0,
+        0.2
+      ],
+      "color": "#e0ded5",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, main office Flag",
+      "kind": "box",
+      "p": [
+        186.15,
+        12.0,
+        -91.48
+      ],
+      "s": [
+        1.2,
+        0.7,
+        0.05
+      ],
+      "color": "#d95328",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 GPS PIN",
+      "kind": "box",
+      "p": [
+        252.31,
+        13.5,
+        -78.46
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 GPS PULSE",
+      "kind": "box",
+      "p": [
+        252.31,
+        14.8,
+        -78.46
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Pillar",
+      "kind": "box",
+      "p": [
+        247.81,
+        4.5,
+        -78.46
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Pier Cap",
+      "kind": "box",
+      "p": [
+        247.81,
+        9.2,
+        -78.46
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Finial Urn",
+      "kind": "box",
+      "p": [
+        247.81,
+        9.8,
+        -78.46
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Pillar",
+      "kind": "box",
+      "p": [
+        256.81,
+        4.5,
+        -78.46
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Pier Cap",
+      "kind": "box",
+      "p": [
+        256.81,
+        9.2,
+        -78.46
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Finial Urn",
+      "kind": "box",
+      "p": [
+        256.81,
+        9.8,
+        -78.46
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Overhead Lintel",
+      "kind": "box",
+      "p": [
+        252.31,
+        8.8,
+        -78.46
+      ],
+      "s": [
+        9.4,
+        0.8,
+        1.2
+      ],
+      "color": "#6d3928",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Nameboard",
+      "kind": "box",
+      "p": [
+        252.31,
+        9.7,
+        -78.46
+      ],
+      "s": [
+        8.2,
+        0.9,
+        0.2
+      ],
+      "color": "#23445d",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Barrier Left",
+      "kind": "box",
+      "p": [
+        250.11,
+        1.5,
+        -78.46
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Barrier Right",
+      "kind": "box",
+      "p": [
+        254.51,
+        1.5,
+        -78.46
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garound A, gate no 3 Guard Kiosk",
+      "kind": "box",
+      "p": [
+        258.11,
+        1.8,
+        -78.46
+      ],
+      "s": [
+        2.2,
+        3.5,
+        2.2
+      ],
+      "color": "#d6cca9",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, ATM GPS PIN",
+      "kind": "box",
+      "p": [
+        186.71,
+        13.5,
+        -89.01
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, ATM GPS PULSE",
+      "kind": "box",
+      "p": [
+        186.71,
+        14.8,
+        -89.01
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, ATM Kiosk",
+      "kind": "box",
+      "p": [
+        186.71,
+        1.8,
+        -89.01
+      ],
+      "s": [
+        3.2,
+        3.6,
+        3.2
+      ],
+      "color": "#ffffff",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, ATM Blue Fascia",
+      "kind": "box",
+      "p": [
+        186.71,
+        3.4,
+        -89.01
+      ],
+      "s": [
+        3.3,
+        0.8,
+        3.3
+      ],
+      "color": "#1a56a6",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, ATM Glazing",
+      "kind": "box",
+      "p": [
+        186.71,
+        1.6,
+        -87.39
+      ],
+      "s": [
+        2.4,
+        2.2,
+        0.08
+      ],
+      "color": "#437d99",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, ATM ATM Screen",
+      "kind": "box",
+      "p": [
+        186.71,
+        1.4,
+        -87.81
+      ],
+      "s": [
+        0.8,
+        0.8,
+        0.4
+      ],
+      "color": "#00b4d8",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, \u092e\u0948\u0902\u0928 \u0911\u092b\u093f\u0938 \u0938\u0947, \u092a\u0902\u0921\u093e\u0932 \u0915\u0940 \u0924\u0930\u092b \u091c\u093e\u0928\u0947 \u0935\u093e\u0932\u093e \u0930\u093e\u0938\u094d\u0924\u093e GPS PIN",
+      "kind": "box",
+      "p": [
+        173.21,
+        13.5,
+        -23.89
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, \u092e\u0948\u0902\u0928 \u0911\u092b\u093f\u0938 \u0938\u0947, \u092a\u0902\u0921\u093e\u0932 \u0915\u0940 \u0924\u0930\u092b \u091c\u093e\u0928\u0947 \u0935\u093e\u0932\u093e \u0930\u093e\u0938\u094d\u0924\u093e GPS PULSE",
+      "kind": "box",
+      "p": [
+        173.21,
+        14.8,
+        -23.89
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, \u092e\u0948\u0902\u0928 \u0911\u092b\u093f\u0938 \u0938\u0947, \u092a\u0902\u0921\u093e\u0932 \u0915\u0940 \u0924\u0930\u092b \u091c\u093e\u0928\u0947 \u0935\u093e\u0932\u093e \u0930\u093e\u0938\u094d\u0924\u093e Facility Block",
+      "kind": "box",
+      "p": [
+        173.21,
+        2.5,
+        -23.89
+      ],
+      "s": [
+        10.0,
+        5.0,
+        6.0
+      ],
+      "color": "#94a3b8",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PIN",
+      "kind": "box",
+      "p": [
+        175.77,
+        13.5,
+        56.98
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PULSE",
+      "kind": "box",
+      "p": [
+        175.77,
+        14.8,
+        56.98
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Plinth",
+      "kind": "box",
+      "p": [
+        175.77,
+        0.3,
+        56.98
+      ],
+      "s": [
+        16.0,
+        0.6,
+        10.0
+      ],
+      "color": "#cfc7b0",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Canopy",
+      "kind": "box",
+      "p": [
+        175.77,
+        4.8,
+        56.98
+      ],
+      "s": [
+        16.5,
+        1.2,
+        10.5
+      ],
+      "color": "#ad4b3b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Valance",
+      "kind": "box",
+      "p": [
+        175.77,
+        4.0,
+        56.98
+      ],
+      "s": [
+        16.7,
+        0.5,
+        10.7
+      ],
+      "color": "#f7eed2",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Counter",
+      "kind": "box",
+      "p": [
+        175.77,
+        1.2,
+        56.98
+      ],
+      "s": [
+        13.0,
+        1.1,
+        1.6
+      ],
+      "color": "#ded6bd",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pole",
+      "kind": "box",
+      "p": [
+        168.27,
+        2.4,
+        52.48
+      ],
+      "s": [
+        0.3,
+        4.2,
+        0.3
+      ],
+      "color": "#6e6a5c",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pole",
+      "kind": "box",
+      "p": [
+        168.27,
+        2.4,
+        61.48
+      ],
+      "s": [
+        0.3,
+        4.2,
+        0.3
+      ],
+      "color": "#6e6a5c",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pole",
+      "kind": "box",
+      "p": [
+        175.77,
+        2.4,
+        52.48
+      ],
+      "s": [
+        0.3,
+        4.2,
+        0.3
+      ],
+      "color": "#6e6a5c",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pole",
+      "kind": "box",
+      "p": [
+        175.77,
+        2.4,
+        61.48
+      ],
+      "s": [
+        0.3,
+        4.2,
+        0.3
+      ],
+      "color": "#6e6a5c",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pole",
+      "kind": "box",
+      "p": [
+        183.27,
+        2.4,
+        52.48
+      ],
+      "s": [
+        0.3,
+        4.2,
+        0.3
+      ],
+      "color": "#6e6a5c",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pole",
+      "kind": "box",
+      "p": [
+        183.27,
+        2.4,
+        61.48
+      ],
+      "s": [
+        0.3,
+        4.2,
+        0.3
+      ],
+      "color": "#6e6a5c",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Sign",
+      "kind": "box",
+      "p": [
+        175.77,
+        5.7,
+        62.28
+      ],
+      "s": [
+        8.0,
+        0.8,
+        0.2
+      ],
+      "color": "#b23d2e",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PIN",
+      "kind": "box",
+      "p": [
+        161.44,
+        13.5,
+        55.29
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PULSE",
+      "kind": "box",
+      "p": [
+        161.44,
+        14.8,
+        55.29
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Plinth",
+      "kind": "box",
+      "p": [
+        161.44,
+        0.3,
+        55.29
+      ],
+      "s": [
+        24.0,
+        0.6,
+        12.0
+      ],
+      "color": "#cfc7b0",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Canopy",
+      "kind": "box",
+      "p": [
+        161.44,
+        5.2,
+        55.29
+      ],
+      "s": [
+        24.5,
+        1.4,
+        12.5
+      ],
+      "color": "#3b6287",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Trim",
+      "kind": "box",
+      "p": [
+        161.44,
+        4.3,
+        55.29
+      ],
+      "s": [
+        24.7,
+        0.5,
+        12.7
+      ],
+      "color": "#ecd9b2",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Dining Row",
+      "kind": "box",
+      "p": [
+        161.44,
+        0.65,
+        51.79
+      ],
+      "s": [
+        20.0,
+        0.1,
+        1.8
+      ],
+      "color": "#b88c56",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Dining Row",
+      "kind": "box",
+      "p": [
+        161.44,
+        0.65,
+        55.29
+      ],
+      "s": [
+        20.0,
+        0.1,
+        1.8
+      ],
+      "color": "#b88c56",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Dining Row",
+      "kind": "box",
+      "p": [
+        161.44,
+        0.65,
+        58.79
+      ],
+      "s": [
+        20.0,
+        0.1,
+        1.8
+      ],
+      "color": "#b88c56",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        150.44,
+        2.6,
+        49.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        150.44,
+        2.6,
+        60.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        155.94,
+        2.6,
+        49.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        155.94,
+        2.6,
+        60.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        161.44,
+        2.6,
+        49.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        161.44,
+        2.6,
+        60.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        166.94,
+        2.6,
+        49.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        166.94,
+        2.6,
+        60.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        172.44,
+        2.6,
+        49.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Pillar",
+      "kind": "box",
+      "p": [
+        172.44,
+        2.6,
+        60.79
+      ],
+      "s": [
+        0.35,
+        4.6,
+        0.35
+      ],
+      "color": "#5c646b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Sign",
+      "kind": "box",
+      "p": [
+        161.44,
+        6.2,
+        61.59
+      ],
+      "s": [
+        10.0,
+        0.9,
+        0.2
+      ],
+      "color": "#21496b",
+      "layer": "services",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 GPS PIN",
+      "kind": "box",
+      "p": [
+        214.09,
+        13.5,
+        140.07
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 GPS PULSE",
+      "kind": "box",
+      "p": [
+        214.09,
+        14.8,
+        140.07
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Post",
+      "kind": "box",
+      "p": [
+        211.89,
+        3.8,
+        137.87
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Post",
+      "kind": "box",
+      "p": [
+        211.89,
+        3.8,
+        142.27
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Post",
+      "kind": "box",
+      "p": [
+        216.29,
+        3.8,
+        137.87
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Post",
+      "kind": "box",
+      "p": [
+        216.29,
+        3.8,
+        142.27
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Platform Deck",
+      "kind": "box",
+      "p": [
+        214.09,
+        7.5,
+        140.07
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Railing X",
+      "kind": "box",
+      "p": [
+        211.49,
+        8.2,
+        140.07
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Railing X",
+      "kind": "box",
+      "p": [
+        216.69,
+        8.2,
+        140.07
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Railing Z",
+      "kind": "box",
+      "p": [
+        214.09,
+        8.2,
+        137.47
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Railing Z",
+      "kind": "box",
+      "p": [
+        214.09,
+        8.2,
+        142.67
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Canopy",
+      "kind": "box",
+      "p": [
+        214.09,
+        10.4,
+        140.07
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Eaves",
+      "kind": "box",
+      "p": [
+        214.09,
+        10.8,
+        140.07
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Officer Body",
+      "kind": "box",
+      "p": [
+        214.09,
+        8.4,
+        140.07
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Officer Cap",
+      "kind": "box",
+      "p": [
+        214.09,
+        9.35,
+        140.07
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Searchlight",
+      "kind": "box",
+      "p": [
+        214.09,
+        11.2,
+        140.07
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, A-13 Sign",
+      "kind": "box",
+      "p": [
+        214.09,
+        7.1,
+        142.82
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PIN",
+      "kind": "box",
+      "p": [
+        172.58,
+        13.5,
+        135.3
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PULSE",
+      "kind": "box",
+      "p": [
+        172.58,
+        14.8,
+        135.3
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        170.38,
+        3.8,
+        133.1
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        170.38,
+        3.8,
+        137.5
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        174.78,
+        3.8,
+        133.1
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        174.78,
+        3.8,
+        137.5
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Platform Deck",
+      "kind": "box",
+      "p": [
+        172.58,
+        7.5,
+        135.3
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing X",
+      "kind": "box",
+      "p": [
+        169.98,
+        8.2,
+        135.3
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing X",
+      "kind": "box",
+      "p": [
+        175.18,
+        8.2,
+        135.3
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing Z",
+      "kind": "box",
+      "p": [
+        172.58,
+        8.2,
+        132.7
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing Z",
+      "kind": "box",
+      "p": [
+        172.58,
+        8.2,
+        137.9
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Canopy",
+      "kind": "box",
+      "p": [
+        172.58,
+        10.4,
+        135.3
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Eaves",
+      "kind": "box",
+      "p": [
+        172.58,
+        10.8,
+        135.3
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Officer Body",
+      "kind": "box",
+      "p": [
+        172.58,
+        8.4,
+        135.3
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Officer Cap",
+      "kind": "box",
+      "p": [
+        172.58,
+        9.35,
+        135.3
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Searchlight",
+      "kind": "box",
+      "p": [
+        172.58,
+        11.2,
+        135.3
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Sign",
+      "kind": "box",
+      "p": [
+        172.58,
+        7.1,
+        138.05
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking GPS PIN",
+      "kind": "box",
+      "p": [
+        104.64,
+        13.5,
+        128.71
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking GPS PULSE",
+      "kind": "box",
+      "p": [
+        104.64,
+        14.8,
+        128.71
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Paved Bay",
+      "kind": "box",
+      "p": [
+        104.64,
+        0.15,
+        128.71
+      ],
+      "s": [
+        26.0,
+        0.3,
+        18.0
+      ],
+      "color": "#424d52",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Curb X",
+      "kind": "box",
+      "p": [
+        91.44,
+        0.4,
+        128.71
+      ],
+      "s": [
+        0.4,
+        0.4,
+        18.0
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Curb X",
+      "kind": "box",
+      "p": [
+        117.84,
+        0.4,
+        128.71
+      ],
+      "s": [
+        0.4,
+        0.4,
+        18.0
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Curb Z",
+      "kind": "box",
+      "p": [
+        104.64,
+        0.4,
+        119.51
+      ],
+      "s": [
+        26.0,
+        0.4,
+        0.4
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Curb Z",
+      "kind": "box",
+      "p": [
+        104.64,
+        0.4,
+        137.91
+      ],
+      "s": [
+        26.0,
+        0.4,
+        0.4
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Parking Sign",
+      "kind": "box",
+      "p": [
+        92.64,
+        2.2,
+        138.21
+      ],
+      "s": [
+        0.2,
+        3.8,
+        0.2
+      ],
+      "color": "#3b4347",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, SC parking Sign Plate",
+      "kind": "box",
+      "p": [
+        92.64,
+        3.8,
+        138.21
+      ],
+      "s": [
+        0.1,
+        1.2,
+        1.2
+      ],
+      "color": "#1d4ed8",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 GPS PIN",
+      "kind": "box",
+      "p": [
+        -266.45,
+        13.5,
+        251.77
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -266.45,
+        14.8,
+        251.77
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Post",
+      "kind": "box",
+      "p": [
+        -268.65,
+        3.8,
+        249.57
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Post",
+      "kind": "box",
+      "p": [
+        -268.65,
+        3.8,
+        253.97
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Post",
+      "kind": "box",
+      "p": [
+        -264.25,
+        3.8,
+        249.57
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Post",
+      "kind": "box",
+      "p": [
+        -264.25,
+        3.8,
+        253.97
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Platform Deck",
+      "kind": "box",
+      "p": [
+        -266.45,
+        7.5,
+        251.77
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Railing X",
+      "kind": "box",
+      "p": [
+        -269.05,
+        8.2,
+        251.77
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Railing X",
+      "kind": "box",
+      "p": [
+        -263.85,
+        8.2,
+        251.77
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Railing Z",
+      "kind": "box",
+      "p": [
+        -266.45,
+        8.2,
+        249.17
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Railing Z",
+      "kind": "box",
+      "p": [
+        -266.45,
+        8.2,
+        254.37
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Canopy",
+      "kind": "box",
+      "p": [
+        -266.45,
+        10.4,
+        251.77
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Eaves",
+      "kind": "box",
+      "p": [
+        -266.45,
+        10.8,
+        251.77
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Officer Body",
+      "kind": "box",
+      "p": [
+        -266.45,
+        8.4,
+        251.77
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Officer Cap",
+      "kind": "box",
+      "p": [
+        -266.45,
+        9.35,
+        251.77
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Searchlight",
+      "kind": "box",
+      "p": [
+        -266.45,
+        11.2,
+        251.77
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C1 Sign",
+      "kind": "box",
+      "p": [
+        -266.45,
+        7.1,
+        254.52
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 GPS PIN",
+      "kind": "box",
+      "p": [
+        -252.44,
+        13.5,
+        179.23
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -252.44,
+        14.8,
+        179.23
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Post",
+      "kind": "box",
+      "p": [
+        -254.64,
+        3.8,
+        177.03
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Post",
+      "kind": "box",
+      "p": [
+        -254.64,
+        3.8,
+        181.43
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Post",
+      "kind": "box",
+      "p": [
+        -250.24,
+        3.8,
+        177.03
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Post",
+      "kind": "box",
+      "p": [
+        -250.24,
+        3.8,
+        181.43
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Platform Deck",
+      "kind": "box",
+      "p": [
+        -252.44,
+        7.5,
+        179.23
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Railing X",
+      "kind": "box",
+      "p": [
+        -255.04,
+        8.2,
+        179.23
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Railing X",
+      "kind": "box",
+      "p": [
+        -249.84,
+        8.2,
+        179.23
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Railing Z",
+      "kind": "box",
+      "p": [
+        -252.44,
+        8.2,
+        176.63
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Railing Z",
+      "kind": "box",
+      "p": [
+        -252.44,
+        8.2,
+        181.83
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Canopy",
+      "kind": "box",
+      "p": [
+        -252.44,
+        10.4,
+        179.23
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Eaves",
+      "kind": "box",
+      "p": [
+        -252.44,
+        10.8,
+        179.23
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Officer Body",
+      "kind": "box",
+      "p": [
+        -252.44,
+        8.4,
+        179.23
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Officer Cap",
+      "kind": "box",
+      "p": [
+        -252.44,
+        9.35,
+        179.23
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Searchlight",
+      "kind": "box",
+      "p": [
+        -252.44,
+        11.2,
+        179.23
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C2 Sign",
+      "kind": "box",
+      "p": [
+        -252.44,
+        7.1,
+        181.98
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 GPS PIN",
+      "kind": "box",
+      "p": [
+        219.51,
+        13.5,
+        226.98
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 GPS PULSE",
+      "kind": "box",
+      "p": [
+        219.51,
+        14.8,
+        226.98
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Post",
+      "kind": "box",
+      "p": [
+        217.31,
+        3.8,
+        224.78
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Post",
+      "kind": "box",
+      "p": [
+        217.31,
+        3.8,
+        229.18
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Post",
+      "kind": "box",
+      "p": [
+        221.71,
+        3.8,
+        224.78
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Post",
+      "kind": "box",
+      "p": [
+        221.71,
+        3.8,
+        229.18
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Platform Deck",
+      "kind": "box",
+      "p": [
+        219.51,
+        7.5,
+        226.98
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Railing X",
+      "kind": "box",
+      "p": [
+        216.91,
+        8.2,
+        226.98
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Railing X",
+      "kind": "box",
+      "p": [
+        222.11,
+        8.2,
+        226.98
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Railing Z",
+      "kind": "box",
+      "p": [
+        219.51,
+        8.2,
+        224.38
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Railing Z",
+      "kind": "box",
+      "p": [
+        219.51,
+        8.2,
+        229.58
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Canopy",
+      "kind": "box",
+      "p": [
+        219.51,
+        10.4,
+        226.98
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Eaves",
+      "kind": "box",
+      "p": [
+        219.51,
+        10.8,
+        226.98
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Officer Body",
+      "kind": "box",
+      "p": [
+        219.51,
+        8.4,
+        226.98
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Officer Cap",
+      "kind": "box",
+      "p": [
+        219.51,
+        9.35,
+        226.98
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Searchlight",
+      "kind": "box",
+      "p": [
+        219.51,
+        11.2,
+        226.98
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / B Block B1 Sign",
+      "kind": "box",
+      "p": [
+        219.51,
+        7.1,
+        229.73
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 GPS PIN",
+      "kind": "box",
+      "p": [
+        -425.39,
+        13.5,
+        150.78
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -425.39,
+        14.8,
+        150.78
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Post",
+      "kind": "box",
+      "p": [
+        -427.59,
+        3.8,
+        148.58
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Post",
+      "kind": "box",
+      "p": [
+        -427.59,
+        3.8,
+        152.98
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Post",
+      "kind": "box",
+      "p": [
+        -423.19,
+        3.8,
+        148.58
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Post",
+      "kind": "box",
+      "p": [
+        -423.19,
+        3.8,
+        152.98
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Platform Deck",
+      "kind": "box",
+      "p": [
+        -425.39,
+        7.5,
+        150.78
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Railing X",
+      "kind": "box",
+      "p": [
+        -427.99,
+        8.2,
+        150.78
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Railing X",
+      "kind": "box",
+      "p": [
+        -422.79,
+        8.2,
+        150.78
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Railing Z",
+      "kind": "box",
+      "p": [
+        -425.39,
+        8.2,
+        148.18
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Railing Z",
+      "kind": "box",
+      "p": [
+        -425.39,
+        8.2,
+        153.38
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Canopy",
+      "kind": "box",
+      "p": [
+        -425.39,
+        10.4,
+        150.78
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Eaves",
+      "kind": "box",
+      "p": [
+        -425.39,
+        10.8,
+        150.78
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Officer Body",
+      "kind": "box",
+      "p": [
+        -425.39,
+        8.4,
+        150.78
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Officer Cap",
+      "kind": "box",
+      "p": [
+        -425.39,
+        9.35,
+        150.78
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Searchlight",
+      "kind": "box",
+      "p": [
+        -425.39,
+        11.2,
+        150.78
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C3 Sign",
+      "kind": "box",
+      "p": [
+        -425.39,
+        7.1,
+        153.53
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 GPS PIN",
+      "kind": "box",
+      "p": [
+        -455.75,
+        13.5,
+        56.82
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -455.75,
+        14.8,
+        56.82
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Post",
+      "kind": "box",
+      "p": [
+        -457.95,
+        3.8,
+        54.62
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Post",
+      "kind": "box",
+      "p": [
+        -457.95,
+        3.8,
+        59.02
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Post",
+      "kind": "box",
+      "p": [
+        -453.55,
+        3.8,
+        54.62
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Post",
+      "kind": "box",
+      "p": [
+        -453.55,
+        3.8,
+        59.02
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Platform Deck",
+      "kind": "box",
+      "p": [
+        -455.75,
+        7.5,
+        56.82
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Railing X",
+      "kind": "box",
+      "p": [
+        -458.35,
+        8.2,
+        56.82
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Railing X",
+      "kind": "box",
+      "p": [
+        -453.15,
+        8.2,
+        56.82
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Railing Z",
+      "kind": "box",
+      "p": [
+        -455.75,
+        8.2,
+        54.22
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Railing Z",
+      "kind": "box",
+      "p": [
+        -455.75,
+        8.2,
+        59.42
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Canopy",
+      "kind": "box",
+      "p": [
+        -455.75,
+        10.4,
+        56.82
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Eaves",
+      "kind": "box",
+      "p": [
+        -455.75,
+        10.8,
+        56.82
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Officer Body",
+      "kind": "box",
+      "p": [
+        -455.75,
+        8.4,
+        56.82
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Officer Cap",
+      "kind": "box",
+      "p": [
+        -455.75,
+        9.35,
+        56.82
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Searchlight",
+      "kind": "box",
+      "p": [
+        -455.75,
+        11.2,
+        56.82
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C4 Sign",
+      "kind": "box",
+      "p": [
+        -455.75,
+        7.1,
+        59.57
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 GPS PIN",
+      "kind": "box",
+      "p": [
+        -255.97,
+        13.5,
+        76.53
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -255.97,
+        14.8,
+        76.53
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Post",
+      "kind": "box",
+      "p": [
+        -258.17,
+        3.8,
+        74.33
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Post",
+      "kind": "box",
+      "p": [
+        -258.17,
+        3.8,
+        78.73
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Post",
+      "kind": "box",
+      "p": [
+        -253.77,
+        3.8,
+        74.33
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Post",
+      "kind": "box",
+      "p": [
+        -253.77,
+        3.8,
+        78.73
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Platform Deck",
+      "kind": "box",
+      "p": [
+        -255.97,
+        7.5,
+        76.53
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Railing X",
+      "kind": "box",
+      "p": [
+        -258.57,
+        8.2,
+        76.53
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Railing X",
+      "kind": "box",
+      "p": [
+        -253.37,
+        8.2,
+        76.53
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Railing Z",
+      "kind": "box",
+      "p": [
+        -255.97,
+        8.2,
+        73.93
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Railing Z",
+      "kind": "box",
+      "p": [
+        -255.97,
+        8.2,
+        79.13
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Canopy",
+      "kind": "box",
+      "p": [
+        -255.97,
+        10.4,
+        76.53
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Eaves",
+      "kind": "box",
+      "p": [
+        -255.97,
+        10.8,
+        76.53
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Officer Body",
+      "kind": "box",
+      "p": [
+        -255.97,
+        8.4,
+        76.53
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Officer Cap",
+      "kind": "box",
+      "p": [
+        -255.97,
+        9.35,
+        76.53
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Searchlight",
+      "kind": "box",
+      "p": [
+        -255.97,
+        11.2,
+        76.53
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C5 Sign",
+      "kind": "box",
+      "p": [
+        -255.97,
+        7.1,
+        79.28
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 GPS PIN",
+      "kind": "box",
+      "p": [
+        395.3,
+        13.5,
+        537.0
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 GPS PULSE",
+      "kind": "box",
+      "p": [
+        395.3,
+        14.8,
+        537.0
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Post",
+      "kind": "box",
+      "p": [
+        393.1,
+        3.8,
+        534.8
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Post",
+      "kind": "box",
+      "p": [
+        393.1,
+        3.8,
+        539.2
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Post",
+      "kind": "box",
+      "p": [
+        397.5,
+        3.8,
+        534.8
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Post",
+      "kind": "box",
+      "p": [
+        397.5,
+        3.8,
+        539.2
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Platform Deck",
+      "kind": "box",
+      "p": [
+        395.3,
+        7.5,
+        537.0
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Railing X",
+      "kind": "box",
+      "p": [
+        392.7,
+        8.2,
+        537.0
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Railing X",
+      "kind": "box",
+      "p": [
+        397.9,
+        8.2,
+        537.0
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Railing Z",
+      "kind": "box",
+      "p": [
+        395.3,
+        8.2,
+        534.4
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Railing Z",
+      "kind": "box",
+      "p": [
+        395.3,
+        8.2,
+        539.6
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Canopy",
+      "kind": "box",
+      "p": [
+        395.3,
+        10.4,
+        537.0
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Eaves",
+      "kind": "box",
+      "p": [
+        395.3,
+        10.8,
+        537.0
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Officer Body",
+      "kind": "box",
+      "p": [
+        395.3,
+        8.4,
+        537.0
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Officer Cap",
+      "kind": "box",
+      "p": [
+        395.3,
+        9.35,
+        537.0
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Searchlight",
+      "kind": "box",
+      "p": [
+        395.3,
+        11.2,
+        537.0
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B B2 Sign",
+      "kind": "box",
+      "p": [
+        395.3,
+        7.1,
+        539.75
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 GPS PIN",
+      "kind": "box",
+      "p": [
+        -239.4,
+        13.5,
+        -66.74
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -239.4,
+        14.8,
+        -66.74
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Post",
+      "kind": "box",
+      "p": [
+        -241.6,
+        3.8,
+        -68.94
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Post",
+      "kind": "box",
+      "p": [
+        -241.6,
+        3.8,
+        -64.54
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Post",
+      "kind": "box",
+      "p": [
+        -237.2,
+        3.8,
+        -68.94
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Post",
+      "kind": "box",
+      "p": [
+        -237.2,
+        3.8,
+        -64.54
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Platform Deck",
+      "kind": "box",
+      "p": [
+        -239.4,
+        7.5,
+        -66.74
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Railing X",
+      "kind": "box",
+      "p": [
+        -242.0,
+        8.2,
+        -66.74
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Railing X",
+      "kind": "box",
+      "p": [
+        -236.8,
+        8.2,
+        -66.74
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Railing Z",
+      "kind": "box",
+      "p": [
+        -239.4,
+        8.2,
+        -69.34
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Railing Z",
+      "kind": "box",
+      "p": [
+        -239.4,
+        8.2,
+        -64.14
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Canopy",
+      "kind": "box",
+      "p": [
+        -239.4,
+        10.4,
+        -66.74
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Eaves",
+      "kind": "box",
+      "p": [
+        -239.4,
+        10.8,
+        -66.74
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Officer Body",
+      "kind": "box",
+      "p": [
+        -239.4,
+        8.4,
+        -66.74
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Officer Cap",
+      "kind": "box",
+      "p": [
+        -239.4,
+        9.35,
+        -66.74
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Searchlight",
+      "kind": "box",
+      "p": [
+        -239.4,
+        11.2,
+        -66.74
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 6 Sign",
+      "kind": "box",
+      "p": [
+        -239.4,
+        7.1,
+        -63.99
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 GPS PIN",
+      "kind": "box",
+      "p": [
+        -96.45,
+        13.5,
+        -155.95
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -96.45,
+        14.8,
+        -155.95
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Post",
+      "kind": "box",
+      "p": [
+        -98.65,
+        3.8,
+        -158.15
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Post",
+      "kind": "box",
+      "p": [
+        -98.65,
+        3.8,
+        -153.75
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Post",
+      "kind": "box",
+      "p": [
+        -94.25,
+        3.8,
+        -158.15
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Post",
+      "kind": "box",
+      "p": [
+        -94.25,
+        3.8,
+        -153.75
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Platform Deck",
+      "kind": "box",
+      "p": [
+        -96.45,
+        7.5,
+        -155.95
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Railing X",
+      "kind": "box",
+      "p": [
+        -99.05,
+        8.2,
+        -155.95
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Railing X",
+      "kind": "box",
+      "p": [
+        -93.85,
+        8.2,
+        -155.95
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Railing Z",
+      "kind": "box",
+      "p": [
+        -96.45,
+        8.2,
+        -158.55
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Railing Z",
+      "kind": "box",
+      "p": [
+        -96.45,
+        8.2,
+        -153.35
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Canopy",
+      "kind": "box",
+      "p": [
+        -96.45,
+        10.4,
+        -155.95
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Eaves",
+      "kind": "box",
+      "p": [
+        -96.45,
+        10.8,
+        -155.95
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Officer Body",
+      "kind": "box",
+      "p": [
+        -96.45,
+        8.4,
+        -155.95
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Officer Cap",
+      "kind": "box",
+      "p": [
+        -96.45,
+        9.35,
+        -155.95
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Searchlight",
+      "kind": "box",
+      "p": [
+        -96.45,
+        11.2,
+        -155.95
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 Sign",
+      "kind": "box",
+      "p": [
+        -96.45,
+        7.1,
+        -153.2
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 GPS PIN",
+      "kind": "box",
+      "p": [
+        -109.9,
+        13.5,
+        96.14
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -109.9,
+        14.8,
+        96.14
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Post",
+      "kind": "box",
+      "p": [
+        -112.1,
+        3.8,
+        93.94
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Post",
+      "kind": "box",
+      "p": [
+        -112.1,
+        3.8,
+        98.34
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Post",
+      "kind": "box",
+      "p": [
+        -107.7,
+        3.8,
+        93.94
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Post",
+      "kind": "box",
+      "p": [
+        -107.7,
+        3.8,
+        98.34
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Platform Deck",
+      "kind": "box",
+      "p": [
+        -109.9,
+        7.5,
+        96.14
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Railing X",
+      "kind": "box",
+      "p": [
+        -112.5,
+        8.2,
+        96.14
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Railing X",
+      "kind": "box",
+      "p": [
+        -107.3,
+        8.2,
+        96.14
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Railing Z",
+      "kind": "box",
+      "p": [
+        -109.9,
+        8.2,
+        93.54
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Railing Z",
+      "kind": "box",
+      "p": [
+        -109.9,
+        8.2,
+        98.74
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Canopy",
+      "kind": "box",
+      "p": [
+        -109.9,
+        10.4,
+        96.14
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Eaves",
+      "kind": "box",
+      "p": [
+        -109.9,
+        10.8,
+        96.14
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Officer Body",
+      "kind": "box",
+      "p": [
+        -109.9,
+        8.4,
+        96.14
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Officer Cap",
+      "kind": "box",
+      "p": [
+        -109.9,
+        9.35,
+        96.14
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Searchlight",
+      "kind": "box",
+      "p": [
+        -109.9,
+        11.2,
+        96.14
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C8 Sign",
+      "kind": "box",
+      "p": [
+        -109.9,
+        7.1,
+        98.89
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 GPS PIN",
+      "kind": "box",
+      "p": [
+        -57.91,
+        13.5,
+        375.87
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -57.91,
+        14.8,
+        375.87
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Post",
+      "kind": "box",
+      "p": [
+        -60.11,
+        3.8,
+        373.67
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Post",
+      "kind": "box",
+      "p": [
+        -60.11,
+        3.8,
+        378.07
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Post",
+      "kind": "box",
+      "p": [
+        -55.71,
+        3.8,
+        373.67
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Post",
+      "kind": "box",
+      "p": [
+        -55.71,
+        3.8,
+        378.07
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Platform Deck",
+      "kind": "box",
+      "p": [
+        -57.91,
+        7.5,
+        375.87
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Railing X",
+      "kind": "box",
+      "p": [
+        -60.51,
+        8.2,
+        375.87
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Railing X",
+      "kind": "box",
+      "p": [
+        -55.31,
+        8.2,
+        375.87
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Railing Z",
+      "kind": "box",
+      "p": [
+        -57.91,
+        8.2,
+        373.27
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Railing Z",
+      "kind": "box",
+      "p": [
+        -57.91,
+        8.2,
+        378.47
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Canopy",
+      "kind": "box",
+      "p": [
+        -57.91,
+        10.4,
+        375.87
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Eaves",
+      "kind": "box",
+      "p": [
+        -57.91,
+        10.8,
+        375.87
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Officer Body",
+      "kind": "box",
+      "p": [
+        -57.91,
+        8.4,
+        375.87
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Officer Cap",
+      "kind": "box",
+      "p": [
+        -57.91,
+        9.35,
+        375.87
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Searchlight",
+      "kind": "box",
+      "p": [
+        -57.91,
+        11.2,
+        375.87
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / C ground C 9 Sign",
+      "kind": "box",
+      "p": [
+        -57.91,
+        7.1,
+        378.62
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Gate no 1\u0964 Parking no 2 GPS PIN",
+      "kind": "box",
+      "p": [
+        5747.4,
+        13.5,
+        7630.41
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Gate no 1\u0964 Parking no 2 GPS PULSE",
+      "kind": "box",
+      "p": [
+        5747.4,
+        14.8,
+        7630.41
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PIN",
+      "kind": "box",
+      "p": [
+        59.8,
+        13.5,
+        118.36
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PULSE",
+      "kind": "box",
+      "p": [
+        59.8,
+        14.8,
+        118.36
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        57.6,
+        3.8,
+        116.16
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        57.6,
+        3.8,
+        120.56
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        62.0,
+        3.8,
+        116.16
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Post",
+      "kind": "box",
+      "p": [
+        62.0,
+        3.8,
+        120.56
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Platform Deck",
+      "kind": "box",
+      "p": [
+        59.8,
+        7.5,
+        118.36
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing X",
+      "kind": "box",
+      "p": [
+        57.2,
+        8.2,
+        118.36
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing X",
+      "kind": "box",
+      "p": [
+        62.4,
+        8.2,
+        118.36
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing Z",
+      "kind": "box",
+      "p": [
+        59.8,
+        8.2,
+        115.76
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Railing Z",
+      "kind": "box",
+      "p": [
+        59.8,
+        8.2,
+        120.96
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Canopy",
+      "kind": "box",
+      "p": [
+        59.8,
+        10.4,
+        118.36
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Eaves",
+      "kind": "box",
+      "p": [
+        59.8,
+        10.8,
+        118.36
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Officer Body",
+      "kind": "box",
+      "p": [
+        59.8,
+        8.4,
+        118.36
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Officer Cap",
+      "kind": "box",
+      "p": [
+        59.8,
+        9.35,
+        118.36
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Searchlight",
+      "kind": "box",
+      "p": [
+        59.8,
+        11.2,
+        118.36
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Sign",
+      "kind": "box",
+      "p": [
+        59.8,
+        7.1,
+        121.11
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B canteen no 4 GPS PIN",
+      "kind": "box",
+      "p": [
+        2250.26,
+        13.5,
+        3440.8
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B canteen no 4 GPS PULSE",
+      "kind": "box",
+      "p": [
+        2250.26,
+        14.8,
+        3440.8
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PIN",
+      "kind": "box",
+      "p": [
+        15.06,
+        13.5,
+        117.58
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A GPS PULSE",
+      "kind": "box",
+      "p": [
+        15.06,
+        14.8,
+        117.58
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Paved Bay",
+      "kind": "box",
+      "p": [
+        15.06,
+        0.15,
+        117.58
+      ],
+      "s": [
+        26.0,
+        0.3,
+        18.0
+      ],
+      "color": "#424d52",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Curb X",
+      "kind": "box",
+      "p": [
+        1.86,
+        0.4,
+        117.58
+      ],
+      "s": [
+        0.4,
+        0.4,
+        18.0
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Curb X",
+      "kind": "box",
+      "p": [
+        28.26,
+        0.4,
+        117.58
+      ],
+      "s": [
+        0.4,
+        0.4,
+        18.0
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Curb Z",
+      "kind": "box",
+      "p": [
+        15.06,
+        0.4,
+        108.38
+      ],
+      "s": [
+        26.0,
+        0.4,
+        0.4
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Curb Z",
+      "kind": "box",
+      "p": [
+        15.06,
+        0.4,
+        126.78
+      ],
+      "s": [
+        26.0,
+        0.4,
+        0.4
+      ],
+      "color": "#c7c2b3",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Parking Sign",
+      "kind": "box",
+      "p": [
+        3.06,
+        2.2,
+        127.08
+      ],
+      "s": [
+        0.2,
+        3.8,
+        0.2
+      ],
+      "color": "#3b4347",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A Sign Plate",
+      "kind": "box",
+      "p": [
+        3.06,
+        3.8,
+        127.08
+      ],
+      "s": [
+        0.1,
+        1.2,
+        1.2
+      ],
+      "color": "#1d4ed8",
+      "layer": "parking",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 GPS PIN",
+      "kind": "box",
+      "p": [
+        -25.68,
+        13.5,
+        106.01
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 GPS PULSE",
+      "kind": "box",
+      "p": [
+        -25.68,
+        14.8,
+        106.01
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Post",
+      "kind": "box",
+      "p": [
+        -27.88,
+        3.8,
+        103.81
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Post",
+      "kind": "box",
+      "p": [
+        -27.88,
+        3.8,
+        108.21
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Post",
+      "kind": "box",
+      "p": [
+        -23.48,
+        3.8,
+        103.81
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Post",
+      "kind": "box",
+      "p": [
+        -23.48,
+        3.8,
+        108.21
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Platform Deck",
+      "kind": "box",
+      "p": [
+        -25.68,
+        7.5,
+        106.01
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Railing X",
+      "kind": "box",
+      "p": [
+        -28.28,
+        8.2,
+        106.01
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Railing X",
+      "kind": "box",
+      "p": [
+        -23.08,
+        8.2,
+        106.01
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Railing Z",
+      "kind": "box",
+      "p": [
+        -25.68,
+        8.2,
+        103.41
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Railing Z",
+      "kind": "box",
+      "p": [
+        -25.68,
+        8.2,
+        108.61
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Canopy",
+      "kind": "box",
+      "p": [
+        -25.68,
+        10.4,
+        106.01
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Eaves",
+      "kind": "box",
+      "p": [
+        -25.68,
+        10.8,
+        106.01
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Officer Body",
+      "kind": "box",
+      "p": [
+        -25.68,
+        8.4,
+        106.01
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Officer Cap",
+      "kind": "box",
+      "p": [
+        -25.68,
+        9.35,
+        106.01
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Searchlight",
+      "kind": "box",
+      "p": [
+        -25.68,
+        11.2,
+        106.01
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A , A-10 Sign",
+      "kind": "box",
+      "p": [
+        -25.68,
+        7.1,
+        108.76
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B canteen no 5 GPS PIN",
+      "kind": "box",
+      "p": [
+        2108.92,
+        13.5,
+        3514.14
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Ground B canteen no 5 GPS PULSE",
+      "kind": "box",
+      "p": [
+        2108.92,
+        14.8,
+        3514.14
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side GPS PIN",
+      "kind": "box",
+      "p": [
+        -42.96,
+        13.5,
+        287.76
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side GPS PULSE",
+      "kind": "box",
+      "p": [
+        -42.96,
+        14.8,
+        287.76
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Pylon",
+      "kind": "box",
+      "p": [
+        -57.96,
+        1.0,
+        287.76
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Flash Lamp",
+      "kind": "box",
+      "p": [
+        -57.96,
+        2.1,
+        287.76
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Pylon",
+      "kind": "box",
+      "p": [
+        -50.46,
+        1.0,
+        287.76
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Flash Lamp",
+      "kind": "box",
+      "p": [
+        -50.46,
+        2.1,
+        287.76
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Pylon",
+      "kind": "box",
+      "p": [
+        -42.96,
+        1.0,
+        287.76
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Flash Lamp",
+      "kind": "box",
+      "p": [
+        -42.96,
+        2.1,
+        287.76
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Pylon",
+      "kind": "box",
+      "p": [
+        -35.46,
+        1.0,
+        287.76
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Flash Lamp",
+      "kind": "box",
+      "p": [
+        -35.46,
+        2.1,
+        287.76
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Pylon",
+      "kind": "box",
+      "p": [
+        -27.96,
+        1.0,
+        287.76
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Flash Lamp",
+      "kind": "box",
+      "p": [
+        -27.96,
+        2.1,
+        287.76
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Ribbon Upper",
+      "kind": "box",
+      "p": [
+        -42.96,
+        1.6,
+        287.76
+      ],
+      "s": [
+        31.0,
+        0.12,
+        0.08
+      ],
+      "color": "#f59e0b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back side Ribbon Lower",
+      "kind": "box",
+      "p": [
+        -42.96,
+        0.9,
+        287.76
+      ],
+      "s": [
+        31.0,
+        0.12,
+        0.08
+      ],
+      "color": "#ef4444",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Grond B machan no 5 GPS PIN",
+      "kind": "box",
+      "p": [
+        1908.97,
+        13.5,
+        3841.6
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Grond B machan no 5 GPS PULSE",
+      "kind": "box",
+      "p": [
+        1908.97,
+        14.8,
+        3841.6
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner GPS PIN",
+      "kind": "box",
+      "p": [
+        -41.49,
+        13.5,
+        389.05
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner GPS PULSE",
+      "kind": "box",
+      "p": [
+        -41.49,
+        14.8,
+        389.05
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Sandbags North",
+      "kind": "box",
+      "p": [
+        -41.49,
+        0.7,
+        387.25
+      ],
+      "s": [
+        4.2,
+        1.4,
+        0.8
+      ],
+      "color": "#8e7a5c",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Sandbags West",
+      "kind": "box",
+      "p": [
+        -43.29,
+        0.7,
+        389.05
+      ],
+      "s": [
+        0.8,
+        1.4,
+        4.2
+      ],
+      "color": "#8e7a5c",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Sandbags East",
+      "kind": "box",
+      "p": [
+        -39.69,
+        0.7,
+        389.05
+      ],
+      "s": [
+        0.8,
+        1.4,
+        4.2
+      ],
+      "color": "#8e7a5c",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Camo Canopy",
+      "kind": "box",
+      "p": [
+        -41.49,
+        2.5,
+        389.05
+      ],
+      "s": [
+        4.8,
+        0.25,
+        4.8
+      ],
+      "color": "#41523c",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Pillar",
+      "kind": "box",
+      "p": [
+        -43.49,
+        1.3,
+        387.05
+      ],
+      "s": [
+        0.25,
+        2.4,
+        0.25
+      ],
+      "color": "#292f25",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Pillar",
+      "kind": "box",
+      "p": [
+        -43.49,
+        1.3,
+        391.05
+      ],
+      "s": [
+        0.25,
+        2.4,
+        0.25
+      ],
+      "color": "#292f25",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Pillar",
+      "kind": "box",
+      "p": [
+        -39.49,
+        1.3,
+        387.05
+      ],
+      "s": [
+        0.25,
+        2.4,
+        0.25
+      ],
+      "color": "#292f25",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Pillar",
+      "kind": "box",
+      "p": [
+        -39.49,
+        1.3,
+        391.05
+      ],
+      "s": [
+        0.25,
+        2.4,
+        0.25
+      ],
+      "color": "#292f25",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Commando",
+      "kind": "box",
+      "p": [
+        -41.49,
+        1.3,
+        389.05
+      ],
+      "s": [
+        0.8,
+        1.6,
+        0.6
+      ],
+      "color": "#314436",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal back right corner Commando Helmet",
+      "kind": "box",
+      "p": [
+        -41.49,
+        2.2,
+        389.05
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#1b261d",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side GPS PIN",
+      "kind": "box",
+      "p": [
+        32.91,
+        13.5,
+        411.01
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side GPS PULSE",
+      "kind": "box",
+      "p": [
+        32.91,
+        14.8,
+        411.01
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Post",
+      "kind": "box",
+      "p": [
+        30.71,
+        3.8,
+        408.81
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Post",
+      "kind": "box",
+      "p": [
+        30.71,
+        3.8,
+        413.21
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Post",
+      "kind": "box",
+      "p": [
+        35.11,
+        3.8,
+        408.81
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Post",
+      "kind": "box",
+      "p": [
+        35.11,
+        3.8,
+        413.21
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Platform Deck",
+      "kind": "box",
+      "p": [
+        32.91,
+        7.5,
+        411.01
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Railing X",
+      "kind": "box",
+      "p": [
+        30.31,
+        8.2,
+        411.01
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Railing X",
+      "kind": "box",
+      "p": [
+        35.51,
+        8.2,
+        411.01
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Railing Z",
+      "kind": "box",
+      "p": [
+        32.91,
+        8.2,
+        408.41
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Railing Z",
+      "kind": "box",
+      "p": [
+        32.91,
+        8.2,
+        413.61
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Canopy",
+      "kind": "box",
+      "p": [
+        32.91,
+        10.4,
+        411.01
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Eaves",
+      "kind": "box",
+      "p": [
+        32.91,
+        10.8,
+        411.01
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Officer Body",
+      "kind": "box",
+      "p": [
+        32.91,
+        8.4,
+        411.01
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Officer Cap",
+      "kind": "box",
+      "p": [
+        32.91,
+        9.35,
+        411.01
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Searchlight",
+      "kind": "box",
+      "p": [
+        32.91,
+        11.2,
+        411.01
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal right side Sign",
+      "kind": "box",
+      "p": [
+        32.91,
+        7.1,
+        413.76
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Grond B machan no 4 GPS PIN",
+      "kind": "box",
+      "p": [
+        221.41,
+        13.5,
+        1159.53
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Grond B machan no 4 GPS PULSE",
+      "kind": "box",
+      "p": [
+        221.41,
+        14.8,
+        1159.53
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side GPS PIN",
+      "kind": "box",
+      "p": [
+        93.49,
+        13.5,
+        399.34
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side GPS PULSE",
+      "kind": "box",
+      "p": [
+        93.49,
+        14.8,
+        399.34
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Pillar",
+      "kind": "box",
+      "p": [
+        88.99,
+        4.5,
+        399.34
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Pier Cap",
+      "kind": "box",
+      "p": [
+        88.99,
+        9.2,
+        399.34
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Finial Urn",
+      "kind": "box",
+      "p": [
+        88.99,
+        9.8,
+        399.34
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Pillar",
+      "kind": "box",
+      "p": [
+        97.99,
+        4.5,
+        399.34
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Pier Cap",
+      "kind": "box",
+      "p": [
+        97.99,
+        9.2,
+        399.34
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Finial Urn",
+      "kind": "box",
+      "p": [
+        97.99,
+        9.8,
+        399.34
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Overhead Lintel",
+      "kind": "box",
+      "p": [
+        93.49,
+        8.8,
+        399.34
+      ],
+      "s": [
+        9.4,
+        0.8,
+        1.2
+      ],
+      "color": "#6d3928",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Nameboard",
+      "kind": "box",
+      "p": [
+        93.49,
+        9.7,
+        399.34
+      ],
+      "s": [
+        8.2,
+        0.9,
+        0.2
+      ],
+      "color": "#23445d",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Barrier Left",
+      "kind": "box",
+      "p": [
+        91.29,
+        1.5,
+        399.34
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Barrier Right",
+      "kind": "box",
+      "p": [
+        95.69,
+        1.5,
+        399.34
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Graund A, pandal rihgt side Guard Kiosk",
+      "kind": "box",
+      "p": [
+        99.29,
+        1.8,
+        399.34
+      ],
+      "s": [
+        2.2,
+        3.5,
+        2.2
+      ],
+      "color": "#d6cca9",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking GPS PIN",
+      "kind": "box",
+      "p": [
+        209.45,
+        13.5,
+        436.6
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking GPS PULSE",
+      "kind": "box",
+      "p": [
+        209.45,
+        14.8,
+        436.6
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Post",
+      "kind": "box",
+      "p": [
+        207.25,
+        3.8,
+        434.4
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Post",
+      "kind": "box",
+      "p": [
+        207.25,
+        3.8,
+        438.8
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Post",
+      "kind": "box",
+      "p": [
+        211.65,
+        3.8,
+        434.4
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Post",
+      "kind": "box",
+      "p": [
+        211.65,
+        3.8,
+        438.8
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Platform Deck",
+      "kind": "box",
+      "p": [
+        209.45,
+        7.5,
+        436.6
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Railing X",
+      "kind": "box",
+      "p": [
+        206.85,
+        8.2,
+        436.6
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Railing X",
+      "kind": "box",
+      "p": [
+        212.05,
+        8.2,
+        436.6
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Railing Z",
+      "kind": "box",
+      "p": [
+        209.45,
+        8.2,
+        434.0
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Railing Z",
+      "kind": "box",
+      "p": [
+        209.45,
+        8.2,
+        439.2
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Canopy",
+      "kind": "box",
+      "p": [
+        209.45,
+        10.4,
+        436.6
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Eaves",
+      "kind": "box",
+      "p": [
+        209.45,
+        10.8,
+        436.6
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Officer Body",
+      "kind": "box",
+      "p": [
+        209.45,
+        8.4,
+        436.6
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Officer Cap",
+      "kind": "box",
+      "p": [
+        209.45,
+        9.35,
+        436.6
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Searchlight",
+      "kind": "box",
+      "p": [
+        209.45,
+        11.2,
+        436.6
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, watchtower with parking Sign",
+      "kind": "box",
+      "p": [
+        209.45,
+        7.1,
+        439.35
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right GPS PIN",
+      "kind": "box",
+      "p": [
+        214.37,
+        13.5,
+        423.24
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right GPS PULSE",
+      "kind": "box",
+      "p": [
+        214.37,
+        14.8,
+        423.24
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Pillar",
+      "kind": "box",
+      "p": [
+        209.87,
+        4.5,
+        423.24
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Pier Cap",
+      "kind": "box",
+      "p": [
+        209.87,
+        9.2,
+        423.24
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Finial Urn",
+      "kind": "box",
+      "p": [
+        209.87,
+        9.8,
+        423.24
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Pillar",
+      "kind": "box",
+      "p": [
+        218.87,
+        4.5,
+        423.24
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Pier Cap",
+      "kind": "box",
+      "p": [
+        218.87,
+        9.2,
+        423.24
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Finial Urn",
+      "kind": "box",
+      "p": [
+        218.87,
+        9.8,
+        423.24
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Overhead Lintel",
+      "kind": "box",
+      "p": [
+        214.37,
+        8.8,
+        423.24
+      ],
+      "s": [
+        9.4,
+        0.8,
+        1.2
+      ],
+      "color": "#6d3928",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Nameboard",
+      "kind": "box",
+      "p": [
+        214.37,
+        9.7,
+        423.24
+      ],
+      "s": [
+        8.2,
+        0.9,
+        0.2
+      ],
+      "color": "#23445d",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Barrier Left",
+      "kind": "box",
+      "p": [
+        212.17,
+        1.5,
+        423.24
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Barrier Right",
+      "kind": "box",
+      "p": [
+        216.57,
+        1.5,
+        423.24
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, front of pandal right Guard Kiosk",
+      "kind": "box",
+      "p": [
+        220.17,
+        1.8,
+        423.24
+      ],
+      "s": [
+        2.2,
+        3.5,
+        2.2
+      ],
+      "color": "#d6cca9",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 GPS PIN",
+      "kind": "box",
+      "p": [
+        347.32,
+        13.5,
+        432.91
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 GPS PULSE",
+      "kind": "box",
+      "p": [
+        347.32,
+        14.8,
+        432.91
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Post",
+      "kind": "box",
+      "p": [
+        345.12,
+        3.8,
+        430.71
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Post",
+      "kind": "box",
+      "p": [
+        345.12,
+        3.8,
+        435.11
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Post",
+      "kind": "box",
+      "p": [
+        349.52,
+        3.8,
+        430.71
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Post",
+      "kind": "box",
+      "p": [
+        349.52,
+        3.8,
+        435.11
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Platform Deck",
+      "kind": "box",
+      "p": [
+        347.32,
+        7.5,
+        432.91
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Railing X",
+      "kind": "box",
+      "p": [
+        344.72,
+        8.2,
+        432.91
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Railing X",
+      "kind": "box",
+      "p": [
+        349.92,
+        8.2,
+        432.91
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Railing Z",
+      "kind": "box",
+      "p": [
+        347.32,
+        8.2,
+        430.31
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Railing Z",
+      "kind": "box",
+      "p": [
+        347.32,
+        8.2,
+        435.51
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Canopy",
+      "kind": "box",
+      "p": [
+        347.32,
+        10.4,
+        432.91
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Eaves",
+      "kind": "box",
+      "p": [
+        347.32,
+        10.8,
+        432.91
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Officer Body",
+      "kind": "box",
+      "p": [
+        347.32,
+        8.4,
+        432.91
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Officer Cap",
+      "kind": "box",
+      "p": [
+        347.32,
+        9.35,
+        432.91
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Searchlight",
+      "kind": "box",
+      "p": [
+        347.32,
+        11.2,
+        432.91
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A6 Sign",
+      "kind": "box",
+      "p": [
+        347.32,
+        7.1,
+        435.66
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A GPS PIN",
+      "kind": "box",
+      "p": [
+        341.63,
+        13.5,
+        430.18
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A GPS PULSE",
+      "kind": "box",
+      "p": [
+        341.63,
+        14.8,
+        430.18
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A Tower Left",
+      "kind": "box",
+      "p": [
+        337.63,
+        6.0,
+        430.18
+      ],
+      "s": [
+        1.6,
+        12.0,
+        1.6
+      ],
+      "color": "#475569",
+      "layer": "bridges",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A Tower Right",
+      "kind": "box",
+      "p": [
+        345.63,
+        6.0,
+        430.18
+      ],
+      "s": [
+        1.6,
+        12.0,
+        1.6
+      ],
+      "color": "#475569",
+      "layer": "bridges",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A Span Truss",
+      "kind": "box",
+      "p": [
+        341.63,
+        11.5,
+        430.18
+      ],
+      "s": [
+        10.0,
+        1.5,
+        3.2
+      ],
+      "color": "#e2e8f0",
+      "layer": "bridges",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side GPS PIN",
+      "kind": "box",
+      "p": [
+        317.56,
+        13.5,
+        340.84
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side GPS PULSE",
+      "kind": "box",
+      "p": [
+        317.56,
+        14.8,
+        340.84
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Pylon",
+      "kind": "box",
+      "p": [
+        302.56,
+        1.0,
+        340.84
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Flash Lamp",
+      "kind": "box",
+      "p": [
+        302.56,
+        2.1,
+        340.84
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Pylon",
+      "kind": "box",
+      "p": [
+        310.06,
+        1.0,
+        340.84
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Flash Lamp",
+      "kind": "box",
+      "p": [
+        310.06,
+        2.1,
+        340.84
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Pylon",
+      "kind": "box",
+      "p": [
+        317.56,
+        1.0,
+        340.84
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Flash Lamp",
+      "kind": "box",
+      "p": [
+        317.56,
+        2.1,
+        340.84
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Pylon",
+      "kind": "box",
+      "p": [
+        325.06,
+        1.0,
+        340.84
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Flash Lamp",
+      "kind": "box",
+      "p": [
+        325.06,
+        2.1,
+        340.84
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Pylon",
+      "kind": "box",
+      "p": [
+        332.56,
+        1.0,
+        340.84
+      ],
+      "s": [
+        0.35,
+        2.0,
+        0.35
+      ],
+      "color": "#d97706",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Flash Lamp",
+      "kind": "box",
+      "p": [
+        332.56,
+        2.1,
+        340.84
+      ],
+      "s": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "color": "#fbbf24",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Ribbon Upper",
+      "kind": "box",
+      "p": [
+        317.56,
+        1.6,
+        340.84
+      ],
+      "s": [
+        31.0,
+        0.12,
+        0.08
+      ],
+      "color": "#f59e0b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, pandal front side Ribbon Lower",
+      "kind": "box",
+      "p": [
+        317.56,
+        0.9,
+        340.84
+      ],
+      "s": [
+        31.0,
+        0.12,
+        0.08
+      ],
+      "color": "#ef4444",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 GPS PIN",
+      "kind": "box",
+      "p": [
+        308.75,
+        13.5,
+        269.87
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 GPS PULSE",
+      "kind": "box",
+      "p": [
+        308.75,
+        14.8,
+        269.87
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Post",
+      "kind": "box",
+      "p": [
+        306.55,
+        3.8,
+        267.67
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Post",
+      "kind": "box",
+      "p": [
+        306.55,
+        3.8,
+        272.07
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Post",
+      "kind": "box",
+      "p": [
+        310.95,
+        3.8,
+        267.67
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Post",
+      "kind": "box",
+      "p": [
+        310.95,
+        3.8,
+        272.07
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Platform Deck",
+      "kind": "box",
+      "p": [
+        308.75,
+        7.5,
+        269.87
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Railing X",
+      "kind": "box",
+      "p": [
+        306.15,
+        8.2,
+        269.87
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Railing X",
+      "kind": "box",
+      "p": [
+        311.35,
+        8.2,
+        269.87
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Railing Z",
+      "kind": "box",
+      "p": [
+        308.75,
+        8.2,
+        267.27
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Railing Z",
+      "kind": "box",
+      "p": [
+        308.75,
+        8.2,
+        272.47
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Canopy",
+      "kind": "box",
+      "p": [
+        308.75,
+        10.4,
+        269.87
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Eaves",
+      "kind": "box",
+      "p": [
+        308.75,
+        10.8,
+        269.87
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Officer Body",
+      "kind": "box",
+      "p": [
+        308.75,
+        8.4,
+        269.87
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Officer Cap",
+      "kind": "box",
+      "p": [
+        308.75,
+        9.35,
+        269.87
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Searchlight",
+      "kind": "box",
+      "p": [
+        308.75,
+        11.2,
+        269.87
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A, A5 Sign",
+      "kind": "box",
+      "p": [
+        308.75,
+        7.1,
+        272.62
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 GPS PIN",
+      "kind": "box",
+      "p": [
+        288.15,
+        13.5,
+        156.79
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 GPS PULSE",
+      "kind": "box",
+      "p": [
+        288.15,
+        14.8,
+        156.79
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Post",
+      "kind": "box",
+      "p": [
+        285.95,
+        3.8,
+        154.59
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Post",
+      "kind": "box",
+      "p": [
+        285.95,
+        3.8,
+        158.99
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Post",
+      "kind": "box",
+      "p": [
+        290.35,
+        3.8,
+        154.59
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Post",
+      "kind": "box",
+      "p": [
+        290.35,
+        3.8,
+        158.99
+      ],
+      "s": [
+        0.45,
+        7.6,
+        0.45
+      ],
+      "color": "#3e4137",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Platform Deck",
+      "kind": "box",
+      "p": [
+        288.15,
+        7.5,
+        156.79
+      ],
+      "s": [
+        5.4,
+        0.35,
+        5.4
+      ],
+      "color": "#9c825a",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Railing X",
+      "kind": "box",
+      "p": [
+        285.55,
+        8.2,
+        156.79
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Railing X",
+      "kind": "box",
+      "p": [
+        290.75,
+        8.2,
+        156.79
+      ],
+      "s": [
+        0.2,
+        1.0,
+        5.4
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Railing Z",
+      "kind": "box",
+      "p": [
+        288.15,
+        8.2,
+        154.19
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Railing Z",
+      "kind": "box",
+      "p": [
+        288.15,
+        8.2,
+        159.39
+      ],
+      "s": [
+        5.4,
+        1.0,
+        0.2
+      ],
+      "color": "#c2ab7b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Canopy",
+      "kind": "box",
+      "p": [
+        288.15,
+        10.4,
+        156.79
+      ],
+      "s": [
+        6.0,
+        0.4,
+        6.0
+      ],
+      "color": "#354832",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Eaves",
+      "kind": "box",
+      "p": [
+        288.15,
+        10.8,
+        156.79
+      ],
+      "s": [
+        3.2,
+        0.5,
+        3.2
+      ],
+      "color": "#485e44",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Officer Body",
+      "kind": "box",
+      "p": [
+        288.15,
+        8.4,
+        156.79
+      ],
+      "s": [
+        0.8,
+        1.5,
+        0.55
+      ],
+      "color": "#867558",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Officer Cap",
+      "kind": "box",
+      "p": [
+        288.15,
+        9.35,
+        156.79
+      ],
+      "s": [
+        0.7,
+        0.35,
+        0.7
+      ],
+      "color": "#243746",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Searchlight",
+      "kind": "box",
+      "p": [
+        288.15,
+        11.2,
+        156.79
+      ],
+      "s": [
+        0.6,
+        0.5,
+        0.6
+      ],
+      "color": "#f4d068",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A A4 Sign",
+      "kind": "box",
+      "p": [
+        288.15,
+        7.1,
+        159.54
+      ],
+      "s": [
+        4.2,
+        0.7,
+        0.15
+      ],
+      "color": "#c93b2b",
+      "layer": "security",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 GPS PIN",
+      "kind": "box",
+      "p": [
+        295.44,
+        13.5,
+        137.19
+      ],
+      "s": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "color": "#e11d48",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 GPS PULSE",
+      "kind": "box",
+      "p": [
+        295.44,
+        14.8,
+        137.19
+      ],
+      "s": [
+        2.2,
+        0.4,
+        2.2
+      ],
+      "color": "#fb7185",
+      "layer": "gps_alignment",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Pillar",
+      "kind": "box",
+      "p": [
+        290.94,
+        4.5,
+        137.19
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Pier Cap",
+      "kind": "box",
+      "p": [
+        290.94,
+        9.2,
+        137.19
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Finial Urn",
+      "kind": "box",
+      "p": [
+        290.94,
+        9.8,
+        137.19
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Pillar",
+      "kind": "box",
+      "p": [
+        299.94,
+        4.5,
+        137.19
+      ],
+      "s": [
+        1.4,
+        9.0,
+        1.4
+      ],
+      "color": "#e4dbc5",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Pier Cap",
+      "kind": "box",
+      "p": [
+        299.94,
+        9.2,
+        137.19
+      ],
+      "s": [
+        1.8,
+        0.5,
+        1.8
+      ],
+      "color": "#c2ab7b",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Finial Urn",
+      "kind": "box",
+      "p": [
+        299.94,
+        9.8,
+        137.19
+      ],
+      "s": [
+        0.9,
+        0.8,
+        0.9
+      ],
+      "color": "#a4382c",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Overhead Lintel",
+      "kind": "box",
+      "p": [
+        295.44,
+        8.8,
+        137.19
+      ],
+      "s": [
+        9.4,
+        0.8,
+        1.2
+      ],
+      "color": "#6d3928",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Nameboard",
+      "kind": "box",
+      "p": [
+        295.44,
+        9.7,
+        137.19
+      ],
+      "s": [
+        8.2,
+        0.9,
+        0.2
+      ],
+      "color": "#23445d",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Barrier Left",
+      "kind": "box",
+      "p": [
+        293.24,
+        1.5,
+        137.19
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Barrier Right",
+      "kind": "box",
+      "p": [
+        297.64,
+        1.5,
+        137.19
+      ],
+      "s": [
+        3.8,
+        2.6,
+        0.3
+      ],
+      "color": "#4d3023",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
+    },
+    {
+      "name": "GPS ALIGNED / Garaund A , gate no 2 Guard Kiosk",
+      "kind": "box",
+      "p": [
+        301.24,
+        1.8,
+        137.19
+      ],
+      "s": [
+        2.2,
+        3.5,
+        2.2
+      ],
+      "color": "#d6cca9",
+      "layer": "gates",
+      "ground": "",
+      "status": "Live Google Maps aligned position"
     }
   ],
   "labels": [
@@ -783592,6 +792934,416 @@
       ],
       "layer": "services",
       "userAdded": true
+    },
+    {
+      "text": "\ud83d\udccd Garound A , \u0938\u094d\u091f\u094b\u0930 \u0915\u0948\u0902\u091f\u0940\u0928 \u090f\u0935\u0902 \u0932\u0902\u0917\u0930 (29.18541, 77.02608)",
+      "p": [
+        183.24,
+        16.0,
+        -70.48
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-1"
+    },
+    {
+      "text": "\ud83d\udccd Garound A, main office (29.18582, 77.02596)",
+      "p": [
+        177.55,
+        16.0,
+        -97.98
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-2"
+    },
+    {
+      "text": "\ud83d\udccd Garound A, gate no 3 (29.18565, 77.02732)",
+      "p": [
+        252.31,
+        16.0,
+        -78.46
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-3"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, ATM (29.18570, 77.02613)",
+      "p": [
+        186.71,
+        16.0,
+        -89.01
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-4"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, \u092e\u0948\u0902\u0928 \u0911\u092b\u093f\u0938 \u0938\u0947, \u092a\u0902\u0921\u093e\u0932 \u0915\u0940 \u0924\u0930\u092b \u091c\u093e\u0928\u0947 \u0935\u093e\u0932\u093e \u0930\u093e\u0938\u094d\u0924\u093e (29.18467, 77.02593)",
+      "p": [
+        173.21,
+        16.0,
+        -23.89
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-5"
+    },
+    {
+      "text": "\ud83d\udccd Graund A (29.18343, 77.02602)",
+      "p": [
+        175.77,
+        16.0,
+        56.98
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-6"
+    },
+    {
+      "text": "\ud83d\udccd Graund A (29.18343, 77.02576)",
+      "p": [
+        161.44,
+        16.0,
+        55.29
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-7"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, A-13 (29.18222, 77.02676)",
+      "p": [
+        214.09,
+        16.0,
+        140.07
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-8"
+    },
+    {
+      "text": "\ud83d\udccd Graund A (29.18222, 77.02601)",
+      "p": [
+        172.58,
+        16.0,
+        135.3
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-9"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, SC parking (29.18221, 77.02478)",
+      "p": [
+        104.64,
+        16.0,
+        128.71
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-10"
+    },
+    {
+      "text": "\ud83d\udccd C ground C1 (29.17967, 77.01817)",
+      "p": [
+        -266.45,
+        16.0,
+        251.77
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-11"
+    },
+    {
+      "text": "\ud83d\udccd C ground C2 (29.18081, 77.01838)",
+      "p": [
+        -252.44,
+        16.0,
+        179.23
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-12"
+    },
+    {
+      "text": "\ud83d\udccd B Block B1 (29.18090, 77.02690)",
+      "p": [
+        219.51,
+        16.0,
+        226.98
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-13"
+    },
+    {
+      "text": "\ud83d\udccd C ground C3 (29.18094, 77.01525)",
+      "p": [
+        -425.39,
+        16.0,
+        150.78
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-14"
+    },
+    {
+      "text": "\ud83d\udccd C ground C4 (29.18234, 77.01465)",
+      "p": [
+        -455.75,
+        16.0,
+        56.82
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-15"
+    },
+    {
+      "text": "\ud83d\udccd C ground C5 (29.18238, 77.01826)",
+      "p": [
+        -255.97,
+        16.0,
+        76.53
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-16"
+    },
+    {
+      "text": "\ud83d\udccd Ground B B2 (29.17644, 77.03025)",
+      "p": [
+        395.3,
+        16.0,
+        537.0
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-17"
+    },
+    {
+      "text": "\ud83d\udccd C ground C 6 (29.18461, 77.01848)",
+      "p": [
+        -239.4,
+        16.0,
+        -66.74
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-18"
+    },
+    {
+      "text": "\ud83d\udccd C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938 (29.18623, 77.02100)",
+      "p": [
+        -96.45,
+        16.0,
+        -155.95
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-19"
+    },
+    {
+      "text": "\ud83d\udccd C ground C8 (29.18233, 77.02090)",
+      "p": [
+        -109.9,
+        16.0,
+        96.14
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-20"
+    },
+    {
+      "text": "\ud83d\udccd C ground C 9 (29.17812, 77.02200)",
+      "p": [
+        -57.91,
+        16.0,
+        375.87
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-21"
+    },
+    {
+      "text": "\ud83d\udccd Gate no 1\u0964 Parking no 2 (29.07668, 77.13063)",
+      "p": [
+        5747.4,
+        16.0,
+        7630.41
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-22"
+    },
+    {
+      "text": "\ud83d\udccd Graund A (29.18229, 77.02397)",
+      "p": [
+        59.8,
+        16.0,
+        118.36
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-23"
+    },
+    {
+      "text": "\ud83d\udccd Ground B canteen no 4 (29.13501, 77.06529)",
+      "p": [
+        2250.26,
+        16.0,
+        3440.8
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-24"
+    },
+    {
+      "text": "\ud83d\udccd Graund A (29.18222, 77.02316)",
+      "p": [
+        15.06,
+        16.0,
+        117.58
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-25"
+    },
+    {
+      "text": "\ud83d\udccd Graund A , A-10 (29.18233, 77.02242)",
+      "p": [
+        -25.68,
+        16.0,
+        106.01
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-26"
+    },
+    {
+      "text": "\ud83d\udccd Ground B canteen no 5 (29.13364, 77.06279)",
+      "p": [
+        2108.92,
+        16.0,
+        3514.14
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-27"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, pandal back side (29.17950, 77.02221)",
+      "p": [
+        -42.96,
+        16.0,
+        287.76
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-28"
+    },
+    {
+      "text": "\ud83d\udccd Grond B machan no 5 (29.12826, 77.05938)",
+      "p": [
+        1908.97,
+        16.0,
+        3841.6
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-29"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, pandal back right corner (29.17795, 77.02230)",
+      "p": [
+        -41.49,
+        16.0,
+        389.05
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-30"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, pandal right side (29.17774, 77.02365)",
+      "p": [
+        32.91,
+        16.0,
+        411.01
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-31"
+    },
+    {
+      "text": "\ud83d\udccd Grond B machan no 4 (29.16656, 77.02747)",
+      "p": [
+        221.41,
+        16.0,
+        1159.53
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-32"
+    },
+    {
+      "text": "\ud83d\udccd Graund A, pandal rihgt side (29.17803, 77.02473)",
+      "p": [
+        93.49,
+        16.0,
+        399.34
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-33"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A, watchtower with parking (29.17766, 77.02684)",
+      "p": [
+        209.45,
+        16.0,
+        436.6
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-34"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A, front of pandal right (29.17787, 77.02692)",
+      "p": [
+        214.37,
+        16.0,
+        423.24
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-35"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A, A6 (29.17795, 77.02932)",
+      "p": [
+        347.32,
+        16.0,
+        432.91
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-36"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A (29.17798, 77.02922)",
+      "p": [
+        341.63,
+        16.0,
+        430.18
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-37"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A, pandal front side (29.17932, 77.02873)",
+      "p": [
+        317.56,
+        16.0,
+        340.84
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-38"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A, A5 (29.18039, 77.02854)",
+      "p": [
+        308.75,
+        16.0,
+        269.87
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-39"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A A4 (29.18210, 77.02810)",
+      "p": [
+        288.15,
+        16.0,
+        156.79
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-40"
+    },
+    {
+      "text": "\ud83d\udccd Garaund A , gate no 2 (29.18241, 77.02822)",
+      "p": [
+        295.44,
+        16.0,
+        137.19
+      ],
+      "layer": "gps_alignment",
+      "featureId": "GPS-41"
     }
   ],
   "routes": [
@@ -799845,6 +809597,50 @@
         "REFERENCE E4",
         "REFERENCE E5"
       ]
+    },
+    "georeference": {
+      "status": "Calibrated with 41 live Google Maps ground points (October 2026)",
+      "venue_anchor_lat_lon": [
+        29.179636,
+        77.0261412
+      ],
+      "gate3_gps": [
+        29.18565,
+        77.027322
+      ],
+      "gate2_gps": [
+        29.182409,
+        77.028221
+      ],
+      "affine_matrix_lon_lat_to_xz": [
+        [
+          55345.6049,
+          6271.26153
+        ],
+        [
+          2044.33779,
+          -64798.5609
+        ],
+        [
+          -4322536.75,
+          1408051.18
+        ]
+      ],
+      "inverse_affine_dx_dz": [
+        4322536.75,
+        1408051.18
+      ],
+      "inverse_matrix_2x2": [
+        [
+          1.8003920557812304e-05,
+          5.680079102573645e-07
+        ],
+        [
+          1.7424352148441684e-06,
+          -1.5377469190734254e-05
+        ]
+      ],
+      "points_count": 41
     }
   }
 }

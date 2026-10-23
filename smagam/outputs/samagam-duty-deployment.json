@@ -1,11 +1,11 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-10-19T17:16:00.681Z",
-  "note": "Incharge is separate from main force unless explicitly included. Women are subsets of main force. Unknown shifts/counts remain unknown. Positions are conceptual.",
+  "note": "Aligned with 41 live Google Maps latitude & longitude survey coordinates (October 2026).",
   "units": [
     {
       "id": "PP-GT",
-      "title": "GT Road traffic · Haldana–Samalkha return",
+      "title": "GT Road traffic \u00b7 Haldana\u2013Samalkha return",
       "type": "traffic",
       "anchorId": null,
       "ground": "",
@@ -133,7 +133,7 @@
     },
     {
       "id": "PP-LOCAL",
-      "title": "Local parking opposite Gates 2–3",
+      "title": "Local parking opposite Gates 2\u20133",
       "type": "parking",
       "anchorId": "G02",
       "ground": "",
@@ -177,7 +177,7 @@
     },
     {
       "id": "PCR10",
-      "title": "PCR-10 · Haldana to Samalkha",
+      "title": "PCR-10 \u00b7 Haldana to Samalkha",
       "type": "patrol",
       "anchorId": null,
       "ground": "",
@@ -217,7 +217,7 @@
     },
     {
       "id": "PCR3",
-      "title": "PCR-3 · Samalkha to Haldana / Samagam",
+      "title": "PCR-3 \u00b7 Samalkha to Haldana / Samagam",
       "type": "patrol",
       "anchorId": null,
       "ground": "",
@@ -257,7 +257,7 @@
     },
     {
       "id": "PP-R-PS-City",
-      "title": "Rider PS City · Haldana → Samalkha",
+      "title": "Rider PS City \u00b7 Haldana \u2192 Samalkha",
       "type": "rider",
       "anchorId": null,
       "ground": "",
@@ -297,7 +297,7 @@
     },
     {
       "id": "PP-R-27",
-      "title": "Rider 27 · Haldana → Samalkha",
+      "title": "Rider 27 \u00b7 Haldana \u2192 Samalkha",
       "type": "rider",
       "anchorId": null,
       "ground": "",
@@ -337,7 +337,7 @@
     },
     {
       "id": "PP-R-18",
-      "title": "Rider 18 · Haldana → Samalkha",
+      "title": "Rider 18 \u00b7 Haldana \u2192 Samalkha",
       "type": "rider",
       "anchorId": null,
       "ground": "",
@@ -377,7 +377,7 @@
     },
     {
       "id": "PP-R-22",
-      "title": "Rider 22 · Samalkha → Haldana",
+      "title": "Rider 22 \u00b7 Samalkha \u2192 Haldana",
       "type": "rider",
       "anchorId": null,
       "ground": "",
@@ -417,7 +417,7 @@
     },
     {
       "id": "PP-R-14",
-      "title": "Rider 14 · Samalkha → Haldana",
+      "title": "Rider 14 \u00b7 Samalkha \u2192 Haldana",
       "type": "rider",
       "anchorId": null,
       "ground": "",
@@ -457,7 +457,7 @@
     },
     {
       "id": "PP-R-24",
-      "title": "Rider 24 · Samalkha → Haldana",
+      "title": "Rider 24 \u00b7 Samalkha \u2192 Haldana",
       "type": "rider",
       "anchorId": null,
       "ground": "",
@@ -497,7 +497,7 @@
     },
     {
       "id": "PP-FOB",
-      "title": "Foot-overbridge · both sides",
+      "title": "Foot-overbridge \u00b7 both sides",
       "type": "gate",
       "anchorId": "S04",
       "ground": "",
@@ -585,7 +585,7 @@
     },
     {
       "id": "PP-DFMD",
-      "title": "DFMD checking · traffic section",
+      "title": "DFMD checking \u00b7 traffic section",
       "type": "dfmd",
       "anchorId": "G02",
       "ground": "",
@@ -658,7 +658,7 @@
     },
     {
       "id": "SP-P1",
-      "title": "Parking 1 · Sonipat",
+      "title": "Parking 1 \u00b7 Sonipat",
       "type": "parking",
       "anchorId": "P01",
       "ground": "",
@@ -691,7 +691,7 @@
     },
     {
       "id": "SP-N1",
-      "title": "Naka 1 · Gannaur flyover below · Delhi → Panipat",
+      "title": "Naka 1 \u00b7 Gannaur flyover below \u00b7 Delhi \u2192 Panipat",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -725,7 +725,7 @@
     },
     {
       "id": "SP-N2",
-      "title": "Naka 2 · Gannaur flyover below · Panipat → Delhi",
+      "title": "Naka 2 \u00b7 Gannaur flyover below \u00b7 Panipat \u2192 Delhi",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -759,7 +759,7 @@
     },
     {
       "id": "SP-N3",
-      "title": "Naka 3 · Garhi Kalan flyover below · Delhi → Panipat",
+      "title": "Naka 3 \u00b7 Garhi Kalan flyover below \u00b7 Delhi \u2192 Panipat",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -793,7 +793,7 @@
     },
     {
       "id": "SP-N4",
-      "title": "Naka 4 · Garhi Kalan flyover below · Panipat → Delhi",
+      "title": "Naka 4 \u00b7 Garhi Kalan flyover below \u00b7 Panipat \u2192 Delhi",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -827,7 +827,7 @@
     },
     {
       "id": "SP-N5",
-      "title": "Naka 5 · Panchi Gujran Gurudwara cut",
+      "title": "Naka 5 \u00b7 Panchi Gujran Gurudwara cut",
       "type": "naka",
       "anchorId": "V01",
       "ground": "",
@@ -865,7 +865,7 @@
     },
     {
       "id": "SP-N6",
-      "title": "Naka 6 · Main adda Panchi Gujran",
+      "title": "Naka 6 \u00b7 Main adda Panchi Gujran",
       "type": "naka",
       "anchorId": "V01",
       "ground": "",
@@ -903,7 +903,7 @@
     },
     {
       "id": "SP-N7",
-      "title": "Naka 7 · Bhakharpur flyover below · Delhi → Panipat",
+      "title": "Naka 7 \u00b7 Bhakharpur flyover below \u00b7 Delhi \u2192 Panipat",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -937,7 +937,7 @@
     },
     {
       "id": "SP-N8",
-      "title": "Naka 8 · Bhakharpur flyover below · Panipat → Delhi",
+      "title": "Naka 8 \u00b7 Bhakharpur flyover below \u00b7 Panipat \u2192 Delhi",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -971,7 +971,7 @@
     },
     {
       "id": "SP-N9",
-      "title": "Naka 9 · DICT Chowk",
+      "title": "Naka 9 \u00b7 DICT Chowk",
       "type": "naka",
       "anchorId": null,
       "ground": "",
@@ -1005,7 +1005,7 @@
     },
     {
       "id": "SP-G1",
-      "title": "Gate 1 · Sonipat duty",
+      "title": "Gate 1 \u00b7 Sonipat duty",
       "type": "gate",
       "anchorId": "G01",
       "ground": "",
@@ -1307,7 +1307,7 @@
     },
     {
       "id": "QRT1",
-      "title": "QRT-1 · Gate 1",
+      "title": "QRT-1 \u00b7 Gate 1",
       "type": "qrt",
       "anchorId": "G01",
       "ground": "",
@@ -1356,7 +1356,7 @@
     },
     {
       "id": "QRT2",
-      "title": "QRT-2 · Gate 2",
+      "title": "QRT-2 \u00b7 Gate 2",
       "type": "qrt",
       "anchorId": "G02",
       "ground": "",
@@ -1405,7 +1405,7 @@
     },
     {
       "id": "QRT3",
-      "title": "QRT-3 · Gate 3",
+      "title": "QRT-3 \u00b7 Gate 3",
       "type": "qrt",
       "anchorId": "G03",
       "ground": "",
@@ -1454,7 +1454,7 @@
     },
     {
       "id": "QRT4",
-      "title": "QRT-4 · Gate 5 / railway station",
+      "title": "QRT-4 \u00b7 Gate 5 / railway station",
       "type": "qrt",
       "anchorId": "H05",
       "ground": "",
@@ -1503,7 +1503,7 @@
     },
     {
       "id": "G1-XRAY",
-      "title": "Gate 1 · X-Ray",
+      "title": "Gate 1 \u00b7 X-Ray",
       "type": "xray",
       "anchorId": "G01",
       "ground": "",
@@ -1552,7 +1552,7 @@
     },
     {
       "id": "G1-DFMD",
-      "title": "Gate 1 · DFMD",
+      "title": "Gate 1 \u00b7 DFMD",
       "type": "dfmd",
       "anchorId": "G01",
       "ground": "",
@@ -1601,7 +1601,7 @@
     },
     {
       "id": "G1-SI",
-      "title": "Gate 1 · gate-level SI",
+      "title": "Gate 1 \u00b7 gate-level SI",
       "type": "officer",
       "anchorId": "G01",
       "ground": "",
@@ -1650,7 +1650,7 @@
     },
     {
       "id": "G2-DFMD",
-      "title": "Gate 2 · DFMD",
+      "title": "Gate 2 \u00b7 DFMD",
       "type": "dfmd",
       "anchorId": "G02",
       "ground": "",
@@ -1699,7 +1699,7 @@
     },
     {
       "id": "G2-SI",
-      "title": "Gate 2 · gate-level SI",
+      "title": "Gate 2 \u00b7 gate-level SI",
       "type": "officer",
       "anchorId": "G02",
       "ground": "",
@@ -1748,7 +1748,7 @@
     },
     {
       "id": "G3-XRAY",
-      "title": "Gate 3 · X-Ray",
+      "title": "Gate 3 \u00b7 X-Ray",
       "type": "xray",
       "anchorId": "G03",
       "ground": "",
@@ -1797,7 +1797,7 @@
     },
     {
       "id": "G3-DFMD",
-      "title": "Gate 3 · DFMD",
+      "title": "Gate 3 \u00b7 DFMD",
       "type": "dfmd",
       "anchorId": "G03",
       "ground": "",
@@ -1846,7 +1846,7 @@
     },
     {
       "id": "G3-SI",
-      "title": "Gate 3 · gate-level SI",
+      "title": "Gate 3 \u00b7 gate-level SI",
       "type": "officer",
       "anchorId": "G03",
       "ground": "",
@@ -1935,7 +1935,7 @@
     },
     {
       "id": "OUT-G5",
-      "title": "Gate 5 · Bhodwal Majri railway station",
+      "title": "Gate 5 \u00b7 Bhodwal Majri railway station",
       "type": "gate",
       "anchorId": "H05",
       "ground": "",
@@ -1984,7 +1984,7 @@
     },
     {
       "id": "OUT-P3",
-      "title": "Parking 3 · near railway station",
+      "title": "Parking 3 \u00b7 near railway station",
       "type": "parking",
       "anchorId": "P06",
       "ground": "",
@@ -2077,7 +2077,7 @@
     },
     {
       "id": "OUT-M1",
-      "title": "Outer Machaan · Gate 1",
+      "title": "Outer Machaan \u00b7 Gate 1",
       "type": "machan",
       "anchorId": "G01",
       "ground": "",
@@ -2126,14 +2126,14 @@
     },
     {
       "id": "OUT-M2",
-      "title": "Outer Machaan · Gate 2",
+      "title": "Outer Machaan \u00b7 Gate 2",
       "type": "machan",
       "anchorId": "G02",
       "ground": "",
       "position": [
-        290.4,
+        295.44,
         0.3,
-        147.79999999999998
+        137.19
       ],
       "rotation": 0,
       "scale": 1,
@@ -2142,7 +2142,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement. | Live Google Maps: 29.182409, 77.028221 (Garaund A , gate no 2)",
       "shifts": {
         "day": {
           "force": 1,
@@ -2171,18 +2171,22 @@
         -12,
         0,
         12
+      ],
+      "gps": [
+        29.182409,
+        77.028221
       ]
     },
     {
       "id": "OUT-M3",
-      "title": "Outer Machaan · Gate 3",
+      "title": "Outer Machaan \u00b7 Gate 3",
       "type": "machan",
       "anchorId": "G03",
       "ground": "",
       "position": [
-        225.99999999999997,
+        252.31,
         0.3,
-        -63.599999999999994
+        -78.46
       ],
       "rotation": 0,
       "scale": 1,
@@ -2191,7 +2195,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement.",
+      "notes": "7 outer machaans total, 7 OR per shift. Unmapped gates require placement. | Live Google Maps: 29.18565, 77.027322 (Garound A, gate no 3)",
       "shifts": {
         "day": {
           "force": 1,
@@ -2220,11 +2224,15 @@
         -12,
         0,
         12
+      ],
+      "gps": [
+        29.18565,
+        77.027322
       ]
     },
     {
       "id": "OUT-M4",
-      "title": "Outer Machaan · Gate 4",
+      "title": "Outer Machaan \u00b7 Gate 4",
       "type": "machan",
       "anchorId": "G04",
       "ground": "",
@@ -2273,7 +2281,7 @@
     },
     {
       "id": "OUT-M10",
-      "title": "Outer Machaan · Gate 10",
+      "title": "Outer Machaan \u00b7 Gate 10",
       "type": "machan",
       "anchorId": null,
       "ground": "",
@@ -2318,7 +2326,7 @@
     },
     {
       "id": "OUT-M12",
-      "title": "Outer Machaan · Gate 12",
+      "title": "Outer Machaan \u00b7 Gate 12",
       "type": "machan",
       "anchorId": null,
       "ground": "",
@@ -2363,7 +2371,7 @@
     },
     {
       "id": "OUT-M15",
-      "title": "Outer Machaan · Gate 15",
+      "title": "Outer Machaan \u00b7 Gate 15",
       "type": "machan",
       "anchorId": null,
       "ground": "",
@@ -2408,7 +2416,7 @@
     },
     {
       "id": "A-FOOT",
-      "title": "Ground A · foot patrol",
+      "title": "Ground A \u00b7 foot patrol",
       "type": "footpatrol",
       "anchorId": "GROUND-A",
       "ground": "A",
@@ -2452,7 +2460,7 @@
     },
     {
       "id": "A-CANTEEN",
-      "title": "Ground A · canteen",
+      "title": "Ground A \u00b7 canteen",
       "type": "canteen",
       "anchorId": "GROUND-A",
       "ground": "A",
@@ -2501,7 +2509,7 @@
     },
     {
       "id": "A-LANGAR",
-      "title": "Ground A · langar",
+      "title": "Ground A \u00b7 langar",
       "type": "langar",
       "anchorId": "GROUND-A",
       "ground": "A",
@@ -2702,9 +2710,9 @@
       "anchorId": "GROUND-A",
       "ground": "A",
       "position": [
-        -260.23999999999995,
+        288.15,
         0.3,
-        440.79999999999995
+        156.79
       ],
       "rotation": 0,
       "scale": 1,
@@ -2713,7 +2721,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.182095, 77.028101 (Garaund A A4)",
       "shifts": {
         "day": {
           "force": 1,
@@ -2742,7 +2750,11 @@
         "index": 3,
         "count": 15,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.182095,
+        77.028101
+      ]
     },
     {
       "id": "A-M-5",
@@ -2751,9 +2763,9 @@
       "anchorId": "GROUND-A",
       "ground": "A",
       "position": [
-        -169.2,
+        308.75,
         0.3,
-        483.7333333333333
+        269.87
       ],
       "rotation": 0,
       "scale": 1,
@@ -2762,7 +2774,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.180392, 77.028536 (Garaund A, A5)",
       "shifts": {
         "day": {
           "force": 1,
@@ -2791,7 +2803,11 @@
         "index": 4,
         "count": 15,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.180392,
+        77.028536
+      ]
     },
     {
       "id": "A-M-6",
@@ -2800,9 +2816,9 @@
       "anchorId": "GROUND-A",
       "ground": "A",
       "position": [
-        -161.5463313526982,
+        347.32,
         0.3,
-        633.9442573168923
+        432.91
       ],
       "rotation": 0,
       "scale": 1,
@@ -2811,7 +2827,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.177952, 77.029323 (Garaund A, A6)",
       "shifts": {
         "day": {
           "force": 1,
@@ -2840,7 +2856,11 @@
         "index": 5,
         "count": 15,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.177952,
+        77.029323
+      ]
     },
     {
       "id": "A-M-7",
@@ -2996,9 +3016,9 @@
       "anchorId": "GROUND-A",
       "ground": "A",
       "position": [
-        -327.28,
+        -25.68,
         0.3,
-        964.8
+        106.01
       ],
       "rotation": 0,
       "scale": 1,
@@ -3007,7 +3027,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.182329, 77.022422 (Graund A , A-10)",
       "shifts": {
         "day": {
           "force": 1,
@@ -3036,7 +3056,11 @@
         "index": 9,
         "count": 15,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.182329,
+        77.022422
+      ]
     },
     {
       "id": "A-M-11",
@@ -3143,9 +3167,9 @@
       "anchorId": "GROUND-A",
       "ground": "A",
       "position": [
-        -564.4,
+        214.09,
         0.3,
-        859.9999999999999
+        140.07
       ],
       "rotation": 0,
       "scale": 1,
@@ -3154,7 +3178,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.182223, 77.026758 (Graund A, A-13)",
       "shifts": {
         "day": {
           "force": 1,
@@ -3183,7 +3207,11 @@
         "index": 12,
         "count": 15,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.182223,
+        77.026758
+      ]
     },
     {
       "id": "A-M-14",
@@ -3236,7 +3264,7 @@
     },
     {
       "id": "A-M-15",
-      "title": "Machaan A-14 · duplicate chart row",
+      "title": "Machaan A-14 \u00b7 duplicate chart row",
       "type": "machan",
       "anchorId": null,
       "ground": "A",
@@ -3286,9 +3314,9 @@
       "anchorId": "GROUND-A",
       "ground": "A",
       "position": [
-        -546.4,
+        -41.49,
         0.3,
-        450.79999999999995
+        389.05
       ],
       "rotation": 0,
       "scale": 1,
@@ -3297,7 +3325,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again.",
+      "notes": "4 OR include the armed OR. 4 main + 1 NGO incharge = 5; do not add armed OR again. | Live Google Maps: 29.177949, 77.022298 (Graund A, pandal back right corner)",
       "shifts": {
         "day": {
           "force": 4,
@@ -3326,7 +3354,11 @@
         "index": 0,
         "count": 12,
         "kind": "perimeter-inner"
-      }
+      },
+      "gps": [
+        29.177949,
+        77.022298
+      ]
     },
     {
       "id": "A-MO-2",
@@ -3869,7 +3901,7 @@
     },
     {
       "id": "B-FOOT",
-      "title": "Ground B · foot patrol",
+      "title": "Ground B \u00b7 foot patrol",
       "type": "footpatrol",
       "anchorId": "GROUND-B",
       "ground": "B",
@@ -3913,7 +3945,7 @@
     },
     {
       "id": "B-CANTEEN",
-      "title": "Ground B · canteen",
+      "title": "Ground B \u00b7 canteen",
       "type": "canteen",
       "anchorId": "GROUND-B",
       "ground": "B",
@@ -3962,7 +3994,7 @@
     },
     {
       "id": "B-LANGAR",
-      "title": "Ground B · langar",
+      "title": "Ground B \u00b7 langar",
       "type": "langar",
       "anchorId": "GROUND-B",
       "ground": "B",
@@ -4016,9 +4048,9 @@
       "anchorId": "GROUND-B",
       "ground": "B",
       "position": [
-        -539.4,
+        219.51,
         0.3,
-        391.79999999999995
+        226.98
       ],
       "rotation": 0,
       "scale": 1,
@@ -4027,7 +4059,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.180896, 77.026905 (B Block B1)",
       "shifts": {
         "day": {
           "force": 1,
@@ -4056,7 +4088,11 @@
         "index": 0,
         "count": 10,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.180896,
+        77.026905
+      ]
     },
     {
       "id": "B-M-2",
@@ -4065,9 +4101,9 @@
       "anchorId": "GROUND-B",
       "ground": "B",
       "position": [
-        -161.32,
+        395.3,
         0.3,
-        391.79999999999995
+        537.0
       ],
       "rotation": 0,
       "scale": 1,
@@ -4076,7 +4112,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.176435, 77.030246 (Ground B B2)",
       "shifts": {
         "day": {
           "force": 1,
@@ -4105,7 +4141,11 @@
         "index": 1,
         "count": 10,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.176435,
+        77.030246
+      ]
     },
     {
       "id": "B-M-3",
@@ -4746,7 +4786,7 @@
     },
     {
       "id": "C-FOOT",
-      "title": "Ground C · foot patrol",
+      "title": "Ground C \u00b7 foot patrol",
       "type": "footpatrol",
       "anchorId": "GROUND-C",
       "ground": "C",
@@ -4790,7 +4830,7 @@
     },
     {
       "id": "C-CANTEEN",
-      "title": "Ground C · canteen",
+      "title": "Ground C \u00b7 canteen",
       "type": "canteen",
       "anchorId": "GROUND-C",
       "ground": "C",
@@ -4839,7 +4879,7 @@
     },
     {
       "id": "C-LANGAR",
-      "title": "Ground C · langar",
+      "title": "Ground C \u00b7 langar",
       "type": "langar",
       "anchorId": "GROUND-C",
       "ground": "C",
@@ -4893,9 +4933,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -631.4692662705396,
+        -266.45,
         0.3,
-        161.69551813004514
+        251.77
       ],
       "rotation": 0,
       "scale": 1,
@@ -4904,7 +4944,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.179668, 77.01817 (C ground C1)",
       "shifts": {
         "day": {
           "force": 1,
@@ -4933,7 +4973,11 @@
         "index": 0,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.179668,
+        77.01817
+      ]
     },
     {
       "id": "C-M-2",
@@ -4942,9 +4986,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -390.4914884927619,
+        -252.44,
         0.3,
-        161.69551813004514
+        179.23
       ],
       "rotation": 0,
       "scale": 1,
@@ -4953,7 +4997,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.180808, 77.018381 (C ground C2)",
       "shifts": {
         "day": {
           "force": 1,
@@ -4982,7 +5026,11 @@
         "index": 1,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.180808,
+        77.018381
+      ]
     },
     {
       "id": "C-M-3",
@@ -4991,9 +5039,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -151.04444444444442,
+        -425.39,
         0.3,
-        158
+        150.78
       ],
       "rotation": 0,
       "scale": 1,
@@ -5002,7 +5050,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.180944, 77.015251 (C ground C3)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5031,7 +5079,11 @@
         "index": 2,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.180944,
+        77.015251
+      ]
     },
     {
       "id": "C-M-4",
@@ -5040,9 +5092,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -90.8,
+        -455.75,
         0.3,
-        227.66666666666666
+        56.82
       ],
       "rotation": 0,
       "scale": 1,
@@ -5051,7 +5103,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.182336, 77.014651 (C ground C4)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5080,7 +5132,11 @@
         "index": 3,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.182336,
+        77.014651
+      ]
     },
     {
       "id": "C-M-5",
@@ -5089,9 +5145,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -90.8,
+        -255.97,
         0.3,
-        320.55555555555554
+        76.53
       ],
       "rotation": 0,
       "scale": 1,
@@ -5100,7 +5156,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.182381, 77.018259 (C ground C5)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5129,7 +5185,11 @@
         "index": 4,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.182381,
+        77.018259
+      ]
     },
     {
       "id": "C-M-6",
@@ -5138,9 +5198,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -211.28888888888895,
+        -239.4,
         0.3,
-        379
+        -66.74
       ],
       "rotation": 0,
       "scale": 1,
@@ -5149,7 +5209,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.184613, 77.018476 (C ground C 6)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5178,7 +5238,11 @@
         "index": 5,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.184613,
+        77.018476
+      ]
     },
     {
       "id": "C-M-7",
@@ -5187,9 +5251,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -452.26666666666665,
+        -96.45,
         0.3,
-        367
+        -155.95
       ],
       "rotation": 0,
       "scale": 1,
@@ -5198,7 +5262,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.186234, 77.020999 (C ground C7 \u0917\u0947\u091f NO 10 \u0915\u0947 \u092a\u093e\u0938)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5227,7 +5291,11 @@
         "index": 6,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.186234,
+        77.020999
+      ]
     },
     {
       "id": "C-M-8",
@@ -5236,9 +5304,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -633,
+        -109.9,
         0.3,
-        343.77777777777777
+        96.14
       ],
       "rotation": 0,
       "scale": 1,
@@ -5247,7 +5315,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.182334, 77.0209 (C ground C8)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5276,7 +5344,11 @@
         "index": 7,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.182334,
+        77.0209
+      ]
     },
     {
       "id": "C-M-9",
@@ -5285,9 +5357,9 @@
       "anchorId": "GROUND-C",
       "ground": "C",
       "position": [
-        -633,
+        -57.91,
         0.3,
-        250.8888888888889
+        375.87
       ],
       "rotation": 0,
       "scale": 1,
@@ -5296,7 +5368,7 @@
       "route": [],
       "routeMode": "pingpong",
       "personnel": [],
-      "notes": "1 OR per shift. Approximate point distributed around the model ground.",
+      "notes": "1 OR per shift. Approximate point distributed around the model ground. | Live Google Maps: 29.178123, 77.021995 (C ground C 9)",
       "shifts": {
         "day": {
           "force": 1,
@@ -5325,7 +5397,11 @@
         "index": 8,
         "count": 9,
         "kind": "perimeter"
-      }
+      },
+      "gps": [
+        29.178123,
+        77.021995
+      ]
     },
     {
       "id": "C-MO-1",
@@ -5525,7 +5601,7 @@
     },
     {
       "id": "D-FOOT",
-      "title": "Ground D · foot patrol",
+      "title": "Ground D \u00b7 foot patrol",
       "type": "footpatrol",
       "anchorId": "GROUND-D",
       "ground": "D",
@@ -5569,7 +5645,7 @@
     },
     {
       "id": "D-CANTEEN",
-      "title": "Ground D · canteen",
+      "title": "Ground D \u00b7 canteen",
       "type": "canteen",
       "anchorId": "GROUND-D",
       "ground": "D",
@@ -5618,7 +5694,7 @@
     },
     {
       "id": "D-LANGAR",
-      "title": "Ground D · langar",
+      "title": "Ground D \u00b7 langar",
       "type": "langar",
       "anchorId": "GROUND-D",
       "ground": "D",
@@ -6500,7 +6576,7 @@
     },
     {
       "id": "QRT5",
-      "title": "QRT-5 · inside Samagam",
+      "title": "QRT-5 \u00b7 inside Samagam",
       "type": "qrt",
       "anchorId": "B01",
       "ground": "",
@@ -6549,7 +6625,7 @@
     },
     {
       "id": "PANDAL-F1",
-      "title": "Pandal · force group 1",
+      "title": "Pandal \u00b7 force group 1",
       "type": "officer",
       "anchorId": "B01",
       "ground": "",
@@ -6587,7 +6663,7 @@
     },
     {
       "id": "PANDAL-F2",
-      "title": "Pandal · force group 2",
+      "title": "Pandal \u00b7 force group 2",
       "type": "officer",
       "anchorId": "B01",
       "ground": "",
@@ -6674,7 +6750,7 @@
     },
     {
       "id": "CONTROL",
-      "title": "Control room · CCTV",
+      "title": "Control room \u00b7 CCTV",
       "type": "control",
       "anchorId": "B17",
       "ground": "",
@@ -6783,7 +6859,7 @@
     },
     {
       "id": "IMPORTANT-P2",
-      "title": "Parking 2 · important duties",
+      "title": "Parking 2 \u00b7 important duties",
       "type": "parking",
       "anchorId": "P03",
       "ground": "",
@@ -6856,7 +6932,7 @@
     },
     {
       "id": "RESERVE",
-      "title": "Reserve force · Haldana chowki",
+      "title": "Reserve force \u00b7 Haldana chowki",
       "type": "reserve",
       "anchorId": null,
       "ground": "",
@@ -6958,7 +7034,7 @@
     },
     {
       "id": "ambulance-A",
-      "title": "Ambulance · Ground A",
+      "title": "Ambulance \u00b7 Ground A",
       "type": "ambulance",
       "anchorId": "GROUND-A",
       "ground": "A",
@@ -6997,7 +7073,7 @@
     },
     {
       "id": "ambulance-B",
-      "title": "Ambulance · Ground B",
+      "title": "Ambulance \u00b7 Ground B",
       "type": "ambulance",
       "anchorId": "GROUND-B",
       "ground": "B",
@@ -7036,7 +7112,7 @@
     },
     {
       "id": "ambulance-C",
-      "title": "Ambulance · Ground C",
+      "title": "Ambulance \u00b7 Ground C",
       "type": "ambulance",
       "anchorId": "GROUND-C",
       "ground": "C",
@@ -7075,7 +7151,7 @@
     },
     {
       "id": "ambulance-D",
-      "title": "Ambulance · Ground D",
+      "title": "Ambulance \u00b7 Ground D",
       "type": "ambulance",
       "anchorId": "GROUND-D",
       "ground": "D",
@@ -7114,7 +7190,7 @@
     },
     {
       "id": "ambulance-Pandal",
-      "title": "Ambulance · Pandal",
+      "title": "Ambulance \u00b7 Pandal",
       "type": "ambulance",
       "anchorId": "B01",
       "ground": "",
@@ -7153,7 +7229,7 @@
     },
     {
       "id": "fire-A",
-      "title": "Fire brigade · Ground A",
+      "title": "Fire brigade \u00b7 Ground A",
       "type": "fire",
       "anchorId": "GROUND-A",
       "ground": "A",
@@ -7192,7 +7268,7 @@
     },
     {
       "id": "fire-B",
-      "title": "Fire brigade · Ground B",
+      "title": "Fire brigade \u00b7 Ground B",
       "type": "fire",
       "anchorId": "GROUND-B",
       "ground": "B",
@@ -7231,7 +7307,7 @@
     },
     {
       "id": "fire-C",
-      "title": "Fire brigade · Ground C",
+      "title": "Fire brigade \u00b7 Ground C",
       "type": "fire",
       "anchorId": "GROUND-C",
       "ground": "C",
@@ -7270,7 +7346,7 @@
     },
     {
       "id": "fire-D",
-      "title": "Fire brigade · Ground D",
+      "title": "Fire brigade \u00b7 Ground D",
       "type": "fire",
       "anchorId": "GROUND-D",
       "ground": "D",
@@ -7309,7 +7385,7 @@
     },
     {
       "id": "fire-Pandal",
-      "title": "Fire brigade · Pandal",
+      "title": "Fire brigade \u00b7 Pandal",
       "type": "fire",
       "anchorId": "B01",
       "ground": "",
@@ -7345,6 +7421,1062 @@
         20
       ],
       "vehicleCount": 1
+    },
+    {
+      "id": "GPS-01",
+      "title": "Garound A , \u0938\u094d\u091f\u094b\u0930 \u0915\u0948\u0902\u091f\u0940\u0928 \u090f\u0935\u0902 \u0932\u0902\u0917\u0930",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        183.24,
+        0.3,
+        -70.48
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.185407,
+        77.026083
+      ],
+      "notes": "Live Google Maps Aligned Point #1 | Category: Other | Lat: 29.185407, Lon: 77.026083 | Link: https://www.google.com/maps?q=29.185407,77.026083",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-02",
+      "title": "Garound A, main office",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        177.55,
+        0.3,
+        -97.98
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.18582,
+        77.025965
+      ],
+      "notes": "Live Google Maps Aligned Point #2 | Category: Other | Lat: 29.18582, Lon: 77.025965 | Link: https://www.google.com/maps?q=29.18582,77.025965",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-04",
+      "title": "Graund A, ATM",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        186.71,
+        0.3,
+        -89.01
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.185698,
+        77.026135
+      ],
+      "notes": "Live Google Maps Aligned Point #4 | Category: Other | Lat: 29.185698, Lon: 77.026135 | Link: https://www.google.com/maps?q=29.185698,77.026135",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-05",
+      "title": "Graund A, \u092e\u0948\u0902\u0928 \u0911\u092b\u093f\u0938 \u0938\u0947, \u092a\u0902\u0921\u093e\u0932 \u0915\u0940 \u0924\u0930\u092b \u091c\u093e\u0928\u0947 \u0935\u093e\u0932\u093e \u0930\u093e\u0938\u094d\u0924\u093e",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        173.21,
+        0.3,
+        -23.89
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.184673,
+        77.025929
+      ],
+      "notes": "Live Google Maps Aligned Point #5 | Category: Other | Lat: 29.184673, Lon: 77.025929 | Link: https://www.google.com/maps?q=29.184673,77.025929",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-06",
+      "title": "Graund A",
+      "type": "canteen",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        175.77,
+        0.3,
+        56.98
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.183434,
+        77.026021
+      ],
+      "notes": "Live Google Maps Aligned Point #6 | Category: Canteen | Lat: 29.183434, Lon: 77.026021 | Link: https://www.google.com/maps?q=29.183434,77.026021",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-07",
+      "title": "Graund A",
+      "type": "langar",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        161.44,
+        0.3,
+        55.29
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.183435,
+        77.025762
+      ],
+      "notes": "Live Google Maps Aligned Point #7 | Category: Langar | Lat: 29.183435, Lon: 77.025762 | Link: https://www.google.com/maps?q=29.183435,77.025762",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-09",
+      "title": "Graund A",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        172.58,
+        0.3,
+        135.3
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.182224,
+        77.026008
+      ],
+      "notes": "Live Google Maps Aligned Point #9 | Category: Machan - Watchtower | Lat: 29.182224, Lon: 77.026008 | Link: https://www.google.com/maps?q=29.182224,77.026008",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-10",
+      "title": "Graund A, SC parking",
+      "type": "parking",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        104.64,
+        0.3,
+        128.71
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.182207,
+        77.024781
+      ],
+      "notes": "Live Google Maps Aligned Point #10 | Category: Other | Lat: 29.182207, Lon: 77.024781 | Link: https://www.google.com/maps?q=29.182207,77.024781",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-22",
+      "title": "Gate no 1\u0964 Parking no 2",
+      "type": "parking",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        5747.4,
+        0.3,
+        7630.41
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.076682,
+        77.130634
+      ],
+      "notes": "Live Google Maps Aligned Point #22 | Category: Parking | Lat: 29.076682, Lon: 77.130634 | Link: https://www.google.com/maps?q=29.076682,77.130634",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-23",
+      "title": "Graund A",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        59.8,
+        0.3,
+        118.36
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.182288,
+        77.023968
+      ],
+      "notes": "Live Google Maps Aligned Point #23 | Category: Machan - Watchtower | Lat: 29.182288, Lon: 77.023968 | Link: https://www.google.com/maps?q=29.182288,77.023968",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-24",
+      "title": "Ground B canteen no 4",
+      "type": "canteen",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        2250.26,
+        0.3,
+        3440.8
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.135014,
+        77.065292
+      ],
+      "notes": "Live Google Maps Aligned Point #24 | Category: Canteen | Lat: 29.135014, Lon: 77.065292 | Link: https://www.google.com/maps?q=29.135014,77.065292",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-25",
+      "title": "Graund A",
+      "type": "parking",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        15.06,
+        0.3,
+        117.58
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.182222,
+        77.023162
+      ],
+      "notes": "Live Google Maps Aligned Point #25 | Category: Parking | Lat: 29.182222, Lon: 77.023162 | Link: https://www.google.com/maps?q=29.182222,77.023162",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-27",
+      "title": "Ground B canteen no 5",
+      "type": "canteen",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        2108.92,
+        0.3,
+        3514.14
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.13364,
+        77.062789
+      ],
+      "notes": "Live Google Maps Aligned Point #27 | Category: Canteen | Lat: 29.13364, Lon: 77.062789 | Link: https://www.google.com/maps?q=29.13364,77.062789",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-28",
+      "title": "Graund A, pandal back side",
+      "type": "barricade",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        -42.96,
+        0.3,
+        287.76
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.179504,
+        77.022214
+      ],
+      "notes": "Live Google Maps Aligned Point #28 | Category: Outer cordon | Lat: 29.179504, Lon: 77.022214 | Link: https://www.google.com/maps?q=29.179504,77.022214",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-29",
+      "title": "Grond B machan no 5",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        1908.97,
+        0.3,
+        3841.6
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.128256,
+        77.059375
+      ],
+      "notes": "Live Google Maps Aligned Point #29 | Category: Machan - Watchtower | Lat: 29.128256, Lon: 77.059375 | Link: https://www.google.com/maps?q=29.128256,77.059375",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-31",
+      "title": "Graund A, pandal right side",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        32.91,
+        0.3,
+        411.01
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.177741,
+        77.02365
+      ],
+      "notes": "Live Google Maps Aligned Point #31 | Category: Machan - Watchtower | Lat: 29.177741, Lon: 77.02365 | Link: https://www.google.com/maps?q=29.177741,77.02365",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-32",
+      "title": "Grond B machan no 4",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        221.41,
+        0.3,
+        1159.53
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.166559,
+        77.027469
+      ],
+      "notes": "Live Google Maps Aligned Point #32 | Category: Machan - Watchtower | Lat: 29.166559, Lon: 77.027469 | Link: https://www.google.com/maps?q=29.166559,77.027469",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-33",
+      "title": "Graund A, pandal rihgt side",
+      "type": "gate",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        93.49,
+        0.3,
+        399.34
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.178026,
+        77.024734
+      ],
+      "notes": "Live Google Maps Aligned Point #33 | Category: Entry/exit gate | Lat: 29.178026, Lon: 77.024734 | Link: https://www.google.com/maps?q=29.178026,77.024734",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-34",
+      "title": "Garaund A, watchtower with parking",
+      "type": "machan",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        209.45,
+        0.3,
+        436.6
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.177655,
+        77.026843
+      ],
+      "notes": "Live Google Maps Aligned Point #34 | Category: Machan - Watchtower | Lat: 29.177655, Lon: 77.026843 | Link: https://www.google.com/maps?q=29.177655,77.026843",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-35",
+      "title": "Garaund A, front of pandal right",
+      "type": "gate",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        214.37,
+        0.3,
+        423.24
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.177869,
+        77.026924
+      ],
+      "notes": "Live Google Maps Aligned Point #35 | Category: Entry/exit gate | Lat: 29.177869, Lon: 77.026924 | Link: https://www.google.com/maps?q=29.177869,77.026924",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-37",
+      "title": "Garaund A",
+      "type": "officer",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        341.63,
+        0.3,
+        430.18
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.177984,
+        77.029219
+      ],
+      "notes": "Live Google Maps Aligned Point #37 | Category: Foot-bridge | Lat: 29.177984, Lon: 77.029219 | Link: https://www.google.com/maps?q=29.177984,77.029219",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
+    },
+    {
+      "id": "GPS-38",
+      "title": "Garaund A, pandal front side",
+      "type": "barricade",
+      "anchorId": null,
+      "ground": "Ground B",
+      "position": [
+        317.56,
+        0.3,
+        340.84
+      ],
+      "rotation": 0,
+      "scale": 1.0,
+      "enabled": true,
+      "speed": 7,
+      "route": [],
+      "routeMode": "pingpong",
+      "personnel": [],
+      "gps": [
+        29.179316,
+        77.028735
+      ],
+      "notes": "Live Google Maps Aligned Point #38 | Category: Outer cordon | Lat: 29.179316, Lon: 77.028735 | Link: https://www.google.com/maps?q=29.179316,77.028735",
+      "shifts": {
+        "day": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "06:00",
+          "end": "18:00"
+        },
+        "night": {
+          "force": 2,
+          "female": null,
+          "incharge": 1,
+          "extra": 0,
+          "inchargeText": "Duty Incharge",
+          "extraText": "",
+          "notes": "",
+          "start": "18:00",
+          "end": "06:00"
+        }
+      }
     }
   ]
 }
