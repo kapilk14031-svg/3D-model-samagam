@@ -2862,150 +2862,91 @@ const gate=mapPreset([-13,.3,-61],'gate');for(const [kind,dx,dz] of [['dfmd',-3,
 
 
 
-function depValid(items){
-  if (!Array.isArray(items) || items.length > 2000) return false;
-  if (items.length === 0) return true;
-  const ids = new Set();
-  for (const o of items) {
-    if (!o || typeof o.id !== 'string' || !o.id || ids.has(o.id)) return false;
-    ids.add(o.id);
-    if (!o.kind || !depTypes.includes(o.kind)) return false;
-    for (const k of ['x','y','z','angle']) {
-      const v = Number(o[k]);
-      if (!Number.isFinite(v)) return false;
-      o[k] = v;
-    }
-    if (Math.abs(o.x) > 10000 || Math.abs(o.z) > 10000 || o.y < -100 || o.y > 500) return false;
-    for (const k of ['name','duty','belt','mobile']) {
-      if (o[k] === undefined || o[k] === null) o[k] = '';
-      else if (typeof o[k] !== 'string') o[k] = String(o[k]);
-    }
-  }
-  return true;
+function depNormalizeItem(o, index) {
+  if (!o || typeof o !== 'object') return null;
+  const id = (typeof o.id === 'string' && o.id.trim()) ? o.id.trim() : ('post-' + (index + 1));
+  const kind = (typeof o.kind === 'string' && o.kind) ? o.kind : 'officer';
+  const name = (typeof o.name === 'string' && o.name.trim()) ? o.name.trim() : (kind === 'officer' ? 'Officer ' + (index + 1) : 'Item ' + (index + 1));
+  const duty = (typeof o.duty === 'string') ? o.duty : (o.duty != null ? String(o.duty) : '');
+  const belt = (typeof o.belt === 'string') ? o.belt : (o.belt != null ? String(o.belt) : '');
+  const mobile = (typeof o.mobile === 'string') ? o.mobile : (o.mobile != null ? String(o.mobile) : '');
+
+  let x = Number(o.x);
+  if (!Number.isFinite(x) || Math.abs(x) > 10000) x = 0;
+
+  let z = Number(o.z);
+  if (!Number.isFinite(z) || Math.abs(z) > 10000) z = 0;
+
+  let y = Number(o.y);
+  if (!Number.isFinite(y)) y = 0.3;
+
+  let angle = Number(o.angle);
+  if (!Number.isFinite(angle)) angle = 0;
+  angle = ((angle % 360) + 360) % 360;
+
+  return {
+    ...o,
+    id,
+    kind,
+    name,
+    duty,
+    belt,
+    mobile,
+    x: Math.round(x * 100) / 100,
+    y: Math.round(y * 100) / 100,
+    z: Math.round(z * 100) / 100,
+    angle: Math.round(angle * 100) / 100
+  };
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+function depValid(items){
+  return Array.isArray(items) && items.length > 0 && items.length <= 2000;
+}
 
 function depLoadLocal(){
-
-
-
-
-
-
-
   try{
-
-
-
-
-
-
-
     const raw=localStorage.getItem(depStorage);if(!raw)return null;
-
-
-
-
-
-
-
     const parsed=JSON.parse(raw);
-
-
-
-
-
-
-
-    const items=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
-
-
-
-
-
-
-
-    if(depValid(items))return {items,savedAt:(parsed&&parsed.savedAt)||0};
-
-
-
-
-
-
-
+    const rawItems=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
+    if(!rawItems||!Array.isArray(rawItems)||rawItems.length===0)return null;
+    const seenIds=new Set();
+    const items=[];
+    for(let i=0;i<rawItems.length;i++){
+      const item=depNormalizeItem(rawItems[i],i);
+      if(item&&item.kind!=='helicopter'){
+        if(seenIds.has(item.id)){
+          item.id=item.id+'-'+(i+1);
+        }
+        seenIds.add(item.id);
+        items.push(item);
+      }
+    }
+    if(items.length>0)return {items,savedAt:(parsed&&parsed.savedAt)||0};
   }catch(e){console.warn('depLoadLocal error:',e);}
-
-
-
-
-
-
-
   return null;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const initialLocal=depLoadLocal();
 
-
-
-
-
-
-
-if (initialLocal && Array.isArray(initialLocal.items) && depValid(initialLocal.items) && initialLocal.items.length > 0) {
+if (initialLocal && Array.isArray(initialLocal.items) && initialLocal.items.length > 0) {
   depItems = initialLocal.items;
-} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depValid(depInitialPlan.items) && depInitialPlan.items.length > 0) {
-  depItems = JSON.parse(JSON.stringify(depInitialPlan.items));
+} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depInitialPlan.items.length > 0) {
+  depItems = depInitialPlan.items.map((it, idx) => depNormalizeItem(it, idx)).filter(Boolean);
 } else {
   depItems = depSeed();
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
   if (o) {
-    // If officer or equipment is sunken below ground/floor, elevate immediately
     if (typeof getSurfaceHeight === 'function') {
       const properFloorY = getSurfaceHeight(o.x, o.z, o.y);
       if (properFloorY > o.y + 0.04) {
         o.y = properFloorY;
       }
     }
-    if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
+    if (!o.customDuty && (!o.duty || o.duty.trim() === '')) {
       const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
-      if (match && match.duty && match.duty !== 'Security post') {
+      if (match && match.duty && match.duty !== 'Security post' && match.duty !== 'Post') {
         o.duty = match.duty;
       } else {
         o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
@@ -3044,30 +2985,16 @@ function depStore(immediate = true){
   try{
     const record={version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems};
     localStorage.setItem(depStorage,JSON.stringify(record));
-
-
-
-
-
-
-
-    depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
-
-
-
-
-
-
-
+    if (depUI('status')) {
+      depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
+    }
+    if(depUI('sync') && !depBackendReady){
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
+    }
   }catch(e){console.warn('localStorage save warning:',e);}
-
-
-
-
-
-
-
-  depQueue(immediate);
+  if(depBackendURL && depBackendReady){
+    depQueue(immediate);
+  }
 
 
 
@@ -4522,54 +4449,27 @@ function depBuildFireBrigade(g) {
 // =========================================================================
 function depBuildParking(g) { depBuildParkingLot(g); }
 function depBuildParkingLot(g) {
-  g.scale.setScalar(1.0);
+  g.scale.setScalar(1);
 
-  // 1. Heavy Asphalt Tarmac Ground Pavement (14.4m x 13.2m: 10 Bays in 2 Rows of 5)
-  depPart(g, 'box', [0, 0.05, 0], [14.4, 0.10, 13.2], 'padAsphalt');
+  // 1. Heavy Asphalt Tarmac Ground Pavement
+  depPart(g, 'box', [0, 0.05, 0], [14.0, 0.10, 10.0], 'padAsphalt');
 
   // Perimeter Raised Concrete Curbing with Yellow/Black Safety Stripes
-  depPart(g, 'box', [0, 0.14, -6.62], [14.6, 0.14, 0.22], 'dark');
-  depPart(g, 'box', [0, 0.14, 6.62], [14.6, 0.14, 0.22], 'dark');
-  depPart(g, 'box', [-7.22, 0.14, 0], [0.22, 0.14, 13.4], 'dark');
-  depPart(g, 'box', [7.22, 0.14, 0], [0.22, 0.14, 13.4], 'dark');
+  depPart(g, 'box', [0, 0.14, -5.02], [14.2, 0.14, 0.22], 'dark');
+  depPart(g, 'box', [0, 0.14, 5.02], [14.2, 0.14, 0.22], 'dark');
+  depPart(g, 'box', [-7.02, 0.14, 0], [0.22, 0.14, 10.2], 'dark');
+  depPart(g, 'box', [7.02, 0.14, 0], [0.22, 0.14, 10.2], 'dark');
 
-  // 2. Central Driving Lane Separator (Yellow Line between Row 1 and Row 2)
-  depPart(g, 'box', [0, 0.11, 0], [13.2, 0.015, 0.16], 'padLineYellow');
-
-  // 3. ROW 1 (5 BAYS, NORTH: Bay 1 to 5, Z from -6.2 to -0.8)
-  const bayXs = [-6.5, -3.9, -1.3, 1.3, 3.9, 6.5];
-  const bayCenters = [-5.2, -2.6, 0.0, 2.6, 5.2];
-
-  // White stall divider lines for Row 1
-  for (const bx of bayXs) {
-    depPart(g, 'box', [bx, 0.11, -3.6], [0.12, 0.015, 5.2], 'padLineWhite');
+  // 2. High-Visibility Parking Bay Demarcation Lines
+  for (let bx = -6.0; bx <= 6.0; bx += 3.0) {
+    depPart(g, 'box', [bx, 0.11, 0], [0.12, 0.015, 8.2], 'padLineWhite');
+    depPart(g, 'cylinder', [bx + 1.5, 0.16, -3.6], [0.12, 0.14, 0.12], 'yellow');
   }
-  // Back curb stops for Row 1 (5 stalls)
-  for (const cx of bayCenters) {
-    depPart(g, 'box', [cx, 0.16, -5.9], [1.7, 0.12, 0.20], 'padLineYellow');
-  }
-
-  // 4. ROW 2 (5 BAYS, SOUTH: Bay 6 to 10, Z from 0.8 to 6.2)
-  // White stall divider lines for Row 2
-  for (const bx of bayXs) {
-    depPart(g, 'box', [bx, 0.11, 3.6], [0.12, 0.015, 5.2], 'padLineWhite');
-  }
-  // Back curb stops for Row 2 (5 stalls)
-  for (const cx of bayCenters) {
-    depPart(g, 'box', [cx, 0.16, 5.9], [1.7, 0.12, 0.20], 'padLineYellow');
-  }
-
-  // Row 1 & 2 Entrance Line Markings
-  depPart(g, 'box', [0, 0.11, -1.1], [13.0, 0.015, 0.10], 'padLineWhite');
-  depPart(g, 'box', [0, 0.11, 1.1], [13.0, 0.015, 0.10], 'padLineWhite');
-
-  // Directional Driving Arrows in Central Lane
-  depPart(g, 'box', [-2.5, 0.11, 0], [1.2, 0.015, 0.12], 'padLineWhite');
-  depPart(g, 'box', [2.5, 0.11, 0], [1.2, 0.015, 0.12], 'padLineWhite');
+  depPart(g, 'box', [0, 0.11, 4.1], [12.2, 0.015, 0.12], 'padLineWhite');
 
   // Blue & White "P" Parking Facility Signpost
   const pSign = new THREE.Group();
-  pSign.position.set(-6.6, 0, 6.0);
+  pSign.position.set(-6.2, 0, 4.2);
   g.add(pSign);
   depPart(pSign, 'cylinder', [0, 1.25, 0], [0.045, 2.5, 0.045], 'chrome');
   depPart(pSign, 'box', [0, 2.45, 0], [0.65, 0.65, 0.05], 'blue');
@@ -4577,43 +4477,39 @@ function depBuildParkingLot(g) {
   depPart(pSign, 'box', [-0.06, 2.45, 0.045], [0.08, 0.35, 0.02], 'blue');
   depPart(pSign, 'torus', [0.02, 2.52, 0.045], [0.08, 0.03, 1], 'blue');
 
-  // Solar LED Parking Floodlight Pole (Opposite Corner)
-  const pole = new THREE.Group();
-  pole.position.set(6.6, 0, -6.0);
-  g.add(pole);
-  depPart(pole, 'cylinder', [0, 2.2, 0], [0.06, 4.4, 0.06], 'chrome');
-  depPart(pole, 'box', [0, 4.35, 0.2], [0.35, 0.08, 0.55], 'dark');
-  depPart(pole, 'box', [0, 4.30, 0.2], [0.30, 0.02, 0.50], 'white');
+  // 3. Four Distinct High-Detail 3D Vehicles
 
-  // 5. VEHICLES IN DESIGNATED BAYS (Leaving Bays 2, 4, 5 in Row 1 & Bays 6, 8, 9 in Row 2 completely OPEN)
-
-  // --- VEHICLE 1 (Row 1, Bay 1: x = -5.2): Police Security Van ---
+  // --- VEHICLE 1 (Bay 1): Heavy Haryana Police Security Force Bus ---
   const bus = new THREE.Group();
-  bus.position.set(-5.2, 0, -3.6);
+  bus.position.set(-4.5, 0, -0.4);
   g.add(bus);
-  depPart(bus, 'box', [0, 0.30, 0], [2.15, 0.22, 5.2], 'dark');
-  for (const bx of [-1.05, 1.05]) {
-    for (const bz of [-1.7, 1.6]) {
-      const bw = depPart(bus, 'cylinder', [bx, 0.38, bz], [0.38, 0.22, 0.38], 'tireRubber');
+  // Chassis & Wheels
+  depPart(bus, 'box', [0, 0.35, 0], [2.35, 0.25, 6.8], 'dark');
+  for (const bx of [-1.15, 1.15]) {
+    for (const bz of [-2.1, 1.9]) {
+      const bw = depPart(bus, 'cylinder', [bx, 0.45, bz], [0.45, 0.26, 0.45], 'tireRubber');
       bw.rotation.z = Math.PI / 2;
-      const rim = depPart(bus, 'cylinder', [bx, 0.38, bz], [0.24, 0.23, 0.24], 'dark');
+      const rim = depPart(bus, 'cylinder', [bx, 0.45, bz], [0.28, 0.27, 0.28], 'dark');
       rim.rotation.z = Math.PI / 2;
     }
   }
-  depPart(bus, 'box', [0, 1.45, 0], [2.20, 1.70, 5.15], 'darkBlue');
-  depPart(bus, 'box', [0, 1.10, 0], [2.22, 0.28, 5.18], 'white');
-  depPart(bus, 'box', [0, 0.95, 0], [2.23, 0.08, 5.20], 'vipBeaconRed');
-  const bws = depPart(bus, 'box', [0, 1.62, -2.58], [2.05, 0.85, 0.06], 'glassTint');
+  // Bus Body & Police Dark Blue/White Livery
+  depPart(bus, 'box', [0, 1.62, 0], [2.40, 1.95, 6.75], 'darkBlue');
+  depPart(bus, 'box', [0, 1.22, 0], [2.42, 0.32, 6.78], 'white');
+  depPart(bus, 'box', [0, 1.05, 0], [2.43, 0.10, 6.80], 'vipBeaconRed');
+  // Windshield & Side Windows
+  const bws = depPart(bus, 'box', [0, 1.82, -3.38], [2.25, 0.95, 0.06], 'glassTint');
   bws.rotation.x = -0.08;
-  for (const sx of [-1.11, 1.11]) {
-    depPart(bus, 'box', [sx, 1.65, 0.20], [0.02, 0.65, 3.8], 'glassTint');
+  for (const sx of [-1.22, 1.22]) {
+    depPart(bus, 'box', [sx, 1.85, 0.25], [0.02, 0.75, 5.2], 'glassTint');
   }
-  depPart(bus, 'box', [0, 2.38, 0.3], [1.35, 0.18, 1.8], 'white');
-  depPart(bus, 'box', [0, 2.40, -2.3], [0.30, 0.10, 0.22], 'vipBeaconRed');
+  // Roof AC Units & Beacon
+  depPart(bus, 'box', [0, 2.70, 0.4], [1.45, 0.22, 2.2], 'white');
+  depPart(bus, 'box', [0, 2.72, -3.0], [0.35, 0.12, 0.25], 'vipBeaconRed');
 
-  // --- VEHICLE 2 (Row 1, Bay 3: x = 0.0): White VIP Fortuner SUV ---
+  // --- VEHICLE 2 (Bay 2): White VIP Fortuner SUV ---
   const suv1 = new THREE.Group();
-  suv1.position.set(0.0, 0, -3.6);
+  suv1.position.set(-1.5, 0, -0.6);
   g.add(suv1);
   depPart(suv1, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
   for (const sx of [-0.95, 0.95]) {
@@ -4624,6 +4520,7 @@ function depBuildParkingLot(g) {
       srim.rotation.z = Math.PI / 2;
     }
   }
+  // Body, Cab & Chrome Grille
   depPart(suv1, 'box', [0, 0.85, 0], [1.88, 0.65, 4.45], 'whiteBody');
   depPart(suv1, 'box', [0, 1.38, 0.2], [1.68, 0.62, 2.65], 'whiteBody');
   const sws1 = depPart(suv1, 'box', [0, 1.32, -1.18], [1.55, 0.55, 0.05], 'glassTint');
@@ -4634,10 +4531,9 @@ function depBuildParkingLot(g) {
   }
   depPart(suv1, 'box', [0, 1.74, 0.25], [1.25, 0.06, 2.1], 'chrome');
 
-  // --- VEHICLE 3 (Row 2, Bay 7: x = -2.6): Executive Administration Sedan ---
+  // --- VEHICLE 3 (Bay 3): Executive Administration Sedan (Silver-Grey) ---
   const car = new THREE.Group();
-  car.position.set(-2.6, 0, 3.6);
-  car.rotation.y = Math.PI; // parked facing aisle
+  car.position.set(1.5, 0, -0.8);
   g.add(car);
   depPart(car, 'box', [0, 0.24, 0], [1.78, 0.16, 4.3], 'dark');
   for (const cx of [-0.90, 0.90]) {
@@ -4648,6 +4544,7 @@ function depBuildParkingLot(g) {
       crim.rotation.z = Math.PI / 2;
     }
   }
+  // Low-Slung Sedan Body
   depPart(car, 'box', [0, 0.64, 0], [1.80, 0.46, 4.35], 'shutterSilver');
   depPart(car, 'box', [0, 1.08, 0.12], [1.58, 0.48, 2.25], 'shutterSilver');
   const cws = depPart(car, 'box', [0, 1.05, -1.05], [1.46, 0.46, 0.05], 'glassTint');
@@ -4655,10 +4552,9 @@ function depBuildParkingLot(g) {
   const crws = depPart(car, 'box', [0, 1.05, 1.28], [1.46, 0.46, 0.05], 'glassTint');
   crws.rotation.x = 0.55;
 
-  // --- VEHICLE 4 (Row 2, Bay 10: x = 5.2): Black Security Escort SUV ---
+  // --- VEHICLE 4 (Bay 4): Black Security Escort SUV with VIP Flasher ---
   const suv2 = new THREE.Group();
-  suv2.position.set(5.2, 0, 3.6);
-  suv2.rotation.y = Math.PI; // parked facing aisle
+  suv2.position.set(4.5, 0, -0.6);
   g.add(suv2);
   depPart(suv2, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
   for (const sx of [-0.95, 0.95]) {
@@ -4673,6 +4569,7 @@ function depBuildParkingLot(g) {
   depPart(suv2, 'box', [0, 1.38, 0.2], [1.68, 0.62, 2.65], 'dark');
   const sws2 = depPart(suv2, 'box', [0, 1.32, -1.18], [1.55, 0.55, 0.05], 'glassTint');
   sws2.rotation.x = -0.42;
+  // Red/Blue Grill Strobes & Roof Flasher Bar
   depPart(suv2, 'box', [-0.35, 0.74, -2.24], [0.22, 0.08, 0.04], 'vipBeaconRed');
   depPart(suv2, 'box', [0.35, 0.74, -2.24], [0.22, 0.08, 0.04], 'vipBeaconBlue');
   depPart(suv2, 'box', [-0.25, 1.74, 0.25], [0.24, 0.06, 0.12], 'vipBeaconRed');
@@ -9322,7 +9219,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade';
+  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade' || o.kind === 'qrt';
 
 
 
@@ -9652,7 +9549,7 @@ depUI('form').addEventListener('submit',e=>{
 
 
 
-  if(!depValid([next])){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
+  const normNext = depNormalizeItem(next, 0); if(!normNext){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
 
 
 
@@ -9665,7 +9562,7 @@ depUI('form').addEventListener('submit',e=>{
     o.customDuty = true;
     if (typeof depRegisterCustomDuty === 'function') depRegisterCustomDuty(next.duty);
   }
-  depStore();depBuild();depChoose(o.id);
+  depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -9713,7 +9610,7 @@ if(depUI('name')) depUI('name').addEventListener('input', () => {
 
 
 
-  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(); }
+  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(true); }
 
 
 
@@ -9738,7 +9635,7 @@ if(depUI('duty')) depUI('duty').addEventListener('input', () => {
       depRegisterCustomDuty(o.duty);
     }
     depSyncDropdownLabels(o);
-    depStore();
+    depStore(true);
   }
 
 
@@ -9771,7 +9668,7 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 
-  if (o) { o.belt = depUI('belt').value; depStore(); }
+  if (o) { o.belt = depUI('belt').value; depStore(true); }
 
 
 
@@ -9788,29 +9685,32 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 if(depUI('mobile')) depUI('mobile').addEventListener('input', () => {
-
-
-
-
-
-
-
   const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.mobile = depUI('mobile').value; depStore(true); }
+});
 
-
-
-
-
-
-
-  if (o) { o.mobile = depUI('mobile').value; depStore(); }
-
-
-
-
-
-
-
+['x','y','z','angle'].forEach(coord => {
+  const el = depUI(coord);
+  if (el) {
+    const handleCoord = () => {
+      const o = depItems.find(x => x.id === depSelected);
+      if (o) {
+        const val = parseFloat(el.value);
+        if (Number.isFinite(val)) {
+          if (coord === 'angle') {
+            o.angle = ((val % 360) + 360) % 360;
+          } else {
+            o[coord] = Math.round(val * 100) / 100;
+          }
+          depStore(true);
+          depBuild();
+          if (typeof draw === 'function') draw();
+        }
+      }
+    };
+    el.addEventListener('input', handleCoord);
+    el.addEventListener('change', handleCoord);
+  }
 });
 
 
@@ -9851,7 +9751,7 @@ function depRotate(delta){
 
 
 
-  depStore();depBuild();depChoose(o.id);
+  depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -10181,7 +10081,7 @@ depUI('delete').onclick=()=>{
 
 
 
-  depSelected=null;depPlace=false;depStore();depBuild();
+  depSelected=null;depPlace=false;depStore(true);depBuild();
 
 
 
@@ -10265,6 +10165,7 @@ function depView(mode, smooth = true){
   const itemHeight = isOfficerLike ? 1.65
     : o.kind === 'firebrigade' ? 2.5
     : o.kind === 'ambulance' ? 1.85
+    : o.kind === 'qrt' ? 1.75
     : o.kind === 'dfmd' ? 1.8
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
     : o.kind === 'barricade' ? 0.9
@@ -10274,16 +10175,18 @@ function depView(mode, smooth = true){
     : o.kind === 'helipad' ? 0.5
     : 0.6;
   const distBehind = o.kind === 'helipad' ? 36.0
-    : o.kind === 'parking' ? 24.0
+    : o.kind === 'parking' ? 28.0
     : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
+    : o.kind === 'qrt' ? 6.8
     : isOfficerLike ? 3.8
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
     : 3.2;
   const heightAbove = o.kind === 'helipad' ? 24.0
-    : o.kind === 'parking' ? 16.0
+    : o.kind === 'parking' ? 18.0
     : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
+    : o.kind === 'qrt' ? 2.5
     : isOfficerLike ? 1.2
     : 1.5;
 
@@ -10321,7 +10224,8 @@ function depView(mode, smooth = true){
     if(o.kind === 'ambulance') eyeY = o.y + 1.62;
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
     if(o.kind === 'helipad') eyeY = o.y + 4.0;
-    if(o.kind === 'parking') eyeY = o.y + 2.5;
+    if(o.kind === 'parking') eyeY = o.y + 3.0;
+    if(o.kind === 'qrt') eyeY = o.y + 1.58;
 
 
 
@@ -10362,6 +10266,7 @@ function depView(mode, smooth = true){
 
 
     if(o.kind === 'firebrigade') eye.addScaledVector(dir, 2.1);
+    if(o.kind === 'qrt') eye.addScaledVector(dir, 0.45);
 
 
 
@@ -10385,7 +10290,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 10.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (o.kind==='qrt' ? 6.5 : (mode==='first' ? 10 : 2.0)))));
 
 
 
@@ -13294,7 +13199,7 @@ function updateGtaMinimap(dt = 0.016) {
       blipSize = 5.2;
     } else if (it.kind === 'parking') {
       blipColor = '#a855f7';
-      blipSize = 4.6;
+      blipSize = 4.2;
     } else {
       blipColor = '#facc15';
       blipSize = 3.5;
@@ -14043,6 +13948,7 @@ window.__DEP_TICK = function(dt) {
 
       if (o.kind === 'ambulance') turnSpeed = 75;
       else if (o.kind === 'firebrigade') turnSpeed = 65;
+      else if (o.kind === 'qrt') turnSpeed = 80;
       else if (o.kind === 'helipad') turnSpeed = 55;
       else if (o.kind === 'parking') turnSpeed = 45;
       else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
@@ -14301,7 +14207,11 @@ window.__DEP_TICK = function(dt) {
 
 
 
-      } else if (o.kind === 'helipad') {
+      } else if (o.kind === 'qrt') {
+        baseFwdSpeed = 7.5;
+        sprintFwdSpeed = 13.5;
+        baseBackSpeed = 3.6;
+      }else if (o.kind === 'helipad') {
         baseFwdSpeed = 7.0;
         sprintFwdSpeed = 15.0;
         baseBackSpeed = 5.0;
@@ -15385,6 +15295,7 @@ window.__DEP_TICK = function(dt) {
         const itemHeight = isOfficerLike ? 1.65
           : o.kind === 'firebrigade' ? 2.5
           : o.kind === 'ambulance' ? 1.85
+          : o.kind === 'qrt' ? 1.75
           : o.kind === 'dfmd' ? 1.8
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
           : o.kind === 'barricade' ? 0.9
@@ -15394,16 +15305,18 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'helipad' ? 0.5
           : 0.6;
         const distBehind = o.kind === 'helipad' ? 36.0
-          : o.kind === 'parking' ? 24.0
+          : o.kind === 'parking' ? 28.0
           : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
+          : o.kind === 'qrt' ? 6.8
           : isOfficerLike ? 3.8
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
           : 3.2;
         const heightAbove = o.kind === 'helipad' ? 24.0
-          : o.kind === 'parking' ? 16.0
+          : o.kind === 'parking' ? 18.0
           : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
+          : o.kind === 'qrt' ? 2.5
           : isOfficerLike ? 1.2
           : 1.5;
 
@@ -15437,7 +15350,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 10.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : (o.kind === 'qrt' ? 6.5 : 2.0))));
 
 
 
@@ -18601,382 +18514,68 @@ async function depFlush(){
 
 
 async function depLoadBackend(){
-
-
-
-
-
-
-
   const local=depLoadLocal();
-
-
-
-
-
-
-
   if(!depBackendURL){
-
-
-
-
-
-
-
-    if(local&&depValid(local.items)){
-
-
-
-
-
-
-
+    if(local&&Array.isArray(local.items)&&local.items.length>0){
       depItems=local.items;
-
-
-
-
-
-
-
       depBuild();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     if(depUI('sync')){
-
-
-
-
-
-
-
       depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
-
-
-
-
-
-
-
-      depUI('retry').hidden=true;
-
-
-
-
-
-
-
+      if(depUI('retry')) depUI('retry').hidden=true;
     }
-
-
-
-
-
-
-
     return;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   depPanel.inert=true;
-
-
-
-
-
-
-
   try{
-
-
-
-
-
-
-
     const r=await fetch(depBackendURL,{cache:'no-store'});
-
-
-
-
-
-
-
     if(!r.ok)throw Error('Backend HTTP '+r.status);
-
-
-
-
-
-
-
     const result=await r.json();
-
-
-
-
-
-
-
     depRevision=result.revision||0;
-
-
-
-
-
-
-
     depBackendReady=true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const backendPlan=result.plan;
-
-
-
-
-
-
-
-    const backendItems=backendPlan&&Array.isArray(backendPlan.items)&&depValid(backendPlan.items)?backendPlan.items:null;
-
-
-
-
-
-
-
+    const rawBackendItems=backendPlan&&Array.isArray(backendPlan.items)?backendPlan.items:null;
+    const backendItems=rawBackendItems?rawBackendItems.map((it,idx)=>depNormalizeItem(it,idx)).filter(Boolean):null;
     const backendTime=result.updated?new Date(result.updated).getTime():0;
-
-
-
-
-
-
-
     const localTime=local?(local.savedAt||0):0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Smart sync: determine whether local storage or backend is newer
-    if (local && Array.isArray(local.items) && depValid(local.items) && (localTime > (backendTime + 2000) || backendItems === null)) {
+    if (local && Array.isArray(local.items) && local.items.length > 0 && localTime > backendTime) {
       depItems = local.items;
       depBuild();
       depStore(true);
       if (depUI('sync')) depUI('sync').textContent = 'Auto-saved synced ' + depItems.length + ' items to DB (rev ' + depRevision + ')';
-    } else if (backendItems !== null) {
+    } else if (backendItems && backendItems.length > 0) {
       depItems = backendItems;
       depBuild();
       try {
         localStorage.setItem(depStorage, JSON.stringify({
           version: 1,
-          savedAt: backendTime || Date.now(),
+          savedAt: Date.now(),
           origin: [geo.originLongitude, geo.originLatitude],
           items: depItems
         }));
       } catch (e) {}
       if (depUI('sync')) depUI('sync').textContent = 'Auto-saved loaded ' + depItems.length + ' items from DB (rev ' + depRevision + ')';
-    } else if (local && Array.isArray(local.items) && depValid(local.items)) {
+    } else if (local && Array.isArray(local.items) && local.items.length > 0) {
       depItems = local.items;
       depBuild();
       depStore(true);
-    } else {
-      depItems = depSeed();
-      depBuild();
-      depStore(true);
     }
-
-
-
-
-
-
-
     if(depUI('retry'))depUI('retry').hidden=true;
-
-
-
-
-
-
-
   }catch(e){
-
-
-
-
-
-
-
     console.warn('Backend load failed, using local storage:',e);
-
-
-
-
-
-
-
-    if(local&&depValid(local.items)){
-
-
-
-
-
-
-
+    if(local&&Array.isArray(local.items)&&local.items.length>0){
       depItems=local.items;
-
-
-
-
-
-
-
       depBuild();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     if(depUI('sync')){
-
-
-
-
-
-
-
-      depUI('sync').textContent='✅ Auto-saved in browser ('+depItems.length+' items, backend offline)';
-
-
-
-
-
-
-
-      depUI('retry').hidden=false;
-
-
-
-
-
-
-
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
     }
-
-
-
-
-
-
-
+    if(depUI('retry'))depUI('retry').hidden=true;
   }finally{
-
-
-
-
-
-
-
     depPanel.inert=false;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function depSaveBeforeLeave(){
 
