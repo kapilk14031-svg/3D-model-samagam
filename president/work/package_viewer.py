@@ -824,8 +824,8 @@ catalog_items = [
 
 catalog_items.extend([
     dict(kind='qrt',symbol='🚙',name='QRT Open Gypsy',hindi='क्यूआरटी ओपन जिप्सी',role='QRT vehicle',desc='Open vehicle with two blue-uniform commandos and a mounted LMG visual model.',specs='2 commandos · Open body · Mounted LMG',guideline='Editable visual deployment item.'),
-    dict(kind='xray',symbol='🧳',name='Baggage X-ray Scanner',hindi='बैगेज एक्स-रे स्कैनर',role='Baggage screening',desc='Inspection tunnel with conveyor, curtains, operator monitor and sample baggage.',specs='Conveyor · Tunnel · Monitor',guideline='Editable visual deployment item.'),
-    dict(kind='armed_officer',symbol='👮‍✈️',name='Armed Police Officer',hindi='सशस्त्र पुलिस अधिकारी',role='Armed duty',desc='Police character with a visible rifle and editable duty record.',specs='Name · Belt number · Mobile · Duty',guideline='Editable visual deployment item.')
+    dict(kind='xray',symbol='🧳',name='X-Ray Scanner',hindi='बैगेज एक्स-रे स्कैनर',role='Baggage screening',desc='Inspection tunnel with conveyor, curtains, operator monitor and sample baggage.',specs='Conveyor · Tunnel · Monitor',guideline='Editable visual deployment item.'),
+    dict(kind='armed_officer',symbol='👮‍✈️',name='T.A.O',hindi='सशस्त्र पुलिस अधिकारी',role='Armed duty',desc='Police character with a visible rifle and editable duty record.',specs='Name · Belt number · Mobile · Duty',guideline='Editable visual deployment item.')
 ])
 dep_assets_dir = out / 'deployment-assets'
 item_images_b64 = {}

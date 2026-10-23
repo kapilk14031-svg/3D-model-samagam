@@ -2846,130 +2846,91 @@ const gate=mapPreset([-13,.3,-61],'gate');for(const [kind,dx,dz] of [['dfmd',-3,
 
 
 
-function depValid(items){return Array.isArray(items)&&items.length<=500&&items.every(o=>o&&typeof o.id==='string'&&depTypes.includes(o.kind)&&['x','y','z','angle'].every(k=>typeof o[k]==='number'&&Number.isFinite(o[k]))&&Math.abs(o.x)<5000&&Math.abs(o.z)<5000&&o.y>=0&&o.y<=100&&['name','duty','belt','mobile'].every(k=>typeof o[k]==='string'&&o[k].length<=200))&&new Set(items.map(o=>o.id)).size===items.length;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function depLoadLocal(){
-
-
-
-
-
-
-
-  try{
-
-
-
-
-
-
-
-    const raw=localStorage.getItem(depStorage);if(!raw)return null;
-
-
-
-
-
-
-
-    const parsed=JSON.parse(raw);
-
-
-
-
-
-
-
-    const items=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
-
-
-
-
-
-
-
-    if(depValid(items))return {items,savedAt:(parsed&&parsed.savedAt)||0};
-
-
-
-
-
-
-
-  }catch(e){console.warn('depLoadLocal error:',e);}
-
-
-
-
-
-
-
-  return null;
-
-
-
-
-
-
-
+function depNormalizeItem(o, index) {
+  if (!o || typeof o !== 'object') return null;
+  const id = (typeof o.id === 'string' && o.id.trim()) ? o.id.trim() : ('post-' + (index + 1));
+  const kind = (typeof o.kind === 'string' && o.kind) ? o.kind : 'officer';
+  const name = (typeof o.name === 'string' && o.name.trim()) ? o.name.trim() : (kind === 'officer' ? 'Officer ' + (index + 1) : 'Item ' + (index + 1));
+  const duty = (typeof o.duty === 'string') ? o.duty : (o.duty != null ? String(o.duty) : '');
+  const belt = (typeof o.belt === 'string') ? o.belt : (o.belt != null ? String(o.belt) : '');
+  const mobile = (typeof o.mobile === 'string') ? o.mobile : (o.mobile != null ? String(o.mobile) : '');
+
+  let x = Number(o.x);
+  if (!Number.isFinite(x) || Math.abs(x) > 10000) x = 0;
+
+  let z = Number(o.z);
+  if (!Number.isFinite(z) || Math.abs(z) > 10000) z = 0;
+
+  let y = Number(o.y);
+  if (!Number.isFinite(y)) y = 0.3;
+
+  let angle = Number(o.angle);
+  if (!Number.isFinite(angle)) angle = 0;
+  angle = ((angle % 360) + 360) % 360;
+
+  return {
+    ...o,
+    id,
+    kind,
+    name,
+    duty,
+    belt,
+    mobile,
+    x: Math.round(x * 100) / 100,
+    y: Math.round(y * 100) / 100,
+    z: Math.round(z * 100) / 100,
+    angle: Math.round(angle * 100) / 100
+  };
 }
 
+function depValid(items){
+  return Array.isArray(items) && items.length > 0 && items.length <= 1000;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+function depLoadLocal(){
+  try{
+    const raw=localStorage.getItem(depStorage);if(!raw)return null;
+    const parsed=JSON.parse(raw);
+    const rawItems=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:null);
+    if(!rawItems||!Array.isArray(rawItems)||rawItems.length===0)return null;
+    const seenIds=new Set();
+    const items=[];
+    for(let i=0;i<rawItems.length;i++){
+      const item=depNormalizeItem(rawItems[i],i);
+      if(item&&item.kind!=='helicopter'){
+        if(seenIds.has(item.id)){
+          item.id=item.id+'-'+(i+1);
+        }
+        seenIds.add(item.id);
+        items.push(item);
+      }
+    }
+    if(items.length>0)return {items,savedAt:(parsed&&parsed.savedAt)||0};
+  }catch(e){console.warn('depLoadLocal error:',e);}
+  return null;
+}
 
 const initialLocal=depLoadLocal();
 
-
-
-
-
-
-
-if (initialLocal && Array.isArray(initialLocal.items) && depValid(initialLocal.items) && initialLocal.items.length > 0) {
+if (initialLocal && Array.isArray(initialLocal.items) && initialLocal.items.length > 0) {
   depItems = initialLocal.items;
-} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depValid(depInitialPlan.items) && depInitialPlan.items.length > 0) {
-  depItems = JSON.parse(JSON.stringify(depInitialPlan.items));
+} else if (depInitialPlan && Array.isArray(depInitialPlan.items) && depInitialPlan.items.length > 0) {
+  depItems = depInitialPlan.items.map((it, idx) => depNormalizeItem(it, idx)).filter(Boolean);
 } else {
   depItems = depSeed();
 }
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
   if (o) {
-    // If officer or equipment is sunken below ground/floor, elevate immediately
     if (typeof getSurfaceHeight === 'function') {
       const properFloorY = getSurfaceHeight(o.x, o.z, o.y);
       if (properFloorY > o.y + 0.04) {
         o.y = properFloorY;
       }
     }
-    if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
+    if (!o.customDuty && (!o.duty || o.duty.trim() === '')) {
       const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
-      if (match && match.duty && match.duty !== 'Security post') {
+      if (match && match.duty && match.duty !== 'Security post' && match.duty !== 'Post') {
         o.duty = match.duty;
       } else {
         o.duty = depGetAutoDuty(o.x, o.y, o.z, o.kind);
@@ -3008,30 +2969,16 @@ function depStore(immediate = false){
   try{
     const record={version:1,savedAt:Date.now(),origin:[geo.originLongitude,geo.originLatitude],items:depItems};
     localStorage.setItem(depStorage,JSON.stringify(record));
-
-
-
-
-
-
-
-    depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
-
-
-
-
-
-
-
+    if (depUI('status')) {
+      depUI('status').textContent='✅ Auto-saved · '+depItems.filter(o=>o.kind==='officer').length+' officers · '+depItems.filter(o=>o.kind!=='officer').length+' equipment';
+    }
+    if(depUI('sync') && !depBackendReady){
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
+    }
   }catch(e){console.warn('localStorage save warning:',e);}
-
-
-
-
-
-
-
-  depQueue(immediate);
+  if(depBackendURL && depBackendReady){
+    depQueue(immediate);
+  }
 
 
 
@@ -10872,7 +10819,7 @@ depUI('form').addEventListener('submit',e=>{
 
 
 
-  if(!depValid([next])){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
+  const normNext = depNormalizeItem(next, 0); if(!normNext){depUI('status').textContent='Check coordinates and height (0–100 m).';return;}
 
 
 
@@ -10885,7 +10832,7 @@ depUI('form').addEventListener('submit',e=>{
     o.customDuty = true;
     if (typeof depRegisterCustomDuty === 'function') depRegisterCustomDuty(next.duty);
   }
-  depStore();depBuild();depChoose(o.id);
+  depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -10933,7 +10880,7 @@ if(depUI('name')) depUI('name').addEventListener('input', () => {
 
 
 
-  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(); }
+  if (o) { o.name = depUI('name').value; depSyncDropdownLabels(o); depStore(true); }
 
 
 
@@ -10958,7 +10905,7 @@ if(depUI('duty')) depUI('duty').addEventListener('input', () => {
       depRegisterCustomDuty(o.duty);
     }
     depSyncDropdownLabels(o);
-    depStore();
+    depStore(true);
   }
 
 
@@ -10991,7 +10938,7 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 
-  if (o) { o.belt = depUI('belt').value; depStore(); }
+  if (o) { o.belt = depUI('belt').value; depStore(true); }
 
 
 
@@ -11008,29 +10955,32 @@ if(depUI('belt')) depUI('belt').addEventListener('input', () => {
 
 
 if(depUI('mobile')) depUI('mobile').addEventListener('input', () => {
-
-
-
-
-
-
-
   const o = depItems.find(x => x.id === depSelected);
+  if (o) { o.mobile = depUI('mobile').value; depStore(true); }
+});
 
-
-
-
-
-
-
-  if (o) { o.mobile = depUI('mobile').value; depStore(); }
-
-
-
-
-
-
-
+['x','y','z','angle'].forEach(coord => {
+  const el = depUI(coord);
+  if (el) {
+    const handleCoord = () => {
+      const o = depItems.find(x => x.id === depSelected);
+      if (o) {
+        const val = parseFloat(el.value);
+        if (Number.isFinite(val)) {
+          if (coord === 'angle') {
+            o.angle = ((val % 360) + 360) % 360;
+          } else {
+            o[coord] = Math.round(val * 100) / 100;
+          }
+          depStore(true);
+          depBuild();
+          if (typeof draw === 'function') draw();
+        }
+      }
+    };
+    el.addEventListener('input', handleCoord);
+    el.addEventListener('change', handleCoord);
+  }
 });
 
 
@@ -11071,7 +11021,7 @@ function depRotate(delta){
 
 
 
-  depStore();depBuild();depChoose(o.id);
+  depStore(true);depBuild();depChoose(o.id);
 
 
 
@@ -11144,8 +11094,8 @@ depUI('add').onclick=()=>{
 
 
   const name = kind === 'qrt' ? `QRT Open Gypsy ${count}`
-    : kind === 'xray' ? `Baggage X-ray Scanner ${count}`
-    : kind === 'armed_officer' ? `Armed Police Officer ${count}`
+    : kind === 'xray' ? `X-Ray Scanner ${count}`
+    : kind === 'armed_officer' ? `T.A.O ${count}`
     : kind === 'officer' ? `Officer ${count}`
 
 
@@ -11401,7 +11351,7 @@ depUI('delete').onclick=()=>{
 
 
 
-  depSelected=null;depPlace=false;depStore();depBuild();
+  depSelected=null;depPlace=false;depStore(true);depBuild();
 
 
 
@@ -13519,8 +13469,8 @@ root.querySelectorAll('.deploy-item-btn').forEach(btn=>{
 
 
     const name = kind === 'qrt' ? `QRT Open Gypsy ${count}`
-    : kind === 'xray' ? `Baggage X-ray Scanner ${count}`
-    : kind === 'armed_officer' ? `Armed Police Officer ${count}`
+    : kind === 'xray' ? `X-Ray Scanner ${count}`
+    : kind === 'armed_officer' ? `T.A.O ${count}`
     : kind === 'officer' ? `Officer ${count}`
 
 
@@ -19307,7 +19257,7 @@ const depPanel=root.querySelector('#gms-deployment'),
 
 
 
-depBackendURL=location.protocol.startsWith('http')&&['127.0.0.1','localhost'].includes(location.hostname)?'/api/deployment':null;
+depBackendURL=location.protocol.startsWith('http')?'/api/deployment':null;
 
 
 
@@ -19813,223 +19763,32 @@ async function depFlush(){
 
 
 async function depLoadBackend(){
-
-
-
-
-
-
-
   const local=depLoadLocal();
-
-
-
-
-
-
-
   if(!depBackendURL){
-
-
-
-
-
-
-
-    if(local&&depValid(local.items)){
-
-
-
-
-
-
-
+    if(local&&Array.isArray(local.items)&&local.items.length>0){
       depItems=local.items;
-
-
-
-
-
-
-
       depBuild();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     if(depUI('sync')){
-
-
-
-
-
-
-
       depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
-
-
-
-
-
-
-
-      depUI('retry').hidden=true;
-
-
-
-
-
-
-
+      if(depUI('retry')) depUI('retry').hidden=true;
     }
-
-
-
-
-
-
-
     return;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   depPanel.inert=true;
-
-
-
-
-
-
-
   try{
-
-
-
-
-
-
-
     const r=await fetch(depBackendURL,{cache:'no-store'});
-
-
-
-
-
-
-
     if(!r.ok)throw Error('Backend HTTP '+r.status);
-
-
-
-
-
-
-
     const result=await r.json();
-
-
-
-
-
-
-
     depRevision=result.revision||0;
-
-
-
-
-
-
-
     depBackendReady=true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const backendPlan=result.plan;
-
-
-
-
-
-
-
-    const backendItems=backendPlan&&Array.isArray(backendPlan.items)&&depValid(backendPlan.items)?backendPlan.items:null;
-
-
-
-
-
-
-
+    const rawBackendItems=backendPlan&&Array.isArray(backendPlan.items)?backendPlan.items:null;
+    const backendItems=rawBackendItems?rawBackendItems.map((it,idx)=>depNormalizeItem(it,idx)).filter(Boolean):null;
     const backendTime=result.updated?new Date(result.updated).getTime():0;
-
-
-
-
-
-
-
     const localTime=local?(local.savedAt||0):0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Smart sync: determine whether local storage or backend is newer
-    if (local && Array.isArray(local.items) && depValid(local.items) && local.items.length > 0 && localTime > backendTime) {
+    if (local && Array.isArray(local.items) && local.items.length > 0 && localTime > backendTime) {
       depItems = local.items;
       depBuild();
       depStore(true);
@@ -20046,205 +19805,26 @@ async function depLoadBackend(){
         }));
       } catch (e) {}
       if (depUI('sync')) depUI('sync').textContent = 'Auto-saved loaded ' + depItems.length + ' items from DB (rev ' + depRevision + ')';
-    } else if (local && Array.isArray(local.items) && depValid(local.items) && local.items.length > 0) {
-
-
-
-
-
-
-
-      depItems=local.items;
-
-
-
-
-
-
-
+    } else if (local && Array.isArray(local.items) && local.items.length > 0) {
+      depItems = local.items;
       depBuild();
-
-
-
-
-
-
-
-      depStore();
-
-
-
-
-
-
-
-    }else{
-
-
-
-
-
-
-
-      depItems=depSeed();
-
-
-
-
-
-
-
-      depBuild();
-
-
-
-
-
-
-
-      depStore();
-
-
-
-
-
-
-
+      depStore(true);
     }
-
-
-
-
-
-
-
     if(depUI('retry'))depUI('retry').hidden=true;
-
-
-
-
-
-
-
   }catch(e){
-
-
-
-
-
-
-
     console.warn('Backend load failed, using local storage:',e);
-
-
-
-
-
-
-
-    if(local&&depValid(local.items)){
-
-
-
-
-
-
-
+    if(local&&Array.isArray(local.items)&&local.items.length>0){
       depItems=local.items;
-
-
-
-
-
-
-
       depBuild();
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     if(depUI('sync')){
-
-
-
-
-
-
-
-      depUI('sync').textContent='✅ Auto-saved in browser ('+depItems.length+' items, backend offline)';
-
-
-
-
-
-
-
-      depUI('retry').hidden=false;
-
-
-
-
-
-
-
+      depUI('sync').textContent='✅ Auto-saved in browser storage ('+depItems.length+' items)';
     }
-
-
-
-
-
-
-
+    if(depUI('retry'))depUI('retry').hidden=true;
   }finally{
-
-
-
-
-
-
-
     depPanel.inert=false;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function depSaveBeforeLeave(){
 
