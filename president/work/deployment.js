@@ -2959,6 +2959,13 @@ if (initialLocal && depValid(initialLocal.items) && (!depInitialPlan || !depInit
 depItems=(depItems||[]).filter(o=>o&&o.kind!=='helicopter');
 depItems.forEach(o => {
   if (o) {
+    // If officer or equipment is sunken below ground/floor, elevate immediately
+    if (typeof getSurfaceHeight === 'function') {
+      const properFloorY = getSurfaceHeight(o.x, o.z, o.y);
+      if (properFloorY > o.y + 0.04) {
+        o.y = properFloorY;
+      }
+    }
     if (!o.duty || o.duty === 'Security post' || o.duty === 'Post' || o.duty.trim() === '') {
       const match = typeof depInitialPlan !== 'undefined' && depInitialPlan && depInitialPlan.items && depInitialPlan.items.find(x => x.id === o.id || x.name === o.name);
       if (match && match.duty && match.duty !== 'Security post') {
@@ -13441,7 +13448,9 @@ window.__DEP_CYCLE_NEAREST = depCycleNearestItem;
 window.__camera = camera;
 window.__controls = controls;
 window.__depView = depView;
-window.__depItems = depItems;
+try { Object.defineProperty(window, "__depItems", { get: () => depItems, configurable: true }); } catch(e){ window.__depItems = depItems; }
+try { Object.defineProperty(window, "__depSelected", { get: () => depSelected, configurable: true }); } catch(e){}
+window.__depChoose = depChoose;
 
 
 
@@ -14172,9 +14181,9 @@ if(depTopQuickDeploy){
 
 
 function getSurfaceHeight(x, z, currentY = 0) {
-  // If character is below roof level (< 7m), cast from head height (currentY + 1.8)
-  // so we stay underneath ceilings/roofs inside buildings like the auditorium!
-  const startY = currentY < 7.0 ? Math.min(currentY + 1.8, 6.5) : (currentY + 3.0);
+  // If character is below roof level (< 7m), cast from safe clearance below ceiling (6.2m)
+  // so we stay underneath ceilings/roofs inside buildings like the auditorium while clearly detecting all raised stages, porches and landings!
+  const startY = currentY < 7.0 ? 6.2 : (currentY + 3.0);
   const rayOrigin = new THREE.Vector3(x, startY, z);
   const ray = new THREE.Raycaster(rayOrigin, new THREE.Vector3(0, -1, 0), 0.05, 50);
   const targets = (typeof clickable !== 'undefined' ? clickable : []).filter(m => m.visible && m.parent.visible && m !== depGroup);
@@ -14182,8 +14191,70 @@ function getSurfaceHeight(x, z, currentY = 0) {
   for (const h of hits) {
     if (h.face && h.face.normal && h.face.normal.y > 0.25) {
       if (currentY < 7.0 && h.point.y > 6.8) continue; // Skip roof/ceiling surfaces when walking on ground/floor
-      return h.point.y;
+      // Ignore hanging lamps, speakers, buntings, lintels, or high ceiling fixtures below 6.8m
+      const hitObj = h.object;
+      const hitItem = hitObj?.userData?.items && hitObj.userData.items[h.instanceId];
+      const hitName = (hitItem?.name || hitObj?.name || '').toLowerCase();
+      if (
+        hitName.includes('speaker') ||
+        hitName.includes('light') ||
+        hitName.includes('bunting') ||
+        hitName.includes('garland') ||
+        hitName.includes('lintel') ||
+        hitName.includes('truss') ||
+        hitName.includes('beam') ||
+        hitName.includes('canopy') ||
+        hitName.includes('arch') ||
+        hitName.includes('tree') ||
+        hitName.includes('foliage') ||
+        hitName.includes('signboard') ||
+        hitName.includes('board') ||
+        (currentY < 2.5 && h.point.y > 2.3)
+      ) {
+        continue;
+      }
+      let foundY = h.point.y;
+      // Hall / Auditorium floor floor-level guarantee:
+      // Inside the hall building footprint (X: -57.3 to -19.8, Z: -56.1 to 13.5), floor is at least 1.00m
+      if (x >= -57.3 && x <= -19.8 && z >= -56.1 && z <= 13.5) {
+        foundY = Math.max(foundY, 1.00);
+      }
+      // Auditorium side entrance porch landing (X: -19.9 to -17.6, Z: -6.5 to 1.5): floor is at least 1.06m
+      if (x >= -19.9 && x <= -17.6 && z >= -6.5 && z <= 1.5) {
+        foundY = Math.max(foundY, 1.06);
+      }
+      // Raised stage platform guarantee (X: -53.8 to -23.2, Z: 1.8 to 10.5):
+      if (x >= -53.8 && x <= -23.2 && z >= 1.8 && z <= 10.5) {
+        foundY = Math.max(foundY, 2.10);
+      }
+      // Left stage stairs transition corridor (X: -55.5 to -49.5, Z: 0.5 to 4.5):
+      if (x >= -55.5 && x <= -49.5 && z >= 0.5 && z <= 4.5) {
+        const stairFloor = z >= 2.0 ? 2.10 : (z >= 1.5 ? 1.85 : 1.35);
+        foundY = Math.max(foundY, stairFloor);
+      }
+      // Right stage stairs transition corridor (X: -27.0 to -21.5, Z: 0.5 to 4.5):
+      if (x >= -27.0 && x <= -21.5 && z >= 0.5 && z <= 4.5) {
+        const stairFloor = z >= 2.0 ? 2.10 : (z >= 1.5 ? 1.85 : 1.35);
+        foundY = Math.max(foundY, stairFloor);
+      }
+      return foundY;
     }
+  }
+  // Architectural fallbacks if ray misses geometry:
+  if (x >= -53.8 && x <= -23.2 && z >= 1.8 && z <= 10.5) {
+    return 2.10; // Raised stage floor
+  }
+  if (x >= -55.5 && x <= -49.5 && z >= 0.5 && z <= 4.5) {
+    return z >= 2.0 ? 2.10 : (z >= 1.5 ? 1.85 : 1.35); // Left stage stairs
+  }
+  if (x >= -27.0 && x <= -21.5 && z >= 0.5 && z <= 4.5) {
+    return z >= 2.0 ? 2.10 : (z >= 1.5 ? 1.85 : 1.35); // Right stage stairs
+  }
+  if (x >= -57.3 && x <= -19.8 && z >= -56.1 && z <= 13.5) {
+    return 1.00; // Auditorium floor
+  }
+  if (x >= -19.9 && x <= -17.6 && z >= -6.5 && z <= 1.5) {
+    return 1.06; // Entrance porch landing
   }
   return 0.36; // Default ground plane level
 }
@@ -14203,6 +14274,8 @@ function getSurfaceHeight(x, z, currentY = 0) {
 
 
 const depKeysDown = {};
+window.__depKeysDown = depKeysDown;
+window.__getSurfaceHeight = getSurfaceHeight;
 
 
 
@@ -15723,7 +15796,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-      const isFallingFree = !depOfficerJump.isJumping && o.y > groundUnder + 0.12;
+      const isFallingFree = !depOfficerJump.isJumping && o.y > groundUnder + 0.38;
 
 
 
@@ -15884,6 +15957,10 @@ window.__DEP_TICK = function(dt) {
 
 
         o.y = THREE.MathUtils.lerp(o.y, groundUnder, groundDecay);
+        // Hard ground clamp: prevent any officer or item from ever sinking beneath solid ground/floor
+        if (o.y < groundUnder) {
+          o.y = groundUnder;
+        }
 
 
 
@@ -16003,17 +16080,29 @@ window.__DEP_TICK = function(dt) {
           const hitName = (hitItem?.name || '').toLowerCase();
           const isPassable = hitName.includes('door') || hitName.includes('glazed') || hitName.includes('entry') ||
                              hitName.includes('step') || hitName.includes('stair') || hitName.includes('rail') ||
+                             hitName.includes('post') || hitName.includes('handrail') || hitName.includes('support') ||
+                             hitName.includes('stage') || hitName.includes('fascia') || hitName.includes('platform') ||
+                             hitName.includes('podium') || hitName.includes('deck') || hitName.includes('landing') ||
+                             hitName.includes('ramp') || hitName.includes('riser') || hitName.includes('tread') ||
+                             hitName.includes('skirt') || hitName.includes('pillar') || hitName.includes('flower') ||
+                             hitName.includes('scallop') || hitName.includes('bell') || hitName.includes('wreath') ||
                              hitName.includes('jamb') || hitName.includes('curtain') || hitName.includes('carpet') ||
                              hitName.includes('aisle') || hitName.includes('open') || hitName.includes('foyer') ||
-                             hitName.includes('chair') || hitName.includes('seat');
-          if (!isPassable) {
+                             hitName.includes('chair') || hitName.includes('seat') || hitName.includes('table') ||
+                             hitName.includes('sofa') || hitName.includes('bench') || hitName.includes('mat') ||
+                             hitName.includes('gate') || hitName.includes('joint') || hitName.includes('beam') ||
+                             hitName.includes('arch') || hitName.includes('road') || hitName.includes('curb') ||
+                             hitName.includes('border') || hitName.includes('expansion') || hitName.includes('canopy');
+          // If the obstacle is a low step/stage edge and surfaceNext is a walkable floor/ledge (<= 1.25m above current Y), it is passable
+          const isWalkableLedge = (surfaceNext <= o.y + 1.25) && (wallHits[0].point.y <= surfaceNext + 0.15);
+          if (!isPassable && !isWalkableLedge) {
             wallBlocked = true;
           }
         }
 
         if (wallBlocked && (!depOfficerJump.isJumping || o.y < surfaceNext - 0.2)) {
           depUI('status').textContent = '⚠️ Blocked by obstacle / wall! Press SPACE to jump over.';
-        } else if (o.kind === 'helipad' || o.kind === 'parking' || heightDiff <= 0.65) {
+        } else if (o.kind === 'helipad' || o.kind === 'parking' || heightDiff <= 1.25) {
 
 
 
@@ -16062,6 +16151,9 @@ window.__DEP_TICK = function(dt) {
 
 
             o.y = THREE.MathUtils.lerp(o.y, surfaceNext, stepDecay);
+            if (o.y < surfaceNext) {
+              o.y = surfaceNext;
+            }
           }
           // Auto-cutaway roof when officer walks into or out of the auditorium
           const hq = geo.footprints?.find(f => f.id === 'hall')?.points;
