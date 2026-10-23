@@ -3924,6 +3924,7 @@ const depCrateDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(
 
 // =========================================================================
 // =========================================================================
+// =========================================================================
 // HIGH-RESOLUTION VEHICLE TEXT DECALS (Ambulance Red & Fire Brigade Yellow)
 // =========================================================================
 let _depVehicleDecalMats = null;
