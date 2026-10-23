@@ -12672,14 +12672,14 @@ function depView(mode, smooth = true){
     : o.kind === 'helipad' ? 0.5
     : 0.6;
   const distBehind = o.kind === 'helipad' ? 36.0
-    : o.kind === 'parking' ? 44.0
+    : o.kind === 'parking' ? 24.0
     : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
     : isOfficerLike ? 3.8
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
     : 3.2;
   const heightAbove = o.kind === 'helipad' ? 24.0
-    : o.kind === 'parking' ? 28.0
+    : o.kind === 'parking' ? 16.0
     : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
     : isOfficerLike ? 1.2
@@ -12719,7 +12719,7 @@ function depView(mode, smooth = true){
     if(o.kind === 'ambulance') eyeY = o.y + 1.62;
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
     if(o.kind === 'helipad') eyeY = o.y + 4.0;
-    if(o.kind === 'parking') eyeY = o.y + 5.0;
+    if(o.kind === 'parking') eyeY = o.y + 2.5;
 
 
 
@@ -12783,7 +12783,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 16.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 10.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
 
 
 
@@ -15692,7 +15692,7 @@ function updateGtaMinimap(dt = 0.016) {
       blipSize = 5.2;
     } else if (it.kind === 'parking') {
       blipColor = '#a855f7';
-      blipSize = 6.5;
+      blipSize = 4.6;
     } else {
       blipColor = '#facc15';
       blipSize = 3.5;
@@ -17792,14 +17792,14 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'helipad' ? 0.5
           : 0.6;
         const distBehind = o.kind === 'helipad' ? 36.0
-          : o.kind === 'parking' ? 44.0
+          : o.kind === 'parking' ? 24.0
           : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
           : isOfficerLike ? 3.8
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
           : 3.2;
         const heightAbove = o.kind === 'helipad' ? 24.0
-          : o.kind === 'parking' ? 28.0
+          : o.kind === 'parking' ? 16.0
           : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
           : isOfficerLike ? 1.2
@@ -17835,7 +17835,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 16.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 10.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
 
 
 
