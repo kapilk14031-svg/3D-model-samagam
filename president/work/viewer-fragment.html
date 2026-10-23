@@ -1533,7 +1533,8 @@
   color: #38bdf8;
 }
 
-
+
+
 .dep-officer-modal {
   position: fixed;
   inset: 0;
@@ -1943,6 +1944,8 @@ mats.wood.map=texture('wood');mats.wood.roughness=0.52;
 mats.paving.map=texture('paving');mats.paving.bumpMap=mats.paving.map;mats.paving.bumpScale=0.018;mats.paving.roughness=0.68;
 mats.road.map=texture('asphalt');mats.road.bumpMap=mats.road.map;mats.road.bumpScale=0.015;mats.road.roughness=0.82;
 mats.grass.map=texture('grass');mats.grass.bumpMap=mats.grass.map;mats.grass.bumpScale=0.025;mats.grass.roughness=0.76;
+if(mats.helipadFieldStubble){mats.helipadFieldStubble.bumpMap=mats.grass.map;mats.helipadFieldStubble.bumpScale=0.015;mats.helipadFieldStubble.roughness=0.82;}
+if(mats.helipadFieldDry){mats.helipadFieldDry.bumpMap=mats.grass.map;mats.helipadFieldDry.bumpScale=0.015;mats.helipadFieldDry.roughness=0.82;}
 mats.seat.map=texture('fabric');mats.seat.bumpMap=mats.seat.map;mats.seat.bumpScale=0.012;mats.seat.roughness=0.88;
 mats.acoustic.map=texture('fabric');mats.acoustic.bumpMap=mats.acoustic.map;mats.acoustic.bumpScale=0.01;
 mats.metal.metalness=0.92;mats.metal.roughness=0.15;
