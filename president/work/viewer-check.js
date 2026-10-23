@@ -4328,215 +4328,97 @@ const depAmbulanceDecal=new THREE.MeshStandardMaterial({
 
 
 
-// Ambulance Hood Inverted/Mirrored Decal
-
-
-
-const depAmbHoodCanvas=document.createElement('canvas');depAmbHoodCanvas.width=256;depAmbHoodCanvas.height=128;
-
-
-
+// Ambulance Hood Decal - Forward-Facing Bold Red AMBULANCE
+const depAmbHoodCanvas=document.createElement('canvas');depAmbHoodCanvas.width=512;depAmbHoodCanvas.height=128;
 const dahc=depAmbHoodCanvas.getContext('2d');
-
-
-
-dahc.clearRect(0,0,256,128);
-
-
-
+dahc.clearRect(0,0,512,128);
 dahc.fillStyle='#dc2626';
-
-
-
-dahc.fillRect(108,12,40,40);
-
-
-
-dahc.clearRect(108,26,40,12);dahc.clearRect(122,12,12,40);
-
-
-
-dahc.fillRect(110,28,36,8);dahc.fillRect(124,14,8,36);
-
-
-
-dahc.font='900 36px Arial, sans-serif';dahc.textAlign='center';dahc.textBaseline='middle';
-
-
-
-dahc.fillText('ECNALUBMA',128,96);
-
-
-
+dahc.fillRect(236,10,40,40);
+dahc.clearRect(236,22,40,16);dahc.clearRect(248,10,16,40);
+dahc.fillRect(238,24,36,12);dahc.fillRect(250,12,12,36);
+dahc.font='900 52px Arial, sans-serif';dahc.textAlign='center';dahc.textBaseline='middle';
+dahc.fillText('AMBULANCE',256,92);
 const depAmbulanceHoodDecal=new THREE.MeshStandardMaterial({
-
-
-
   map:new THREE.CanvasTexture(depAmbHoodCanvas),
-
-
-
   transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
-
-
-
-  polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1
-
-
-
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
 });
 
+// Ambulance Front Nose Decal - Bold Red AMBULANCE with Red Crosses
+const depAmbFrontCanvas=document.createElement('canvas');depAmbFrontCanvas.width=512;depAmbFrontCanvas.height=128;
+const dafc=depAmbFrontCanvas.getContext('2d');
+dafc.clearRect(0,0,512,128);
+dafc.fillStyle='#dc2626';
+dafc.fillRect(28,44,48,16);dafc.fillRect(44,28,16,48);
+dafc.fillRect(436,44,48,16);dafc.fillRect(452,28,16,48);
+dafc.font='900 68px Arial, sans-serif';dafc.textAlign='center';dafc.textBaseline='middle';
+dafc.fillText('AMBULANCE',256,54);
+const depAmbulanceFrontDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depAmbFrontCanvas),
+  transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
 
+// Ambulance Rear Doors Decal - Bold Red AMBULANCE with Red Crosses
+const depAmbRearCanvas=document.createElement('canvas');depAmbRearCanvas.width=512;depAmbRearCanvas.height=128;
+const darc=depAmbRearCanvas.getContext('2d');
+darc.clearRect(0,0,512,128);
+darc.fillStyle='#dc2626';
+darc.fillRect(28,44,48,16);darc.fillRect(44,28,16,48);
+darc.fillRect(436,44,48,16);darc.fillRect(452,28,16,48);
+darc.font='900 64px Arial, sans-serif';darc.textAlign='center';darc.textBaseline='middle';
+darc.fillText('AMBULANCE',256,50);
+darc.font='bold 22px Arial, sans-serif';
+darc.fillText('EMERGENCY 108 · 102',256,92);
+const depAmbulanceRearDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depAmbRearCanvas),
+  transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
 
+// Fire Engine Front Visor / Nose Decal - Bold Yellow FIRE BRIGADE
+const depFireFrontCanvas=document.createElement('canvas');depFireFrontCanvas.width=512;depFireFrontCanvas.height=128;
+const dffc=depFireFrontCanvas.getContext('2d');
+dffc.clearRect(0,0,512,128);
+dffc.fillStyle='#0f172a';
+dffc.fillRect(14,14,484,100);
+dffc.strokeStyle='#facc15';
+dffc.lineWidth=6;
+dffc.strokeRect(16,16,480,96);
+dffc.fillStyle='#facc15';
+dffc.font='900 66px Arial, sans-serif';
+dffc.textAlign='center';
+dffc.textBaseline='middle';
+dffc.fillText('FIRE BRIGADE',256,64);
+const depFireFrontDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireFrontCanvas),
+  transparent:true,opacity:1.0,roughness:0.3,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
 
-
-
-
-
-
-
-
-
-
-
-
-// Fire Engine Rear Tailgate Chevrons Decal
-
-
-
-
-
-
-
+// Fire Engine Rear Tailgate Chevrons Decal - Prominent Bold Yellow FIRE BRIGADE
 const depFireChevCanvas=document.createElement('canvas');depFireChevCanvas.width=512;depFireChevCanvas.height=256;
-
-
-
-
-
-
-
 const dfc=depFireChevCanvas.getContext('2d');
-
-
-
-
-
-
-
-dfc.fillStyle='#eab308';dfc.fillRect(0,0,512,256);
-
-
-
-
-
-
-
+dfc.fillStyle='#facc15';dfc.fillRect(0,0,512,256);
 dfc.fillStyle='#dc2626';
-
-
-
-
-
-
-
 for(let x=-256;x<=512;x+=64){
-
-
-
-
-
-
-
   dfc.beginPath();
-
-
-
-
-
-
-
   dfc.moveTo(x,256);dfc.lineTo(x+64,0);dfc.lineTo(x+96,0);dfc.lineTo(x+32,256);
-
-
-
-
-
-
-
   dfc.fill();
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
 // Central Caution Box
+dfc.fillStyle='#0f172a';dfc.fillRect(40,68,432,120);
+dfc.strokeStyle='#facc15';dfc.lineWidth=6;dfc.strokeRect(44,72,424,112);
+dfc.fillStyle='#facc15';dfc.font='900 52px Arial, sans-serif';dfc.textAlign='center';
+dfc.fillText('FIRE BRIGADE',256,120);
+dfc.fillStyle='#fef08a';dfc.font='bold 22px sans-serif';
+dfc.fillText('अग्नि शमन सेवा · EMERGENCY 101',256,158);
 
-
-
-
-
-
-
-dfc.fillStyle='#1e293b';dfc.fillRect(64,88,384,80);
-
-
-
-
-
-
-
-dfc.strokeStyle='#eab308';dfc.lineWidth=4;dfc.strokeRect(68,92,376,72);
-
-
-
-
-
-
-
-dfc.fillStyle='#ffffff';dfc.font='bold 26px sans-serif';dfc.textAlign='center';
-
-
-
-
-
-
-
-dfc.fillText('FIRE & RESCUE SERVICE',256,124);
-
-
-
-
-
-
-
-dfc.fillStyle='#eab308';dfc.font='bold 18px sans-serif';
-
-
-
-
-
-
-
-dfc.fillText('अग्नि शमन सेवा · EMERGENCY 101',256,150);
-
-
-
-
-
-
-
-const depFireChevronDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depFireChevCanvas),roughness:0.4,metalness:0.1});
+const depFireChevronDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireChevCanvas),
+  roughness:0.4,metalness:0.1,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4
+});
 
 
 
@@ -5345,6 +5227,12 @@ function depBuildAmbulance(g){
 
 
   dH.rotation.x=-Math.PI/2;
+  // Front AMBULANCE Decal (Bold Red on front nose)
+  const dF=depPart(g,'sign',[0,1.05,-2.605],[1.32,0.26,1],depAmbulanceFrontDecal);
+  dF.rotation.y=Math.PI;
+
+  // Rear AMBULANCE Decal (Bold Red across rear loading doors)
+  depPart(g,'sign',[0,1.16,2.205],[1.38,0.28,1],depAmbulanceRearDecal);
 
 
 
@@ -5809,6 +5697,11 @@ function depBuildFireBrigade(g){
 
 
   const fWind=depPart(g,'box',[0,1.96,-3.40],[2.26,.92,.08],'glassTint');fWind.rotation.x=-0.16;
+  // Front FIRE BRIGADE Decals (Bold Yellow on cab visor and front nose plate)
+  const fbVisor=depPart(g,'sign',[0,2.52,-3.38],[1.82,0.24,1],depFireFrontDecal);
+  fbVisor.rotation.y=Math.PI;
+  const fbNose=depPart(g,'sign',[0,1.52,-3.61],[1.35,0.18,1],depFireFrontDecal);
+  fbNose.rotation.y=Math.PI;
 
 
 

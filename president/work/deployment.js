@@ -3412,7 +3412,7 @@ const depMaterials={
 
 
 
-  qbeltRibbon:new THREE.MeshStandardMaterial({color:0xbe123c,roughness:0.55,metalness:0.05}), // High-tension red nylon webbing
+  qbeltRibbon:new THREE.MeshStandardMaterial({color:0xdc2626,emissive:0x991b1b,emissiveIntensity:0.35,roughness:0.4,metalness:0.1}), // High-tension red nylon webbing
 
 
 
@@ -3696,215 +3696,97 @@ const depAmbulanceDecal=new THREE.MeshStandardMaterial({
 
 
 
-// Ambulance Hood Inverted/Mirrored Decal
-
-
-
-const depAmbHoodCanvas=document.createElement('canvas');depAmbHoodCanvas.width=256;depAmbHoodCanvas.height=128;
-
-
-
+// Ambulance Hood Decal - Forward-Facing Bold Red AMBULANCE
+const depAmbHoodCanvas=document.createElement('canvas');depAmbHoodCanvas.width=512;depAmbHoodCanvas.height=128;
 const dahc=depAmbHoodCanvas.getContext('2d');
-
-
-
-dahc.clearRect(0,0,256,128);
-
-
-
+dahc.clearRect(0,0,512,128);
 dahc.fillStyle='#dc2626';
-
-
-
-dahc.fillRect(108,12,40,40);
-
-
-
-dahc.clearRect(108,26,40,12);dahc.clearRect(122,12,12,40);
-
-
-
-dahc.fillRect(110,28,36,8);dahc.fillRect(124,14,8,36);
-
-
-
-dahc.font='900 36px Arial, sans-serif';dahc.textAlign='center';dahc.textBaseline='middle';
-
-
-
-dahc.fillText('ECNALUBMA',128,96);
-
-
-
+dahc.fillRect(236,10,40,40);
+dahc.clearRect(236,22,40,16);dahc.clearRect(248,10,16,40);
+dahc.fillRect(238,24,36,12);dahc.fillRect(250,12,12,36);
+dahc.font='900 52px Arial, sans-serif';dahc.textAlign='center';dahc.textBaseline='middle';
+dahc.fillText('AMBULANCE',256,92);
 const depAmbulanceHoodDecal=new THREE.MeshStandardMaterial({
-
-
-
   map:new THREE.CanvasTexture(depAmbHoodCanvas),
-
-
-
   transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
-
-
-
-  polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1
-
-
-
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
 });
 
+// Ambulance Front Nose Decal - Bold Red AMBULANCE with Red Crosses
+const depAmbFrontCanvas=document.createElement('canvas');depAmbFrontCanvas.width=512;depAmbFrontCanvas.height=128;
+const dafc=depAmbFrontCanvas.getContext('2d');
+dafc.clearRect(0,0,512,128);
+dafc.fillStyle='#dc2626';
+dafc.fillRect(28,44,48,16);dafc.fillRect(44,28,16,48);
+dafc.fillRect(436,44,48,16);dafc.fillRect(452,28,16,48);
+dafc.font='900 68px Arial, sans-serif';dafc.textAlign='center';dafc.textBaseline='middle';
+dafc.fillText('AMBULANCE',256,54);
+const depAmbulanceFrontDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depAmbFrontCanvas),
+  transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
 
+// Ambulance Rear Doors Decal - Bold Red AMBULANCE with Red Crosses
+const depAmbRearCanvas=document.createElement('canvas');depAmbRearCanvas.width=512;depAmbRearCanvas.height=128;
+const darc=depAmbRearCanvas.getContext('2d');
+darc.clearRect(0,0,512,128);
+darc.fillStyle='#dc2626';
+darc.fillRect(28,44,48,16);darc.fillRect(44,28,16,48);
+darc.fillRect(436,44,48,16);darc.fillRect(452,28,16,48);
+darc.font='900 64px Arial, sans-serif';darc.textAlign='center';darc.textBaseline='middle';
+darc.fillText('AMBULANCE',256,50);
+darc.font='bold 22px Arial, sans-serif';
+darc.fillText('EMERGENCY 108 · 102',256,92);
+const depAmbulanceRearDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depAmbRearCanvas),
+  transparent:true,opacity:1.0,roughness:0.25,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
 
+// Fire Engine Front Visor / Nose Decal - Bold Yellow FIRE BRIGADE
+const depFireFrontCanvas=document.createElement('canvas');depFireFrontCanvas.width=512;depFireFrontCanvas.height=128;
+const dffc=depFireFrontCanvas.getContext('2d');
+dffc.clearRect(0,0,512,128);
+dffc.fillStyle='#0f172a';
+dffc.fillRect(14,14,484,100);
+dffc.strokeStyle='#facc15';
+dffc.lineWidth=6;
+dffc.strokeRect(16,16,480,96);
+dffc.fillStyle='#facc15';
+dffc.font='900 66px Arial, sans-serif';
+dffc.textAlign='center';
+dffc.textBaseline='middle';
+dffc.fillText('FIRE BRIGADE',256,64);
+const depFireFrontDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireFrontCanvas),
+  transparent:true,opacity:1.0,roughness:0.3,metalness:0.1,side:THREE.FrontSide,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4,depthWrite:true
+});
 
-
-
-
-
-
-
-
-
-
-
-
-// Fire Engine Rear Tailgate Chevrons Decal
-
-
-
-
-
-
-
+// Fire Engine Rear Tailgate Chevrons Decal - Prominent Bold Yellow FIRE BRIGADE
 const depFireChevCanvas=document.createElement('canvas');depFireChevCanvas.width=512;depFireChevCanvas.height=256;
-
-
-
-
-
-
-
 const dfc=depFireChevCanvas.getContext('2d');
-
-
-
-
-
-
-
-dfc.fillStyle='#eab308';dfc.fillRect(0,0,512,256);
-
-
-
-
-
-
-
+dfc.fillStyle='#facc15';dfc.fillRect(0,0,512,256);
 dfc.fillStyle='#dc2626';
-
-
-
-
-
-
-
 for(let x=-256;x<=512;x+=64){
-
-
-
-
-
-
-
   dfc.beginPath();
-
-
-
-
-
-
-
   dfc.moveTo(x,256);dfc.lineTo(x+64,0);dfc.lineTo(x+96,0);dfc.lineTo(x+32,256);
-
-
-
-
-
-
-
   dfc.fill();
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
 // Central Caution Box
+dfc.fillStyle='#0f172a';dfc.fillRect(40,68,432,120);
+dfc.strokeStyle='#facc15';dfc.lineWidth=6;dfc.strokeRect(44,72,424,112);
+dfc.fillStyle='#facc15';dfc.font='900 52px Arial, sans-serif';dfc.textAlign='center';
+dfc.fillText('FIRE BRIGADE',256,120);
+dfc.fillStyle='#fef08a';dfc.font='bold 22px sans-serif';
+dfc.fillText('अग्नि शमन सेवा · EMERGENCY 101',256,158);
 
-
-
-
-
-
-
-dfc.fillStyle='#1e293b';dfc.fillRect(64,88,384,80);
-
-
-
-
-
-
-
-dfc.strokeStyle='#eab308';dfc.lineWidth=4;dfc.strokeRect(68,92,376,72);
-
-
-
-
-
-
-
-dfc.fillStyle='#ffffff';dfc.font='bold 26px sans-serif';dfc.textAlign='center';
-
-
-
-
-
-
-
-dfc.fillText('FIRE & RESCUE SERVICE',256,124);
-
-
-
-
-
-
-
-dfc.fillStyle='#eab308';dfc.font='bold 18px sans-serif';
-
-
-
-
-
-
-
-dfc.fillText('अग्नि शमन सेवा · EMERGENCY 101',256,150);
-
-
-
-
-
-
-
-const depFireChevronDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(depFireChevCanvas),roughness:0.4,metalness:0.1});
+const depFireChevronDecal=new THREE.MeshStandardMaterial({
+  map:new THREE.CanvasTexture(depFireChevCanvas),
+  roughness:0.4,metalness:0.1,
+  polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-4
+});
 
 
 
@@ -4713,6 +4595,12 @@ function depBuildAmbulance(g){
 
 
   dH.rotation.x=-Math.PI/2;
+  // Front AMBULANCE Decal (Bold Red on front nose)
+  const dF=depPart(g,'sign',[0,1.05,-2.605],[1.32,0.26,1],depAmbulanceFrontDecal);
+  dF.rotation.y=Math.PI;
+
+  // Rear AMBULANCE Decal (Bold Red across rear loading doors)
+  depPart(g,'sign',[0,1.16,2.205],[1.38,0.28,1],depAmbulanceRearDecal);
 
 
 
@@ -5177,6 +5065,11 @@ function depBuildFireBrigade(g){
 
 
   const fWind=depPart(g,'box',[0,1.96,-3.40],[2.26,.92,.08],'glassTint');fWind.rotation.x=-0.16;
+  // Front FIRE BRIGADE Decals (Bold Yellow on cab visor and front nose plate)
+  const fbVisor=depPart(g,'sign',[0,2.52,-3.38],[1.82,0.24,1],depFireFrontDecal);
+  fbVisor.rotation.y=Math.PI;
+  const fbNose=depPart(g,'sign',[0,1.52,-3.61],[1.35,0.18,1],depFireFrontDecal);
+  fbNose.rotation.y=Math.PI;
 
 
 
@@ -5816,134 +5709,31 @@ function depBuildFireBrigade(g){
 
 
 
-function depBuildQBelt(g){
-
-
-
-
-
-
-
+function depBuildQBelt(g, span = 2.0){
   g.scale.setScalar(1);
+  const curSpan = (typeof span === 'number' && span >= 0.5) ? span : 2.0;
+  const half = curSpan / 2;
 
-
-
-
-
-
-
-  for(const px of [-1.0,1.0]){
-
-
-
-
-
-
-
+  // Stanchion chrome posts at both ends (-half and +half)
+  for(const px of [-half, half]){
     depPart(g,'cylinder',[px,.024,0],[.18,.048,.18],'stanchionChrome');
-
-
-
-
-
-
-
     depPart(g,'torus',[px,.008,0],[.182,.012,1],'dark');
-
-
-
-
-
-
-
     depPart(g,'cylinder',[px,.50,0],[.032,.92,.032],'stanchionChrome');
-
-
-
-
-
-
-
     depPart(g,'cylinder',[px,.94,0],[.052,.12,.052],'stanchionChrome');
-
-
-
-
-
-
-
     for(const rot of [0,Math.PI/2,Math.PI,-Math.PI/2]){
-
-
-
-
-
-
-
       const slot=depPart(g,'box',[px+Math.sin(rot)*.053,.94,Math.cos(rot)*.053],[.008,.08,.016],'dark');
-
-
-
-
-
-
-
       slot.rotation.y=rot;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
     depPart(g,'sphereSmooth',[px,1.02,0],[.044,.044,.044],'stanchionChrome');
-
-
-
-
-
-
-
   }
 
+  // High-tension red nylon webbing ribbon
+  const ribbonLen = Math.max(0.1, curSpan - 0.08);
+  depPart(g,'box',[0,.94,0],[ribbonLen,.055,.006],'qbeltRibbon');
 
-
-
-
-
-
-  depPart(g,'box',[0,.94,0],[1.92,.055,.006],'qbeltRibbon');
-
-
-
-
-
-
-
-  depPart(g,'box',[.94,.94,0],[.025,.068,.016],'stanchionChrome');
-
-
-
-
-
-
-
-  depPart(g,'box',[-.94,.94,0],[.025,.068,.016],'stanchionChrome');
-
-
-
-
-
-
-
+  // Chrome end clips
+  depPart(g,'box',[half - 0.04,.94,0],[.025,.068,.016],'stanchionChrome');
+  depPart(g,'box',[-half + 0.04,.94,0],[.025,.068,.016],'stanchionChrome');
 }
 
 
@@ -9110,7 +8900,7 @@ function depBuildCCTV(g) {
   g.add(domeMesh);
 }
 
-function depCreateEquipmentMesh(kind) {
+function depCreateEquipmentMesh(kind, extra) {
 
 
 
@@ -9201,21 +8991,8 @@ function depCreateEquipmentMesh(kind) {
 
 
   } else if (kind === 'qbelt') {
-
-
-
-
-
-
-
-    depBuildQBelt(g);
-
-
-
-
-
-
-
+    const span = (extra && typeof extra.span === 'number') ? extra.span : (typeof extra === 'number' ? extra : 2.0);
+    depBuildQBelt(g, span);
   } else if (kind === 'parking') {
     depBuildParking(g);
   } else if (kind === 'square_box') {
@@ -9622,7 +9399,7 @@ window.depCreateEquipmentMesh = depCreateEquipmentMesh;
 
   for(const item of depItems){
 
-    const g = depCreateEquipmentMesh(item.kind);
+    const g = depCreateEquipmentMesh(item.kind, item);
 
     g.position.set(item.x, item.y, item.z);
 
@@ -10741,6 +10518,7 @@ function depChoose(id, zoom = true){
 
 
 
+  if (typeof updateQBeltUI === 'function') updateQBeltUI(o);
   depUI('editkind').value=o.kind;
 
 
@@ -12453,14 +12231,8 @@ function depReturnView(smooth = true){
 
 
 function depDeselect(smooth = true){
-
-
-
-
-
-
-
   depSelected = null;
+  if (typeof updateQBeltUI === 'function') updateQBeltUI(null);
 
 
 
@@ -17420,6 +17192,118 @@ for(const [text,accept] of [['Place here',true],['Cancel',false]]){
 
 
 
+// =========================================================================
+// Q-BELT RETRACTABLE STRETCH ENGINE ('O' to open/stretch, 'P' to reset/retract)
+// =========================================================================
+function stretchQBelt(item, newSpan) {
+  if (!item || item.kind !== 'qbelt') return;
+  const clamped = Math.max(0.8, Math.min(10.0, Math.round(newSpan * 10) / 10));
+  const oldSpan = item.span || 2.0;
+  item.span = clamped;
+
+  // Dynamically update the 3D mesh safely without disposing shared geometries!
+  const node = depNodes.find(n => n.item && n.item.id === item.id);
+  if (node && node.g) {
+    while (node.g.children.length > 0) {
+      node.g.remove(node.g.children[0]);
+    }
+    depBuildQBelt(node.g, item.span);
+    node.g.traverse(child => {
+      child.userData.depId = item.id;
+    });
+    draw();
+  } else {
+    depBuild();
+  }
+
+  // Persist to localStorage / SQLite
+  depStore();
+
+  // Update UI indicators
+  updateQBeltUI(item);
+
+  // User feedback toast
+  if (clamped > oldSpan) {
+    if (typeof depShowToast === 'function') {
+      depShowToast(`🎗️ Q-Belt Stretched (खुल गया): ${clamped.toFixed(1)} m · Press 'P' to reset back`);
+    }
+  } else if (clamped === 2.0) {
+    if (typeof depShowToast === 'function') {
+      depShowToast(`🎗️ Q-Belt Reset (वापिस वैसा हो गया): 2.0 m Standard`);
+    }
+  } else {
+    if (typeof depShowToast === 'function') {
+      depShowToast(`🎗️ Q-Belt Retracted: ${clamped.toFixed(1)} m`);
+    }
+  }
+}
+window.stretchQBelt = stretchQBelt;
+
+function updateQBeltUI(item) {
+  const floatHud = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-qbelt-float-hud') : document.getElementById('dep-qbelt-float-hud');
+  const floatSpan = (typeof root !== 'undefined' && root) ? root.querySelector('#qbelt-hud-span-txt') : document.getElementById('qbelt-hud-span-txt');
+  const inspRow = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-qbelt-inspector-row') : document.getElementById('dep-qbelt-inspector-row');
+  const inspVal = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-qbelt-inspector-val') : document.getElementById('dep-qbelt-inspector-val');
+
+  if (item && item.kind === 'qbelt') {
+    const s = (item.span || 2.0).toFixed(1) + ' m';
+    if (floatHud) floatHud.style.display = 'flex';
+    if (floatSpan) floatSpan.textContent = 'Length: ' + s;
+    if (inspRow) inspRow.style.display = 'block';
+    if (inspVal) inspVal.textContent = s;
+  } else {
+    if (floatHud) floatHud.style.display = 'none';
+    if (inspRow) inspRow.style.display = 'none';
+  }
+}
+window.updateQBeltUI = updateQBeltUI;
+
+function initQBeltControls() {
+  const floatStretch = (typeof root !== 'undefined' && root) ? root.querySelector('#qbelt-hud-stretch-btn') : document.getElementById('qbelt-hud-stretch-btn');
+  const floatReset = (typeof root !== 'undefined' && root) ? root.querySelector('#qbelt-hud-reset-btn') : document.getElementById('qbelt-hud-reset-btn');
+  const floatRetract = (typeof root !== 'undefined' && root) ? root.querySelector('#qbelt-hud-retract-btn') : document.getElementById('qbelt-hud-retract-btn');
+  const inspStretch = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-qbelt-insp-stretch') : document.getElementById('dep-qbelt-insp-stretch');
+  const inspReset = (typeof root !== 'undefined' && root) ? root.querySelector('#dep-qbelt-insp-reset') : document.getElementById('dep-qbelt-insp-reset');
+
+  const onStretch = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const item = depSelected ? depItems.find(o => o.id === depSelected) : null;
+    if (item && item.kind === 'qbelt') {
+      const cur = item.span || 2.0;
+      stretchQBelt(item, cur + 0.5);
+    }
+  };
+
+  const onReset = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const item = depSelected ? depItems.find(o => o.id === depSelected) : null;
+    if (item && item.kind === 'qbelt') {
+      const cur = item.span || 2.0;
+      const next = (cur !== 2.0) ? 2.0 : 1.2;
+      stretchQBelt(item, next);
+    }
+  };
+
+  const onRetract = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const item = depSelected ? depItems.find(o => o.id === depSelected) : null;
+    if (item && item.kind === 'qbelt') {
+      const cur = item.span || 2.0;
+      stretchQBelt(item, cur - 0.5);
+    }
+  };
+
+  if (floatStretch) floatStretch.addEventListener('click', onStretch);
+  if (floatReset) floatReset.addEventListener('click', onReset);
+  if (floatRetract) floatRetract.addEventListener('click', onRetract);
+  if (inspStretch) inspStretch.addEventListener('click', onStretch);
+  if (inspReset) inspReset.addEventListener('click', onReset);
+}
+setTimeout(initQBeltControls, 100);
+
 window.addEventListener('keydown', e => {
 
 
@@ -17881,6 +17765,26 @@ window.addEventListener('keydown', e => {
 
 
   const activeItem = depSelected ? depItems.find(o => o.id === depSelected) : null;
+
+  // Q-Belt stretch on 'O' (open/stretch) and reset on 'P' (vapis waisa ho jaaye)
+  if (activeItem && activeItem.kind === 'qbelt') {
+    if (key === 'o' || e.code === 'KeyO') {
+      e.preventDefault();
+      e.stopPropagation();
+      const cur = activeItem.span || 2.0;
+      const next = Math.min(10.0, Math.round((cur + 0.5) * 10) / 10);
+      stretchQBelt(activeItem, next);
+      return;
+    }
+    if (key === 'p' || e.code === 'KeyP') {
+      e.preventDefault();
+      e.stopPropagation();
+      const cur = activeItem.span || 2.0;
+      const next = (cur !== 2.0) ? 2.0 : 1.2;
+      stretchQBelt(activeItem, next);
+      return;
+    }
+  }
 
 
 
