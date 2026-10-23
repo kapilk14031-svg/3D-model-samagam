@@ -9219,7 +9219,7 @@ function depChoose(id, zoom = true){
 
 
 
-  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade';
+  const isVehicle = o.kind === 'ambulance' || o.kind === 'firebrigade' || o.kind === 'qrt';
 
 
 
@@ -10165,6 +10165,7 @@ function depView(mode, smooth = true){
   const itemHeight = isOfficerLike ? 1.65
     : o.kind === 'firebrigade' ? 2.5
     : o.kind === 'ambulance' ? 1.85
+    : o.kind === 'qrt' ? 1.75
     : o.kind === 'dfmd' ? 1.8
     : o.kind === 'cctv' || o.kind === 'light' ? 2.2
     : o.kind === 'barricade' ? 0.9
@@ -10177,6 +10178,7 @@ function depView(mode, smooth = true){
     : o.kind === 'parking' ? 28.0
     : o.kind === 'firebrigade' ? 9.2
     : o.kind === 'ambulance' ? 6.8
+    : o.kind === 'qrt' ? 6.8
     : isOfficerLike ? 3.8
     : ['barricade','dfmd'].includes(o.kind) ? 4.5
     : 3.2;
@@ -10184,6 +10186,7 @@ function depView(mode, smooth = true){
     : o.kind === 'parking' ? 18.0
     : o.kind === 'firebrigade' ? 3.4
     : o.kind === 'ambulance' ? 2.4
+    : o.kind === 'qrt' ? 2.5
     : isOfficerLike ? 1.2
     : 1.5;
 
@@ -10222,6 +10225,7 @@ function depView(mode, smooth = true){
     if(o.kind === 'firebrigade') eyeY = o.y + 2.15;
     if(o.kind === 'helipad') eyeY = o.y + 4.0;
     if(o.kind === 'parking') eyeY = o.y + 3.0;
+    if(o.kind === 'qrt') eyeY = o.y + 1.58;
 
 
 
@@ -10262,6 +10266,7 @@ function depView(mode, smooth = true){
 
 
     if(o.kind === 'firebrigade') eye.addScaledVector(dir, 2.1);
+    if(o.kind === 'qrt') eye.addScaledVector(dir, 0.45);
 
 
 
@@ -10285,7 +10290,7 @@ function depView(mode, smooth = true){
 
 
 
-  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (mode==='first' ? 10 : 2.0))));
+  const lookDistance = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind==='firebrigade' ? 4.8 : (o.kind==='ambulance' ? 3.8 : (o.kind==='qrt' ? 6.5 : (mode==='first' ? 10 : 2.0)))));
 
 
 
@@ -13943,6 +13948,7 @@ window.__DEP_TICK = function(dt) {
 
       if (o.kind === 'ambulance') turnSpeed = 75;
       else if (o.kind === 'firebrigade') turnSpeed = 65;
+      else if (o.kind === 'qrt') turnSpeed = 80;
       else if (o.kind === 'helipad') turnSpeed = 55;
       else if (o.kind === 'parking') turnSpeed = 45;
       else if (o.kind === 'square_box' || o.kind === 'qbelt') turnSpeed = 90;
@@ -14201,7 +14207,11 @@ window.__DEP_TICK = function(dt) {
 
 
 
-      } else if (o.kind === 'helipad') {
+      } else if (o.kind === 'qrt') {
+        baseFwdSpeed = 7.5;
+        sprintFwdSpeed = 13.5;
+        baseBackSpeed = 3.6;
+      }else if (o.kind === 'helipad') {
         baseFwdSpeed = 7.0;
         sprintFwdSpeed = 15.0;
         baseBackSpeed = 5.0;
@@ -15285,6 +15295,7 @@ window.__DEP_TICK = function(dt) {
         const itemHeight = isOfficerLike ? 1.65
           : o.kind === 'firebrigade' ? 2.5
           : o.kind === 'ambulance' ? 1.85
+          : o.kind === 'qrt' ? 1.75
           : o.kind === 'dfmd' ? 1.8
           : o.kind === 'cctv' || o.kind === 'light' ? 2.2
           : o.kind === 'barricade' ? 0.9
@@ -15297,6 +15308,7 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'parking' ? 28.0
           : o.kind === 'firebrigade' ? 9.2
           : o.kind === 'ambulance' ? 6.8
+          : o.kind === 'qrt' ? 6.8
           : isOfficerLike ? 3.8
           : ['barricade','dfmd'].includes(o.kind) ? 4.5
           : 3.2;
@@ -15304,6 +15316,7 @@ window.__DEP_TICK = function(dt) {
           : o.kind === 'parking' ? 18.0
           : o.kind === 'firebrigade' ? 3.4
           : o.kind === 'ambulance' ? 2.4
+          : o.kind === 'qrt' ? 2.5
           : isOfficerLike ? 1.2
           : 1.5;
 
@@ -15337,7 +15350,7 @@ window.__DEP_TICK = function(dt) {
 
 
 
-        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : 2.0)));
+        const lookDist = o.kind === 'helipad' ? 12.0 : (o.kind === 'parking' ? 8.0 : (o.kind === 'firebrigade' ? 4.8 : (o.kind === 'ambulance' ? 3.8 : (o.kind === 'qrt' ? 6.5 : 2.0))));
 
 
 
