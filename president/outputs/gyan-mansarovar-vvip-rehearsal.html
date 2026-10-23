@@ -8710,6 +8710,7 @@ const depCrateDecal=new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(
 
 
 // =========================================================================
+// =========================================================================
 // HIGH-RESOLUTION VEHICLE TEXT DECALS (Ambulance Red & Fire Brigade Yellow)
 // =========================================================================
 let _depVehicleDecalMats = null;
@@ -9232,6 +9233,7 @@ function depBuildFireBrigade(g) {
 // =========================================================================
 // 4. MULTI-BAY VEHICLE PARKING FACILITY (Haryana Police Bus, VIP SUVs & Stalls)
 // =========================================================================
+function depBuildParking(g) { depBuildParkingLot(g); }
 function depBuildParkingLot(g) {
   g.scale.setScalar(1);
 

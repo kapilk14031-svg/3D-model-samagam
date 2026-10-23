@@ -50,6 +50,15 @@ def valid(plan):
             return False
     return True
 
+class DeploymentServer(ThreadingHTTPServer):
+    daemon_threads = True
+    def handle_error(self, request, client_address):
+        import sys
+        exctype, _, _ = sys.exc_info()
+        if exctype in (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            return
+        super().handle_error(request, client_address)
+
 def handler(db_path):
     class Handler(SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
@@ -171,7 +180,7 @@ if __name__ == '__main__':
                         print(f'Seeded SQLite DB from {draft_file.name} ({len(draft_plan.get("items", []))} items)')
                 except Exception as e:
                     print('Seed warning:', e)
-    server = ThreadingHTTPServer(('127.0.0.1',args.port), handler(args.db))
+    server = DeploymentServer(('127.0.0.1',args.port), handler(args.db))
     print(f'3D viewer: http://127.0.0.1:{args.port}/outputs/gyan-mansarovar-3d.html', flush=True)
     print(f'Database: {args.db}', flush=True)
     while True:
