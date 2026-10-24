@@ -9,7 +9,7 @@
     <div class="header-actions">
       <button type="button" class="action-pill" id="gms-roster-btn" title="View, Filter and Print/Export Deployed Duty Roster">📋 Duty Roster</button>
       <button type="button" class="action-pill" id="gms-sectors-btn" title="Toggle 3D Tactical Security Sectors">🛡️ Sectors</button>
-      <button type="button" class="action-pill" id="gms-evac-btn" title="Toggle Emergency Evacuation Corridors">🚨 Evac Routes</button>
+      <button type="button" class="action-pill" id="gms-evac-btn" style="display:none !important;" title="Toggle Emergency Evacuation Corridors">🚨 Evac Routes</button>
       <button type="button" class="action-pill" id="gms-measure-btn" title="Virtual 3D Measuring Tape (Distance Tool)">📏 Measure</button>
       <button type="button" class="action-pill" id="gms-reset-btn" title="Reset camera to whole compound">↺ Reset View</button>
       <button type="button" class="action-pill" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas">⛶ Fullscreen</button>
@@ -568,6 +568,7 @@
 .brand-sub { font-size: 13px; color: var(--text-muted); }
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
+#gms-evac-btn, #gms-evac-legend { display: none !important; }
 .action-pill {
   padding: 7px 14px;
   font-size: 13px;

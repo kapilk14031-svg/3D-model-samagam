@@ -859,6 +859,7 @@ for it in catalog_items:
         "img": item_images_b64[k]
     }
 
+# Dynamically compute seeded counts from draft deployment plan if available
 seeded_counts = {
     'officer': 13,
     'barricade': 2,
@@ -867,6 +868,20 @@ seeded_counts = {
     'binocular': 1,
     'parking': 1,
 }
+if draft_p.exists():
+    try:
+        draft_raw = json.loads(draft_p.read_text(encoding='utf-8'))
+        d_items = draft_raw.get('items', [])
+        if d_items:
+            calc_counts = {}
+            for _it in d_items:
+                _k = _it.get('kind')
+                if _k:
+                    calc_counts[_k] = calc_counts.get(_k, 0) + 1
+            if calc_counts:
+                seeded_counts = calc_counts
+    except Exception as _e:
+        pass
 
 deployed_items_html = '''
 <div class="dep-asset-grid" id="dep-asset-grid">
@@ -990,17 +1005,21 @@ document.querySelectorAll('#ref-tabs .ref-tab-btn').forEach(btn => {{
 
 
 
-// Update catalog counts & instances
+// Update catalog counts & instances (reactive & live)
 function updateDeployedCatalogCounts() {{
   const items = (typeof window.depItems !== 'undefined' && Array.isArray(window.depItems))
     ? window.depItems
-    : ((typeof depItems !== 'undefined' && Array.isArray(depItems)) ? depItems : []);
-  if (!items || !items.length) return;
+    : ((typeof window.__depItems !== 'undefined' && Array.isArray(window.__depItems))
+      ? window.__depItems
+      : ((typeof depItems !== 'undefined' && Array.isArray(depItems)) ? depItems : []));
+
   const counts = {{}};
-  for (const it of items) {{
-    if (it && it.kind) counts[it.kind] = (counts[it.kind] || 0) + 1;
+  if (Array.isArray(items)) {{
+    for (const it of items) {{
+      if (it && it.kind) counts[it.kind] = (counts[it.kind] || 0) + 1;
+    }}
   }}
-  const total = items.length;
+  const total = Array.isArray(items) ? items.length : 0;
   const totalBadge = document.getElementById('dep-catalog-total-badge');
   if (totalBadge) {{
     totalBadge.textContent = `⚡ ${{total}} Items Deployed Across Gyan Mansarovar`;
@@ -1013,13 +1032,13 @@ function updateDeployedCatalogCounts() {{
   }});
   document.querySelectorAll('.dep-asset-instances-list[data-kind]').forEach(el => {{
     const kind = el.dataset.kind;
-    const instances = items.filter(it => it.kind === kind);
+    const instances = Array.isArray(items) ? items.filter(it => it && it.kind === kind) : [];
     if (instances.length === 0) {{
       el.innerHTML = '<span style="color:#94a3b8;font-size:12px;font-style:italic;">None placed on map yet.</span>';
       return;
     }}
     el.innerHTML = instances.map(it => `
-      <button type="button" class="dep-instance-jump-btn" data-id="${{it.id}}" title="Click to inspect & control ${{it.name}} in 3D">
+      <button type="button" class="dep-instance-jump-btn" data-id="${{it.id}}" onclick="if(typeof window.__depChoose==='function')window.__depChoose('${{it.id}}');else if(typeof depChoose==='function')depChoose('${{it.id}}');" title="Click to inspect & control ${{it.name}} in 3D">
         📍 ${{it.name}} <small style="opacity:0.85;">(${{it.duty || 'General'}})</small>
       </button>
     `).join('');
@@ -1027,6 +1046,11 @@ function updateDeployedCatalogCounts() {{
 }}
 window.updateDeployedCatalogCounts = updateDeployedCatalogCounts;
 window.refreshDeployedCatalogCounts = updateDeployedCatalogCounts;
+setInterval(() => {{
+  if (typeof window.updateDeployedCatalogCounts === 'function') {{
+    window.updateDeployedCatalogCounts();
+  }}
+}}, 1500);
 
 // =========================================================================
 // EQUIPMENT 3D ROTATION & LIGHTBOX ENGINE
@@ -1172,6 +1196,7 @@ function init3DCardRotators() {{
       canvas: offCanvas,
       antialias: true,
       alpha: true,
+      preserveDrawingBuffer: true,
       powerPreference: 'high-performance'
     }});
     offRenderer.outputEncoding = THREE.sRGBEncoding;
@@ -1245,7 +1270,16 @@ function init3DCardRotators() {{
       let initialRotX = 0.18;
       let camDistMult = 1.6;
 
-      if (kind === 'helipad') {{
+      let customCamTargetY = null;
+      let customStageRadius = null;
+
+      if (kind === 'cctv') {{
+        initialRotY = -0.05; // Matches perspective in user reference image
+        initialRotX = 0.08;
+        camDistMult = 1.62;
+        customCamTargetY = 1.82;
+        customStageRadius = 1.60;
+      }} else if (kind === 'helipad') {{
         initialRotY = -0.02; // Upright 'H', '15 t' on left, 'VIP' on right, windsock top-right
         initialRotX = 0.46; // Aerial elevated perspective
         camDistMult = 1.45;
@@ -1278,8 +1312,8 @@ function init3DCardRotators() {{
 
       const maxDim = Math.max(size.x, size.y, size.z);
       const camDist = Math.max(maxDim * camDistMult, 2.0);
-      const camTargetY = Math.max(size.y * 0.48, 0.3);
-      const stageRadius = Math.max(Math.hypot(size.x, size.z) * 0.65, 0.9);
+      const camTargetY = customCamTargetY !== null ? customCamTargetY : Math.max(size.y * 0.48, 0.3);
+      const stageRadius = customStageRadius !== null ? customStageRadius : Math.max(Math.hypot(size.x, size.z) * 0.65, 0.9);
 
       const state = {{
         kind,

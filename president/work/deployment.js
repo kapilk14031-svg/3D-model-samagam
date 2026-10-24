@@ -516,7 +516,7 @@ body {
     <div class="header-actions">
       <button type="button" class="action-pill" id="gms-roster-btn" title="View, Filter and Print/Export Deployed Duty Roster">📋 Duty Roster</button>
       <button type="button" class="action-pill" id="gms-sectors-btn" title="Toggle 3D Tactical Security Sectors">🛡️ Sectors</button>
-      <button type="button" class="action-pill" id="gms-evac-btn" title="Toggle Emergency Evacuation Corridors">🚨 Evac Routes</button>
+      <button type="button" class="action-pill" id="gms-evac-btn" style="display:none !important;" title="Toggle Emergency Evacuation Corridors">🚨 Evac Routes</button>
       <button type="button" class="action-pill" id="gms-measure-btn" title="Virtual 3D Measuring Tape (Distance Tool)">📏 Measure</button>
       <button type="button" class="action-pill" id="gms-reset-btn" title="Reset camera to whole compound">↺ Reset View</button>
       <button type="button" class="action-pill" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas">⛶ Fullscreen</button>
@@ -1297,6 +1297,7 @@ body {
 .brand-sub { font-size: 13px; color: var(--text-muted); }
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
+#gms-evac-btn, #gms-evac-legend { display: none !important; }
 .action-pill {
   padding: 7px 14px;
   font-size: 13px;
@@ -8179,7 +8180,7 @@ const depMaterials={
   padWindsockWhite:new THREE.MeshStandardMaterial({color:new THREE.Color('#f8fafc').convertSRGBToLinear(),roughness:0.85,metalness:0}),
   heliWhite:new THREE.MeshStandardMaterial({color:new THREE.Color('#f8fafc').convertSRGBToLinear(),roughness:0.18,metalness:0.12}),
   // PTZ Surveillance CCTV Camera Materials (Ultra-Realistic Industrial Spec)
-  cctvMastGalv: new THREE.MeshStandardMaterial({color: 0x9ba3af, roughness: 0.38, metalness: 0.68}),
+  cctvMastGalv: new THREE.MeshStandardMaterial({color: 0xd8dee9, roughness: 0.32, metalness: 0.65}),
   cctvBasePad: new THREE.MeshStandardMaterial({color: 0x3f444c, roughness: 0.88}),
   cctvAnchorBolt: new THREE.MeshStandardMaterial({color: 0xd1d5db, roughness: 0.22, metalness: 0.88}),
   cctvEnclosureWhite: new THREE.MeshStandardMaterial({color: 0xf1f5f9, roughness: 0.28, metalness: 0.15}),
@@ -11919,6 +11920,9 @@ function depBuildOfficer(g, mode='officer'){
 
 
 function depBuild(){
+  if (typeof window.updateDeployedCatalogCounts === 'function') {
+    try { window.updateDeployedCatalogCounts(); } catch(e){}
+  }
 
 
 
@@ -12248,237 +12252,114 @@ function depBuildXray(g){
 function depBuildCCTV(g) {
   g.scale.setScalar(1);
 
-  // 1. Concrete Foundation Plinth & Anchor Assembly
-  depPart(g, 'box', [0, 0.05, 0], [0.65, 0.10, 0.65], 'cctvBasePad');
-  depPart(g, 'cylinder', [0, 0.11, 0], [0.42, 0.025, 0.42], 'cctvMastGalv');
+  // 1. Concrete Base Pad & Mounting Flange Assembly
+  depPart(g, 'box', [0, 0.04, 0], [0.72, 0.08, 0.72], 'cctvBasePad');
+  depPart(g, 'cylinder', [0, 0.09, 0], [0.52, 0.025, 0.52], 'cctvMastGalv');
 
-  // 4 Heavy-duty structural hex anchor bolts & nuts
-  const boltRadius = 0.16;
+  // 4 Hex Anchor Bolts on base flange
   for (let a = 0; a < 4; a++) {
     const ang = (a * Math.PI) / 2 + Math.PI / 4;
-    const bx = Math.cos(ang) * boltRadius;
-    const bz = Math.sin(ang) * boltRadius;
-    depPart(g, 'cylinder', [bx, 0.135, bz], [0.032, 0.035, 0.032], 'cctvAnchorBolt');
-    depPart(g, 'cylinder', [bx, 0.165, bz], [0.018, 0.030, 0.018], 'cctvAnchorBolt');
+    const bx = Math.cos(ang) * 0.20;
+    const bz = Math.sin(ang) * 0.20;
+    depPart(g, 'cylinder', [bx, 0.115, bz], [0.028, 0.028, 0.028], 'cctvAnchorBolt');
   }
 
-  // 4 Triangular gusset stiffener ribs
-  for (let a = 0; a < 4; a++) {
-    const ang = (a * Math.PI) / 2;
-    const gx = Math.cos(ang) * 0.11;
-    const gz = Math.sin(ang) * 0.11;
-    const rib = depPart(g, 'box', [gx, 0.22, gz], [0.02, 0.20, 0.14], 'cctvMastGalv');
-    rib.rotation.y = ang;
-  }
+  // 2. Telescopic Vertical Galvanized Mast Column
+  // Lower thicker column (y: 0.10 to 1.85)
+  depPart(g, 'cylinder', [0, 0.98, 0], [0.15, 1.76, 0.15], 'cctvMastGalv');
 
-  // 2. Galvanized Tubular Steel Mast
-  depPart(g, 'cylinder', [0, 1.01, 0], [0.14, 1.78, 0.14], 'cctvMastGalv'); // Lower mast
-  depPart(g, 'cylinder', [0, 1.90, 0], [0.165, 0.08, 0.165], 'cctvHousingCharcoal'); // Transition collar
-  depPart(g, 'cylinder', [0, 1.90, 0], [0.175, 0.02, 0.175], 'cctvAnchorBolt');
-  depPart(g, 'cylinder', [0, 2.645, 0], [0.105, 1.41, 0.105], 'cctvMastGalv'); // Upper mast
-  depPart(g, 'cylinder', [0, 3.36, 0], [0.13, 0.03, 0.13], 'cctvHousingCharcoal'); // Mast top cap
+  // Intermediate transition collar ring
+  depPart(g, 'cylinder', [0, 1.86, 0], [0.18, 0.07, 0.18], 'cctvMastGalv');
+  depPart(g, 'cylinder', [0, 1.86, 0], [0.19, 0.02, 0.19], 'cctvAnchorBolt');
 
-  // Lightning Surge Arrestor spike atop the mast
-  depPart(g, 'cylinder', [0, 3.55, 0], [0.015, 0.38, 0.015], 'cctvCopperGround');
-  const spikeTip = new THREE.Mesh(new THREE.ConeGeometry(0.015, 0.08, 16), depMaterials.cctvCopperGround);
-  spikeTip.position.set(0, 3.78, 0);
+  // Upper narrower column (y: 1.89 to 3.25)
+  depPart(g, 'cylinder', [0, 2.57, 0], [0.10, 1.36, 0.10], 'cctvMastGalv');
+
+  // Mast Top Cap & Collar
+  depPart(g, 'cylinder', [0, 3.26, 0], [0.125, 0.05, 0.125], 'cctvMastGalv');
+  depPart(g, 'cylinder', [0, 3.29, 0], [0.11, 0.025, 0.11], 'cctvHousingCharcoal');
+
+  // Golden / Brass Vertical Lightning Spike atop the mast
+  depPart(g, 'cylinder', [0, 3.51, 0], [0.013, 0.40, 0.013], 'vipGold');
+  const spikeTip = new THREE.Mesh(new THREE.ConeGeometry(0.013, 0.07, 16), depMaterials.vipGold);
+  spikeTip.position.set(0, 3.74, 0);
   g.add(spikeTip);
 
-  // 3. Weatherproof IP67 Power & PoE+ Junction Box
-  const jbX = 0, jbY = 1.25, jbZ = 0.17;
-  depPart(g, 'box', [0, jbY + 0.12, 0.07], [0.22, 0.03, 0.04], 'cctvHousingCharcoal');
-  depPart(g, 'box', [0, jbY - 0.12, 0.07], [0.22, 0.03, 0.04], 'cctvHousingCharcoal');
-  depPart(g, 'box', [jbX, jbY, jbZ], [0.26, 0.36, 0.16], 'cctvEnclosureWhite');
-  depPart(g, 'box', [jbX, jbY, jbZ + 0.082], [0.25, 0.34, 0.012], 'whiteBody');
-  depPart(g, 'box', [jbX - 0.125, jbY + 0.10, jbZ + 0.075], [0.015, 0.04, 0.02], 'cctvHousingCharcoal');
-  depPart(g, 'box', [jbX - 0.125, jbY - 0.10, jbZ + 0.075], [0.015, 0.04, 0.02], 'cctvHousingCharcoal');
-  depPart(g, 'box', [jbX + 0.122, jbY, jbZ + 0.075], [0.015, 0.05, 0.02], 'cctvAnchorBolt');
+  // 3. Weatherproof Utility / Junction Box (Mounted on right side of lower mast)
+  const jbY = 1.18;
+  const jbX = 0.14;
+  depPart(g, 'box', [jbX, jbY, 0], [0.16, 0.32, 0.20], 'cctvEnclosureWhite');
+  depPart(g, 'box', [jbX + 0.01, jbY, 0.105], [0.14, 0.30, 0.01], 'whiteBody');
+  // Yellow/gold lock latch on front
+  depPart(g, 'box', [jbX + 0.06, jbY, 0.112], [0.025, 0.07, 0.008], 'padLineYellow');
 
-  const hazardMesh = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.08, 3), depMaterials.cctvHazardYellow);
-  hazardMesh.position.set(jbX, jbY + 0.04, jbZ + 0.09);
-  hazardMesh.rotation.z = Math.PI;
-  g.add(hazardMesh);
+  // 4. Cantilever Gooseneck Mounting Arm (Extending to the Right +X)
+  const armCollarY = 3.06;
+  // Mounting clamp collar on upper mast
+  depPart(g, 'cylinder', [0, armCollarY, 0], [0.125, 0.12, 0.125], 'cctvMastGalv');
 
-  depPart(g, 'sphereSmooth', [jbX + 0.07, jbY - 0.08, jbZ + 0.09], [0.010, 0.010, 0.010], 'cctvLedGreen');
-  depPart(g, 'cylinder', [jbX - 0.05, jbY - 0.195, jbZ], [0.022, 0.035, 0.022], 'cctvAnchorBolt');
-  depPart(g, 'cylinder', [jbX + 0.05, jbY - 0.195, jbZ], [0.022, 0.035, 0.022], 'cctvAnchorBolt');
+  // Horizontal white tubular arm extending along +X
+  const armStartX = 0.06;
+  const armEndX = 0.46;
+  const armCenterX = (armStartX + armEndX) / 2;
+  const armLen = armEndX - armStartX;
+  const armPipe = depPart(g, 'cylinder', [armCenterX, armCollarY + 0.02, 0], [0.038, armLen, 0.038], 'cctvEnclosureWhite');
+  armPipe.rotation.z = Math.PI / 2;
 
-  // Flexible metallic conduit hose running up the pole
-  const condX = 0.075, condZ = 0.06;
-  depPart(g, 'cylinder', [condX, 2.25, condZ], [0.022, 1.80, 0.022], 'cctvConduitFlex');
-  for (let cy = 1.6; cy <= 3.0; cy += 0.45) {
-    depPart(g, 'box', [condX * 0.7, cy, condZ * 0.7], [0.05, 0.02, 0.03], 'cctvHousingCharcoal');
-  }
+  // Diagonal support bracket / strut underneath arm
+  const strut = depPart(g, 'cylinder', [0.15, armCollarY - 0.06, 0], [0.020, 0.24, 0.020], 'cctvMastGalv');
+  strut.rotation.z = -0.72; // ~41 degrees diagonal
 
-  // 4. Heavy-Duty Cantilever Gooseneck Pendant Arm
-  const armBaseY = 3.12;
-  depPart(g, 'cylinder', [0, armBaseY, 0], [0.14, 0.16, 0.14], 'cctvHousingCharcoal');
-  depPart(g, 'cylinder', [-0.07, armBaseY, 0], [0.02, 0.04, 0.02], 'cctvAnchorBolt');
-  depPart(g, 'cylinder', [0.07, armBaseY, 0], [0.02, 0.04, 0.02], 'cctvAnchorBolt');
+  // 90-degree downward curved elbow at end of horizontal arm
+  depPart(g, 'sphereSmooth', [armEndX, armCollarY + 0.02, 0], [0.046, 0.046, 0.046], 'cctvEnclosureWhite');
+  // Downward short pendant neck
+  depPart(g, 'cylinder', [armEndX, armCollarY - 0.04, 0], [0.036, 0.08, 0.036], 'cctvEnclosureWhite');
+  // Mounting collar / adapter flange
+  depPart(g, 'cylinder', [armEndX, armCollarY - 0.085, 0], [0.075, 0.025, 0.075], 'cctvHousingCharcoal');
 
-  const armLength = 0.52, armZCenter = 0.28;
-  const armPipe = depPart(g, 'cylinder', [0, armBaseY + 0.05, armZCenter], [0.048, armLength, 0.048], 'cctvEnclosureWhite');
-  armPipe.rotation.x = Math.PI / 2;
+  // 5. Suspended PTZ Speed Dome Camera (Hanging Below Elbow)
+  const domeBaseY = armCollarY - 0.10;
+  // Flared white conical canopy / housing
+  const canopy = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.075, 0.22, 0.11, 36),
+    depMaterials.cctvEnclosureWhite
+  );
+  canopy.position.set(armEndX, domeBaseY - 0.055, 0);
+  g.add(canopy);
 
-  const strut = depPart(g, 'cylinder', [0, armBaseY - 0.10, 0.18], [0.022, 0.32, 0.022], 'cctvHousingCharcoal');
-  strut.rotation.x = -Math.PI / 4;
+  // Distinctive dark / blue accent rim band
+  depPart(g, 'cylinder', [armEndX, domeBaseY - 0.115, 0], [0.225, 0.022, 0.225], 'blue');
+  depPart(g, 'cylinder', [armEndX, domeBaseY - 0.128, 0], [0.222, 0.012, 0.222], 'cctvHousingCharcoal');
 
-  const camZ = 0.56, elbowY = armBaseY + 0.05;
-  depPart(g, 'sphereSmooth', [0, elbowY, camZ - 0.02], [0.06, 0.06, 0.06], 'cctvEnclosureWhite');
-  depPart(g, 'cylinder', [0, elbowY - 0.09, camZ], [0.046, 0.12, 0.046], 'cctvEnclosureWhite');
+  // Smoked Optical Glass Dome Bubble (lower hemisphere facing downwards)
+  const domeRadius = 0.20;
+  const domeGeo = new THREE.SphereGeometry(domeRadius, 32, 20, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
+  const domeMesh = new THREE.Mesh(domeGeo, depMaterials.cctvDomeSmoked);
+  domeMesh.position.set(armEndX, domeBaseY - 0.130, 0);
+  g.add(domeMesh);
 
-  const pendantY = elbowY - 0.16;
-  depPart(g, 'cylinder', [0, pendantY, camZ], [0.11, 0.04, 0.11], 'cctvHousingCharcoal');
-  depPart(g, 'cylinder', [0, pendantY - 0.025, camZ], [0.125, 0.015, 0.125], 'cctvAnchorBolt');
-
-  // 5. PTZ Speed Dome Camera Body & Sunshield Visor
-  const camOriginY = pendantY - 0.04;
-  depPart(g, 'cylinder', [0, camOriginY - 0.04, camZ], [0.14, 0.06, 0.14], 'cctvEnclosureWhite');
-
-  const midHousing = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.21, 0.14, 32), depMaterials.cctvEnclosureWhite);
-  midHousing.position.set(0, camOriginY - 0.12, camZ);
-  g.add(midHousing);
-
-  depPart(g, 'cylinder', [0, camOriginY - 0.19, camZ], [0.215, 0.035, 0.215], 'cctvHousingCharcoal');
-  for (let v = 0; v < 8; v++) {
-    const vang = (v * Math.PI) / 4;
-    const vx = Math.cos(vang) * 0.218;
-    const vz = camZ + Math.sin(vang) * 0.218;
-    const vslot = depPart(g, 'box', [vx, camOriginY - 0.19, vz], [0.008, 0.022, 0.035], 'dark');
-    vslot.rotation.y = -vang;
-  }
-
-  depPart(g, 'cylinder', [0, camOriginY - 0.23, camZ], [0.235, 0.06, 0.235], 'cctvEnclosureWhite');
-  depPart(g, 'cylinder', [0, camOriginY - 0.255, camZ], [0.237, 0.015, 0.237], 'blue');
-
-  const visorLip = depPart(g, 'box', [0, camOriginY - 0.24, camZ + 0.15], [0.28, 0.04, 0.12], 'cctvEnclosureWhite');
-  visorLip.rotation.x = 0.18;
-
-  depPart(g, 'sphereSmooth', [-0.07, camOriginY - 0.21, camZ + 0.20], [0.009, 0.009, 0.009], 'cctvLedGreen');
-  depPart(g, 'sphereSmooth', [0.07, camOriginY - 0.21, camZ + 0.20], [0.009, 0.009, 0.009], 'cctvLedRed');
-
-  depPart(g, 'cylinder', [0, camOriginY - 0.275, camZ], [0.228, 0.025, 0.228], 'cctvHousingCharcoal');
-  for (let s = 0; s < 6; s++) {
-    const sang = (s * Math.PI) / 3;
-    const sx = Math.cos(sang) * 0.225;
-    const sz = camZ + Math.sin(sang) * 0.225;
-    depPart(g, 'cylinder', [sx, camOriginY - 0.275, sz], [0.008, 0.028, 0.008], 'cctvAnchorBolt');
-  }
-
-  // 6. Motorized Gimbal Turret & Optical Zoom Lens Assembly
-  const gimbalY = camOriginY - 0.29;
+  // Internal Gimbal Turret Core & Lens (visible inside smoked dome)
   const panTurntable = new THREE.Group();
-  panTurntable.position.set(0, gimbalY, camZ);
+  panTurntable.position.set(armEndX, domeBaseY - 0.18, 0);
   g.add(panTurntable);
 
-  const tplate = new THREE.Mesh(geos.cylinder, depMaterials.cctvHousingCharcoal);
-  tplate.scale.set(0.18, 0.018, 0.18);
-  panTurntable.add(tplate);
-
-  const forkL = new THREE.Mesh(geos.box, depMaterials.cctvHousingCharcoal);
-  forkL.position.set(-0.10, -0.07, 0);
-  forkL.scale.set(0.025, 0.14, 0.09);
-  panTurntable.add(forkL);
-
-  const forkR = new THREE.Mesh(geos.box, depMaterials.cctvHousingCharcoal);
-  forkR.position.set(0.10, -0.07, 0);
-  forkR.scale.set(0.025, 0.14, 0.09);
-  panTurntable.add(forkR);
-
-  const bcapL = new THREE.Mesh(geos.cylinder, depMaterials.cctvAnchorBolt);
-  bcapL.rotation.z = Math.PI / 2;
-  bcapL.position.set(-0.115, -0.07, 0);
-  bcapL.scale.set(0.022, 0.015, 0.022);
-  panTurntable.add(bcapL);
-
-  const bcapR = new THREE.Mesh(geos.cylinder, depMaterials.cctvAnchorBolt);
-  bcapR.rotation.z = Math.PI / 2;
-  bcapR.position.set(0.115, -0.07, 0);
-  bcapR.scale.set(0.022, 0.015, 0.022);
-  panTurntable.add(bcapR);
-
-  // Central Camera Optical Core (surveillance pitch downward ~22°)
-  const tiltCradle = new THREE.Group();
-  tiltCradle.position.set(0, -0.07, 0);
-  tiltCradle.rotation.x = 0.38;
-  panTurntable.add(tiltCradle);
-
   const tcore = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvLensGlass);
-  tcore.scale.set(0.085, 0.085, 0.085);
-  tiltCradle.add(tcore);
+  tcore.scale.set(0.10, 0.10, 0.10);
+  panTurntable.add(tcore);
 
-  // Stepped Main Zoom Lens Barrel projecting forward
-  const barrel1 = new THREE.Mesh(geos.cylinder, depMaterials.cctvLensGlass);
-  barrel1.rotation.x = Math.PI / 2;
-  barrel1.position.set(0, 0, 0.05);
-  barrel1.scale.set(0.052, 0.08, 0.052);
-  tiltCradle.add(barrel1);
+  const lensBarrel = new THREE.Mesh(geos.cylinder, depMaterials.cctvHousingCharcoal);
+  lensBarrel.rotation.x = Math.PI / 2 + 0.3;
+  lensBarrel.position.set(0, -0.025, 0.06);
+  lensBarrel.scale.set(0.048, 0.07, 0.048);
+  panTurntable.add(lensBarrel);
 
-  const barrelRing = new THREE.Mesh(geos.cylinder, depMaterials.cctvHousingCharcoal);
-  barrelRing.rotation.x = Math.PI / 2;
-  barrelRing.position.set(0, 0, 0.08);
-  barrelRing.scale.set(0.056, 0.025, 0.056);
-  tiltCradle.add(barrelRing);
+  const recLed = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvLedRed);
+  recLed.position.set(0, 0.035, 0.08);
+  recLed.scale.set(0.010, 0.010, 0.010);
+  panTurntable.add(recLed);
 
-  const lensBezel = new THREE.Mesh(geos.cylinder, depMaterials.vipChrome);
-  lensBezel.rotation.x = Math.PI / 2;
-  lensBezel.position.set(0, 0, 0.10);
-  lensBezel.scale.set(0.054, 0.012, 0.054);
-  tiltCradle.add(lensBezel);
-
-  const frontGlass = new THREE.Mesh(geos.cylinder, depMaterials.cctvLensAR);
-  frontGlass.rotation.x = Math.PI / 2;
-  frontGlass.position.set(0, 0, 0.106);
-  frontGlass.scale.set(0.046, 0.005, 0.046);
-  tiltCradle.add(frontGlass);
-
-  const pupil = new THREE.Mesh(geos.cylinder, depMaterials.cctvLensAperture);
-  pupil.rotation.x = Math.PI / 2;
-  pupil.position.set(0, 0, 0.108);
-  pupil.scale.set(0.024, 0.003, 0.024);
-  tiltCradle.add(pupil);
-
-  // Dual High-Power Infrared (IR) Matrix Arrays flanking the lens
-  for (const irSide of [-1, 1]) {
-    const irPanel = new THREE.Mesh(geos.box, depMaterials.cctvHousingCharcoal);
-    irPanel.position.set(irSide * 0.058, 0, 0.07);
-    irPanel.scale.set(0.035, 0.065, 0.015);
-    tiltCradle.add(irPanel);
-
-    for (let iy = -0.022; iy <= 0.022; iy += 0.018) {
-      for (let ix = -0.010; ix <= 0.010; ix += 0.014) {
-        const irLed = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvIRLed);
-        irLed.position.set(irSide * 0.058 + ix, iy, 0.078);
-        irLed.scale.set(0.004, 0.004, 0.004);
-        tiltCradle.add(irLed);
-      }
-    }
-  }
-
-  // Active REC / Tally LED on the turret face
-  const turretRec = new THREE.Mesh(geos.sphereSmooth, depMaterials.cctvLedRed);
-  turretRec.position.set(0, 0.040, 0.095);
-  turretRec.scale.set(0.006, 0.006, 0.006);
-  tiltCradle.add(turretRec);
-
-  // Ambient daylight photocell sensor eye
-  const photocell = new THREE.Mesh(geos.cylinder, depMaterials.cctvAnchorBolt);
-  photocell.rotation.x = Math.PI / 2;
-  photocell.position.set(0, -0.040, 0.095);
-  photocell.scale.set(0.006, 0.008, 0.006);
-  tiltCradle.add(photocell);
-
-  // Store turntable reference for dynamic idle pan sweep & REC blink
   g.userData.cctvTurret = panTurntable;
-  g.userData.cctvTilt = tiltCradle;
-  g.userData.cctvRecLed = turretRec;
-
-  // 7. Smoked Optical Dome Acrylic Bubble
-  const domeRadius = 0.215;
-  const domeGeo = new THREE.SphereGeometry(domeRadius, 32, 24, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
-  const domeMesh = new THREE.Mesh(domeGeo, depMaterials.cctvDomeSmoked);
-  domeMesh.position.set(0, camOriginY - 0.28, camZ);
-  g.add(domeMesh);
+  g.userData.cctvRecLed = recLed;
 }
 
 function depCreateEquipmentMesh(kind, extra) {
@@ -16876,7 +16757,13 @@ window.__DEP_CYCLE_NEAREST = depCycleNearestItem;
 window.__camera = camera;
 window.__controls = controls;
 window.__depView = depView;
-try { Object.defineProperty(window, "__depItems", { get: () => depItems, configurable: true }); } catch(e){ window.__depItems = depItems; }
+try {
+  window.depItems = depItems;
+  Object.defineProperty(window, "depItems", { get: () => depItems, set: (v) => { depItems = v; }, configurable: true });
+} catch(e) { window.depItems = depItems; }
+try {
+  Object.defineProperty(window, "__depItems", { get: () => depItems, set: (v) => { depItems = v; }, configurable: true });
+} catch(e) { window.__depItems = depItems; }
 try { Object.defineProperty(window, "__depSelected", { get: () => depSelected, configurable: true }); } catch(e){}
 window.__depChoose = depChoose;
 
