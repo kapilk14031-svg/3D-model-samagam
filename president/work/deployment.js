@@ -8161,6 +8161,7 @@ const depMaterials={
 
 
   crateTrim:new THREE.MeshStandardMaterial({color:0x272e39,roughness:0.38,metalness:0.7}),
+  darkBlue:new THREE.MeshStandardMaterial({color:0x2e4663,roughness:0.42,metalness:0.25}),
   // Helipad Materials (Exact 1:1 match to static helipad mats from data.colors)
   padConcrete:new THREE.MeshStandardMaterial({color:new THREE.Color('#4b535d').convertSRGBToLinear(),roughness:0.85,metalness:0}),
   padOuterRim:new THREE.MeshStandardMaterial({color:new THREE.Color('#cbd5e1').convertSRGBToLinear(),roughness:0.85,metalness:0}),
@@ -9287,133 +9288,147 @@ function depBuildParking(g) { depBuildParkingLot(g); }
 function depBuildParkingLot(g) {
   g.scale.setScalar(1);
 
-  // Deep Retaining Foundation Plinth (prevents sinking/clipping into sloped ground)
-  depPart(g, 'box', [0, -0.22, 0], [14.4, 0.55, 10.4], 'padConcrete');
-  depPart(g, 'box', [0, 0.07, 0], [14.2, 0.14, 10.2], 'dark');
+  // Deep Retaining Foundation Plinth
+  depPart(g, 'box', [0, -0.22, 0], [14.4, 0.55, 9.4], 'padConcrete');
+  depPart(g, 'box', [0, 0.07, 0], [14.2, 0.14, 9.2], 'dark');
 
   // 1. Heavy Asphalt Tarmac Ground Pavement
-  depPart(g, 'box', [0, 0.09, 0], [14.0, 0.10, 10.0], 'padAsphalt');
+  depPart(g, 'box', [0, 0.09, 0], [14.0, 0.10, 9.0], 'padAsphalt');
 
-  // Perimeter Raised Concrete Curbing with Yellow/Black Safety Stripes
-  depPart(g, 'box', [0, 0.18, -5.02], [14.2, 0.18, 0.22], 'dark');
-  depPart(g, 'box', [0, 0.18, 5.02], [14.2, 0.18, 0.22], 'dark');
-  depPart(g, 'box', [-7.02, 0.18, 0], [0.22, 0.18, 10.2], 'dark');
-  depPart(g, 'box', [7.02, 0.18, 0], [0.22, 0.18, 10.2], 'dark');
+  // Perimeter Raised Concrete Curbing (Light Slate/Blue-Grey Border)
+  depPart(g, 'box', [0, 0.18, -4.52], [14.2, 0.18, 0.22], 'padOuterRim');
+  depPart(g, 'box', [0, 0.18, 4.52], [14.2, 0.18, 0.22], 'padOuterRim');
+  depPart(g, 'box', [-7.02, 0.18, 0], [0.22, 0.18, 9.2], 'padOuterRim');
+  depPart(g, 'box', [7.02, 0.18, 0], [0.22, 0.18, 9.2], 'padOuterRim');
 
-  // 2. High-Visibility Parking Bay Demarcation Lines
+  // 2. High-Visibility Parking Bay Demarcation Lines (White Stall Lines)
   for (let bx = -6.0; bx <= 6.0; bx += 3.0) {
-    depPart(g, 'box', [bx, 0.11, 0], [0.12, 0.015, 8.2], 'padLineWhite');
-    depPart(g, 'cylinder', [bx + 1.5, 0.16, -3.6], [0.12, 0.14, 0.12], 'yellow');
+    depPart(g, 'box', [bx, 0.11, 0], [0.12, 0.015, 7.8], 'padLineWhite');
   }
-  depPart(g, 'box', [0, 0.11, 4.1], [12.2, 0.015, 0.12], 'padLineWhite');
+  depPart(g, 'box', [0, 0.11, -3.9], [12.2, 0.015, 0.12], 'padLineWhite');
 
-  // Blue & White "P" Parking Facility Signpost
+  // 4 Yellow Perimeter Ground Lights along the Front Curb (one in front of each vehicle bay)
+  for (const bx of [-4.5, -1.5, 1.5, 4.5]) {
+    depPart(g, 'cylinder', [bx, 0.18, 4.3], [0.16, 0.16, 0.16], 'yellow');
+  }
+
+  // Blue & White "P" Parking Facility Signpost (Behind Bus on Far Right)
   const pSign = new THREE.Group();
-  pSign.position.set(-6.2, 0, 4.2);
+  pSign.position.set(5.2, 0, -2.8);
   g.add(pSign);
-  depPart(pSign, 'cylinder', [0, 1.25, 0], [0.045, 2.5, 0.045], 'chrome');
-  depPart(pSign, 'box', [0, 2.45, 0], [0.65, 0.65, 0.05], 'blue');
-  depPart(pSign, 'cylinder', [0, 2.45, 0.03], [0.28, 0.02, 0.28], 'white');
-  depPart(pSign, 'box', [-0.06, 2.45, 0.045], [0.08, 0.35, 0.02], 'blue');
-  depPart(pSign, 'torus', [0.02, 2.52, 0.045], [0.08, 0.03, 1], 'blue');
+  depPart(pSign, 'cylinder', [0, 1.35, 0], [0.045, 2.7, 0.045], 'chrome');
+  depPart(pSign, 'box', [0, 2.65, 0], [0.70, 0.70, 0.05], 'blue');
+  depPart(pSign, 'cylinder', [0, 2.65, 0.03], [0.30, 0.02, 0.30], 'white');
+  depPart(pSign, 'box', [-0.07, 2.65, 0.045], [0.08, 0.38, 0.02], 'blue');
+  depPart(pSign, 'torus', [0.02, 2.73, 0.045], [0.09, 0.03, 1], 'blue');
 
-  // 3. Four Distinct High-Detail 3D Vehicles
+  // 3. Four Distinct High-Detail 3D Vehicles (Facing +Z Forward Towards Viewer)
 
-  // --- VEHICLE 1 (Bay 1): Heavy Haryana Police Security Force Bus ---
+  // --- VEHICLE 1 (Bay 1, Far Left: x = -4.5): Blue Police SUV / Gypsy ---
+  const suv1 = new THREE.Group();
+  suv1.position.set(-4.5, 0, 0.2);
+  g.add(suv1);
+  depPart(suv1, 'box', [0, 0.28, 0], [1.85, 0.18, 4.2], 'dark');
+  for (const sx of [-0.95, 0.95]) {
+    for (const sz of [-1.3, 1.3]) {
+      const sw = depPart(suv1, 'cylinder', [sx, 0.38, sz], [0.38, 0.22, 0.38], 'tireRubber');
+      sw.rotation.z = Math.PI / 2;
+      const srim = depPart(suv1, 'cylinder', [sx, 0.38, sz], [0.24, 0.23, 0.24], 'dark');
+      srim.rotation.z = Math.PI / 2;
+    }
+  }
+  // Dark Blue Body & Cab
+  depPart(suv1, 'box', [0, 0.82, 0], [1.88, 0.62, 4.25], 'darkBlue');
+  depPart(suv1, 'box', [0, 1.36, -0.3], [1.70, 0.60, 2.55], 'darkBlue');
+  const sws1 = depPart(suv1, 'box', [0, 1.30, 1.05], [1.56, 0.54, 0.05], 'glassTint');
+  sws1.rotation.x = 0.42;
+  // White Headlights on Front Bumper (+Z)
+  for (const hx of [-0.65, 0.65]) {
+    depPart(suv1, 'box', [hx, 0.72, 2.14], [0.26, 0.14, 0.04], 'white');
+  }
+  // Roof Top Markers
+  for (const rx of [-0.4, 0.4]) {
+    depPart(suv1, 'box', [rx, 1.68, -0.2], [0.18, 0.06, 0.18], 'white');
+  }
+
+  // --- VEHICLE 2 (Bay 2, Center Left: x = -1.5): Blue Police Sedan Car ---
+  const car = new THREE.Group();
+  car.position.set(-1.5, 0, 0.0);
+  g.add(car);
+  depPart(car, 'box', [0, 0.24, 0], [1.78, 0.16, 4.3], 'dark');
+  for (const cx of [-0.90, 0.90]) {
+    for (const cz of [-1.3, 1.3]) {
+      const cw = depPart(car, 'cylinder', [cx, 0.32, cz], [0.32, 0.20, 0.32], 'tireRubber');
+      cw.rotation.z = Math.PI / 2;
+      const crim = depPart(car, 'cylinder', [cx, 0.32, cz], [0.20, 0.21, 0.20], 'dark');
+      crim.rotation.z = Math.PI / 2;
+    }
+  }
+  // Low-Slung Dark Blue Sedan Body
+  depPart(car, 'box', [0, 0.64, 0], [1.80, 0.46, 4.35], 'darkBlue');
+  depPart(car, 'box', [0, 1.08, -0.12], [1.58, 0.48, 2.25], 'darkBlue');
+  const cws = depPart(car, 'box', [0, 1.05, 1.05], [1.46, 0.46, 0.05], 'glassTint');
+  cws.rotation.x = 0.55;
+  const crws = depPart(car, 'box', [0, 1.05, -1.28], [1.46, 0.46, 0.05], 'glassTint');
+  crws.rotation.x = -0.55;
+  // Front Headlights
+  for (const hx of [-0.62, 0.62]) {
+    depPart(car, 'box', [hx, 0.62, 2.18], [0.24, 0.12, 0.04], 'white');
+  }
+
+  // --- VEHICLE 3 (Bay 3, Center Right: x = 1.5): White Police Ambulance / Van ---
+  const van = new THREE.Group();
+  van.position.set(1.5, 0, 0.2);
+  g.add(van);
+  depPart(van, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
+  for (const vx of [-0.95, 0.95]) {
+    for (const vz of [-1.35, 1.35]) {
+      const vw = depPart(van, 'cylinder', [vx, 0.38, vz], [0.38, 0.22, 0.38], 'tireRubber');
+      vw.rotation.z = Math.PI / 2;
+      const vrim = depPart(van, 'cylinder', [vx, 0.38, vz], [0.24, 0.23, 0.24], 'dark');
+      vrim.rotation.z = Math.PI / 2;
+    }
+  }
+  // Dark Blue Lower Skirt & White Upper Body
+  depPart(van, 'box', [0, 0.56, 0], [1.88, 0.34, 4.42], 'darkBlue');
+  depPart(van, 'box', [0, 1.06, 0], [1.86, 0.70, 4.40], 'whiteBody');
+  depPart(van, 'box', [0, 1.50, -0.1], [1.72, 0.42, 3.2], 'whiteBody');
+  // Grey Roof Panel
+  depPart(van, 'box', [0, 1.72, -0.1], [1.35, 0.04, 2.4], 'shutterMetal');
+  // Front Windshield & Headlights
+  const vws = depPart(van, 'box', [0, 1.36, 1.25], [1.55, 0.56, 0.06], 'glassTint');
+  vws.rotation.x = 0.38;
+  for (const hx of [-0.65, 0.65]) {
+    depPart(van, 'box', [hx, 0.70, 2.22], [0.26, 0.14, 0.04], 'white');
+  }
+
+  // --- VEHICLE 4 (Bay 4, Far Right: x = 4.5): Blue Police Security Bus ---
   const bus = new THREE.Group();
-  bus.position.set(-4.5, 0, -0.4);
+  bus.position.set(4.5, 0, -0.3);
   g.add(bus);
   // Chassis & Wheels
   depPart(bus, 'box', [0, 0.35, 0], [2.35, 0.25, 6.8], 'dark');
   for (const bx of [-1.15, 1.15]) {
-    for (const bz of [-2.1, 1.9]) {
+    for (const bz of [-1.9, 2.1]) {
       const bw = depPart(bus, 'cylinder', [bx, 0.45, bz], [0.45, 0.26, 0.45], 'tireRubber');
       bw.rotation.z = Math.PI / 2;
       const rim = depPart(bus, 'cylinder', [bx, 0.45, bz], [0.28, 0.27, 0.28], 'dark');
       rim.rotation.z = Math.PI / 2;
     }
   }
-  // Bus Body & Police Dark Blue/White Livery
+  // Bus Body & Police Dark Blue / White Livery
   depPart(bus, 'box', [0, 1.62, 0], [2.40, 1.95, 6.75], 'darkBlue');
-  depPart(bus, 'box', [0, 1.22, 0], [2.42, 0.32, 6.78], 'white');
-  depPart(bus, 'box', [0, 1.05, 0], [2.43, 0.10, 6.80], 'vipBeaconRed');
-  // Windshield & Side Windows
-  const bws = depPart(bus, 'box', [0, 1.82, -3.38], [2.25, 0.95, 0.06], 'glassTint');
-  bws.rotation.x = -0.08;
+  depPart(bus, 'box', [0, 1.45, 0], [2.42, 0.28, 6.78], 'white');
+  depPart(bus, 'box', [0, 1.05, 0], [2.43, 0.10, 6.80], 'darkBlue');
+  // Windshield Facing +Z
+  const bws = depPart(bus, 'box', [0, 1.82, 3.38], [2.25, 0.95, 0.06], 'glassTint');
+  bws.rotation.x = 0.08;
   for (const sx of [-1.22, 1.22]) {
-    depPart(bus, 'box', [sx, 1.85, 0.25], [0.02, 0.75, 5.2], 'glassTint');
+    depPart(bus, 'box', [sx, 1.85, -0.25], [0.02, 0.75, 5.2], 'glassTint');
   }
   // Roof AC Units & Beacon
-  depPart(bus, 'box', [0, 2.70, 0.4], [1.45, 0.22, 2.2], 'white');
-  depPart(bus, 'box', [0, 2.72, -3.0], [0.35, 0.12, 0.25], 'vipBeaconRed');
-
-  // --- VEHICLE 2 (Bay 2): White VIP Fortuner SUV ---
-  const suv1 = new THREE.Group();
-  suv1.position.set(-1.5, 0, -0.6);
-  g.add(suv1);
-  depPart(suv1, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
-  for (const sx of [-0.95, 0.95]) {
-    for (const sz of [-1.35, 1.35]) {
-      const sw = depPart(suv1, 'cylinder', [sx, 0.38, sz], [0.38, 0.22, 0.38], 'tireRubber');
-      sw.rotation.z = Math.PI / 2;
-      const srim = depPart(suv1, 'cylinder', [sx, 0.38, sz], [0.24, 0.23, 0.24], 'chrome');
-      srim.rotation.z = Math.PI / 2;
-    }
-  }
-  // Body, Cab & Chrome Grille
-  depPart(suv1, 'box', [0, 0.85, 0], [1.88, 0.65, 4.45], 'whiteBody');
-  depPart(suv1, 'box', [0, 1.38, 0.2], [1.68, 0.62, 2.65], 'whiteBody');
-  const sws1 = depPart(suv1, 'box', [0, 1.32, -1.18], [1.55, 0.55, 0.05], 'glassTint');
-  sws1.rotation.x = -0.42;
-  depPart(suv1, 'box', [0, 0.72, -2.24], [1.32, 0.26, 0.05], 'chrome');
-  for (const hx of [-0.68, 0.68]) {
-    depPart(suv1, 'box', [hx, 0.74, -2.23], [0.26, 0.14, 0.04], 'white');
-  }
-  depPart(suv1, 'box', [0, 1.74, 0.25], [1.25, 0.06, 2.1], 'chrome');
-
-  // --- VEHICLE 3 (Bay 3): Executive Administration Sedan (Silver-Grey) ---
-  const car = new THREE.Group();
-  car.position.set(1.5, 0, -0.8);
-  g.add(car);
-  depPart(car, 'box', [0, 0.24, 0], [1.78, 0.16, 4.3], 'dark');
-  for (const cx of [-0.90, 0.90]) {
-    for (const cz of [-1.32, 1.32]) {
-      const cw = depPart(car, 'cylinder', [cx, 0.32, cz], [0.32, 0.20, 0.32], 'tireRubber');
-      cw.rotation.z = Math.PI / 2;
-      const crim = depPart(car, 'cylinder', [cx, 0.32, cz], [0.20, 0.21, 0.20], 'chrome');
-      crim.rotation.z = Math.PI / 2;
-    }
-  }
-  // Low-Slung Sedan Body
-  depPart(car, 'box', [0, 0.64, 0], [1.80, 0.46, 4.35], 'shutterSilver');
-  depPart(car, 'box', [0, 1.08, 0.12], [1.58, 0.48, 2.25], 'shutterSilver');
-  const cws = depPart(car, 'box', [0, 1.05, -1.05], [1.46, 0.46, 0.05], 'glassTint');
-  cws.rotation.x = -0.55;
-  const crws = depPart(car, 'box', [0, 1.05, 1.28], [1.46, 0.46, 0.05], 'glassTint');
-  crws.rotation.x = 0.55;
-
-  // --- VEHICLE 4 (Bay 4): Black Security Escort SUV with VIP Flasher ---
-  const suv2 = new THREE.Group();
-  suv2.position.set(4.5, 0, -0.6);
-  g.add(suv2);
-  depPart(suv2, 'box', [0, 0.28, 0], [1.85, 0.18, 4.4], 'dark');
-  for (const sx of [-0.95, 0.95]) {
-    for (const sz of [-1.35, 1.35]) {
-      const sw = depPart(suv2, 'cylinder', [sx, 0.38, sz], [0.38, 0.22, 0.38], 'tireRubber');
-      sw.rotation.z = Math.PI / 2;
-      const srim = depPart(suv2, 'cylinder', [sx, 0.38, sz], [0.24, 0.23, 0.24], 'dark');
-      srim.rotation.z = Math.PI / 2;
-    }
-  }
-  depPart(suv2, 'box', [0, 0.85, 0], [1.88, 0.65, 4.45], 'dark');
-  depPart(suv2, 'box', [0, 1.38, 0.2], [1.68, 0.62, 2.65], 'dark');
-  const sws2 = depPart(suv2, 'box', [0, 1.32, -1.18], [1.55, 0.55, 0.05], 'glassTint');
-  sws2.rotation.x = -0.42;
-  // Red/Blue Grill Strobes & Roof Flasher Bar
-  depPart(suv2, 'box', [-0.35, 0.74, -2.24], [0.22, 0.08, 0.04], 'vipBeaconRed');
-  depPart(suv2, 'box', [0.35, 0.74, -2.24], [0.22, 0.08, 0.04], 'vipBeaconBlue');
-  depPart(suv2, 'box', [-0.25, 1.74, 0.25], [0.24, 0.06, 0.12], 'vipBeaconRed');
-  depPart(suv2, 'box', [0.25, 1.74, 0.25], [0.24, 0.06, 0.12], 'vipBeaconBlue');
+  depPart(bus, 'box', [0, 2.70, -0.4], [1.45, 0.22, 2.2], 'white');
+  depPart(bus, 'box', [0, 2.70, 2.6], [0.32, 0.12, 0.25], 'vipBeaconRed');
 }
 
 // =========================================================================
@@ -9526,41 +9541,43 @@ function depBuildHelipad(g) {
     cR.rotation.y = -0.45 * sign;
   }
 
-  // 10. Yellow Aviation Stencils: "VIP" and "12t"
+  // 10. Yellow Aviation Stencils: "VIP" and "15 t"
   const addStencil = (text, startX, centerZ, letterSpacing = 1.35) => {
     let curX = startX;
     for (const char of text) {
       if (char === 'V') {
         const vL = addMesh('box', 'padLineYellow', [curX - 0.28, markY + 0.008, centerZ], [0.26, 0.024, 1.6]);
-        vL.rotation.y = 0.22;
+        vL.rotation.y = -0.22;
         const vR = addMesh('box', 'padLineYellow', [curX + 0.28, markY + 0.008, centerZ], [0.26, 0.024, 1.6]);
-        vR.rotation.y = -0.22;
+        vR.rotation.y = 0.22;
       } else if (char === 'I') {
         addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ], [0.28, 0.024, 1.6]);
       } else if (char === 'P') {
         addMesh('box', 'padLineYellow', [curX - 0.35, markY + 0.008, centerZ], [0.26, 0.024, 1.6]);
-        addMesh('box', 'padLineYellow', [curX + 0.05, markY + 0.008, centerZ + 0.65], [0.75, 0.024, 0.26]);
+        addMesh('box', 'padLineYellow', [curX + 0.05, markY + 0.008, centerZ - 0.65], [0.75, 0.024, 0.26]);
         addMesh('box', 'padLineYellow', [curX + 0.05, markY + 0.008, centerZ], [0.75, 0.024, 0.26]);
-        addMesh('box', 'padLineYellow', [curX + 0.42, markY + 0.008, centerZ + 0.32], [0.26, 0.024, 0.7]);
+        addMesh('box', 'padLineYellow', [curX + 0.42, markY + 0.008, centerZ - 0.32], [0.26, 0.024, 0.7]);
       } else if (char === '1') {
         addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ], [0.28, 0.024, 1.6]);
-        const s1 = addMesh('box', 'padLineYellow', [curX - 0.22, markY + 0.008, centerZ + 0.55], [0.4, 0.024, 0.26]);
-        s1.rotation.y = 0.4;
-      } else if (char === '2') {
-        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ + 0.65], [0.9, 0.024, 0.26]);
-        addMesh('box', 'padLineYellow', [curX + 0.35, markY + 0.008, centerZ + 0.35], [0.26, 0.024, 0.7]);
-        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ], [0.9, 0.024, 0.26]);
-        addMesh('box', 'padLineYellow', [curX - 0.35, markY + 0.008, centerZ - 0.35], [0.26, 0.024, 0.7]);
+        const s1 = addMesh('box', 'padLineYellow', [curX - 0.22, markY + 0.008, centerZ - 0.55], [0.4, 0.024, 0.26]);
+        s1.rotation.y = -0.4;
+      } else if (char === '5') {
         addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ - 0.65], [0.95, 0.024, 0.26]);
+        addMesh('box', 'padLineYellow', [curX - 0.35, markY + 0.008, centerZ - 0.35], [0.26, 0.024, 0.7]);
+        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ], [0.9, 0.024, 0.26]);
+        addMesh('box', 'padLineYellow', [curX + 0.35, markY + 0.008, centerZ + 0.35], [0.26, 0.024, 0.7]);
+        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ + 0.65], [0.95, 0.024, 0.26]);
       } else if (char === 't') {
-        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ - 0.15], [0.26, 0.024, 1.35]);
-        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ + 0.22], [0.75, 0.024, 0.26]);
+        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ + 0.15], [0.26, 0.024, 1.35]);
+        addMesh('box', 'padLineYellow', [curX, markY + 0.008, centerZ - 0.22], [0.75, 0.024, 0.26]);
+      } else if (char === ' ') {
+        // Space
       }
       curX += letterSpacing;
     }
   };
-  addStencil('VIP', -5.5, 3.8, 1.2);
-  addStencil('12t', 3.8, -3.8, 1.1);
+  addStencil('15 t', -5.8, -0.2, 1.15);
+  addStencil('VIP', 3.6, -0.2, 1.25);
 
   // 11. Perimeter Floodlight Towers (4 diagonal masts at radius 19.5m)
   const poleAngles = [Math.PI * 0.25, Math.PI * 0.75, Math.PI * 1.25, Math.PI * 1.75];
@@ -9577,7 +9594,7 @@ function depBuildHelipad(g) {
   }
 
   // 12. Aviation Windsock Assembly (Slender Mast & Striped Swivel Cone at R = 16.2m)
-  const windAng = 0.72 * Math.PI;
+  const windAng = -0.28 * Math.PI;
   const wx = Math.cos(windAng) * 16.2;
   const wz = Math.sin(windAng) * 16.2;
   addMesh('cylinder', 'padConcrete', [wx, 0.32, wz], [0.45, 0.20, 0.45]);

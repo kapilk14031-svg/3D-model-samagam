@@ -1236,13 +1236,13 @@ function init3DCardRotators() {{
       let camDistMult = 1.6;
 
       if (kind === 'helipad') {{
-        initialRotY = Math.PI - 0.35;
-        initialRotX = 0.42; // Elevated aerial view to showcase bold 'H' and lights
-        camDistMult = 1.35;
+        initialRotY = -0.02; // Upright 'H', '15 t' on left, 'VIP' on right, windsock top-right
+        initialRotX = 0.46; // Aerial elevated perspective
+        camDistMult = 1.45;
       }} else if (kind === 'parking') {{
-        initialRotY = Math.PI - 0.52;
-        initialRotX = 0.38; // Elevated aerial perspective to showcase all parked cars & stalls
-        camDistMult = 1.25;
+        initialRotY = -0.06; // Front horizontal perspective matching user reference image
+        initialRotX = 0.38;
+        camDistMult = 1.18;
       }} else if (kind === 'light') {{
         initialRotY = Math.PI - 0.45;
         initialRotX = 0.14; // Shows trailer, outriggers, generator, and 4 floodlights
@@ -1353,11 +1353,13 @@ function init3DCardRotators() {{
         const s = cardStates[k];
         if (!s || !s.visible) continue;
 
-        // No auto-spin; rotates only on user drag
+        // Rotate turntable stage together with the pivot
         s.pivot.rotation.y = s.rotY;
         s.pivot.rotation.x = s.rotX;
 
         stageGroup.scale.set(s.stageRadius, 1, s.stageRadius);
+        stageGroup.rotation.y = s.rotY;
+        stageGroup.rotation.x = s.rotX;
 
         offCamera.position.set(0, s.camTargetY + s.camDist * 0.28, s.camDist);
         offCamera.lookAt(0, s.camTargetY, 0);
@@ -1382,6 +1384,8 @@ function init3DCardRotators() {{
         s.pivot.rotation.x = modalState.rotX;
 
         stageGroup.scale.set(s.stageRadius * 1.05, 1, s.stageRadius * 1.05);
+        stageGroup.rotation.y = modalState.rotY;
+        stageGroup.rotation.x = modalState.rotX;
 
         const mDist = s.camDist * modalState.zoom;
         offCamera.aspect = modalCanvas.width / modalCanvas.height;
