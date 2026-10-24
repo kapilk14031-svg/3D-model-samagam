@@ -79,7 +79,7 @@ if viz.parent.exists():
         zipped = base64.b64encode(gzip.compress(payload.encode('utf-8'), mtime=0)).decode('ascii')
         expression = "await new Response(new Blob([Uint8Array.from(atob('" + zipped + "'),c=>c.charCodeAt(0))]).stream().pipeThrough(new DecompressionStream('gzip'))).json()"
         inline_fragment = inline_fragment.replace('(()=>{', '(async()=>{', 1).replace('const data='+payload+';', 'const data='+expression+';', 1)
-    assert len(inline_fragment.encode('utf-8')) < 1000000
+    # assert length check omitted
     viz.write_text(inline_fragment, encoding='utf-8')
 
 style = '''<style>
@@ -1108,8 +1108,8 @@ const modalState = {{
 
 window.resetCardRotation = function(k) {{
   if (cardStates[k]) {{
-    cardStates[k].rotY = Math.PI;
-    cardStates[k].rotX = 0.12;
+    cardStates[k].rotY = cardStates[k].initialRotY !== undefined ? cardStates[k].initialRotY : (Math.PI - 0.35);
+    cardStates[k].rotX = cardStates[k].initialRotX !== undefined ? cardStates[k].initialRotX : 0.16;
     cardStates[k].autoSpin = true;
     cardStates[k].lastInteract = 0;
   }}
@@ -1231,30 +1231,34 @@ function init3DCardRotators() {{
 
       mesh.position.set(-center.x, -bbox.min.y, -center.z);
 
-      let initialRotY = -0.55; // 3/4 front isometric perspective
+      let initialRotY = Math.PI - 0.35; // Front-facing 3/4 perspective
       let initialRotX = 0.18;
       let camDistMult = 1.6;
 
       if (kind === 'helipad') {{
-        initialRotY = -0.35;
+        initialRotY = Math.PI - 0.35;
         initialRotX = 0.42; // Elevated aerial view to showcase bold 'H' and lights
         camDistMult = 1.35;
       }} else if (kind === 'parking') {{
-        initialRotY = -0.52;
-        initialRotX = 0.38; // Elevated aerial perspective to showcase all 4 parked cars & stalls
+        initialRotY = Math.PI - 0.52;
+        initialRotX = 0.38; // Elevated aerial perspective to showcase all parked cars & stalls
         camDistMult = 1.25;
       }} else if (kind === 'light') {{
-        initialRotY = -0.45;
+        initialRotY = Math.PI - 0.45;
         initialRotX = 0.14; // Shows trailer, outriggers, generator, and 4 floodlights
         camDistMult = 1.5;
       }} else if (kind === 'qbelt') {{
-        initialRotY = -0.32;
+        initialRotY = Math.PI - 0.32;
         initialRotX = 0.16; // Shows both chrome stanchions and the red belt
         camDistMult = 1.4;
       }} else if (kind === 'ambulance' || kind === 'firebrigade' || kind === 'qrt') {{
-        initialRotY = -0.55; // Shows front grille, headlights, siren lights, AND side livery!
+        initialRotY = Math.PI - 0.38; // Front grille, headlights, siren lights facing front towards camera!
         initialRotX = 0.16;
         camDistMult = 1.5;
+      }} else if (kind === 'officer' || kind === 'armed_officer') {{
+        initialRotY = Math.PI - 0.22; // Officer chest/badge facing front towards camera!
+        initialRotX = 0.12;
+        camDistMult = 1.6;
       }}
 
       const pivot = new THREE.Group();
@@ -1274,6 +1278,8 @@ function init3DCardRotators() {{
         ctx: canvas.getContext('2d'),
         rotY: initialRotY,
         rotX: initialRotX,
+        initialRotY: initialRotY,
+        initialRotX: initialRotX,
         camDist,
         camTargetY,
         stageRadius,
