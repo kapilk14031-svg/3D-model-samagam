@@ -173,6 +173,8 @@ from register_scene import register
 objects,colors,signs,labels,georeference=register(objects,colors,signs,labels)
 from detail_helipad import add_helipad
 objects,colors,georeference=add_helipad(objects,colors,georeference)
+from detail_drone_exterior_oct24 import improve as drone_exterior_details
+objects,colors,georeference=drone_exterior_details(objects,colors,georeference)
 data={'objects':objects,'colors':colors,'labels':labels,'origin':{'latitude':29.413077,'longitude':76.848831,'coordinateFrame':'local metres, +X east, +Z south; schematic alignment'},'assumptions':{'geometry':'Satellite/photo informed schematic, not survey or photogrammetry','hall':[42,66,9.8],'coreCompound':[120,120],'audienceSeatsIllustrated':320,'seatCountIsCapacity':False,'event':'All room assignments, partitions, parking and furniture are proposals','heights':'Estimated; not measured','boundary':'Approximate visual core only; legal ownership not verified'},'sources':[{'title':'Google Maps: supplied venue pin, satellite and public photographs','url':'https://maps.app.goo.gl/JG881XSsXu1Vi61L9?g_st=aw','accessed':'2026-10-20'},{'title':'Brahma Kumaris Panipat: auditorium name and event report','url':'https://panipat.bk.ooo/?p=2036','note':'Search-indexed report identifies Dadi Chandramani Universal Peace Auditorium; exact roofed footprint not established.'}]}
 data['assumptions']['audienceSeatsIllustrated']=sum(o['name']=='Cream upholstered chair seat' for o in objects)
 data['signs']=signs

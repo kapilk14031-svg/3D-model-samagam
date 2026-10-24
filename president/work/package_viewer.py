@@ -61,12 +61,22 @@ draft_plan_json = draft_p.read_text(encoding='utf-8').strip() if draft_p.exists(
 if not draft_plan_json:
     draft_plan_json = 'null'
 
+def deployment_source():
+    source=(root/'work/deployment.js').read_text(encoding='utf-8')
+    # Some saved source copies include an HTML preview prefix. Package only
+    # the existing deployment script; leave its functions and source untouched.
+    if source.lstrip().lower().startswith('<!doctype'):
+        marker='var vvipSavedView = null;'
+        if marker not in source: raise ValueError('Deployment script boundary missing')
+        source=source[source.index(marker):]
+    return source
+
 fragment = (
     (root / 'work/viewer-fragment.html')
     .read_text(encoding='utf-8')
     .replace('__DEPLOYMENT_PANEL__', (root / 'work/deployment-panel.html').read_text(encoding='utf-8'))
     .replace('__DEPLOYMENT_PLAN__', draft_plan_json)
-    .replace('__DEPLOYMENT_JS__', (root / 'work/deployment.js').read_text(encoding='utf-8'))
+    .replace('__DEPLOYMENT_JS__', deployment_source())
     .replace('__SCENE_DATA__', json.dumps(packed, ensure_ascii=False, separators=(',', ':')))
 )
 
