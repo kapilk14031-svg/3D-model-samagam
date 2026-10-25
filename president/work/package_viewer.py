@@ -104,19 +104,28 @@ style = '''<style>
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+html {
+  overflow-x: hidden !important;
+  max-width: 100%;
+}
 body {
   margin: 0;
   padding: 20px 16px;
   background: #f1f5f9;
   color: var(--text-main);
   min-height: 100vh;
+  overflow-x: hidden !important;
+  max-width: 100%;
 }
 .app-wrapper {
   max-width: 1360px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 /* Modern Reference Hub */
 .ref-hub-card {
