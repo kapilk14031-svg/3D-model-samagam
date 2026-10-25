@@ -7,11 +7,35 @@
       <span class="brand-sub">Bhodwal Majri, Panipat · 29.4131° N, 76.8488° E · Study Revision 15</span>
     </div>
     <div class="header-actions">
-      <button type="button" class="action-pill" id="gms-roster-btn" title="View, Filter and Print/Export Deployed Duty Roster">📋 Duty Roster</button>
-      <button type="button" class="action-pill" id="gms-sectors-btn" title="Toggle 3D Tactical Security Sectors">🛡️ Sectors</button>
       <button type="button" class="action-pill" id="gms-evac-btn" style="display:none !important;" title="Toggle Emergency Evacuation Corridors">🚨 Evac Routes</button>
-      <button type="button" class="action-pill" id="gms-measure-btn" title="Virtual 3D Measuring Tape (Distance Tool)">📏 Measure</button>
-      <button type="button" class="action-pill" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas">⛶ Fullscreen</button>
+      <div class="layers-dropdown">
+        <button type="button" class="action-pill" id="gms-layers-toggle" title="Lighting &amp; Map Layers">
+          <span>⚙️ Layers &amp; Lights</span> ▾
+        </button>
+        <div class="layers-menu" id="gms-layers-menu">
+          <div class="layer-item">
+            <span class="layer-item-title">Lighting</span>
+            <select class="form-select form-select-sm" id="gms-light">
+              <option value="day" selected>☀️ Day</option>
+              <option value="evening">🌙 Night</option>
+              <option value="fog">🌫️ Winter Fog (November)</option>
+            </select>
+          </div>
+          <div class="layer-divider"></div>
+          <label class="layer-check-label">
+            <input type="checkbox" id="gms-event" class="form-check-input">
+            <span>🛡️ VVIP Proposals</span>
+          </label>
+          <label class="layer-check-label">
+            <input type="checkbox" id="gms-context" class="form-check-input" checked>
+            <span>🏘️ Nearby Blocks*</span>
+          </label>
+          <label class="layer-check-label">
+            <input type="checkbox" id="gms-snapshot" class="form-check-input" checked>
+            <span>🛰️ Satellite Objects*</span>
+          </label>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -125,53 +149,73 @@
       </div>
     </div>
 
-    <!-- Canvas Floating Top-Left: Navigation Mode Pills -->
+    <!-- Canvas Floating Top-Left: Navigation Mode & Tools Dropdowns -->
     <div class="canvas-overlay top-left">
-      <div class="mode-segmented-control" id="gms-mode-pills">
-        <button type="button" class="mode-pill active" data-mode="orbit" title="Left drag: Rotate 3D · Right drag: Pan">🔄 Orbit 3D</button>
-        <button type="button" class="mode-pill" data-mode="pan" title="Left drag: Pan">🖐️ Pan</button>
-        <button type="button" class="mode-pill" data-mode="box" title="Shift-drag or box zoom">🔍 Box Zoom</button>
+      <div class="mode-dropdown-wrapper">
+        <select id="gms-navigation" class="mode-dropdown-select" title="Navigation Mode">
+          <option value="orbit" selected>🔄 Orbit 3D</option>
+          <option value="pan">🖐️ Pan</option>
+          <option value="box">🔍 Box Zoom</option>
+        </select>
       </div>
-      <!-- Hidden legacy select kept for backward compatibility -->
-      <select id="gms-navigation" style="display:none">
-        <option value="orbit" selected>Rotate 3D</option>
-        <option value="pan">Drag / pan</option>
-        <option value="box">Rectangle zoom</option>
-      </select>
-    </div>
-
-    <!-- Canvas Floating Top-Right: Layers & Lighting Dropdown Popover -->
-    <div class="canvas-overlay top-right">
-      <button type="button" class="overlay-btn" id="gms-reset-btn" title="Reset camera to whole compound"><span>↺ Reset View</span></button>
-      <div class="layers-dropdown">
-        <button type="button" class="overlay-btn" id="gms-layers-toggle">
-          <span>⚙️ Layers &amp; Lights</span> ▾
+      <div class="tools-dropdown-wrapper" id="gms-tools-dropdown-wrapper">
+        <button type="button" class="mode-dropdown-select-btn" id="gms-tools-toggle" title="Duty Roster, Tactical Sectors & Measure Tool">
+          <span id="gms-tools-toggle-label">📋 Tools &amp; Roster</span>
+          <span class="dropdown-chevron">▾</span>
         </button>
-          <div class="layers-menu" id="gms-layers-menu">
-            <div class="layer-item">
-              <span class="layer-item-title">Lighting</span>
-              <select class="form-select form-select-sm" id="gms-light">
-                <option value="day" selected>☀️ Day</option>
-                <option value="evening">🌙 Night</option>
-                <option value="fog">🌫️ Winter Fog (November)</option>
-              </select>
+        <div class="tools-dropdown-menu" id="gms-tools-menu">
+          <button type="button" class="tools-menu-item" id="gms-roster-btn" title="View, Filter and Print/Export Deployed Duty Roster">
+            <span class="menu-item-icon">📋</span>
+            <span class="menu-item-text">Duty Roster</span>
+          </button>
+          <!-- Sectors Item with Right-Side Flyout Submenu -->
+          <div class="tools-submenu-container" id="gms-sectors-container">
+            <button type="button" class="tools-menu-item tools-submenu-trigger" id="gms-sectors-btn" title="Tactical Security Sectors (Hover or Click to view sectors)">
+              <span class="menu-item-icon">🛡️</span>
+              <span class="menu-item-text">Sectors</span>
+              <span class="submenu-arrow">▶</span>
+            </button>
+            <div class="tools-submenu" id="gms-sectors-submenu">
+              <div class="submenu-header">
+                <span class="submenu-title">🛡️ Security Sectors</span>
+              </div>
+              <button type="button" class="sector-sub-item" data-sector="1" title="Fly camera to Sector 1: Helipad & Convoy">
+                <span class="sector-badge sec-badge-1">SEC-1</span>
+                <div class="sector-meta">
+                  <span class="sector-meta-name">Sector 1: Helipad &amp; Convoy</span>
+                  <span class="sector-meta-count" id="sub-count-sec1">3 deployed posts</span>
+                </div>
+              </button>
+              <button type="button" class="sector-sub-item" data-sector="2" title="Fly camera to Sector 2: Main Gate & Perimeter">
+                <span class="sector-badge sec-badge-2">SEC-2</span>
+                <div class="sector-meta">
+                  <span class="sector-meta-name">Sector 2: Main Gate &amp; Perimeter</span>
+                  <span class="sector-meta-count" id="sub-count-sec2">22 deployed posts</span>
+                </div>
+              </button>
+              <button type="button" class="sector-sub-item" data-sector="3" title="Fly camera inside the Auditorium & Main Stage">
+                <span class="sector-badge sec-badge-3">SEC-3</span>
+                <div class="sector-meta">
+                  <span class="sector-meta-name">Sector 3: Auditorium (Interior) &amp; Stage</span>
+                  <span class="sector-meta-count" id="sub-count-sec3">12 deployed posts</span>
+                </div>
+              </button>
             </div>
-            <div class="layer-divider"></div>
-            <label class="layer-check-label">
-              <input type="checkbox" id="gms-event" class="form-check-input">
-              <span>🛡️ VVIP Proposals</span>
-            </label>
-            <label class="layer-check-label">
-              <input type="checkbox" id="gms-context" class="form-check-input" checked>
-              <span>🏘️ Nearby Blocks*</span>
-            </label>
-            <label class="layer-check-label">
-              <input type="checkbox" id="gms-snapshot" class="form-check-input" checked>
-              <span>🛰️ Satellite Objects*</span>
-            </label>
           </div>
+          <button type="button" class="tools-menu-item" id="gms-measure-btn" title="Virtual 3D Measuring Tape (Distance Tool)">
+            <span class="menu-item-icon">📏</span>
+            <span class="menu-item-text">Measure</span>
+            <span class="menu-item-badge" id="gms-measure-status">OFF</span>
+          </button>
         </div>
       </div>
+    </div>
+
+    <!-- Canvas Floating Top-Right: Reset View & Fullscreen Buttons -->
+    <div class="canvas-overlay top-right">
+      <button type="button" class="overlay-btn" id="gms-reset-btn" title="Reset camera to whole compound"><span>↺ Reset View</span></button>
+      <button type="button" class="overlay-btn" id="gms-fullscreen-btn" title="Toggle Fullscreen Canvas (F)"><span>⛶ Fullscreen</span></button>
+    </div>
 
     <!-- Canvas Floating Bottom-Left: Live Status & Inspection HUD (Hidden per user request) -->
     <div class="canvas-overlay bottom-left" style="display:none !important;">
@@ -253,24 +297,24 @@
         <button type="button" class="legend-card-close" id="sectors-legend-close" title="Close Legend">✕</button>
       </div>
       <div class="legend-card-body">
-        <div class="legend-item" data-sector="1">
+        <div class="legend-item" data-sector="1" role="button" tabindex="0" title="Click to fly 3D camera to Sector 1">
           <span class="legend-badge sec-badge-1">SEC-1</span>
           <div class="legend-info">
-            <span class="legend-name">Sector 1: Helipad &amp; Convoy</span>
+            <span class="legend-name">Sector 1: Helipad &amp; Convoy <span class="legend-focus-pill">🎯 Focus</span></span>
             <span class="legend-count" id="legend-count-sec1">0 deployed</span>
           </div>
         </div>
-        <div class="legend-item" data-sector="2">
+        <div class="legend-item" data-sector="2" role="button" tabindex="0" title="Click to fly 3D camera to Sector 2">
           <span class="legend-badge sec-badge-2">SEC-2</span>
           <div class="legend-info">
-            <span class="legend-name">Sector 2: Main Gate &amp; Perimeter</span>
+            <span class="legend-name">Sector 2: Main Gate &amp; Perimeter <span class="legend-focus-pill">🎯 Focus</span></span>
             <span class="legend-count" id="legend-count-sec2">0 deployed</span>
           </div>
         </div>
-        <div class="legend-item" data-sector="3">
+        <div class="legend-item" data-sector="3" role="button" tabindex="0" title="Click to view inside the Auditorium (Main Hall & Stage)">
           <span class="legend-badge sec-badge-3">SEC-3</span>
           <div class="legend-info">
-            <span class="legend-name">Sector 3: Auditorium &amp; Stage</span>
+            <span class="legend-name">Sector 3: Auditorium (Interior) &amp; Stage <span class="legend-focus-pill">🎯 Focus</span></span>
             <span class="legend-count" id="legend-count-sec3">0 deployed</span>
           </div>
         </div>
@@ -984,7 +1028,7 @@ html, body {
   z-index: 5;
   pointer-events: auto;
 }
-.canvas-overlay.top-left { top: 12px; left: 12px; }
+.canvas-overlay.top-left { top: 12px; left: 12px; display: flex; gap: 8px; align-items: center; z-index: 20; }
 .canvas-overlay.top-right { top: 12px; right: 12px; display: flex; gap: 8px; align-items: center; }
 
 /* VVIP Button & Cinematic Simulation Styles */
@@ -1248,36 +1292,293 @@ html, body {
 .canvas-overlay.bottom-left { bottom: 12px; left: 12px; max-width: calc(100% - 320px); }
 .canvas-overlay.bottom-right { bottom: 12px; right: 12px; }
 
-/* Segmented Control for Modes */
-.mode-segmented-control {
-  display: flex;
-  background: rgba(255, 255, 255, 0.88);
+/* Navigation Mode & Tools Dropdowns */
+.mode-dropdown-wrapper,
+.tools-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.mode-dropdown-select {
+  height: 34px;
+  padding: 0 34px 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #0f172a;
+  background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
-  padding: 3px;
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 9999px;
   box-shadow: var(--shadow-md);
-  border: 1px solid rgba(255,255,255,0.6);
-}
-.mode-pill {
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  border: none;
-  background: transparent;
-  color: var(--text-main);
-  border-radius: 9999px;
   cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
   transition: var(--transition);
 }
-.mode-pill:hover { background: rgba(0,0,0,0.05); }
-.mode-pill.active {
-  background: #0f172a;
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+.mode-dropdown-select:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(2, 132, 199, 0.5);
+}
+.mode-dropdown-select:focus {
+  background-color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.25);
+}
+.mode-dropdown-select option {
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 10px;
+}
+
+/* Tools Dropdown Button & Menu */
+.mode-dropdown-select-btn {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #0f172a;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 9999px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+.mode-dropdown-select-btn:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(2, 132, 199, 0.5);
+}
+.mode-dropdown-select-btn.active {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.25);
+  background-color: #f0f9ff;
+  color: #0369a1;
+}
+.mode-dropdown-select-btn .dropdown-chevron {
+  font-size: 11px;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+.mode-dropdown-select-btn.open .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.tools-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 190px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 100;
+}
+
+/* Tools Submenu Container & Right-Side Flyout */
+.tools-submenu-container {
+  position: relative;
+  width: 100%;
+}
+.tools-submenu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.submenu-arrow {
+  font-size: 9px;
+  color: #64748b;
+  margin-left: 6px;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.tools-submenu-container:hover .submenu-arrow,
+.tools-submenu-container.open .submenu-arrow {
+  color: #0284c7;
+  transform: translateX(2px);
+}
+
+.tools-submenu {
+  display: none;
+  position: absolute;
+  top: -4px;
+  left: calc(100% + 6px);
+  width: 275px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.18), 0 8px 12px -6px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 110;
+}
+.tools-submenu-container:hover .tools-submenu,
+.tools-submenu-container.open .tools-submenu {
+  display: flex;
+  animation: submenuSlideIn 0.15s ease-out;
+}
+@keyframes submenuSlideIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.submenu-header {
+  padding: 3px 6px 6px 6px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 2px;
+}
+.submenu-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sector-sub-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.16s ease;
+  font-family: inherit;
+}
+.sector-sub-item:hover {
+  background: #ffffff;
+  border-color: #0284c7;
+  transform: translateX(3px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+}
+.sector-sub-item:active {
+  transform: scale(0.98);
+}
+.sector-sub-item.active-sector {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.25);
+}
+
+.sector-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 5px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.sector-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.sector-meta-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+.sector-meta-count {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+#gms-sectors-legend {
+  display: none !important;
+}
+
+.tools-dropdown-menu.show {
+  display: flex;
+  animation: dropdownFadeIn 0.15s ease-out;
+}
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tools-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #0f172a;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+.tools-menu-item:hover {
+  background: #f1f5f9;
+  color: #0284c7;
+}
+.tools-menu-item.active {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.tools-menu-item .menu-item-icon {
+  font-size: 15px;
+}
+.tools-menu-item .menu-item-text {
+  flex: 1;
+}
+.tools-menu-item .menu-item-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+.tools-menu-item.active .menu-item-badge {
+  background: #0284c7;
+  color: #ffffff;
 }
 
 /* Layers Popover */
-.layers-dropdown { position: relative; }
+.layers-dropdown { position: relative; z-index: 60; }
 .overlay-btn {
   padding: 7px 14px;
   font-size: 12px;
@@ -2187,7 +2488,69 @@ html, body {
 }
 .legend-card-close:hover { color: #0f172a; }
 .legend-card-body { display: flex; flex-direction: column; gap: 8px; }
-.legend-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.legend-item[data-sector] {
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s ease;
+  user-select: none;
+}
+.legend-item[data-sector]:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateX(3px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.legend-item[data-sector]:active {
+  transform: scale(0.98);
+}
+.legend-item[data-sector].active-sector {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.legend-item[data-sector="1"].active-sector {
+  background: #f0f9ff !important;
+  border-color: #0284c7 !important;
+}
+.legend-item[data-sector="2"].active-sector {
+  background: #fffbeb !important;
+  border-color: #d97706 !important;
+}
+.legend-item[data-sector="3"].active-sector {
+  background: #ecfdf5 !important;
+  border-color: #059669 !important;
+}
+.legend-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #1e293b;
+}
+.legend-focus-pill {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 1px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.legend-item[data-sector]:hover .legend-focus-pill {
+  opacity: 1;
+}
+.legend-item[data-sector].active-sector .legend-focus-pill {
+  opacity: 1;
+  background: #0284c7;
+  color: #ffffff;
+}
 .legend-badge {
   font-size: 10px;
   font-weight: 700;
@@ -3431,13 +3794,13 @@ if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
 document.addEventListener('fullscreenchange', () => {
   if (document.fullscreenElement) {
     if (fsBtn) {
-      fsBtn.textContent = '✕ Exit Fullscreen';
+      fsBtn.innerHTML = '<span>✕ Exit Fullscreen</span>';
       fsBtn.title = 'Exit Fullscreen (F or Esc)';
     }
     resize();
   } else {
     if (fsBtn) {
-      fsBtn.textContent = '⛶ Fullscreen';
+      fsBtn.innerHTML = '<span>⛶ Fullscreen</span>';
       fsBtn.title = 'Toggle Fullscreen Canvas (F)';
     }
     // Instant reset of scroll position and horizontal scroll elimination
@@ -3601,7 +3964,15 @@ requestAnimationFrame(animate);
 
 const ray=new THREE.Raycaster(), pointer=new THREE.Vector2();let down;
 renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
-renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;if(window.__DEP_IS_TAB_OPEN&&window.__DEP_IS_TAB_OPEN())return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
+renderer.domElement.addEventListener('pointerup',e=>{if(suppressClick||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;if(window.__DEP_IS_TAB_OPEN&&window.__DEP_IS_TAB_OPEN())return;const r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);if (sectorsGroup && sectorsGroup.visible) {
+    const sHits = ray.intersectObjects(sectorsGroup.children, true);
+    const sHit = sHits.find(h => h.object && h.object.userData && h.object.userData.sectorId);
+    if (sHit) {
+      focusTacticalSector(sHit.object.userData.sectorId);
+      return;
+    }
+  }
+  if(current==='alignment'){const h=ray.intersectObject(referenceMesh)[0];if(h)info.textContent=coord(h.point);return;}const hit=ray.intersectObjects(clickable.filter(x=>x.parent.visible),false)[0];if(hit){const o=hit.object.userData.items[hit.instanceId],s=data.signs?.find(s=>s.key===o.mat);info.textContent=o.name+' · '+coord(hit.point)+' · '+(s?s.source:o.group==='event'?'PROPOSED arrangement':o.group==='context'||o.group==='snapshot'?'Imagery observation; ownership/function/date not verified':'Photo/satellite details; heights estimated');}});
 function handleFreeCameraFlight(e){
   if(['SELECT','INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;
   if(window.__DEP_IS_OFFICER_SELECTED&&window.__DEP_IS_OFFICER_SELECTED())return;
@@ -3693,11 +4064,11 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
 
     // Floating billboard badges
     const badge1 = makeSectorBadgeSprite('🛡️ SECTOR 1 · HELIPAD & CONVOY', '#0ea5e9');
-    badge1.position.set(25, 12, -185);
+    badge1.position.set(25, 12, -185); badge1.userData = { sectorId: 1 };
     sectorsGroup.add(badge1);
 
     const badge2 = makeSectorBadgeSprite('🛡️ SECTOR 2 · MAIN GATE & PERIMETER', '#f59e0b');
-    badge2.position.set(-13, 11, -92);
+    badge2.position.set(-13, 11, -92); badge2.userData = { sectorId: 2 };
     sectorsGroup.add(badge2);
 
     const badge3 = makeSectorBadgeSprite('🛡️ SECTOR 3 · AUDITORIUM & VVIP STAGE', '#10b981');
@@ -3770,25 +4141,181 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
     if (c1) c1.textContent = s1 + ' deployed posts';
     if (c2) c2.textContent = s2 + ' deployed posts';
     if (c3) c3.textContent = s3 + ' deployed posts';
+    const sc1 = root.querySelector('#sub-count-sec1');
+    const sc2 = root.querySelector('#sub-count-sec2');
+    const sc3 = root.querySelector('#sub-count-sec3');
+    if (sc1) sc1.textContent = s1 + ' deployed posts';
+    if (sc2) sc2.textContent = s2 + ' deployed posts';
+    if (sc3) sc3.textContent = s3 + ' deployed posts';
   }
 
   // Header Toggle Buttons Wiring
+    // Tools & Roster Dropdown Toggle
+  const toolsToggle = root.querySelector('#gms-tools-toggle');
+  const toolsMenu = root.querySelector('#gms-tools-menu');
+  if (toolsToggle && toolsMenu) {
+    toolsToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = toolsMenu.classList.toggle('show');
+      toolsToggle.classList.toggle('open', isOpen);
+    });
+    document.addEventListener('click', (e) => {
+      if (!toolsMenu.contains(e.target) && !toolsToggle.contains(e.target)) {
+        toolsMenu.classList.remove('show');
+        toolsToggle.classList.remove('open');
+      }
+    });
+  }
+  function updateToolsToggleState() {
+    const isSecOn = typeof sectorsGroup !== 'undefined' && sectorsGroup && sectorsGroup.visible;
+    const isMeasOn = typeof measureActive !== 'undefined' && measureActive;
+    if (toolsToggle) toolsToggle.classList.toggle('active', isSecOn || isMeasOn);
+    const secStatus = root.querySelector('#gms-sectors-status');
+    if (secStatus) secStatus.textContent = isSecOn ? 'ON' : 'OFF';
+    const measStatus = root.querySelector('#gms-measure-status');
+    if (measStatus) measStatus.textContent = isMeasOn ? 'ON' : 'OFF';
+  }
+
   const sectorsBtn = root.querySelector('#gms-sectors-btn');
   const sectorsLegend = root.querySelector('#gms-sectors-legend');
   const sectorsClose = root.querySelector('#sectors-legend-close');
+  
+  // Wire Sector Submenu Hover & Click
+  const sectorsContainer = root.querySelector('#gms-sectors-container');
+  const sectorsSubmenu = root.querySelector('#gms-sectors-submenu');
+  if (sectorsBtn && sectorsContainer) {
+    sectorsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sectorsContainer.classList.toggle('open');
+      if (typeof sectorsGroup !== 'undefined' && sectorsGroup) {
+        sectorsGroup.visible = true;
+        updateToolsToggleState();
+        draw();
+      }
+    });
+  }
+
+  // Click on any of the 3 sectors in submenu
+  root.querySelectorAll('.sector-sub-item[data-sector]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const secId = item.dataset.sector;
+      if (secId) {
+        focusTacticalSector(secId);
+        // Highlight active sub-item
+        root.querySelectorAll('.sector-sub-item').forEach(el => {
+          el.classList.toggle('active-sector', el.dataset.sector === secId);
+        });
+        // Close menus after focus selection so view is clear
+        if (toolsMenu) toolsMenu.classList.remove('show');
+        if (toolsToggle) toolsToggle.classList.remove('open');
+        if (sectorsContainer) sectorsContainer.classList.remove('open');
+      }
+    });
+  });
+
   if (sectorsBtn) {
     sectorsBtn.addEventListener('click', () => {
       sectorsGroup.visible = !sectorsGroup.visible;
-      sectorsBtn.classList.toggle('active', sectorsGroup.visible);
-      if (sectorsLegend) sectorsLegend.style.display = sectorsGroup.visible ? 'block' : 'none';
+      sectorsBtn.classList.toggle('active', sectorsGroup.visible); updateToolsToggleState();
+      // sectorsLegend suppressed in favor of right-side submenu
       if (sectorsGroup.visible) updateSectorLegendCounts();
       draw();
     });
   }
+    // Interactive Clickable Tactical Sectors
+  function focusTacticalSector(sectorId) {
+    const sId = parseInt(sectorId, 10);
+    if (!sId) return;
+
+    // Highlight clicked legend item
+    root.querySelectorAll('#gms-sectors-legend .legend-item').forEach(el => {
+      el.classList.toggle('active-sector', parseInt(el.dataset.sector, 10) === sId);
+    });
+
+    // Ensure sectors 3D group and legend are visible
+    if (typeof sectorsGroup !== 'undefined' && sectorsGroup && !sectorsGroup.visible) {
+      sectorsGroup.visible = true;
+      if (sectorsBtn) sectorsBtn.classList.add('active');
+      if (typeof updateToolsToggleState === 'function') updateToolsToggleState();
+      // sectorsLegend suppressed in favor of right-side submenu
+      if (typeof updateSectorLegendCounts === 'function') updateSectorLegendCounts();
+    }
+
+    let pos, target, label;
+    if (sId === 1) {
+      if (typeof current !== 'undefined' && ['hall', 'stage', 'stageplan', 'lotusinside'].includes(current)) {
+        if (typeof select !== 'undefined' && select) {
+          select.value = 'campus';
+          if (typeof applyView === 'function') applyView();
+        }
+      }
+      pos = new THREE.Vector3(88, 62, -118);
+      target = new THREE.Vector3(25, 2, -185);
+      label = 'Sector 1: Helipad & Convoy Corridor';
+      if (typeof moveTo === 'function') {
+        moveTo(pos, target);
+      } else if (typeof camera !== 'undefined' && typeof controls !== 'undefined') {
+        camera.position.copy(pos);
+        controls.target.copy(target);
+        controls.update();
+      }
+    } else if (sId === 2) {
+      if (typeof current !== 'undefined' && ['hall', 'stage', 'stageplan', 'lotusinside'].includes(current)) {
+        if (typeof select !== 'undefined' && select) {
+          select.value = 'campus';
+          if (typeof applyView === 'function') applyView();
+        }
+      }
+      pos = new THREE.Vector3(68, 65, -18);
+      target = new THREE.Vector3(-8, 2, -88);
+      label = 'Sector 2: Main Gate & Perimeter Approach';
+      if (typeof moveTo === 'function') {
+        moveTo(pos, target);
+      } else if (typeof camera !== 'undefined' && typeof controls !== 'undefined') {
+        camera.position.copy(pos);
+        controls.target.copy(target);
+        controls.update();
+      }
+    } else {
+      // Sector 3: Focus directly INSIDE the Auditorium (Main Hall & Stage interior)
+      label = 'Sector 3: Auditorium Interior (Main Hall & Stage)';
+      if (typeof select !== 'undefined' && select) {
+        select.value = 'hall';
+        select.dispatchEvent(new Event('change'));
+      } else if (typeof applyView === 'function') {
+        if (typeof current !== 'undefined') current = 'hall';
+        applyView();
+      }
+    }
+
+    if (typeof depShowToast === 'function') {
+      depShowToast('🎯 ' + label);
+    } else if (info) {
+      info.textContent = 'Focused: ' + label;
+    }
+    if (typeof draw === 'function') draw();
+  }
+  window.focusTacticalSector = focusTacticalSector;
+
+  // Attach click and keyboard events to legend items
+  root.querySelectorAll('#gms-sectors-legend .legend-item[data-sector]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      focusTacticalSector(item.dataset.sector);
+    });
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        focusTacticalSector(item.dataset.sector);
+      }
+    });
+  });
+
   if (sectorsClose) {
     sectorsClose.addEventListener('click', () => {
       sectorsGroup.visible = false;
-      if (sectorsBtn) sectorsBtn.classList.remove('active');
+      if (sectorsBtn) sectorsBtn.classList.remove('active'); updateToolsToggleState();
       if (sectorsLegend) sectorsLegend.style.display = 'none';
       draw();
     });
@@ -3879,7 +4406,7 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
 
   function toggleMeasureTool() {
     measureActive = !measureActive;
-    if (measureBtn) measureBtn.classList.toggle('active', measureActive);
+    if (measureBtn) measureBtn.classList.toggle('active', measureActive); updateToolsToggleState();
     if (measureHud) measureHud.style.display = measureActive ? 'block' : 'none';
     host.style.cursor = measureActive ? 'crosshair' : '';
     if (!measureActive) {
@@ -4024,7 +4551,7 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
     rosterModal.style.display = 'none';
   }
 
-  if (rosterBtn) rosterBtn.addEventListener('click', openDutyRoster);
+  if (rosterBtn) rosterBtn.addEventListener('click', () => { if(toolsMenu) toolsMenu.classList.remove('show'); if(toolsToggle) toolsToggle.classList.remove('open'); openDutyRoster(); });
   if (rosterClose) rosterClose.addEventListener('click', closeDutyRoster);
   if (rosterModal) {
     rosterModal.addEventListener('click', (e) => {

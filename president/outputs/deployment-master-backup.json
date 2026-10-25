@@ -65,13 +65,13 @@
                       "id":  "post-8",
                       "kind":  "officer",
                       "name":  "Officer 8",
-                      "duty":  "VIP toilet duty",
+                      "duty":  "Auditorium seating duty",
                       "belt":  "",
                       "mobile":  "",
-                      "x":  -50.57,
+                      "x":  -50.27,
                       "y":  1,
-                      "z":  -9.9,
-                      "angle":  1
+                      "z":  -3.2,
+                      "angle":  4.26
                   },
                   {
                       "id":  "post-9",
@@ -426,28 +426,28 @@
                       "angle":  0
                   },
                   {
-                      "id":  "post-mvl8ca2v-tvl",
-                      "kind":  "ambulance",
-                      "name":  "Ambulance 1",
-                      "duty":  "Emergency Medical Response",
-                      "belt":  "",
-                      "mobile":  "",
-                      "x":  -63.9,
-                      "y":  -0.4,
-                      "z":  -60.17,
-                      "angle":  3.75
-                  },
-                  {
-                      "id":  "post-mvl9niur-k5f",
+                      "id":  "post-mvlsu3h5-6ta",
                       "kind":  "helipad",
-                      "name":  "Helipad H-1",
+                      "name":  "Helipad H-2",
                       "duty":  "Helipad security \u0026 landing cordon",
                       "belt":  "",
                       "mobile":  "",
-                      "x":  3.72,
+                      "x":  -1.48,
                       "y":  -0.19,
-                      "z":  -328.06,
-                      "angle":  182.07
+                      "z":  -337.41,
+                      "angle":  138.39
+                  },
+                  {
+                      "id":  "post-mvnj7zs8-l6f",
+                      "kind":  "xray",
+                      "name":  "X-Ray Scanner 1",
+                      "duty":  "Baggage screening / X-Ray inspection",
+                      "belt":  "",
+                      "mobile":  "",
+                      "x":  -17.08,
+                      "y":  0.41,
+                      "z":  -65.83,
+                      "angle":  0
                   }
               ],
     "coordinateFrame":  "WGS84 local metres: east X, up Y, south Z",
