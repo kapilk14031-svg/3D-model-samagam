@@ -5,8 +5,8 @@
     -65.06607714366064
   ],
   "centre": [
-    -13.628249745061568,
-    -297.9444802434911
+    -2.0,
+    -273.0
   ],
   "gateToCentreMetres": 232.87999332212033,
   "rightShiftMetres": null,
@@ -41,8 +41,8 @@
     ]
   ],
   "helicopterCentre": [
-    -13.628249745061568,
-    -297.9444802434911
+    -2.0,
+    -273.0
   ],
   "helicopterDisplayScale": 1.45,
   "alignmentAxis": [

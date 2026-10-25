@@ -57,7 +57,7 @@ for k in ['gridControlPoints', 'verticalGridFits', 'horizontalGridFits']:
     geo.pop(k, None)
 
 draft_p = out / 'deployment-draft.json'
-draft_plan_json = draft_p.read_text(encoding='utf-8').strip() if draft_p.exists() else 'null'
+draft_plan_json = draft_p.read_text(encoding='utf-8-sig').strip() if draft_p.exists() else 'null'
 if not draft_plan_json:
     draft_plan_json = 'null'
 
@@ -879,7 +879,7 @@ seeded_counts = {
 }
 if draft_p.exists():
     try:
-        draft_raw = json.loads(draft_p.read_text(encoding='utf-8'))
+        draft_raw = json.loads(draft_p.read_text(encoding='utf-8-sig'))
         d_items = draft_raw.get('items', [])
         if d_items:
             calc_counts = {}

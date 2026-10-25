@@ -207,6 +207,11 @@
             <span class="menu-item-text">Measure</span>
             <span class="menu-item-badge" id="gms-measure-status">OFF</span>
           </button>
+          <button type="button" class="tools-menu-item" id="gms-dist-toggle-btn" title="Toggle Important Road Distances in 3D">
+            <span class="menu-item-icon">🛣️</span>
+            <span class="menu-item-text">Road Distances</span>
+            <span class="menu-item-badge" id="gms-dist-badge">OFF</span>
+          </button>
         </div>
       </div>
     </div>
@@ -380,8 +385,44 @@
         </div>
         <div class="measure-btn-row">
           <button type="button" class="btn btn-sm btn-outline-secondary" id="measure-clear-btn" style="padding:4px 10px;font-size:11px;">Clear / New Measurement</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="measure-dist-toggle" style="padding:4px 10px;font-size:11px;">🛣️ Road Distances: OFF</button>
         </div>
       </div>
+    </div>
+
+    <!-- Important Strategic Road Distances HUD Card (Hidden by default, only shown when Road Distances is ON) -->
+    <div id="gms-strategic-distances-card" class="strategic-dist-card" style="display:none;">
+      <div class="strategic-dist-header">
+        <span class="strategic-dist-title">🛣️ Important Road Distances</span>
+        <button type="button" class="strategic-dist-close-btn" id="gms-dist-close-btn" title="Close and Hide Road Distances">✕</button>
+      </div>
+      <div class="strategic-dist-body" id="strategic-dist-body">
+        <div class="strategic-dist-item" data-route="helipad" title="Click to focus camera on Helipad ➔ Main Gate road route">
+          <div class="dist-color-bar" style="background:#1d4ed8;"></div>
+          <div class="dist-meta">
+            <div class="dist-row-title">Helipad ➔ Main Gate (Road)</div>
+            <div class="dist-row-sub">Dark Blue · Road Alignment with Turns</div>
+          </div>
+          <div class="dist-val-badge blue">244 m</div>
+        </div>
+        <div class="strategic-dist-item" data-route="gate" title="Click to focus camera on Main Gate ➔ Auditorium Gate road route">
+          <div class="dist-color-bar" style="background:#15803d;"></div>
+          <div class="dist-meta">
+            <div class="dist-row-title">Main Gate ➔ Auditorium Gate</div>
+            <div class="dist-row-sub">Dark Green · Driveway &amp; Portico Turn</div>
+          </div>
+          <div class="dist-val-badge green">70 m</div>
+        </div>
+        <div class="strategic-dist-item" data-route="auditorium" title="Click to focus camera on Auditorium Gate ➔ Stage route">
+          <div class="dist-color-bar" style="background:#b45309;"></div>
+          <div class="dist-meta">
+            <div class="dist-row-title">Auditorium Gate ➔ Stage</div>
+            <div class="dist-row-sub">Amber · Central Aisle to Stage</div>
+          </div>
+          <div class="dist-val-badge amber">23 m</div>
+        </div>
+      </div>
+    </div>
     </div>
 
     <!-- Q-Belt Interactive Stretch Controller Floating HUD -->
@@ -2612,7 +2653,128 @@ html, body {
 .measure-stat-box { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .stat-lbl { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
 .stat-val { font-size: 13px; font-weight: 700; color: #f8fafc; }
-.measure-btn-row { display: flex; justify-content: center; gap: 8px; margin-top: 6px; }
+.measure-btn-row { display: flex; justify-content: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+
+/* Strategic Road Distances Card & Badges */
+.strategic-dist-card {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  padding: 10px 14px;
+  z-index: 40;
+  min-width: 280px;
+  max-width: 330px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: all 0.25s ease;
+}
+.strategic-dist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.strategic-dist-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.2px;
+}
+.strategic-dist-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.strategic-dist-close-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+.strategic-dist-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.strategic-dist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.65);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+.strategic-dist-item:hover {
+  background: rgba(51, 65, 85, 0.85);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateX(-2px);
+}
+.dist-color-bar {
+  width: 5px;
+  height: 28px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.dist-meta {
+  flex: 1;
+  min-width: 0;
+}
+.dist-row-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dist-row-sub {
+  font-size: 10px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dist-val-badge {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.dist-val-badge.blue {
+  background: rgba(29, 78, 216, 0.25);
+  color: #60a5fa;
+  border: 1px solid #1d4ed8;
+}
+.dist-val-badge.green {
+  background: rgba(21, 128, 61, 0.25);
+  color: #4ade80;
+  border: 1px solid #15803d;
+}
+.dist-val-badge.amber {
+  background: rgba(180, 83, 9, 0.25);
+  color: #fbbf24;
+  border: 1px solid #b45309;
+}
 
 /* Duty Roster Modal */
 .roster-modal-backdrop {
@@ -3998,6 +4160,310 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
   const evacGroup = new THREE.Group(); scene.add(evacGroup); evacGroup.visible = false;
   const measureGroup = new THREE.Group(); scene.add(measureGroup); measureGroup.visible = true;
 
+  // ==========================================
+  // STRATEGIC ROAD DISTANCES ENGINE (Visible by default)
+  // Straight road segments with ZERO curves
+  // 1. Helipad to Main Gate (Road): 260 m (Dark Blue #1d4ed8)
+  // 2. Main Gate to Auditorium Gate: 68 m (Dark Green #15803d)
+  // 3. Auditorium Gate to Stage: 37 m (Dark Amber #b45309)
+  // ==========================================
+  const strategicDistGroup = new THREE.Group();
+  strategicDistGroup.name = 'strategicDistancesGroup';
+  scene.add(strategicDistGroup);
+  strategicDistGroup.visible = false;
+  let isStrategicDistVisible = false;
+
+  function drawRoundedRect(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+
+  function makeStrategicDistanceSprite(labelTop, distText, subtitle, strokeColor, bgColor, scaleW, scaleH) {
+    const c = document.createElement('canvas');
+    c.width = 512;
+    c.height = 200;
+    const ctx = c.getContext('2d');
+
+    ctx.shadowColor = strokeColor;
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 2;
+
+    ctx.fillStyle = bgColor || 'rgba(15, 23, 42, 0.94)';
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = 7;
+    drawRoundedRect(ctx, 12, 12, 488, 176, 28);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.shadowColor = 'transparent';
+
+    ctx.fillStyle = strokeColor;
+    ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(labelTop.toUpperCase(), 256, 52);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 64px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(distText, 256, 124);
+
+    ctx.fillStyle = '#cbd5e1';
+    ctx.font = '600 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText(subtitle, 256, 162);
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.minFilter = THREE.LinearFilter;
+    const mat = new THREE.SpriteMaterial({
+      map: tex,
+      depthTest: false,
+      depthWrite: false
+    });
+    const sprite = new THREE.Sprite(mat);
+    sprite.scale.set(scaleW || 20, scaleH || 7.8, 1);
+    sprite.renderOrder = 999;
+    return sprite;
+  }
+
+  function makeStrategicPinMarker(pos, colorHex) {
+    const grp = new THREE.Group();
+    grp.position.set(pos[0], pos[1], pos[2]);
+
+    const sph = new THREE.Mesh(
+      new THREE.SphereGeometry(0.55, 16, 16),
+      new THREE.MeshStandardMaterial({
+        color: colorHex,
+        roughness: 0.35,
+        metalness: 0.2
+      })
+    );
+    sph.position.set(0, 2.2, 0);
+    grp.add(sph);
+
+    const cone = new THREE.Mesh(
+      new THREE.ConeGeometry(0.40, 2.0, 16),
+      new THREE.MeshStandardMaterial({
+        color: colorHex,
+        roughness: 0.35,
+        metalness: 0.2
+      })
+    );
+    cone.position.set(0, 1.0, 0);
+    cone.rotation.x = Math.PI;
+    grp.add(cone);
+
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(0.7, 1.1, 24),
+      new THREE.MeshBasicMaterial({ color: colorHex, side: THREE.DoubleSide })
+    );
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.05;
+    grp.add(ring);
+
+    return grp;
+  }
+
+  const strategicRouteConfigs = [
+    {
+      id: 'helipad_road',
+      name: 'Helipad ➔ Main Gate (by Road)',
+      distText: '244 m',
+      subtitle: 'Exact Road Alignment & Turns',
+      colorHex: 0x1d4ed8,
+      badgeStroke: '#1d4ed8',
+      badgeBg: 'rgba(15, 23, 42, 0.94)',
+      cameraView: { pos: [90, 80, -180], target: [5, 2, -180] },
+      badgePos: [16.50, 7.5, -195.00],
+      badgeScale: [22, 8.6],
+      points: [
+        [-2.00, 0.40, -273.00],  // Helipad center at Blue Box
+        [14.50, 0.40, -273.00],  // Exit onto spine road
+        [15.98, 0.40, -150.07],  // Straight spine road passing security gate
+        [9.81, 0.40, -87.86],    // Spine road ending at highway junction
+        [9.81, 0.40, -83.29],    // Connection onto Assan-Thirana Road centerline
+        [-12.77, 0.40, -79.40],  // Centerline of Assan-Thirana Road opposite Main Gate
+        [-12.77, 0.40, -65.07]   // Straight turn into Main Gate portal
+      ]
+    },
+    {
+      id: 'gate_auditorium',
+      name: 'Main Gate ➔ Auditorium Gate',
+      distText: '70 m',
+      subtitle: 'Central Driveway & Portico Turn',
+      colorHex: 0x15803d,
+      badgeStroke: '#15803d',
+      badgeBg: 'rgba(6, 44, 20, 0.94)',
+      cameraView: { pos: [35, 45, -35], target: [-14, 2, -35] },
+      badgePos: [-12.77, 5.8, -33.50],
+      badgeScale: [20, 7.8],
+      points: [
+        [-12.77, 0.40, -65.07],  // Main Gate portal
+        [-12.77, 0.40, -2.36],   // Central driveway in front of Auditorium
+        [-19.57, 0.45, -2.36]    // 90-degree turn into Auditorium Gate / Portico
+      ]
+    },
+    {
+      id: 'auditorium_stage',
+      name: 'Auditorium Gate ➔ Main Stage',
+      distText: '23 m',
+      subtitle: 'Central Aisle Walkway to Stage',
+      colorHex: 0xb45309,
+      badgeStroke: '#b45309',
+      badgeBg: 'rgba(46, 26, 7, 0.94)',
+      cameraView: { pos: [-35, 20, -10], target: [-35, 2, 0] },
+      badgePos: [-29.00, 6.0, -2.36],
+      badgeScale: [20, 7.8],
+      points: [
+        [-19.57, 0.45, -2.36],   // Auditorium Gate / Portico entrance
+        [-38.52, 1.80, -2.36],   // Straight down central aisle inside hall
+        [-38.52, 2.12, 1.76]     // Turn onto Main Stage
+      ]
+    }
+  ];
+
+  function build3DStrategicDistances() {
+    strategicDistGroup.clear();
+
+    strategicRouteConfigs.forEach(cfg => {
+      const routeGrp = new THREE.Group();
+      routeGrp.name = 'route_' + cfg.id;
+
+      // Solid, clean non-glowing road line material
+      const lineMat = new THREE.MeshStandardMaterial({
+        color: cfg.colorHex,
+        roughness: 0.35,
+        metalness: 0.15
+      });
+
+      const pts = cfg.points;
+
+      // Solid straight line tube segments along the exact road/path (Piecewise Linear - ZERO curve, NO glow)
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p1 = new THREE.Vector3(...pts[i]);
+        const p2 = new THREE.Vector3(...pts[i + 1]);
+
+        const straightLine = new THREE.LineCurve3(p1, p2);
+
+        // Solid clean road tube (NO outer glowing halo sleeve)
+        const tubeGeom = new THREE.TubeGeometry(straightLine, 1, 0.32, 8, false);
+        const tubeMesh = new THREE.Mesh(tubeGeom, lineMat);
+        tubeMesh.castShadow = true;
+        tubeMesh.renderOrder = 5;
+        routeGrp.add(tubeMesh);
+
+        // Solid joint sphere at waypoints (NO glowing halo)
+        if (i > 0) {
+          const jointSphere = new THREE.Mesh(
+            new THREE.SphereGeometry(0.40, 12, 12),
+            lineMat
+          );
+          jointSphere.position.copy(p1);
+          routeGrp.add(jointSphere);
+        }
+      }
+
+      // Start and End Location Pins (Solid, clean non-glowing)
+      const startPin = makeStrategicPinMarker(pts[0], cfg.colorHex);
+      routeGrp.add(startPin);
+
+      const endPin = makeStrategicPinMarker(pts[pts.length - 1], cfg.colorHex);
+      routeGrp.add(endPin);
+
+      // Distance Sprite Badge
+      const badge = makeStrategicDistanceSprite(
+        cfg.name,
+        cfg.distText,
+        cfg.subtitle,
+        cfg.badgeStroke,
+        cfg.badgeBg,
+        cfg.badgeScale[0],
+        cfg.badgeScale[1]
+      );
+      badge.position.set(...cfg.badgePos);
+      routeGrp.add(badge);
+
+      strategicDistGroup.add(routeGrp);
+    });
+  }
+  build3DStrategicDistances();
+
+  function setStrategicDistancesVisibility(visible) {
+    isStrategicDistVisible = visible;
+    strategicDistGroup.visible = visible;
+
+    const badgeEl = root.querySelector('#gms-dist-badge');
+    const toggleBtn = root.querySelector('#gms-dist-toggle-btn');
+    if (badgeEl) {
+      badgeEl.textContent = visible ? 'ON' : 'OFF';
+      badgeEl.classList.toggle('active', visible);
+    }
+    if (toggleBtn) {
+      toggleBtn.classList.toggle('active', visible);
+    }
+
+    const cardEl = root.querySelector('#gms-strategic-distances-card');
+    if (cardEl) {
+      cardEl.style.display = visible ? 'block' : 'none';
+    }
+
+    const hudBtn = root.querySelector('#measure-dist-toggle');
+    if (hudBtn) {
+      hudBtn.textContent = visible ? '🛣️ Road Distances: ON' : '🛣️ Road Distances: OFF';
+      hudBtn.classList.toggle('active', visible);
+    }
+
+    if (typeof draw === 'function') draw();
+  }
+  window.setStrategicDistancesVisibility = setStrategicDistancesVisibility;
+
+  const distToggleBtn = root.querySelector('#gms-dist-toggle-btn');
+  if (distToggleBtn) {
+    distToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setStrategicDistancesVisibility(!isStrategicDistVisible);
+    });
+  }
+
+  const cardCloseBtn = root.querySelector('#gms-dist-close-btn');
+  if (cardCloseBtn) {
+    cardCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setStrategicDistancesVisibility(false);
+    });
+  }
+
+  root.querySelectorAll('#gms-strategic-distances-card .strategic-dist-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const routeId = item.dataset.route;
+      const cfg = strategicRouteConfigs.find(r => r.id.startsWith(routeId));
+      if (!cfg) return;
+
+      if (!isStrategicDistVisible) setStrategicDistancesVisibility(true);
+
+      const v = cfg.cameraView;
+      if (typeof moveTo === 'function') {
+        moveTo(new THREE.Vector3(...v.pos), new THREE.Vector3(...v.target));
+      } else if (camera && controls) {
+        camera.position.set(...v.pos);
+        controls.target.set(...v.target);
+        controls.update();
+      }
+
+      if (typeof depShowToast === 'function') {
+        depShowToast('📏 ' + cfg.name + ': ' + cfg.distText);
+      }
+    });
+  });
+
   function getTacticalSector(item) {
     const z = typeof item.z === 'number' ? item.z : (item.p ? item.p[2] : 0);
     const d = (item.duty || '').toLowerCase();
@@ -4431,7 +4897,7 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
     const valid = intersects.find(it => {
       let cur = it.object;
       while (cur) {
-        if (cur === measureGroup || cur === sectorsGroup || cur === evacGroup) return false;
+        if (cur === measureGroup || cur === sectorsGroup || cur === evacGroup || cur === strategicDistGroup) return false;
         cur = cur.parent;
       }
       return true;
@@ -4501,7 +4967,7 @@ window.__DEP_INITIAL_PLAN__ = __DEPLOYMENT_PLAN__;
     const valid = intersects.find(it => {
       let cur = it.object;
       while (cur) {
-        if (cur === measureGroup || cur === sectorsGroup || cur === evacGroup) return false;
+        if (cur === measureGroup || cur === sectorsGroup || cur === evacGroup || cur === strategicDistGroup) return false;
         cur = cur.parent;
       }
       return true;
